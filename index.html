@@ -252,7 +252,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/03/css/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/03/JS高程读书笔记1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Xyy">
@@ -271,7 +271,149 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/03/css/" itemprop="url">w3cschool-css</a></h1>
+                <a class="post-title-link" href="/2018/01/03/JS高程读书笔记1/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-03T20:46:19+08:00">
+                2018-01-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>JavaScript高级程序设计读书笔记</p>
+<ul>
+<li><a href="#1">第1章</a></li>
+<li><a href="#1.1">JavaScript组成</a></li>
+<li><a href="#2">第2章</a></li>
+<li></li>
+</ul>
+<h1 id="1"> 第1章 </h1>
+
+<h2 id="1.1"> JavaScript组成 </h2>
+
+<ul>
+<li>核心-ECMAScript：对实现该标准规定的各个方面内容的语言的描述，提供核心语言功能</li>
+<li>文档对象模型-DOM：是针对XML但经过扩展用于HTML的应用程序编程接口（API），提供访问和操作网页内容的方法和接口</li>
+<li><p>浏览器对象模型-BOM：没有相关的标准，提供与浏览器交互的方法和接口</p>
+</li>
+<li><p>tips:DOM并不值针对JS，很多别的语言也都实现了DOM。</p>
+</li>
+<li>五个浏览器对ECMAScript支持程度都不错，对DOM的支持彼此相差比较多，BOM实现了某些众所周知的共同特性，但是其他特性还是会因浏览器而异。</li>
+</ul>
+<p></p><h1 id="2">第2章</h1><p></p>
+&lt;h2 id=’2.1&gt; 
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//&lt;a href="http://www.example.com/" class="popup"&gt; Example &lt;/a&gt;</span></span><br><span class="line"><span class="comment">//要把点击链接之后的行为与html分离可以使用以下代码</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//行为与结构分离的例子</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">popUp</span>(<span class="params">winURL</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">window</span>.open(winURL,<span class="string">"popup"</span>,<span class="string">"width=320,height=480"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//JS代码必须在html文档全部加载到浏览器后开始执行。将JS代码打包在prepareLinks函数里，并把这个函数添加到window对象的onload事件上去。</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.onload=prepareLinks;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">prepareLinks</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//让脚本有更好的向后兼容性，如果浏览器不能理解getElementByTagName就退出函数。</span></span><br><span class="line">	<span class="keyword">if</span>(!<span class="built_in">document</span>.getElementsByTagName) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">var</span> links=<span class="built_in">document</span>.getElementsByTagName(<span class="string">"a"</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;links.length;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(links[i].getAttribute(<span class="string">"class"</span>)==<span class="string">"popup"</span>)&#123;</span><br><span class="line">			links[i].onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">				popUp(<span class="keyword">this</span>.getAttribute(<span class="string">"href"</span>));</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/03/w3cschool-css/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/03/w3cschool-css/" itemprop="url">w3cschool-css</a></h1>
         
 
         <div class="post-meta">
@@ -443,7 +585,7 @@ color:blue;
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/03/JS高程读书笔记1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/03/面试知识点/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Xyy">
@@ -462,7 +604,7 @@ color:blue;
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/03/JS高程读书笔记1/" itemprop="url">JavaScript高级程序设计读书笔记</a></h1>
+                <a class="post-title-link" href="/2018/01/03/面试知识点/" itemprop="url">未命名</a></h1>
         
 
         <div class="post-meta">
@@ -474,8 +616,717 @@ color:blue;
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-03T19:49:44+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-03T02:34:52+08:00">
                 2018-01-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="面试知识点"><a href="#面试知识点" class="headerlink" title="面试知识点"></a>面试知识点</h1><p>阅读以下面试题时的知识点梳理<br><a href="https://github.com/xyyit9/My-blog" title="面试题整理" target="_blank" rel="noopener">https://github.com/xyyit9/My-blog</a></p>
+<ul>
+<li>SGML(Standard Generalized Markup language)：标准通用标记语言</li>
+<li>DTD(Document Type Definition):文档类型定义</li>
+</ul>
+<h2 id=""><a href="#" class="headerlink" title="#"></a>#</h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/02/编写页面时遇到的问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/02/编写页面时遇到的问题/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-02T15:31:31+08:00">
+                2018-01-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><font size="4"></font></p>
+<h3 id="在加入表单组件时出现getFieldDecorator-of-undefined错误"><a href="#在加入表单组件时出现getFieldDecorator-of-undefined错误" class="headerlink" title="在加入表单组件时出现getFieldDecorator of undefined错误"></a>在加入表单组件时出现getFieldDecorator of undefined错误</h3><ul>
+<li>必须调用Form.create()，否则在使用getFieldDecorator时便会出现getFieldDecorator of undefined错误<br><pre><code><br>//可以这么写<br>let Test = React.createClass({<br>render() {<br>  const { getFieldProps } = this.props.form;<br>  return(  );<br>}<br>});<br>Test = Form.create()(Test);<br>export default Test;</code></pre></li>
+</ul>
+<p>//最终我是这么写的，也是可以的<br>class Down extends Component {<br>  render() {<br>    const { getFieldProps } = this.props.form;<br>    return(  );<br>  }<br>});<br>Test = Form.create()(Test);<br>export default Test;<br></p>
+<h3 id="margin-0-auto-是让样式居中"><a href="#margin-0-auto-是让样式居中" class="headerlink" title="margin:0 auto;是让样式居中"></a>margin:0 auto;是让样式居中</h3><h3 id="windows-下-webstorm-格式化代码的快键键-Ctrl-Alt-l"><a href="#windows-下-webstorm-格式化代码的快键键-Ctrl-Alt-l" class="headerlink" title="windows 下 webstorm 格式化代码的快键键 Ctrl+Alt+l"></a>windows 下 webstorm 格式化代码的快键键 Ctrl+Alt+l</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/22/git语句/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/22/git语句/" itemprop="url">w3cschool-css</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-22T21:00:24+08:00">
+                2017-12-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="在使用git时遇到的问题"><a href="#在使用git时遇到的问题" class="headerlink" title="在使用git时遇到的问题"></a>在使用git时遇到的问题</h1><p>##git修改远程仓库地址##</p>
+<p><code>git remote rm origin</code></p>
+<p><code>git remote add origin [url]</code></p>
+<p>##如何解决failed to push some refs to git##</p>
+<p>出现错误的主要原因是github中的README.md文件不在本地代码目录中</p>
+<p>可以通过如下命令进行代码合并[注：pull=fetch+merge]  <code>git pull --rebase origin master</code></p>
+<p>此时再执行语句 <code>git push -u origin master</code>即可完成代码上传到github</p>
+<p>##项目文件夹问题##</p>
+<p>一个项目建一个仓库，先在项目中 <code>git init</code>，再<code>git add ./</code>，最后 <code>git commit -m&quot;&quot;</code>。</p>
+<p>tips：第一次push以前要先pull,因为有readme.md文件会冲突</p>
+<p>##想上传除了某文件以外的所有文件##</p>
+<p>比如在react文件<code>node_modules</code>不想上传，想上传除了该文件以外的所有文件。先<code>vim .gitignore</code>写一个文件：<br>/.idea/  /node_modules/</p>
+<p>注意文件夹以前要写上/才可以被运行。<code>i</code>是插入可写，<code>：wq!</code>是提交文件。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/17/搭建react时遇到的问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/17/搭建react时遇到的问题/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-17T23:27:05+08:00">
+                2017-12-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><font size="5"></font></p>
+<h2 id="搭建react时遇到的问题"><a href="#搭建react时遇到的问题" class="headerlink" title="搭建react时遇到的问题"></a>搭建react时遇到的问题</h2><ul>
+<li>模块热替换（Hot Module Replacement）加入了react-hot-loader v3以后计数依然变成0</li>
+<li><p>文件路径优化：找不到这些文件。</p>
+<blockquote>
+<p>教程里写错了,不是在webpack.config.js中写路径文件,而是在webpack.dev.config.js中写</p>
+</blockquote>
+</li>
+<li><p>使用axios和middleware优化API请求，请求错误</p>
+<blockquote>
+<p>应该本来存在dist/api/user.json，模拟服务器传回来的数据,其中代码为<br><pre><code><font size="4"><br>{<br>  “name”: “brickspert”,<br>  “intro”: “please give me a star”<br>}<br></font></code></pre><br>但是我这边的不存在了,所以会请求错误.之后使用mock.js就可以代替这个api了.</p>
+</blockquote>
+</li>
+<li><p>调整文本编辑器，Sublime和Intellij都没有找到safe write</p>
+</li>
+<li><p>使用 json-server 代替 Mock.js,出现用户信息请求失败错误</p>
+<blockquote>
+<p>是因为”mockdev”: “npm run mock &amp; npm start”这个运行命令只运行了npm run mock,&amp;不能同时运行两个命令。而用”mockdev”: “npm run mock  | npm start”就可以实现同时运行两个命令.</p>
+</blockquote>
+</li>
+<li><p>Error: listen EADDRINUSE 0.0.0.0:8080表明端口号被占用，要修改端口号。在webpack.dev.config.js中修改。</p>
+<pre><code><font size="4">
+devServer: {
+      port: 8081, //修改8081
+      contentBase: path.join(__dirname, './dist'),
+      historyApiFallback: true,
+      host: '0.0.0.0',
+      proxy: {
+          "/api/*": "http://localhost:8090/$1"
+      }
+  }
+</font></code></pre>
+
+</li>
+</ul>
+<h2 id="要在react全家桶中应用ant-design的步骤"><a href="#要在react全家桶中应用ant-design的步骤" class="headerlink" title="要在react全家桶中应用ant design的步骤"></a>要在react全家桶中应用ant design的步骤</h2><p>1.webpack.dev.config.js中</p>
+<pre><code><font size="4">
+module: {
+        rules: [{
+            test: /\.css$/,
+            // use: ["style-loader", "css-loader?modules&localIdentName=[local]-[hash:base64:5]", "postcss-loader"]把这句话中的参数去掉
+            use: ["style-loader", "css-loader", "postcss-loader"]
+        }]
+    },
+</font></code></pre>
+2..babelrc中添加
+<pre><code><font size="4">
+ "plugins": [
+    ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }]
+  ]
+</font></code></pre>
+3. webpack.config.js中
+<pre><code><font size="4">
+module: {
+        rules: [{
+            test: /\.css$/,
+            use: ExtractTextPlugin.extract({
+                fallback: "style-loader",
+                // use: ["css-loader?modules&localIdentName=[local]-[hash:base64:5]", "postcss-loader"]也把这句话中的参数去掉
+                use: ["css-loader", "postcss-loader"]
+            })
+        }]
+    },
+</font></code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/14/react/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/14/react/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-14T11:05:05+08:00">
+                2017-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><font size="5"></font></p>
+<p>##react、react js、react native三者的区别 ##</p>
+<ol>
+<li>React Js的目的是为了使前端的V层更具组件化，能更好的复用，它能够使用简单的html标签创建更多的自定义组件标签，内部绑定事件，同时可以让你从操作dom中解脱出来，只需要操作数据就会改变相应的dom。</li>
+<li>React Native的目的是希望我们能够使用前端的技术栈就可以创建出能够在不同平台运行的一个框架。可以创建出在移动端运行的app，但是性能可能比原声app差一点。</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/23/w3cschool-html/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/23/w3cschool-html/" itemprop="url">w3cschool-html</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-23T13:21:38+08:00">
+                2017-11-23
               </time>
             
 
@@ -536,29 +1387,251 @@ color:blue;
       
         
           
-            <ul>
-<li><a href="#1">第1章</a></li>
-<li><a href="#1.1">JavaScript组成</a></li>
-<li><a href="#2">第2章</a></li>
-<li></li>
+            <h2 id="html"><a href="#html" class="headerlink" title="html"></a>html</h2><ul>
+<li><p>不能将 <code>&lt;body&gt;``&lt;/body&gt;</code> 标签与 <code>&lt;frameset&gt;&lt;/frameset&gt;</code> 标签同时使用！不过，假如你添加包含一段文本的<code>&lt;noframes&gt;</code>标签，就必须将这段文字嵌套于 <code>&lt;body&gt;``&lt;/body&gt;</code>标签内。（在下面的第一个实例中，可以查看它是如何实现的。）</p>
+</li>
+<li><p>如果要正确地被提交，每个输入字段必须设置一个 name 属性。</p>
+</li>
+<li>autocomplete 属性。注意，表单的自动完成功能是打开的，但是 e-mail 字段的自动完成功能是关闭的。</li>
 </ul>
-<h1 id="1"> 第1章 </h1>
+<h2 id="html5"><a href="#html5" class="headerlink" title="html5"></a>html5</h2><ul>
+<li>越来越多的站点开始使用 HTML5 标签。但情况是还有很多人在使用IE6，IE7，IE8。为了让所有网站浏览者都能正常的访问网站，比较好的解决方案是html5shiv.所以只需要在页面head中添加如下代码即可：</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--[if lt IE 9]&gt;</span></span><br><span class="line"><span class="comment">&lt;script type="text/javascript" src="js/html5shiv.js"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="comment">&lt;![endif]--&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>在 HTML5 中，关闭空元素是可选的。斜杠（/）在 XHTML 和 XML 中是必需的。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>HTML5 web存储。sessionStorage 对象等同 localStorage 对象，不同之处在于只对一个 session 存储数据。如果用户关闭具体的浏览器标签页，数据也会被删除。</li>
+</ul>
+<p>省略 <code>&lt;head&gt;</code>？</p>
+<ul>
+<li>在 HTML5 标准中，<head> 标签也能够被省略。默认地，浏览器会把 </head><body> 之前的所有元素添加到默认的 <head> 元素。通过省略 <head> 标签，您能够降低 HTML 的复杂性.</head></head></body></li>
+</ul>
+<h3 id="object"><a href="#object" class="headerlink" title="object"></a>object</h3><ul>
+<li>最好的 HTML 解决方法：HTML 5 + <code>&lt;object&gt;</code> + <code>&lt;embed&gt;</code></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">width</span>=<span class="string">"320"</span> <span class="attr">height</span>=<span class="string">"240"</span> <span class="attr">controls</span>=<span class="string">"controls"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">"movie.mp4"</span> <span class="attr">type</span>=<span class="string">"video/mp4"</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">"movie.ogg"</span> <span class="attr">type</span>=<span class="string">"video/ogg"</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">"movie.webm"</span> <span class="attr">type</span>=<span class="string">"video/webm"</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">object</span> <span class="attr">data</span>=<span class="string">"movie.mp4"</span> <span class="attr">width</span>=<span class="string">"320"</span> <span class="attr">height</span>=<span class="string">"240"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">embed</span> <span class="attr">src</span>=<span class="string">"movie.swf"</span> <span class="attr">width</span>=<span class="string">"320"</span> <span class="attr">height</span>=<span class="string">"240"</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">object</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>功能：object标签用于定义一个嵌入的多媒体对象。</p>
+</li>
+<li><p>语法：<code>&lt;object&gt;...&lt;/object&gt;</code></p>
+</li>
+<li><p>object元素用于向页面添加多媒体对象，包括Flash、音频、视频等。它规定了对象的数据和参数，以及可用来显示和操作数据的代码。</p>
+</li>
+<li><p><code>&lt;object&gt;</code>与<code>&lt;/object&gt;</code>之间的文本是替换文本，如果用户的浏览器不支持此标签会显示这些文本。</p>
+</li>
+<li><p>object元素中一般会包含<code>&lt;param&gt;</code>标签，<code>&lt;param&gt;</code>标签可用来定义播放参数。</p>
+</li>
+<li><p><code>&lt;object&gt;</code>和<code>&lt;embed&gt;</code>标签的区别：两者都是用来播放多媒体文件的对象，object元素用于IE浏览器，embed元素用于非IE浏览器，为了保证兼容性，通常我们同时使用两个元素，浏览器会自动忽略它不支持的标签。同时使用两个元素时，应该把<code>&lt;embed&gt;</code>标签放在<code>&lt;object&gt;</code>标签的内部。</p>
+</li>
+</ul>
 
-<h2 id="1.1"> JavaScript组成 </h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/08/javascript/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/08/javascript/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-08T20:11:25+08:00">
+                2017-11-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <font size="5">
 
 <ul>
-<li>核心-ECMAScript：对实现该标准规定的各个方面内容的语言的描述，提供核心语言功能</li>
-<li>文档对象模型-DOM：是针对XML但经过扩展用于HTML的应用程序编程接口（API），提供访问和操作网页内容的方法和接口</li>
-<li><p>浏览器对象模型-BOM：没有相关的标准，提供与浏览器交互的方法和接口</p>
+<li><p>您只能在 HTML 输出流中使用 document.write。 如果您在文档已加载后使用它（比如在函数中），会覆盖整个文档。</p>
 </li>
-<li><p>tips:DOM并不值针对JS，很多别的语言也都实现了DOM。</p>
+<li><p>JavaScript 对大小写敏感</p>
 </li>
-<li>五个浏览器对ECMAScript支持程度都不错，对DOM的支持彼此相差比较多，BOM实现了某些众所周知的共同特性，但是其他特性还是会因浏览器而异。</li>
+<li>JavaScript 是脚本语言。浏览器会在读取代码时，逐行地执行脚本代码。而对于传统编程来说，会在执行前对所有代码进行编译。</li>
+<li>在JS函数内部生命的变量是局部变量，在JS函数外生命的变量是全局变量。向未声明的JS变量分配值，该变量将被自动作为全局变量声明。</li>
 </ul>
-<p></p><h1 id="2">第2章</h1><p></p>
-&lt;h2 id=’2.1&gt; 
+<h2 id="for-in-循环"><a href="#for-in-循环" class="headerlink" title="for/in 循环"></a>for/in 循环</h2><ul>
+<li><p>JavaScript for/in 语句循环遍历对象的属性：<br>  var person={fname:”John”,lname:”Doe”,age:25};</p>
+<p>  for (x in person)</p>
+<pre><code>{
+txt=txt + person[x];
+}
+</code></pre></li>
+</ul>
+<ul>
+<li>如果逻辑对象无初始值或者其值为 0、-0、null、””、false、undefined 或者 NaN，那么对象的值为 false。否则，其值为 true（即使当自变量为字符串 “false” 时）！</li>
+</ul>
+<h2 id="window对象"><a href="#window对象" class="headerlink" title="window对象"></a>window对象</h2><ul>
+<li>所有浏览器都支持 window 对象。它表示浏览器窗口。<br>所有 JavaScript 全局对象、函数以及变量均自动成为 window 对象的成员。<br>全局变量是 window 对象的属性。<br>全局函数是 window 对象的方法。<br>甚至 HTML DOM 的 document 也是 window 对象的属性之一</li>
+</ul>
+<h1 id="jQuery"><a href="#jQuery" class="headerlink" title="jQuery"></a>jQuery</h1><ul>
+<li>jQuery 是一个 JavaScript 库。</li>
+<li>如果您希望在一个涉及动画的函数之后来执行语句，请使用 callback 函数。</li>
+<li><p>用三种不同的方法创建元素</p>
+<pre><code>
+  <!DOCTYPE html>
+  <html>
+  <head>
+      <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+      <script>
+          function appendText()
+          {
+              var txt1="<p>Text.</p>";              // 以 HTML 创建新元素
+              var txt2=$("<p></p>").text("Text.");  // 以 jQuery 创建新元素
+              var txt3=document.createElement("p");
+              txt3.innerHTML="Text.";               // 通过 DOM 来创建文本
+              $("body").append(txt1,txt2,txt3);        // 追加新元素
+          }
+      </script>
+  </head>
+  <body>
+      <p>This is a paragrapph.</p>
+      <button onclick="appendText()">追加文本</button>
+  </body>
+  </html>
+</code></pre>
+</li>
+<li><p>在我的电脑上使用google的jquery地址是无效的，但是可以使用mircosoft的地址。<br><code>&lt;script src=&quot;http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js&quot;&gt;&lt;/script&gt;</code></p>
+</li>
+</ul>
+<h1 id="Ajax"><a href="#Ajax" class="headerlink" title="Ajax"></a>Ajax</h1><ul>
+<li>AJAX = 异步 JavaScript 和 XML（Asynchronous JavaScript and XML）。是一种用于创建快速动态网页的技术。通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。传统的网页（不使用 AJAX）如果需要更新内容，必需重载整个网页面。</li>
+<li><p>XMLHttpRequest对象用于子啊后台和服务器交换数据，这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。</p>
+</li>
+<li><p>Ajax同步和异步请求数据：<br>async:false：表示同步加载数据<br>async:true:表示异步加载数据<br><strong>同步：</strong><br>是当JS代码加载到当前AJAX的时候会把页面里所有的代码停止加载，页面出去假死状态，当这个AJAX执行完毕后才会继续运行其他代码页面假死状态解除。<br><strong>异步：</strong><br>则这个AJAX代码运行中的时候其他代码一样可以运行。</p>
+</li>
+<li><p>XMLHttpRequest 对象如果要用于 AJAX 的话，其 open() 方法的 async 参数必须设置为 true</p>
+</li>
+<li><p>如果是异步的（Async=true），请规定在响应处于onreadystatechange 事件中的就绪状态时执行的函数：</p>
+<pre><code>
+  xmlhttp.onreadystatechange=function()
+    {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+      {
+      document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+      }
+    }
+  xmlhttp.open("GET","test1.txt",true);
+  xmlhttp.send();
+</code></pre></li>
+<li>如果是同步（Async=false）,请不要编写 onreadystatechange 函数 - 把代码放到 send() 语句后面即可：<pre><code>
+  xmlhttp.open("GET","test1.txt",false);
+  xmlhttp.send();
+  document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+</code></pre>
 
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//&lt;a href="http://www.example.com/" class="popup"&gt; Example &lt;/a&gt;</span></span><br><span class="line"><span class="comment">//要把点击链接之后的行为与html分离可以使用以下代码</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//行为与结构分离的例子</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">popUp</span>(<span class="params">winURL</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">window</span>.open(winURL,<span class="string">"popup"</span>,<span class="string">"width=320,height=480"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//JS代码必须在html文档全部加载到浏览器后开始执行。将JS代码打包在prepareLinks函数里，并把这个函数添加到window对象的onload事件上去。</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.onload=prepareLinks;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">prepareLinks</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="comment">//让脚本有更好的向后兼容性，如果浏览器不能理解getElementByTagName就退出函数。</span></span><br><span class="line">	<span class="keyword">if</span>(!<span class="built_in">document</span>.getElementsByTagName) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">var</span> links=<span class="built_in">document</span>.getElementsByTagName(<span class="string">"a"</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;links.length;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(links[i].getAttribute(<span class="string">"class"</span>)==<span class="string">"popup"</span>)&#123;</span><br><span class="line">			links[i].onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">				popUp(<span class="keyword">this</span>.getAttribute(<span class="string">"href"</span>));</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="Json"><a href="#Json" class="headerlink" title="Json"></a>Json</h1><ul>
+<li>JSON 指的是 JavaScript 对象表示法，JSON 是轻量级的文本数据交换格式，其独立于语言和平台。</li>
+</ul>
+</font>
           
         
       
@@ -643,7 +1716,7 @@ color:blue;
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -654,7 +1727,7 @@ color:blue;
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -665,7 +1738,7 @@ color:blue;
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
