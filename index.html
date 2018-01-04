@@ -252,6 +252,183 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/04/Javascript DOM编程艺术读书笔记1-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/04/Javascript DOM编程艺术读书笔记1-3/" itemprop="url">Javascript DOM编程艺术读书笔记1-3</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-04T14:38:13+08:00">
+                2018-01-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>sublime 对比两个文件 [ctrl]+[alt]+[d] </li>
+</ul>
+<h1 id="第1章-JavaScript简史"><a href="#第1章-JavaScript简史" class="headerlink" title="第1章 JavaScript简史"></a>第1章 JavaScript简史</h1><ul>
+<li>DOM是一套对文档的内容进行抽象和概念化的方法。DOM是一种API，API就是一组已经得到有关各方共同认可的基本约定。</li>
+<li>webkit是Safari和Chrome采用的一个开源web浏览器引擎。</li>
+</ul>
+<h1 id="第2章-JavaScript语法"><a href="#第2章-JavaScript语法" class="headerlink" title="第2章 JavaScript语法"></a>第2章 JavaScript语法</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=<span class="literal">false</span>;</span><br><span class="line"><span class="keyword">var</span> b=<span class="string">""</span>;</span><br><span class="line">a==b          <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>在命名变量时，用下划线来分割各个单词；在命名函数时，从第二个单词开始把每个单词的第一个字母写成大写形式，即驼峰式命名。</li>
+</ul>
+<h2 id="javascript本地对象、内置对象、宿主对象和自定义对象"><a href="#javascript本地对象、内置对象、宿主对象和自定义对象" class="headerlink" title="javascript本地对象、内置对象、宿主对象和自定义对象"></a>javascript本地对象、内置对象、宿主对象和自定义对象</h2><p><strong>1. 本地对象</strong></p>
+<p>  ECMA-262把本地对象（native object）定义为“独立于宿主环境的ECMAScript实现提供的对象”。<br>  此处的宿主环境，简单来说就是用户的机器环境，包括操作系统和浏览器。<br>  本地对象包括如下内容：Object、Function、String、Array、Boolean、Number、Date、 RegExp、Error、EvalError、RangeError、ReferenceError、SyntaxError、TypeError、URIError。由此可知，本地对象是ECMA-2定义的类（引用类型）。</p>
+<p><strong>2. 内置对象</strong></p>
+<p>   ECMA-262把内置对象（built-in object）定义为“ 由ECMAScript实现提供的，独立与宿主环境的所有对象，在ECMAScript程序开始执行时出现”。这意味着开发者不必明确实例化内置对象，它已经被实例化了。ECMA只定义了两个内置对象，即Global和Math（它们也是本地对象，根据定义，所有内置对象都是本地对象）。</p>
+<ul>
+<li>Math对象的常见属性：E（算术常量e，即自然对数的底数，约为2.718）、PI（圆周率，约为3.14159）。</li>
+</ul>
+<ul>
+<li>Global对象是ECMAScript中最特别的对象，因为实际上它根本不存在，不信，在浏览器console中输入Global，报错。</li>
+</ul>
+<p><strong>3. 宿主对象</strong></p>
+<p>   所有非本地对象都是宿主对象（host Object），即由ECMAScript实现的宿主环境提供的对象。</p>
+<p>   所有的BOM和DOM对象都是宿主对象。</p>
+<p><strong>4. 自定义对象</strong></p>
+<p>   顾名思义，就是开发人员自己定义的对象，javascript允许使用自定义对象，使javascript得到扩充。</p>
+<p><strong>5. 总结</strong></p>
+<p>   本地对象是ECMA官方定义好的对象；内置对象也是本地对象，只包括Global对象和Math对象；宿主对象包括BOM和DOM对象。</p>
+<h2 id="第3章-DOM"><a href="#第3章-DOM" class="headerlink" title="第3章 DOM"></a>第3章 DOM</h2><ul>
+<li>DOM的五个方法</li>
+<li>getElementById</li>
+<li>getElementsByTagName:返回一个对象数组</li>
+<li>getElementsByTagClassName(class):返回一个数组</li>
+<li>getAttribute(attribute)</li>
+<li>setAttribute(attribute,value)</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/03/w3cschool-css/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1484,7 +1661,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1495,7 +1672,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1506,7 +1683,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
