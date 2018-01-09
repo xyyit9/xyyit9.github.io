@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="XyyFighting">
 <meta property="og:description" content="HTML5Modernizr 提供一些不同的CSS类名以及特性检测属性音频和视频 在每个影片容器中，音频和视频轨道都使用不同的编解码器来编码。编码器决定了浏览器在播放时应该如何解码音频和视频。 有代表性的视频解码器有：H.264、Theora和VP8 没有一款浏览器支持所有容器和编解码器，因此必须提供多种后备格式。 为了确保HTML5的最大兼容性，至少包含下列三个版本： 基于H.264和AAC的M">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-08T07:11:47.909Z">
+<meta property="og:updated_time" content="2018-01-08T08:12:11.281Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Javascript DOM编程艺术读书笔记11">
 <meta name="twitter:description" content="HTML5Modernizr 提供一些不同的CSS类名以及特性检测属性音频和视频 在每个影片容器中，音频和视频轨道都使用不同的编解码器来编码。编码器决定了浏览器在播放时应该如何解码音频和视频。 有代表性的视频解码器有：H.264、Theora和VP8 没有一款浏览器支持所有容器和编解码器，因此必须提供多种后备格式。 为了确保HTML5的最大兼容性，至少包含下列三个版本： 基于H.264和AAC的M">
@@ -348,14 +348,10 @@
 <li>有代表性的视频解码器有：H.264、Theora和VP8</li>
 <li>没有一款浏览器支持所有容器和编解码器，因此必须提供多种后备格式。</li>
 <li>为了确保HTML5的最大兼容性，至少包含下列三个版本：<blockquote>
-<p>基于H.264和AAC的MP4</p>
+<p>基于H.264和AAC的MP4<br>webM(VP8+Vorbis)<br>基于Theora视频和Vorbis音频的Ogg文件</p>
 </blockquote>
 </li>
 </ul>
-<blockquote>
-<p>webM(VP8+Vorbis)</p>
-<p>基于Theora视频和Vorbis音频的Ogg文件</p>
-</blockquote>
 <h3 id="表单"><a href="#表单" class="headerlink" title="表单"></a>表单</h3><ul>
 <li><p>如果没有使用Modernize,可以使用如下函数检查浏览器是否支持某种类型的输入控件</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inputSupporsType</span>(<span class="params">type</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">document</span>.createElement) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> input=<span class="built_in">document</span>.createElement(<span class="string">'input'</span>);</span><br><span class="line">    <span class="comment">//设置input表单的type属性</span></span><br><span class="line">    input.setAttribute(<span class="string">'type'</span>,type);</span><br><span class="line">    <span class="comment">//如果input表单的type属性是text,但是传入的type类型不是text,说明浏览器不支持该类型的输入控件</span></span><br><span class="line">    <span class="keyword">if</span>(input.type==<span class="string">'text'</span>&amp;&amp;type!=<span class="string">'text'</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -363,8 +359,8 @@
 <li><p>如果没有使用Modernize,可以使用如下函数检查浏览器是否支持特定的属性</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">elementSupportsAttribute</span>(<span class="params">elementName,attribute</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">document</span>.createElement) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> temp=<span class="built_in">document</span>.createElement(elementName);</span><br><span class="line">    <span class="comment">//如果浏览器支持该属性，则会返回true，否则是false</span></span><br><span class="line">    <span class="keyword">return</span>(attribute <span class="keyword">in</span> temp);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>在不支持placeholder属性的浏览器中实现相同的效果，得编写以下DOM脚本实现完成同样的功能</p>
-<figure class="highlight plain"><figcaption><span>type</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```javascript</span><br><span class="line">//使用Modernizr判断当前浏览器是否支持placeholder属性</span><br><span class="line">if(!Modernizr.input.placeholder)&#123;</span><br><span class="line">    //根据id获得placeholder的input元素</span><br><span class="line">    var input=document.getElementById(&apos;first-name&apos;);</span><br><span class="line">    input.onfocus=function()&#123;</span><br><span class="line">        //如果input元素有placeholder属性值</span><br><span class="line">        var text=this.placeholder||this.getAttribute(&apos;placeholder&apos;);</span><br><span class="line">        //当鼠标焦距时是提示信息，就不显示提示信息</span><br><span class="line">        if(this.value==text)&#123;</span><br><span class="line">            this.value=&apos;&apos;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    input.onblur=function()&#123;</span><br><span class="line">        //当鼠标离开时，没有文本内容，就仍然显示提示信息</span><br><span class="line">        if(this.value==&apos;&apos;)&#123;</span><br><span class="line">            this.value=this.placeholder||this.getAttribute(&apos;placeholder&apos;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    input.onblur();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>在不支持placeholder属性的浏览器中实现相同的效果，得编写以下DOM脚本实现完成同样的功能<br><code>&lt;input type=&quot;text&quot; id=&quot;first-name&quot; placeholder=&quot;you first name&quot; /&gt;</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用Modernizr判断当前浏览器是否支持placeholder属性</span></span><br><span class="line"><span class="keyword">if</span>(!Modernizr.input.placeholder)&#123;</span><br><span class="line">    <span class="comment">//根据id获得placeholder的input元素</span></span><br><span class="line">    <span class="keyword">var</span> input=<span class="built_in">document</span>.getElementById(<span class="string">'first-name'</span>);</span><br><span class="line">    input.onfocus=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">//如果input元素有placeholder属性值</span></span><br><span class="line">        <span class="keyword">var</span> text=<span class="keyword">this</span>.placeholder||<span class="keyword">this</span>.getAttribute(<span class="string">'placeholder'</span>);</span><br><span class="line">        <span class="comment">//当鼠标焦距时是提示信息，就不显示提示信息</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">this</span>.value==text)&#123;</span><br><span class="line">            <span class="keyword">this</span>.value=<span class="string">''</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    input.onblur=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">//当鼠标离开时，没有文本内容，就仍然显示提示信息</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">this</span>.value==<span class="string">''</span>)&#123;</span><br><span class="line">            <span class="keyword">this</span>.value=<span class="keyword">this</span>.placeholder||<span class="keyword">this</span>.getAttribute(<span class="string">'placeholder'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    input.onblur();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 
       
@@ -405,6 +401,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/09/Javascript DOM编程艺术读书笔记12/" rel="prev" title="Javascript DOM编程艺术读书笔记12">
+                Javascript DOM编程艺术读书笔记12 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -485,7 +485,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
