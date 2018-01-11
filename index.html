@@ -252,6 +252,350 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/11/JavaScript高级程序设计读书笔记3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/11/JavaScript高级程序设计读书笔记3/" itemprop="url">JavaScript高级程序设计读书笔记3</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-11T15:21:55+08:00">
+                2018-01-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第3章-基本概念"><a href="#第3章-基本概念" class="headerlink" title="第3章 基本概念"></a>第3章 基本概念</h1><h2 id="严格模式"><a href="#严格模式" class="headerlink" title="严格模式"></a>严格模式</h2><ul>
+<li>要在整个脚本启用严格模式，可以在顶部添加如下代码： <code>&quot;use strict&quot;</code></li>
+<li><p>也可以在指定函数的严格模式下进行：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSomething</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"><span class="meta">	"use strict"</span>;</span><br><span class="line">	<span class="comment">//函数体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>严格模式下，JS的执行结果会有很大的不同</p>
+</li>
+</ul>
+<h2 id="关键字和保留字"><a href="#关键字和保留字" class="headerlink" title="关键字和保留字"></a>关键字和保留字</h2><ul>
+<li>保留字在JS中还没有任何特性的用途，但它们有可能在将来被用作关键字</li>
+</ul>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><ul>
+<li>var操作符定义的变量将成为定义该变量的作用域中的局部变量。</li>
+<li>省略var操作符，就可以创建一个全局变量。但不是推荐的做法，因为在局部作用域中定义的全局变量很难维护。</li>
+</ul>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><ul>
+<li>5种简单数据类型：Undefined、Null、Boolean、Number、String。1种复杂数据类型：Object。</li>
+<li>typeof操作符是一个操作符而不是函数。</li>
+</ul>
+<h3 id="Undefined类型"><a href="#Undefined类型" class="headerlink" title="Undefined类型"></a>Undefined类型</h3><ul>
+<li>Undefined类型只有一个值，就是undefined。在使用var生命变量但未对其甲乙初始化时，这个变量的值就是undefined。</li>
+<li><p>但是undefined值的变量与上位定义的变量是不一样的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> message;</span><br><span class="line">alert(message);   <span class="comment">//"undefined"</span></span><br><span class="line">alert(age);       <span class="comment">//age未声明，产生错误</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对于尚未声明过的变量，只能执行typeof操作检测其数据类型。</p>
+</li>
+<li>对未初始化和未声明的变量执行typeof操作符都反悔了undefined值<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> message;</span><br><span class="line">alert(typepf message);   <span class="comment">//"undefined"</span></span><br><span class="line">alert(<span class="keyword">typeof</span> age);       <span class="comment">//"undefined"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Null类型"><a href="#Null类型" class="headerlink" title="Null类型"></a>Null类型</h3><ul>
+<li>Null类型只有一个值，就是null。</li>
+<li><code>typeof null</code>会返回object,因为特殊值null会被认为是一个空的对象引用</li>
+<li><p>underfined值是派生自null值的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert(<span class="literal">null</span>==<span class="literal">undefined</span>);   <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不需要把一个变量的值显式地设置为undefined，但是保存对象的变量最好显示初始化为null。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">数据类型</th>
+<th style="text-align:center">转换为true</th>
+<th style="text-align:center">转换为false</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Boolean</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">false</td>
+</tr>
+<tr>
+<td style="text-align:center">String</td>
+<td style="text-align:center">任何非空字符串</td>
+<td style="text-align:center">“”空字符串</td>
+</tr>
+<tr>
+<td style="text-align:center">Number</td>
+<td style="text-align:center">任何非零数字值（包括无穷大）</td>
+<td style="text-align:center">0和NaN</td>
+</tr>
+<tr>
+<td style="text-align:center">Object</td>
+<td style="text-align:center">任何对象</td>
+<td style="text-align:center">null</td>
+</tr>
+<tr>
+<td style="text-align:center">Undefined</td>
+<td style="text-align:center">不适用</td>
+<td style="text-align:center">undefined</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Number类型"><a href="#Number类型" class="headerlink" title="Number类型"></a>Number类型</h3><ul>
+<li>八进制字面值的第一位必须是0，十六进制的前两位必须是0X</li>
+<li>由于浮点型数值在计算时有精度，所以0.1+0.2=0.300000000004</li>
+<li>ECMAScript的最大数和最小数分别保存在Number.MAX_VALUE和Number.MIN_VALUE中，如果超出范围，则会被转换成-Infinity和Infinity。</li>
+<li>isFinite()参数在最大值和最小值之间会返回true。</li>
+<li>NaN用于表示本来要返回数值的操作数未返回数值的情况。</li>
+<li><p>NaN有两个特点：</p>
+<blockquote>
+<ol>
+<li>任何涉及NaN的操作都会返回NaN;</li>
+<li>NaN与任何值都不相等，包括NaN本身。</li>
+</ol>
+</blockquote>
+</li>
+<li><p>isNaN()函数，确定参数是否不是数值。</p>
+</li>
+<li><p>数值转换</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Number</span>(<span class="string">""</span>);    <span class="comment">//0</span></span><br><span class="line">ParseInt(<span class="string">""</span>);  <span class="comment">//NaN</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>parseFloat()和parseInt()的区别：</p>
+<blockquote>
+<ol>
+<li>parseFloat的小数点有效；parseInt小数点无效，只输出整数</li>
+<li>parseFloat忽略前导的0，只解析十进制数；parseInt能够解析八进制和十六进制数</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><ul>
+<li>字符串可以由双引号或单引号表示</li>
+<li>字符串是不可变的，要改变某个变量保存的字符串，首先要销毁原来的字符串，再用另一个包含新值的字符串填充该变量。</li>
+<li>数值、布尔值、对象和字符串值都有toString()方法，但是null和undefined没有这个方法。</li>
+<li>String()函数如果值有toString()方法，则调用该方法并返回相应的结果；如果是null,则返回“null”；如果是undefined，则返回“undefined”</li>
+</ul>
+<h3 id="Object"><a href="#Object" class="headerlink" title="Object"></a>Object</h3><ul>
+<li><code>var o=new Object()</code></li>
+</ul>
+<h2 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h2><h3 id="一元操作符"><a href="#一元操作符" class="headerlink" title="一元操作符"></a>一元操作符</h3><ul>
+<li><code>num=+num</code>对非数值应用一元加操作符时，该操作符会像Number()转型函数一样对这个值执行转换。<h3 id="位操作符"><a href="#位操作符" class="headerlink" title="位操作符"></a>位操作符</h3></li>
+<li><code>~</code>非操作：操作数的负值减一</li>
+<li><code>&amp;</code>与操作：将两个二进制数的每一位对齐按与操作</li>
+<li><code>|</code>或操作：将两个二进制数的每一位对齐按或操作</li>
+<li><code>^</code>异或操作：将两个二进制数的每一位对齐按异或操作。1^1=0;0^0=0;1^0=1</li>
+<li><code>&lt;&lt;</code>左移：将数值的所有位向左移动指定的位数。左移不会影响操作数的正负号</li>
+<li><code>&gt;&gt;</code>右移：将数值的所有位向右移动指定的位数。右移不会影响操作数的正负号,补上的值是符号位的值</li>
+<li><code>&gt;&gt;&gt;</code>无符号右移：正数的无符号右移与有符号右移相同，但是负数的结果不同，因为用0来填补空位。</li>
+</ul>
+<h3 id="布尔操作符"><a href="#布尔操作符" class="headerlink" title="布尔操作符"></a>布尔操作符</h3><ul>
+<li>Boolean()与!!效果相同</li>
+<li>不能在逻辑与和逻辑或中使用为定义的值，会发生错误。</li>
+</ul>
+<h3 id="乘性操作符"><a href="#乘性操作符" class="headerlink" title="乘性操作符"></a>乘性操作符</h3><ul>
+<li>Infinity*0=NaN</li>
+<li>Infinity<em>1=Infinity ; Infinity</em>(-1)=-Infinity </li>
+<li>Infinity*Infinity=NaN ; Infinity/Infinity=NaN ; Infinity%Infinity=NaN</li>
+<li>0/0=NaN</li>
+<li>1/0=Infinity ; -1/0=-Infinity</li>
+<li>Infinity/1=Infinity ; Infinity/(-1)=-Infinity</li>
+<li>Infinity%1=NaN</li>
+<li>1%0=NaN</li>
+<li>1%Infinity=1</li>
+<li>0%1=0</li>
+</ul>
+<h3 id="加性操作符"><a href="#加性操作符" class="headerlink" title="加性操作符"></a>加性操作符</h3><ul>
+<li>Infinity-Infinity=NaN<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> message=<span class="string">"The sum of 5 and 10 is "</span>+<span class="number">5</span>+<span class="number">10</span>;</span><br><span class="line">    alert(message);</span><br><span class="line"><span class="comment">//The sum of 5 and 10 is 510</span></span><br><span class="line"><span class="keyword">var</span> message=<span class="string">"The sum of 5 and 10 is "</span>+(<span class="number">5</span>+<span class="number">10</span>);</span><br><span class="line">    alert(message);</span><br><span class="line"><span class="comment">//The sum of 5 and 10 is 15</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="关系操作符"><a href="#关系操作符" class="headerlink" title="关系操作符"></a>关系操作符</h3><ul>
+<li>“23”&lt;”3” //true  因为字符串比较的是字符编码</li>
+<li>“23”&lt;3   //false 在比较字符串和数值时，字符串会被转换成数值，再进行比较</li>
+<li>NaN&lt;3  //false</li>
+<li>NaN&gt;=3 //false</li>
+<li>“a”&gt;3  //false</li>
+</ul>
+<h3 id="相等操作符"><a href="#相等操作符" class="headerlink" title="相等操作符"></a>相等操作符</h3><h4 id="相等和不相等"><a href="#相等和不相等" class="headerlink" title="相等和不相等"></a>相等和不相等</h4><ul>
+<li>如果有一个操作符是布尔值或字符串，就在比较值前先转换成数值</li>
+<li>如果有一个操作数是NaN，相等操作符返回flase,不相等操作符返回true</li>
+<li>null==undefined  //true</li>
+</ul>
+<h4 id="全等和不全等"><a href="#全等和不全等" class="headerlink" title="全等和不全等"></a>全等和不全等</h4><ul>
+<li>全等与不全等操作符 相等与不相等操作符的区别： 比较之前不转换操作数</li>
+<li>“55” == 55 //true</li>
+<li>“55” ===55 //flase</li>
+<li>null===undefined  //false 不同类型的值</li>
+</ul>
+<h4 id="逗号操作符"><a href="#逗号操作符" class="headerlink" title="逗号操作符"></a>逗号操作符</h4><ul>
+<li>在用于赋值的时候，逗号操作符总会返回表达式中的最后一项</li>
+<li>var num =(5,1,4,8,0) //num的值为0</li>
+</ul>
+<h2 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h2><h3 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h3><ul>
+<li>不存在块级作用域，因此在循环内部定义的变量也可以在外部访问到</li>
+<li>for-in语句，如果要迭代的对象的变量值是null或undefined，for-in语句会抛出错误。ECMAScript 5更正这一行为，不再抛出错误，而是不执行循环体。<h3 id="label语句"><a href="#label语句" class="headerlink" title="label语句"></a>label语句</h3></li>
+<li>label:startement语句可以在代码中添加标签，以便将来使用。经常与break和continue连用</li>
+<li><p>添加该标签break不仅会退出内部的for循环，还会退出外部的for循环</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num=<span class="number">0</span>;</span><br><span class="line">outermost:</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>; j&lt;<span class="number">10</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(i==<span class="number">5</span>&amp;&amp;j==<span class="number">5</span>) &#123;</span><br><span class="line">                <span class="keyword">break</span> outermost;</span><br><span class="line">            &#125;</span><br><span class="line">            num++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">alert(num); <span class="comment">//55</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>强制从外部的outermost标签处继续开始循环。53 54 60 61 …</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num=<span class="number">0</span>;</span><br><span class="line">outermost:</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="number">10</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>; j&lt;<span class="number">10</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(i==<span class="number">5</span>&amp;&amp;j==<span class="number">5</span>) &#123;</span><br><span class="line">                <span class="keyword">continue</span> outermost;</span><br><span class="line">            &#125;</span><br><span class="line">            num++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">alert(num); <span class="comment">//95</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="with语句"><a href="#with语句" class="headerlink" title="with语句"></a>with语句</h3><ul>
+<li>with(expression) statement 语句目的是为了简化多次编写同一个对象的工作</li>
+</ul>
+<h3 id="Switch"><a href="#Switch" class="headerlink" title="Switch"></a>Switch</h3><ul>
+<li>每个case的值不一定是常量，可以是变量，甚至是表达式</li>
+<li>使用表达式作为case值可以有如下操作,在外面定义变量num，则可以<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">25</span>;</span><br><span class="line"><span class="keyword">switch</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">case</span> num &lt; <span class="number">20</span>:</span><br><span class="line">        alert(<span class="string">"less than 20"</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> num &gt;<span class="number">20</span>:</span><br><span class="line">        alert(<span class="string">"more than 20"</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><ul>
+<li>函数在执行完return语句后停止并立即退出。因此return之后的任何代码都永远不会执行。</li>
+<li><code>return;</code>语句可以不带有任何返回值，函数停止执行后将返回undefined值</li>
+<li>严格模式对函数有一些限制：<blockquote>
+<ol>
+<li>不能把函数命名为eval或arguments</li>
+<li>不能把参数命名为eval或arguments<br>3.不能出现两个命名参数同名的情况</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><ul>
+<li>函数体内可以通过arguments对象来访问参数数组，从而获取传递给函数的每一个参数。</li>
+<li>重要：传递与函数命名参数个数不同也没有关系，参数在函数内部用一个数组表示。命名的参数只提供便利，不是必需的。</li>
+<li>修改arguments[1],就会修改num2。这两个值内存空间独立，但是值同步，且影响是单向的。</li>
+<li>如果只传入一个参数，那么srguments[1]设置的值不会反映到命名参数中。因为arguments对象的长度由传入的参数个数决定。num2还是undefined<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">doAdd</span>(<span class="params">num1,num2</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">arguments</span>[<span class="number">1</span>]=<span class="number">10</span>;</span><br><span class="line">    alert(<span class="built_in">arguments</span>[<span class="number">0</span>]+num2);</span><br><span class="line">    alert(<span class="built_in">arguments</span>[<span class="number">1</span>]);</span><br><span class="line">    alert(num2);</span><br><span class="line">&#125;</span><br><span class="line">doAdd(<span class="number">1</span>,<span class="number">2</span>);      <span class="comment">// 11 arguments[1]=10 num2=10</span></span><br><span class="line">doAdd(<span class="number">1</span>);       <span class="comment">//  NaN arguments[1]=10 num2=undefined</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="没有重载"><a href="#没有重载" class="headerlink" title="没有重载"></a>没有重载</h3><ul>
+<li>如果定义两个名字相同的函数，则该名字只属于后定义的函数</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/10/JavaScript高级程序设计读书笔记1-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -345,18 +689,7 @@
       
         
           
-            <h2 id="JavaScript高级程序设计读书笔记1-2"><a href="#JavaScript高级程序设计读书笔记1-2" class="headerlink" title="JavaScript高级程序设计读书笔记1-2"></a>JavaScript高级程序设计读书笔记1-2</h2><ul>
-<li><a href="#1">第1章</a></li>
-<li><a href="#1.1">JavaScript组成</a></li>
-<li><a href="#2">第2章</a></li>
-<li><a href="#2.1">script函数</a></li>
-<li><a href="#2.2">嵌入代码与外部文件</a></li>
-</ul>
-<h1 id="1"> 第1章 </h1>
-
-<h2 id="1.1"> JavaScript组成 </h2>
-
-<ul>
+            <h1 id="第1章-JavaScript简介"><a href="#第1章-JavaScript简介" class="headerlink" title="第1章 JavaScript简介"></a>第1章 JavaScript简介</h1><h2 id="JavaScript组成"><a href="#JavaScript组成" class="headerlink" title="JavaScript组成"></a>JavaScript组成</h2><ul>
 <li>核心-ECMAScript：对实现该标准规定的各个方面内容的语言的描述，提供核心语言功能</li>
 <li>文档对象模型-DOM：是针对XML但经过扩展用于HTML的应用程序编程接口（API），提供访问和操作网页内容的方法和接口</li>
 <li><p>浏览器对象模型-BOM：没有相关的标准，提供与浏览器交互的方法和接口</p>
@@ -365,11 +698,7 @@
 </li>
 <li>五个浏览器（IE、Firefox、Chrome、Safari、Opera)对ECMAScript支持程度都不错，对DOM的支持彼此相差比较多，BOM实现了某些众所周知的共同特性，但是其他特性还是会因浏览器而异。</li>
 </ul>
-<h1 id="2"> 第2章 </h1>
-
-<h2 id="2.1"> script函数 </h2>
-
-<ul>
+<h1 id="第2章-在HTML中使用JavaScript"><a href="#第2章-在HTML中使用JavaScript" class="headerlink" title="第2章 在HTML中使用JavaScript"></a>第2章 在HTML中使用JavaScript</h1><h2 id="script函数"><a href="#script函数" class="headerlink" title="script函数"></a>script函数</h2><ul>
 <li>如果包含了嵌入代码，则只会下载并执行外部脚本文件，嵌入的代码会被忽略。</li>
 </ul>
 <h3 id="标签的位置"><a href="#标签的位置" class="headerlink" title="标签的位置"></a>标签的位置</h3><ul>
@@ -378,7 +707,8 @@
 <h3 id="延迟脚本"><a href="#延迟脚本" class="headerlink" title="延迟脚本"></a>延迟脚本</h3><ul>
 <li><code>defer=&quot;defer&quot;</code>表明脚本会被延迟到整个页面都解析完毕后再运行，立即下载，但是延迟执行。</li>
 </ul>
-<h3 id="异步脚本"><a href="#异步脚本" class="headerlink" title="异步脚本"></a>异步脚本</h3><ul>
+<p>###异步脚本 ###</p>
+<ul>
 <li><code>async</code>立即下载脚本，但不妨碍页面中的其他操作，并不保证按照指定的先后顺序执行。</li>
 <li>异步脚本不要在加载期间修改DOM。</li>
 <li>异步脚本一定会在页面的load事件前执行。</li>
@@ -395,7 +725,7 @@
 <ul>
 <li>在XHTML中，CData片段是文档中的一个特殊区域，这个区域可以包含不需要解析的任意格式的文本内容</li>
 </ul>
-<p></p><h2 id="2.2"> 嵌入代码与外部文件 </h2><br>支持外部文件的人会有如下优点：<p></p>
+<h2 id="嵌入代码与外部文件"><a href="#嵌入代码与外部文件" class="headerlink" title="嵌入代码与外部文件"></a>嵌入代码与外部文件</h2><p>支持外部文件的人会有如下优点：</p>
 <ol>
 <li>可维护性</li>
 <li>可缓存</li>
@@ -917,7 +1247,7 @@
 <h3 id="动画效果"><a href="#动画效果" class="headerlink" title="动画效果"></a>动画效果</h3><p>message.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Message<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"message1"</span>&gt;</span>Whee!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">P</span> <span class="attr">id</span>=<span class="string">"message2"</span>&gt;</span>Whoa!<span class="tag">&lt;/<span class="name">P</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"scripts/addLoadEvent.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"scripts/positionMessage.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"scripts/moveElement.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>addLoadEvent.js<br>moveElement.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//elementID打算移动的元素id,final_x元素目的地左位置，final_y元素目的地上位置，interval两次移动之间的停顿时间</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">moveElement</span>(<span class="params">elementID,final_x,final_y,interval</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">document</span>.getElementById) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">document</span>.getElementById(elementID))<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> elem=<span class="built_in">document</span>.getElementById(elementID);</span><br><span class="line">    <span class="keyword">var</span> xpos=<span class="built_in">parseInt</span>(elem.style.left);</span><br><span class="line">    <span class="keyword">var</span> ypos=<span class="built_in">parseInt</span>(elem.style.top);</span><br><span class="line">    <span class="keyword">if</span>(xpos==final_x&amp;&amp; ypos==final_y) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//进行位置的移动</span></span><br><span class="line">    <span class="keyword">if</span>(xpos&lt;final_x)&#123;</span><br><span class="line">        xpos++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(xpos&gt;final_x)&#123;</span><br><span class="line">        xpos--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(ypos&lt;final_y)&#123;</span><br><span class="line">        ypos++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(ypos&gt;final_y)&#123;</span><br><span class="line">        ypos--;</span><br><span class="line">    &#125;</span><br><span class="line">    elem.style.left=xpos+<span class="string">"px"</span>;</span><br><span class="line">    elem.style.top=ypos+<span class="string">"px"</span>;</span><br><span class="line">    <span class="comment">//注意其中的双引号和单引号的格式</span></span><br><span class="line">    <span class="keyword">var</span> repeat=<span class="string">"moveElement('"</span>+elementID+<span class="string">"',"</span>+final_x+<span class="string">","</span>+final_y+<span class="string">","</span>+interval+<span class="string">")"</span>;</span><br><span class="line">    movement=setTimeout(repeat,interval);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>positionMessage.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">positionMessage</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById(<span class="string">"message1"</span>)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> elem = <span class="built_in">document</span>.getElementById(<span class="string">"message1"</span>);</span><br><span class="line">    elem.style.position = <span class="string">"absolute"</span>;</span><br><span class="line">    elem.style.left = <span class="string">"50px"</span>;</span><br><span class="line">    elem.style.top = <span class="string">"100px"</span>;</span><br><span class="line">    moveElement(<span class="string">"message1"</span>, <span class="number">125</span>, <span class="number">25</span>, <span class="number">20</span>);</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById(<span class="string">"message2"</span>)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> elem = <span class="built_in">document</span>.getElementById(<span class="string">"message2"</span>);</span><br><span class="line">    elem.style.position = <span class="string">"absolute"</span>;</span><br><span class="line">    elem.style.left = <span class="string">"50px"</span>;</span><br><span class="line">    elem.style.top = <span class="string">"50px"</span>;</span><br><span class="line">    moveElement(<span class="string">"message2"</span>, <span class="number">125</span>, <span class="number">125</span>, <span class="number">20</span>);</span><br><span class="line">&#125;</span><br><span class="line">addLoadEvent(positionMessage);</span><br></pre></td></tr></table></figure></p>
-<h3 id="滑动的效果"><a href="#滑动的效果" class="headerlink" title="滑动的效果"></a>滑动的效果</h3><p>鼠标放在链接上，就会滑动到该图片<br>list.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"content-type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=utf-8"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Web Design<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">media</span>=<span class="string">"screen"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">    @<span class="keyword">import</span> url(styles/layout.css);</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/addLoadEvent.js"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/moveElement.js"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/prepareSlideshow.js"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/insertAfter.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Web Design<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>These are the things you should know.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ol</span> <span class="attr">id</span>=<span class="string">"linklist"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"structure.html"</span>&gt;</span>Structure<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"presentation.html"</span>&gt;</span>Presentation<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"behavior.html"</span>&gt;</span>Behavior<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="滑动的效果"><a href="#滑动的效果" class="headerlink" title="滑动的效果"></a>滑动的效果</h3><p>鼠标放在链接上，就会滑动到该图片<br>list.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"content-type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=utf-8"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Web Design<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">media</span>=<span class="string">"screen"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    @import url(styles/layout.css);</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/addLoadEvent.js"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/moveElement.js"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/prepareSlideshow.js"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/insertAfter.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Web Design<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>These are the things you should know.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ol</span> <span class="attr">id</span>=<span class="string">"linklist"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"structure.html"</span>&gt;</span>Structure<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"presentation.html"</span>&gt;</span>Presentation<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"behavior.html"</span>&gt;</span>Behavior<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>addLoadEvent.js<br>insertAfter.js<br>moveElement.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">moveElement</span>(<span class="params">elementID,final_x,final_y,interval</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById(elementID)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> elem = <span class="built_in">document</span>.getElementById(elementID);</span><br><span class="line">    <span class="comment">//每当用户吧鼠标悬停在某个连接上，不管上一次调用是否已经把图片移动到位，moveElement函数都会再次调用并试图把这个函数移动到另一个地方。当用户在链接之间快读移动鼠标时，movement变量会像拔河绳一样来回。</span></span><br><span class="line">    <span class="keyword">if</span> (elem.movement) &#123;</span><br><span class="line">        clearTimeout(elem.movement);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//添加安全检查，如果没有被设置，就设置成0px</span></span><br><span class="line">    <span class="keyword">if</span> (!elem.style.left) &#123;</span><br><span class="line">        elem.style.left = <span class="string">"0px"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!elem.style.top) &#123;</span><br><span class="line">        elem.style.top = <span class="string">"0px"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> xpos = <span class="built_in">parseInt</span>(elem.style.left);</span><br><span class="line">    <span class="keyword">var</span> ypos = <span class="built_in">parseInt</span>(elem.style.top);</span><br><span class="line">    <span class="keyword">if</span> (xpos == final_x &amp;&amp; ypos == final_y) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//动画设置越远移动越快，越近移动越慢</span></span><br><span class="line">    <span class="keyword">if</span> (xpos &lt; final_x) &#123;</span><br><span class="line">        <span class="comment">//math.ceil(number)浮点数number向“大于”方向舍入为最接近的整数</span></span><br><span class="line">        <span class="keyword">var</span> dist = <span class="built_in">Math</span>.ceil((final_x - xpos)/<span class="number">10</span>);</span><br><span class="line">        xpos = xpos + dist;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (xpos &gt; final_x) &#123;</span><br><span class="line">        <span class="keyword">var</span> dist = <span class="built_in">Math</span>.ceil((xpos - final_x)/<span class="number">10</span>);</span><br><span class="line">        xpos = xpos - dist;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (ypos &lt; final_y) &#123;</span><br><span class="line">        <span class="keyword">var</span> dist = <span class="built_in">Math</span>.ceil((final_y - ypos)/<span class="number">10</span>);</span><br><span class="line">        ypos = ypos + dist;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (ypos &gt; final_y) &#123;</span><br><span class="line">        <span class="keyword">var</span> dist = <span class="built_in">Math</span>.ceil((ypos - final_y)/<span class="number">10</span>);</span><br><span class="line">        ypos = ypos - dist;</span><br><span class="line">    &#125;</span><br><span class="line">    elem.style.left = xpos + <span class="string">"px"</span>;</span><br><span class="line">    elem.style.top = ypos + <span class="string">"px"</span>;</span><br><span class="line">    <span class="keyword">var</span> repeat = <span class="string">"moveElement('"</span>+elementID+<span class="string">"',"</span>+final_x+<span class="string">","</span>+final_y+<span class="string">","</span>+interval+<span class="string">")"</span>;</span><br><span class="line">    <span class="comment">//不能使用全局变量，不能使用局部变量，需要一个至于正在被移动的那个元素有关的变量，即将movement设置成属性。</span></span><br><span class="line">    elem.movement = setTimeout(repeat,interval);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>prepareSlidershow.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">prepareSlideshow</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="comment">// 确保浏览器支持DOM方法</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementsByTagName) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"><span class="comment">//确保元素存在</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById(<span class="string">"linklist"</span>)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"><span class="comment">//创建并添加元素</span></span><br><span class="line">    <span class="keyword">var</span> slideshow = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">    slideshow.setAttribute(<span class="string">"id"</span>,<span class="string">"slideshow"</span>);</span><br><span class="line">    <span class="keyword">var</span> preview = <span class="built_in">document</span>.createElement(<span class="string">"img"</span>);</span><br><span class="line">    preview.setAttribute(<span class="string">"src"</span>,<span class="string">"topics.gif"</span>);</span><br><span class="line">    preview.setAttribute(<span class="string">"alt"</span>,<span class="string">"building blocks of web design"</span>);</span><br><span class="line">    preview.setAttribute(<span class="string">"id"</span>,<span class="string">"preview"</span>);</span><br><span class="line">    slideshow.appendChild(preview);</span><br><span class="line">    <span class="keyword">var</span> list = <span class="built_in">document</span>.getElementById(<span class="string">"linklist"</span>);</span><br><span class="line">    insertAfter(slideshow,list);</span><br><span class="line"><span class="comment">// 取得列表中的所有链接</span></span><br><span class="line">    <span class="keyword">var</span> links = list.getElementsByTagName(<span class="string">"a"</span>);</span><br><span class="line"><span class="comment">// 为mouseover实践添加动画效果</span></span><br><span class="line">    links[<span class="number">0</span>].onmouseover = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        moveElement(<span class="string">"preview"</span>,<span class="number">-100</span>,<span class="number">0</span>,<span class="number">10</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    links[<span class="number">1</span>].onmouseover = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        moveElement(<span class="string">"preview"</span>,<span class="number">-200</span>,<span class="number">0</span>,<span class="number">10</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    links[<span class="number">2</span>].onmouseover = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        moveElement(<span class="string">"preview"</span>,<span class="number">-300</span>,<span class="number">0</span>,<span class="number">10</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">addLoadEvent(prepareSlideshow);</span><br></pre></td></tr></table></figure></p>
 <p>layout.css<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#slideshow</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#preview</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -1751,159 +2081,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/04/Javascript DOM编程艺术读书笔记4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XyyFighting">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/04/Javascript DOM编程艺术读书笔记4/" itemprop="url">Javascript DOM编程艺术读书笔记4</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-04T15:09:55+08:00">
-                2018-01-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="第4章-案例研究：JS图片库"><a href="#第4章-案例研究：JS图片库" class="headerlink" title="第4章 案例研究：JS图片库"></a>第4章 案例研究：JS图片库</h2><ul>
-<li>DOM是一种适用于多种环境和多种程序设计语言的通用型API。</li>
-<li>node.firstChild与node.childNodes[0]完全等价</li>
-<li>如果想要得到<code>&lt;p id=&quot;description&quot;&gt;haha&lt;/p&gt;</code>其中文本节点的值。若用description.nodeValue则值为NULL，因为<code>&lt;p&gt;</code>元素本身的nodeValue属性是一个空值，需要用description.firstChild.nodeValue.</li>
-<li>元素节点nodeType属性值是1</li>
-<li>属性节点nodeType属性值是2</li>
-<li>文本节点nodeType属性值是3</li>
-</ul>
-<p>文件结构<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">│  gallery.html</span><br><span class="line">│  </span><br><span class="line">├─images</span><br><span class="line">│      1.jpg</span><br><span class="line">│      2.jpg</span><br><span class="line">│      3.jpg</span><br><span class="line">│      </span><br><span class="line">├─scripts</span><br><span class="line">│      show.js</span><br><span class="line">│      </span><br><span class="line">└─styles</span><br><span class="line">       layout.css</span><br></pre></td></tr></table></figure></p>
-<p>gallery.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Image Gallery<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"styles/layout.css"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Snapshots<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"./images/1.jpg"</span> <span class="attr">title</span>=<span class="string">"A fireworks display"</span> <span class="attr">onclick</span>=<span class="string">"showPic(this); return false;"</span>&gt;</span>Fireworks<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"images/2.jpg"</span> <span class="attr">title</span>=<span class="string">"A cup of black coffee"</span> <span class="attr">onclick</span>=<span class="string">"showPic(this); return false;"</span>&gt;</span>Coffee<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"images/3.jpg"</span> <span class="attr">title</span>=<span class="string">"A red, red rose"</span> <span class="attr">onclick</span>=<span class="string">"showPic(this); return false;"</span>&gt;</span>Rose<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">"placeholder"</span> <span class="attr">src</span>=<span class="string">"images/placeholder.gif"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"description"</span>&gt;</span>Choose an image<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"scripts/show.js"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>showPic.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showPic</span>(<span class="params">whichpic</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> source = whichpic.getAttribute(<span class="string">"href"</span>);</span><br><span class="line">  <span class="keyword">var</span> placeholder = <span class="built_in">document</span>.getElementById(<span class="string">"placeholder"</span>);</span><br><span class="line">  placeholder.setAttribute(<span class="string">"src"</span>,source);</span><br><span class="line">  <span class="keyword">var</span> text = whichpic.getAttribute(<span class="string">"title"</span>);</span><br><span class="line">  <span class="keyword">var</span> description = <span class="built_in">document</span>.getElementById(<span class="string">"description"</span>);</span><br><span class="line">  description.firstChild.nodeValue = text;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>layout.css<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">font-family</span>: <span class="string">"Helvetica"</span>, <span class="string">"Arial"</span>, serif;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#333</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#ccc</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">1em</span> <span class="number">10%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#333</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: transparent;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#c60</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: transparent;</span><br><span class="line">    <span class="attribute">font-weight</span>: bold;</span><br><span class="line">    <span class="attribute">text-decoration</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">ul</span> &#123;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">li</span> &#123;</span><br><span class="line">    <span class="attribute">float</span>: left;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">1em</span>;</span><br><span class="line">    <span class="attribute">list-style</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">img</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1958,7 +2135,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
