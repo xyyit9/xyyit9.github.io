@@ -252,6 +252,165 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/04/Javascript DOM编程艺术读书笔记5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/04/Javascript DOM编程艺术读书笔记5/" itemprop="url">Javascript DOM编程艺术读书笔记5</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-04T15:10:02+08:00">
+                2018-01-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="第5章-最佳实践"><a href="#第5章-最佳实践" class="headerlink" title="第5章 最佳实践"></a>第5章 最佳实践</h2><ul>
+<li>平稳退化：如果正确地使用了JavaScript脚本，就可以让访问者在他们地浏览器不支持JS地情况下仍能顺利地浏览你地网站。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">popUp</span>(<span class="params">winURL</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">window</span>.open(winURL,<span class="string">"popUp"</span>,<span class="string">"width=320,height=480"</span>);</span><br><span class="line">&#125;</span><br><span class="line">&lt;a href=<span class="string">"javascript:popUp('http://www.baidu.com/');"</span>&gt;Example&lt;<span class="regexp">/a&gt; /</span><span class="regexp">/伪协议，不好</span></span><br><span class="line"><span class="regexp">&lt;a href="#" onclick="popUp('http:/</span><span class="regexp">/www.baidu.com/</span><span class="string">'); return false;"&gt;Example&lt;/a&gt; //使用内嵌事件处理函数，不好</span></span><br><span class="line"><span class="string">&lt;a href="http://www.baidu.com/" onclick="popUp('</span>http:<span class="comment">//www.baidu.com/'); return false;"&gt;Example&lt;/a&gt; </span></span><br><span class="line"><span class="comment">//或者采用更加简介的写法 </span></span><br><span class="line">&lt;a href=<span class="string">"http://www.baidu.com/"</span> onclick=<span class="string">"popUp(this.href); return false;"</span>&gt;Example&lt;<span class="regexp">/a&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>getElementsByTagName记住这其中有S !!</strong></li>
+</ul>
+<h3 id="CSS渐进增强"><a href="#CSS渐进增强" class="headerlink" title="CSS渐进增强"></a>CSS渐进增强</h3><ul>
+<li>渐进增强就是用一些额外的信息层去包裹袁术数据，按照渐进增强原则创建出的来的网页几乎都符合平稳退化原则</li>
+</ul>
+<h3 id="分离JS"><a href="#分离JS" class="headerlink" title="分离JS"></a>分离JS</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//&lt;a href="http://www.example.com/" class="popup"&gt; Example &lt;/a&gt;</span></span><br><span class="line"><span class="comment">//要把点击链接之后的行为与html分离可以使用以下代码</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//行为与结构分离的例子</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">popUp</span>(<span class="params">winURL</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">window</span>.open(winURL, <span class="string">"popup"</span>, <span class="string">"width=320,height=480"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//JS代码必须在html文档全部加载到浏览器后开始执行。将JS代码打包在prepareLinks函数里，并把这个函数添加到window对象的onload事件上去。</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.onload = prepareLinks;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">prepareLinks</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//让脚本有更好的向后兼容性，如果浏览器不能理解getElementByTagName就退出函数。</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementsByTagName) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> links = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"a"</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; links.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (links[i].getAttribute(<span class="string">"class"</span>) == <span class="string">"popup"</span>) &#123;</span><br><span class="line">            links[i].onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                popUp(<span class="keyword">this</span>.getAttribute(<span class="string">"href"</span>));</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>与DOM脚本变成工作有关的问题：</p>
+<ol>
+<li>平稳退化：如果正确地使用JS脚本，就可以让访问者在他们的浏览器不支持JS的情况下仍能顺利地浏览你的网站</li>
+<li>向后兼容：确保网页在古老的浏览器中也可以被正常浏览</li>
+<li>分离JS：将JS和HTML分离开来</li>
+<li>性能考虑：脚本对web应用整体性能的影响。应该尽量减少访问DOM和尽量减少标记、合并和防止脚本、压缩脚本。</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/04/Javascript DOM编程艺术读书笔记4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1818,7 +1977,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
