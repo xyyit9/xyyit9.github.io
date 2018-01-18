@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="第5章 引用类型Object类型 创建Object实例的方式有两种：  new操作符后跟Object构造函数2.对象字面量表示法     1234567891011//第一种var person=new Object();person.name=&quot;Nick&quot;;person.age=29;//第二种var person=&amp;#123;    name:&quot;Nick&quot;,    age:29&amp;#125;;&amp;">
+<meta name="description" content="第5章 引用类型Object类型 创建Object实例的方式有两种：  new操作符后跟Object构造函数  对象字面量表示法     1234567891011//第一种var person=new Object();person.name=&quot;Nick&quot;;person.age=29;//第二种var person=&amp;#123;    name:&quot;Nick&quot;,    age:29&amp;#125;;&amp;">
 <meta name="keywords" content="Javascript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript高级程序设计读书笔记5">
 <meta property="og:url" content="http://yoursite.com/2018/01/15/JavaScript高级程序设计读书笔记5/index.html">
 <meta property="og:site_name" content="XyyFighting">
-<meta property="og:description" content="第5章 引用类型Object类型 创建Object实例的方式有两种：  new操作符后跟Object构造函数2.对象字面量表示法     1234567891011//第一种var person=new Object();person.name=&quot;Nick&quot;;person.age=29;//第二种var person=&amp;#123;    name:&quot;Nick&quot;,    age:29&amp;#125;;&amp;">
+<meta property="og:description" content="第5章 引用类型Object类型 创建Object实例的方式有两种：  new操作符后跟Object构造函数  对象字面量表示法     1234567891011//第一种var person=new Object();person.name=&quot;Nick&quot;;person.age=29;//第二种var person=&amp;#123;    name:&quot;Nick&quot;,    age:29&amp;#125;;&amp;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-15T11:15:22.830Z">
+<meta property="og:updated_time" content="2018-01-15T11:21:25.071Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript高级程序设计读书笔记5">
-<meta name="twitter:description" content="第5章 引用类型Object类型 创建Object实例的方式有两种：  new操作符后跟Object构造函数2.对象字面量表示法     1234567891011//第一种var person=new Object();person.name=&quot;Nick&quot;;person.age=29;//第二种var person=&amp;#123;    name:&quot;Nick&quot;,    age:29&amp;#125;;&amp;">
+<meta name="twitter:description" content="第5章 引用类型Object类型 创建Object实例的方式有两种：  new操作符后跟Object构造函数  对象字面量表示法     1234567891011//第一种var person=new Object();person.name=&quot;Nick&quot;;person.age=29;//第二种var person=&amp;#123;    name:&quot;Nick&quot;,    age:29&amp;#125;;&amp;">
 
 
 
@@ -345,7 +345,8 @@
         <h1 id="第5章-引用类型"><a href="#第5章-引用类型" class="headerlink" title="第5章 引用类型"></a>第5章 引用类型</h1><h2 id="Object类型"><a href="#Object类型" class="headerlink" title="Object类型"></a>Object类型</h2><ul>
 <li>创建Object实例的方式有两种：<blockquote>
 <ol>
-<li>new操作符后跟Object构造函数<br>2.对象字面量表示法</li>
+<li>new操作符后跟Object构造函数 </li>
+<li>对象字面量表示法</li>
 </ol>
 </blockquote>
 </li>
@@ -372,13 +373,10 @@
 </blockquote>
 </li>
 <li><p>构造函数传递值的方式有两种：</p>
-</li>
-</ul>
 <blockquote>
-<p>传递数值，创建给定项数的数组<br><code>var colors=new Array(3); //创建一个包含3项的数组</code></p>
-<p>传递其他类型的参数，会创建包含这个值的数组<br><code>var names=new Array(&quot;Grey&quot;); //创建一个包含1项，字符串是“Grey”的数组</code></p>
+<p>传递数值，创建给定项数的数组<br><code>var colors=new Array(3); //创建一个包含3项的数组</code><br>传递其他类型的参数，会创建包含这个值的数组<br><code>var names=new Array(&quot;Grey&quot;); //创建一个包含1项，字符串是“Grey”的数组</code></p>
 </blockquote>
-<ul>
+</li>
 <li><p>数组的length不是只读的，可以设置该属性，从数组的末尾移除项或向数组中添加项。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> colors=[<span class="string">"red"</span>,<span class="string">"blue"</span>,<span class="string">"green"</span>];</span><br><span class="line">colors.length=<span class="number">2</span>;</span><br><span class="line">alert(colors[<span class="number">2</span>]);    <span class="comment">//undefined</span></span><br><span class="line">colors.length=<span class="number">3</span>;</span><br><span class="line">alert(colors[<span class="number">3</span>]);    <span class="comment">//undefined</span></span><br></pre></td></tr></table></figure>
 </li>
@@ -511,7 +509,9 @@
 <li><p>具有的共同特征</p>
 <blockquote>
 <ol>
-<li>每个包装类型都映射到同名的基本类型<br>2.在读取模式下访问基本类型值时，就会创建对应的基本包装类型的一个对象，从而方便了数据操作<br>3.操作基本类型值的语句一旦执行完毕，就会立即销毁新创建的包装对象</li>
+<li>每个包装类型都映射到同名的基本类型</li>
+<li>在读取模式下访问基本类型值时，就会创建对应的基本包装类型的一个对象，从而方便了数据操作</li>
+<li>操作基本类型值的语句一旦执行完毕，就会立即销毁新创建的包装对象</li>
 </ol>
 </blockquote>
 </li>
@@ -584,12 +584,12 @@
 <li>访问Global对象有两种方法：<blockquote>
 <ol>
 <li>window对象</li>
-<li>返回this值取得Global对象<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> global=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure>
-</li>
+<li>返回this值取得Global对象</li>
 </ol>
 </blockquote>
 </li>
 </ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> global=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure>
 <h3 id="Math对象"><a href="#Math对象" class="headerlink" title="Math对象"></a>Math对象</h3><h4 id="min和max方法"><a href="#min和max方法" class="headerlink" title="min和max方法"></a>min和max方法</h4><ul>
 <li>寻找数组中的最大最小值，可以使用apply()方法。关键在于把Math对象作为apply()的第一个参数，从而正确地设置this值。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> values=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>];</span><br><span class="line"><span class="keyword">var</span> max=<span class="built_in">Math</span>.max.apply(<span class="built_in">Math</span>,values);</span><br><span class="line">alert(max);</span><br></pre></td></tr></table></figure>
 </li>
@@ -641,6 +641,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/18/JavaScript高级程序设计读书笔记6/" rel="prev" title="JavaScript高级程序设计读书笔记6">
+                JavaScript高级程序设计读书笔记6 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -721,7 +725,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
