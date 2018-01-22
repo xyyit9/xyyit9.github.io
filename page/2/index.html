@@ -252,6 +252,329 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/04/Javascript DOM编程艺术读书笔记9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/04/Javascript DOM编程艺术读书笔记9/" itemprop="url">Javascript DOM编程艺术读书笔记9</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-04T15:11:06+08:00">
+                2018-01-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="第9章-CSS-DOM"><a href="#第9章-CSS-DOM" class="headerlink" title="第9章 CSS-DOM"></a>第9章 CSS-DOM</h2><ul>
+<li>网页由一下三层信息构成一个共同体：结构层、表示层、行为层</li>
+<li>只有把CSS style属性插入到标记里，才可以用DOM style属性去查询这些信息。放在style.css或者写在文件<head>部分里的<code>&lt;style&gt;</code>标签里，都没有用。</head></li>
+</ul>
+<h3 id="根据元素在节点树里的位置来设置样式"><a href="#根据元素在节点树里的位置来设置样式" class="headerlink" title="根据元素在节点树里的位置来设置样式"></a>根据元素在节点树里的位置来设置样式</h3><p>查找<code>&lt;h1&gt;</code>元素后面的元素，设置成加粗。</p>
+<p><img src="http://image.jiantuku.com/18-1-4/32476790.jpg?e=1515222010&amp;token=el7kgPgYzpJoB23jrChWJ2gV3HpRl0VCzFn8rKKv:v_SemyIZXr8uNIlI3haT4pbI6Vg=" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">├─story.html</span><br><span class="line">│</span><br><span class="line">├─scripts</span><br><span class="line">│      addLoadEvent.js</span><br><span class="line">│      styleHeaderSiblings.js</span><br><span class="line">│      </span><br><span class="line">└─styles</span><br><span class="line">        format.css</span><br></pre></td></tr></table></figure>
+<p>story.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"</span></span><br><span class="line"><span class="meta">        "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"content-type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=utf-8"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Man bites dog<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/addLoadEvent.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/styleHeaderSiblings.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">media</span>=<span class="string">"screen"</span> <span class="attr">href</span>=<span class="string">"styles/format.css"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hold the front page<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>This first paragraph leads you in.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Now you get the nitty-gritty of the story.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>The most important information is delivered first.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Extra! Extra!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Further developments are unfolding.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>You can read all about it here.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>addLoadEvent.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addLoadEvent</span>(<span class="params">func</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> oldonload = <span class="built_in">window</span>.onload;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">window</span>.onload != <span class="string">'function'</span>) &#123;</span><br><span class="line">    <span class="built_in">window</span>.onload = func;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      oldonload();</span><br><span class="line">      func();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>styleHeaderSiblings.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">styleHeaderSiblings</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(!<span class="built_in">document</span>.getElementsByTagName) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">var</span> headers=<span class="built_in">document</span>.getElementsByTagName(<span class="string">"h1"</span>);</span><br><span class="line">  <span class="keyword">var</span> elem;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;headers.length;i++)&#123;</span><br><span class="line">      elem=getNextElement(headers[i].nextSibling);</span><br><span class="line">      addClass(elem,<span class="string">"intro"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getNextElement</span>(<span class="params">node</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//如果这个节点是元素节点就返回这个节点</span></span><br><span class="line">    <span class="keyword">if</span>(node.nodeType==<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果这个节点不是元素节点，就继续寻找下一个节点</span></span><br><span class="line">    <span class="keyword">if</span>(node.nextSibling)&#123;</span><br><span class="line">        <span class="keyword">return</span> getNextElement(node.nextSibling);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//以下两种是更通用的方法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addClass</span>(<span class="params">element,value</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//检查className属性的值是否为null</span></span><br><span class="line">    <span class="keyword">if</span> (!element.className) &#123;</span><br><span class="line">        <span class="comment">//如果是把新的class设置值直接赋值给className</span></span><br><span class="line">        element.className = value;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//如果不是，就把一个空格和新的calss设置值追加到className属性上去</span></span><br><span class="line">        newClassName = element.className;</span><br><span class="line">        newClassName+= <span class="string">" "</span>;</span><br><span class="line">        newClassName+= value;</span><br><span class="line">        element.className = newClassName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">styleElementSiblings</span>(<span class="params">tag,theclass</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">document</span>.getElementsByTagName)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> elems=<span class="built_in">document</span>.getElementsByTagName(tag);</span><br><span class="line">    <span class="keyword">var</span> elem;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;elems.length ;i++)&#123;</span><br><span class="line">        elem=getNextElement(elems[i].nextSibling);</span><br><span class="line">        addClass(elem,theclass);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//addLoadEvent(styleHeaderSiblings);</span></span><br><span class="line">addLoadEvent(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    styleElementSiblings(<span class="string">"h1"</span>,<span class="string">"intro"</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>format.css<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.intro</span> &#123;</span><br><span class="line">  <span class="attribute">font-weight</span>: bold;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">1.2em</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="根据某种条件反复设置某种样式"><a href="#根据某种条件反复设置某种样式" class="headerlink" title="根据某种条件反复设置某种样式"></a>根据某种条件反复设置某种样式</h3><p>将表格中奇数行和偶数行的背景颜色设置成不同的<br><img src="http://image.jiantuku.com/18-1-4/98245172.jpg?e=1515222010&amp;token=el7kgPgYzpJoB23jrChWJ2gV3HpRl0VCzFn8rKKv:fZW-hgrzVqfXuRbZ2s-JSAHHOmY=" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">│  itinerary.html</span><br><span class="line">│  </span><br><span class="line">├─scripts</span><br><span class="line">│      addLoadEvent.js</span><br><span class="line">│      displayAbbreviations.js</span><br><span class="line">│      highlightRows.js</span><br><span class="line">│      stripeTables.js</span><br><span class="line">│      </span><br><span class="line">└─styles</span><br><span class="line">        format.css</span><br></pre></td></tr></table></figure></p>
+<p>itinerary.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"content-type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=utf-8"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Cities<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">media</span>=<span class="string">"screen"</span> <span class="attr">href</span>=<span class="string">"styles/format.css"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/addLoadEvent.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/stripeTables.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/displayAbbreviations.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/highlightRows.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">table</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">caption</span>&gt;</span>Itinerary<span class="tag">&lt;/<span class="name">caption</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">thead</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">th</span>&gt;</span>When<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">th</span>&gt;</span>Where<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">thead</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>June 9th<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>Portland, <span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span>=<span class="string">"Oregon"</span>&gt;</span>OR<span class="tag">&lt;/<span class="name">abbr</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>June 10th<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>Seattle, <span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span>=<span class="string">"Washington"</span>&gt;</span>WA<span class="tag">&lt;/<span class="name">abbr</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>June 12th<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>Sacramento, <span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span>=<span class="string">"California"</span>&gt;</span>CA<span class="tag">&lt;/<span class="name">abbr</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>addLoadEvent.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addLoadEvent</span>(<span class="params">func</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> oldonload = <span class="built_in">window</span>.onload;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">window</span>.onload != <span class="string">'function'</span>) &#123;</span><br><span class="line">    <span class="built_in">window</span>.onload = func;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      oldonload();</span><br><span class="line">      func();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>displayAbbreviations.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">displayAbbreviations</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementsByTagName || !<span class="built_in">document</span>.createElement || !<span class="built_in">document</span>.createTextNode) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"><span class="comment">// 得到所有"abbr"元素</span></span><br><span class="line">  <span class="keyword">var</span> abbreviations = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"abbr"</span>);</span><br><span class="line">  <span class="keyword">if</span> (abbreviations.length &lt; <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">var</span> defs = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line"><span class="comment">// 循环遍历</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;abbreviations.length; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> current_abbr = abbreviations[i];</span><br><span class="line">    <span class="keyword">if</span> (current_abbr.childNodes.length &lt; <span class="number">1</span>) <span class="keyword">continue</span>;</span><br><span class="line">    <span class="keyword">var</span> definition = current_abbr.getAttribute(<span class="string">"title"</span>);</span><br><span class="line">    <span class="keyword">var</span> key = current_abbr.lastChild.nodeValue;</span><br><span class="line">    defs[key] = definition;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">// 创建一个dl列表</span></span><br><span class="line">  <span class="keyword">var</span> dlist = <span class="built_in">document</span>.createElement(<span class="string">"dl"</span>);</span><br><span class="line"><span class="comment">// 循环创建列表内的元素</span></span><br><span class="line">  <span class="keyword">for</span> (key <span class="keyword">in</span> defs) &#123;</span><br><span class="line">    <span class="keyword">var</span> definition = defs[key];</span><br><span class="line"><span class="comment">// 创建列表中的项目</span></span><br><span class="line">    <span class="keyword">var</span> dtitle = <span class="built_in">document</span>.createElement(<span class="string">"dt"</span>);</span><br><span class="line">    <span class="keyword">var</span> dtitle_text = <span class="built_in">document</span>.createTextNode(key);</span><br><span class="line">    dtitle.appendChild(dtitle_text);</span><br><span class="line"><span class="comment">// 创建它的描述</span></span><br><span class="line">    <span class="keyword">var</span> ddesc = <span class="built_in">document</span>.createElement(<span class="string">"dd"</span>);</span><br><span class="line">    <span class="keyword">var</span> ddesc_text = <span class="built_in">document</span>.createTextNode(definition);</span><br><span class="line">    ddesc.appendChild(ddesc_text);</span><br><span class="line"><span class="comment">// 将他们添加到列表上</span></span><br><span class="line">    dlist.appendChild(dtitle);</span><br><span class="line">    dlist.appendChild(ddesc);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (dlist.childNodes.length &lt; <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"><span class="comment">// 创建一个标题</span></span><br><span class="line">  <span class="keyword">var</span> header = <span class="built_in">document</span>.createElement(<span class="string">"h2"</span>);</span><br><span class="line">  <span class="keyword">var</span> header_text = <span class="built_in">document</span>.createTextNode(<span class="string">"Abbreviations"</span>);</span><br><span class="line">  header.appendChild(header_text);</span><br><span class="line"><span class="comment">// 添加标题和列表到html页面上</span></span><br><span class="line">  <span class="built_in">document</span>.body.appendChild(header);</span><br><span class="line">  <span class="built_in">document</span>.body.appendChild(dlist);</span><br><span class="line">&#125;</span><br><span class="line">addLoadEvent(displayAbbreviations);</span><br></pre></td></tr></table></figure></p>
+<p>highlightRows.js:鼠标指针悬停在某个表格行的上方时，把该文本加黑加粗<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">highlightRows</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(!<span class="built_in">document</span>.getElementsByTagName) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">var</span> rows = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"tr"</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;rows.length; i++) &#123;</span><br><span class="line">    rows[i].onmouseover = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.style.fontWeight = <span class="string">"bold"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    rows[i].onmouseout = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.style.fontWeight = <span class="string">"normal"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">addLoadEvent(highlightRows);</span><br></pre></td></tr></table></figure></p>
+<p>stripeTables.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stripeTables</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(!<span class="built_in">document</span>.getElementsByTagName) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="comment">//找出文档中的所有table元素</span></span><br><span class="line">  <span class="keyword">var</span> tables=<span class="built_in">document</span>.getElementsByTagName(<span class="string">"table"</span>);</span><br><span class="line">  <span class="keyword">var</span> odd,rows;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;tables.length;i++)&#123;</span><br><span class="line">      <span class="comment">//对每个table元素，创建odd变量并把它初始化为false</span></span><br><span class="line">      odd=<span class="literal">false</span>;</span><br><span class="line">      <span class="comment">//遍历表格中的所有数据行</span></span><br><span class="line">      rows=tables[i].getElementsByTagName(<span class="string">"tr"</span>);</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>;j&lt;rows.length;j++)&#123;</span><br><span class="line">          <span class="comment">//如果变量odd的值是true,设置样式并把odd变量修改为false</span></span><br><span class="line">          <span class="keyword">if</span>(odd==<span class="literal">true</span>)&#123;</span><br><span class="line">              addClass(rows[j],<span class="string">"odd"</span>);</span><br><span class="line">              odd=<span class="literal">false</span>;</span><br><span class="line">          &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">              <span class="comment">//如果变量odd的值是false,不设置样式，但把odd变量修改为true</span></span><br><span class="line">              odd=<span class="literal">true</span>;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addClass</span>(<span class="params">element,value</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//检查className属性的值是否为null</span></span><br><span class="line">    <span class="keyword">if</span> (!element.className) &#123;</span><br><span class="line">        <span class="comment">//如果是把新的class设置值直接赋值给className</span></span><br><span class="line">    element.className = value;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//如果不是，就把一个空格和新的calss设置值追加到className属性上去</span></span><br><span class="line">    newClassName = element.className;</span><br><span class="line">    newClassName+= <span class="string">" "</span>;</span><br><span class="line">    newClassName+= value;</span><br><span class="line">    element.className = newClassName;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">addLoadEvent(stripeTables);</span><br></pre></td></tr></table></figure></p>
+<h3 id="ClassName"><a href="#ClassName" class="headerlink" title="ClassName"></a>ClassName</h3><ul>
+<li><strong>问题：</strong>在DOM直接设置或修改样式，让行为层干表示层的活，并不是理想的工作方式。</li>
+<li><strong>解决方法：</strong>为元素追加一个className,在css文档中含有该类名的样式。可以通过修改CSS中类名的样式修改样式而不需要修改JS函数。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addClass</span>(<span class="params">element,value</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//检查className属性的值是否为null</span></span><br><span class="line">    <span class="keyword">if</span> (!element.className) &#123;</span><br><span class="line">        <span class="comment">//如果是把新的class设置值直接赋值给className</span></span><br><span class="line">        element.className = value;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//如果不是，就把一个空格和新的calss设置值追加到className属性上去</span></span><br><span class="line">        newClassName = element.className;</span><br><span class="line">        newClassName+= <span class="string">" "</span>;</span><br><span class="line">        newClassName+= value;</span><br><span class="line">        element.className = newClassName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/04/Javascript DOM编程艺术读书笔记8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/04/Javascript DOM编程艺术读书笔记8/" itemprop="url">Javascript DOM编程艺术读书笔记8</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-04T15:10:59+08:00">
+                2018-01-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="第8章-充实文档的内容"><a href="#第8章-充实文档的内容" class="headerlink" title="第8章 充实文档的内容"></a>第8章 充实文档的内容</h2><p>两项重要原则：</p>
+<ol>
+<li>渐进增强：应该总是从最核心的部分，也就是从内容开始逐步加强</li>
+<li>平稳退化：缺乏必要的CSS和JS支持的访问者也可以访问到核心内容</li>
+</ol>
+<p><strong>充实文档的基本思路</strong><br>用JS函数先把文档结构里的一些现有信息提取出来，再把哪些信息以一种清晰和有意义的方式插入到文档中去。比如下面编写的几个函数：</p>
+<ul>
+<li>displayAbbreviations.js:把文档里的缩略语显示为一个“缩略语”列表</li>
+<li>displayCitations.js:把文档里引用的每段文献节选生成一个“文献来源链接”</li>
+<li>displsyAccesskeys.js:把一个元素与键盘上的某个特定按键关联在一起</li>
+</ul>
+<p><img src="http://image.jiantuku.com/18-1-4/20507689.jpg?e=1515222010&amp;token=el7kgPgYzpJoB23jrChWJ2gV3HpRl0VCzFn8rKKv:yV25O4U8E-ng376-2pfTeI8eUsY=" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">├─explanation.html</span><br><span class="line">│  </span><br><span class="line">├─scripts</span><br><span class="line">│      addLoadEvent.js</span><br><span class="line">│      displayAbbreviations.js</span><br><span class="line">│      displayCitations.js</span><br><span class="line">│      displsyAccesskeys.js</span><br><span class="line">│      </span><br><span class="line">└─styles</span><br><span class="line">        typography.css</span><br></pre></td></tr></table></figure>
+<p>explanation.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"content-type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=utf-8"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Explaining the Document Object Model<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">media</span>=<span class="string">"screen"</span> <span class="attr">href</span>=<span class="string">"styles/typography.css"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/addLoadEvent.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/displayAbbreviations.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/displayCitations.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/displsyAccesskeys.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"navigation"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"index.html"</span> <span class="attr">accesskey</span>=<span class="string">"1"</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"search.html"</span> <span class="attr">accesskey</span>=<span class="string">"4"</span>&gt;</span>Search<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"contact.html"</span> <span class="attr">accesskey</span>=<span class="string">"0"</span>&gt;</span>Contact<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>What is the Document Object Model?<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    The <span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span>=<span class="string">"World Wide Web Consortium"</span>&gt;</span>W3C<span class="tag">&lt;/<span class="name">abbr</span>&gt;</span> defines</span><br><span class="line">    the <span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span>=<span class="string">"Document Object Model"</span>&gt;</span>DOM<span class="tag">&lt;/<span class="name">abbr</span>&gt;</span> as:</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">blockquote</span> <span class="attr">cite</span>=<span class="string">"http://www.w3.org/DOM/"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">        A platform- and language-neutral interface that will allow programs</span><br><span class="line">        and scripts to dynamically access and update the</span><br><span class="line">        content, structure and style of documents.</span><br><span class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">blockquote</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    It is an <span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span>=<span class="string">"Application Programming Interface"</span>&gt;</span>API<span class="tag">&lt;/<span class="name">abbr</span>&gt;</span></span><br><span class="line">    that can be used to navigate <span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span>=<span class="string">"HyperText Markup Language"</span>&gt;</span></span><br><span class="line">    HTML<span class="tag">&lt;/<span class="name">abbr</span>&gt;</span> and <span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span>=<span class="string">"eXtensible Markup Language"</span>&gt;</span>XML</span><br><span class="line"><span class="tag">&lt;/<span class="name">abbr</span>&gt;</span> documents.</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>addLoadEvent.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addLoadEvent</span>(<span class="params">func</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> oldonload = <span class="built_in">window</span>.onload;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">window</span>.onload != <span class="string">'function'</span>) &#123;</span><br><span class="line">    <span class="built_in">window</span>.onload = func;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      oldonload();</span><br><span class="line">      func();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>displayAbbreviations.js:把文档里的缩略语显示为一个“缩略语”列表<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">displayAbbreviations</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementsByTagName || !<span class="built_in">document</span>.createElement || !<span class="built_in">document</span>.createTextNode) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//取得所有缩略词</span></span><br><span class="line">    <span class="keyword">var</span> abbrevistions = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"abbr"</span>);</span><br><span class="line">    <span class="comment">//判断是否有abbr元素</span></span><br><span class="line">    <span class="keyword">if</span> (abbrevistions.length &lt; <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> defs = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">    <span class="comment">//遍历这些缩略词</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; abbrevistions.length; i++) &#123;</span><br><span class="line">        <span class="keyword">var</span> current_abbr = abbrevistions[i];</span><br><span class="line">        <span class="comment">//在IE浏览器中的平稳退化，如果当前元素没有子节点，就会立刻开始下一次循环。因为IE浏览器在统计abbr元素的子节点的个数时总会返回一个错误的值0.</span></span><br><span class="line">        <span class="keyword">if</span>(current_abbr.childNodes.length&lt;<span class="number">1</span>)<span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">var</span> definition = current_abbr.getAttribute(<span class="string">"title"</span>);</span><br><span class="line">        <span class="comment">//文本节点是元素内部的第一个也是最后一个节点，即唯一节点</span></span><br><span class="line">        <span class="keyword">var</span> key = current_abbr.lastChild.nodeValue;</span><br><span class="line">        defs[key] = definition;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//创建定义列表</span></span><br><span class="line">    <span class="keyword">var</span> dlist = <span class="built_in">document</span>.createElement(<span class="string">"dl"</span>);</span><br><span class="line">    <span class="comment">//遍历定义</span></span><br><span class="line">    <span class="keyword">for</span> (key <span class="keyword">in</span> defs) &#123;</span><br><span class="line">        <span class="keyword">var</span> definition = defs[key];</span><br><span class="line">        <span class="comment">//创建定义标题</span></span><br><span class="line">        <span class="keyword">var</span> dtitle = <span class="built_in">document</span>.createElement(<span class="string">"dt"</span>);</span><br><span class="line">        <span class="keyword">var</span> dtitle_text = <span class="built_in">document</span>.createTextNode(key);</span><br><span class="line">        dtitle.appendChild(dtitle_text);</span><br><span class="line">        <span class="comment">//创建定义描述</span></span><br><span class="line">        <span class="keyword">var</span> ddesc = <span class="built_in">document</span>.createElement(<span class="string">"dd"</span>);</span><br><span class="line">        <span class="keyword">var</span> ddesc_text = <span class="built_in">document</span>.createTextNode(definition);</span><br><span class="line">        ddesc.appendChild(ddesc_text);</span><br><span class="line">        <span class="comment">//把他们添加到定义列表</span></span><br><span class="line">        dlist.appendChild(dtitle);</span><br><span class="line">        dlist.appendChild(ddesc);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//ie浏览器的defs数组是空的，就不会创建出任何dt和dd元素，如果dl没有任何子节点，就立刻退出该函数</span></span><br><span class="line">    <span class="keyword">if</span>(dlist.childNodes.length&lt;<span class="number">1</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//创建标题</span></span><br><span class="line">    <span class="keyword">var</span> header = <span class="built_in">document</span>.createElement(<span class="string">"h2"</span>);</span><br><span class="line">    <span class="keyword">var</span> header_text = <span class="built_in">document</span>.createTextNode(<span class="string">"Abbreviations"</span>);</span><br><span class="line">    header.appendChild(header_text);</span><br><span class="line">    <span class="comment">//把标题添加到页面主体</span></span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(header);</span><br><span class="line">    <span class="comment">//把定义列表添加到页面主体</span></span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(dlist);</span><br><span class="line">&#125;</span><br><span class="line">addLoadEvent(displayAbbreviations);</span><br></pre></td></tr></table></figure></p>
+<p>displayCitations.js:把文档里引用的每段文献节选生成一个“文献来源链接”<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">displayCitations</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">document</span>.getElementsByTagName||!<span class="built_in">document</span>.createElement||!<span class="built_in">document</span>.createTextNode) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//取得所有的引用</span></span><br><span class="line">    <span class="keyword">var</span> quotes=<span class="built_in">document</span>.getElementsByTagName(<span class="string">"blockquote"</span>);</span><br><span class="line">    <span class="comment">//遍历引用</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;quotes.length;i++)&#123;</span><br><span class="line">        <span class="comment">//如果该节点没有cite属性，就立刻跳到下一个循环</span></span><br><span class="line">        <span class="keyword">if</span>(!quotes[i].getAttribute(<span class="string">"cite"</span>))&#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//保存cite属性</span></span><br><span class="line">        <span class="keyword">var</span> url=quotes[i].getAttribute(<span class="string">"cite"</span>);</span><br><span class="line">        <span class="comment">//取得引用中的所有元素节点的固定用法，不能直接quites[i].lastChild因为最后一个子节点可能是换行符之类，而不是最后一个元素节点</span></span><br><span class="line">        <span class="keyword">var</span> quoteChildren=quotes[i].getElementsByTagName(<span class="string">'*'</span>);</span><br><span class="line">        <span class="comment">//如果没有元素节点，就继续循环</span></span><br><span class="line">        <span class="keyword">if</span>(quoteChildren.length&lt;<span class="number">1</span>)<span class="keyword">continue</span>;</span><br><span class="line">        <span class="comment">//取得引用中的最后一个元素节点</span></span><br><span class="line">        <span class="keyword">var</span> elem=quoteChildren[quoteChildren.length<span class="number">-1</span>];</span><br><span class="line">        <span class="comment">//创建标记</span></span><br><span class="line">        <span class="keyword">var</span> link=<span class="built_in">document</span>.createElement(<span class="string">"a"</span>);</span><br><span class="line">        <span class="keyword">var</span> link_text=<span class="built_in">document</span>.createTextNode(<span class="string">"source"</span>);</span><br><span class="line">        link.appendChild(link_text);</span><br><span class="line">        link.setAttribute(<span class="string">"href"</span>,url);</span><br><span class="line">        <span class="keyword">var</span> superscript=<span class="built_in">document</span>.createElement(<span class="string">"sup"</span>);</span><br><span class="line">        superscript.appendChild(link);</span><br><span class="line">        <span class="comment">//把标记添加到引用中的最后一个元素节点</span></span><br><span class="line">        elem.appendChild(superscript);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">addLoadEvent(displayCitations);</span><br></pre></td></tr></table></figure></p>
+<p>displsyAccesskeys.js:把一个元素与键盘上的某个特定按键关联在一起<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">displayAccesskeys</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">document</span>.getElementsByTagName||!<span class="built_in">document</span>.createElement||!<span class="built_in">document</span>.createTextNode)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//取得文档中的所有链接</span></span><br><span class="line">    <span class="keyword">var</span> links=<span class="built_in">document</span>.getElementsByTagName(<span class="string">"a"</span>);</span><br><span class="line">    <span class="comment">//创建一个数组，保存访问键</span></span><br><span class="line">    <span class="keyword">var</span> akeys=<span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">    <span class="comment">//遍历链接</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;links.length;i++)&#123;</span><br><span class="line">        <span class="keyword">var</span> current_link=links[i];</span><br><span class="line">        <span class="comment">//如果没有accesskey属性，就继续下一个循环</span></span><br><span class="line">        <span class="keyword">if</span>(!current_link.getAttribute(<span class="string">"accesskey"</span>))<span class="keyword">continue</span>;</span><br><span class="line">        <span class="comment">//取得accesskey的值</span></span><br><span class="line">        <span class="keyword">var</span> key=current_link.getAttribute(<span class="string">"accesskey"</span>);</span><br><span class="line">        <span class="comment">//取得链接文本</span></span><br><span class="line">        <span class="keyword">var</span> text=current_link.lastChild.nodeValue;</span><br><span class="line">        <span class="comment">//添加到数组</span></span><br><span class="line">        akeys[key]=text;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//创建列表</span></span><br><span class="line">    <span class="keyword">var</span> list=<span class="built_in">document</span>.createElement(<span class="string">"ul"</span>);</span><br><span class="line">    <span class="comment">//遍历访问键</span></span><br><span class="line">    <span class="keyword">for</span>(key <span class="keyword">in</span> akeys)&#123;</span><br><span class="line">        <span class="keyword">var</span> text=akeys[key];</span><br><span class="line">        <span class="comment">//创建放到列表项中的字符串</span></span><br><span class="line">        <span class="keyword">var</span> str=key+<span class="string">":"</span>+text;</span><br><span class="line">        <span class="comment">//创建列表项</span></span><br><span class="line">        <span class="keyword">var</span> item=<span class="built_in">document</span>.createElement(<span class="string">"li"</span>);</span><br><span class="line">        <span class="keyword">var</span> item_text=<span class="built_in">document</span>.createTextNode(str);</span><br><span class="line">        item.appendChild(item_text);</span><br><span class="line">        <span class="comment">//把列表项添加到列表中</span></span><br><span class="line">        list.appendChild(item);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//创建标题</span></span><br><span class="line">    <span class="keyword">var</span> header=<span class="built_in">document</span>.createElement(<span class="string">"h3"</span>);</span><br><span class="line">    <span class="keyword">var</span> header_text=<span class="built_in">document</span>.createTextNode(<span class="string">"Accesskeys"</span>);</span><br><span class="line">    header.appendChild(header_text);</span><br><span class="line">    <span class="comment">//把标题添加到页面主体</span></span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(header);</span><br><span class="line">    <span class="comment">//把列表添加到页面主体</span></span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(list);</span><br><span class="line">&#125;</span><br><span class="line">addLoadEvent(displayAccesskeys);</span><br></pre></td></tr></table></figure></p>
+<p>typography.css<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>: <span class="string">"Helvetica"</span>,<span class="string">"Arial"</span>,sans-serif;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">10pt</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">abbr</span> &#123;</span><br><span class="line">  <span class="attribute">text-decoration</span>: none;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">font-style</span>: normal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/04/Javascript DOM编程艺术读书笔记7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1534,329 +1857,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/17/搭建react时遇到的问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XyyFighting">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/17/搭建react时遇到的问题/" itemprop="url">react概念以及搭建react框架</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-17T23:27:05+08:00">
-                2017-12-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="react、react-js、react-native三者的区别"><a href="#react、react-js、react-native三者的区别" class="headerlink" title="react、react js、react native三者的区别"></a>react、react js、react native三者的区别</h2><ol>
-<li><p>React Js的目的是为了使前端的V层更具组件化，能更好的复用，它能够使用简单的html标签创建更多的自定义组件标签，内部绑定事件，同时可以让你从操作dom中解脱出来，只需要操作数据就会改变相应的dom。</p>
-</li>
-<li><p>React Native的目的是希望我们能够使用前端的技术栈就可以创建出能够在不同平台运行的一个框架。可以创建出在移动端运行的app，但是性能可能比原声app差一点。</p>
-</li>
-</ol>
-<h2 id="搭建react框架时遇到的问题"><a href="#搭建react框架时遇到的问题" class="headerlink" title="搭建react框架时遇到的问题"></a>搭建react框架时遇到的问题</h2><p>学习的教程是：<a href="https://github.com/brickspert/blog/issues/1#code-split" target="_blank" rel="noopener">从零搭建React全家桶教程</a>，在搭建的过程中也遇到了不少问题，基本都解决了，少数未解决的等到熟练运用了react,再重新搭一遍框架理解一下。</p>
-<h3 id="模块热替换（Hot-Module-Replacement）"><a href="#模块热替换（Hot-Module-Replacement）" class="headerlink" title="模块热替换（Hot Module Replacement）"></a>模块热替换（Hot Module Replacement）</h3><ul>
-<li>加入了react-hot-loader v3以后计数依然变成0：至今未解决</li>
-</ul>
-<h3 id="文件路径优化：找不到这些文件。"><a href="#文件路径优化：找不到这些文件。" class="headerlink" title="文件路径优化：找不到这些文件。"></a>文件路径优化：找不到这些文件。</h3><ul>
-<li>教程里写错了,不是在webpack.config.js中写路径文件,而是在webpack.dev.config.js中写</li>
-</ul>
-<h3 id="使用axios和middleware优化API请求，请求错误"><a href="#使用axios和middleware优化API请求，请求错误" class="headerlink" title="使用axios和middleware优化API请求，请求错误"></a>使用axios和middleware优化API请求，请求错误</h3><ul>
-<li>应该本来存在dist/api/user.json，模拟服务器传回来的数据,其中代码为</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"name"</span>: <span class="string">"brickspert"</span>,</span><br><span class="line">    <span class="string">"intro"</span>: <span class="string">"please give me a star"</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>但是我这边的不存在了,所以会请求错误.之后使用mock.js就可以代替这个api了.</li>
-</ul>
-<h3 id="调整文本编辑器"><a href="#调整文本编辑器" class="headerlink" title="调整文本编辑器"></a>调整文本编辑器</h3><ul>
-<li>Sublime和Intellij都没有找到safe write。不过在后续的工作中没有影响</li>
-</ul>
-<h3 id="使用-json-server-代替-Mock-js-出现用户信息请求失败错误"><a href="#使用-json-server-代替-Mock-js-出现用户信息请求失败错误" class="headerlink" title="使用 json-server 代替 Mock.js,出现用户信息请求失败错误"></a>使用 json-server 代替 Mock.js,出现用户信息请求失败错误</h3><ul>
-<li>是因为”mockdev”: “npm run mock &amp; npm start”这个运行命令只运行了npm run mock,&amp;不能同时运行两个命令。而用”mockdev”: “npm run mock  | npm start”就可以实现同时运行两个命令.</li>
-</ul>
-<h3 id="Error-listen-EADDRINUSE-0-0-0-0-8080"><a href="#Error-listen-EADDRINUSE-0-0-0-0-8080" class="headerlink" title="Error: listen EADDRINUSE 0.0.0.0:8080"></a>Error: listen EADDRINUSE 0.0.0.0:8080</h3><ul>
-<li>表明端口号被占用，要修改端口号。在webpack.dev.config.js中修改。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">devServer: &#123;</span><br><span class="line">        port: <span class="number">8081</span>, <span class="comment">//修改8081</span></span><br><span class="line">        contentBase: path.join(__dirname, <span class="string">'./dist'</span>),</span><br><span class="line">        historyApiFallback: <span class="literal">true</span>,</span><br><span class="line">        host: <span class="string">'0.0.0.0'</span>,</span><br><span class="line">        proxy: &#123;</span><br><span class="line">            <span class="string">"/api/*"</span>: <span class="string">"http://localhost:8090/$1"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/14/要在react全家桶中应用ant design的步骤/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XyyFighting">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/14/要在react全家桶中应用ant design的步骤/" itemprop="url">要在react全家桶中应用ant design的步骤</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-14T11:05:05+08:00">
-                2017-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>搭建react框架的教程是：<a href="https://github.com/brickspert/blog/issues/1#code-split" target="_blank" rel="noopener">从零搭建React全家桶教程</a>，应用ant design需要在安装后更改一些配置。</p>
-<ol>
-<li><p>webpack.dev.config.js中</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [&#123;</span><br><span class="line">            test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">            <span class="comment">// use: ["style-loader", "css-loader?modules&amp;localIdentName=[local]-[hash:base64:5]", "postcss-loader"] //把这句话中的参数去掉</span></span><br><span class="line">            use: [<span class="string">"style-loader"</span>, <span class="string">"css-loader"</span>, <span class="string">"postcss-loader"</span>]</span><br><span class="line">        &#125;]</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>.babelrc中添加</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"plugins"</span>: [</span><br><span class="line">   [<span class="string">"import"</span>, &#123; <span class="string">"libraryName"</span>: <span class="string">"antd"</span>, <span class="string">"libraryDirectory"</span>: <span class="string">"es"</span>, <span class="string">"style"</span>: <span class="string">"css"</span> &#125;]</span><br><span class="line"> ]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>webpack.config.js中</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [&#123;</span><br><span class="line">            test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">            use: ExtractTextPlugin.extract(&#123;</span><br><span class="line">                fallback: <span class="string">"style-loader"</span>,</span><br><span class="line">                <span class="comment">// use: ["css-loader?modules&amp;localIdentName=[local]-[hash:base64:5]", "postcss-loader"] //也把这句话中的参数去掉</span></span><br><span class="line">                use: [<span class="string">"css-loader"</span>, <span class="string">"postcss-loader"</span>]</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;]</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure></li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1911,7 +1911,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
