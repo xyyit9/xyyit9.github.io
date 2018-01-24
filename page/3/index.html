@@ -252,6 +252,174 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/22/在使用git时遇到的问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/22/在使用git时遇到的问题/" itemprop="url">在使用git时遇到的问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-22T21:00:24+08:00">
+                2017-12-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="git修改远程仓库地址"><a href="#git修改远程仓库地址" class="headerlink" title="git修改远程仓库地址"></a>git修改远程仓库地址</h2><ul>
+<li><p><code>git remote rm origin</code></p>
+</li>
+<li><p><code>git remote add origin [url]</code></p>
+</li>
+</ul>
+<h2 id="如何解决failed-to-push-some-refs-to-git"><a href="#如何解决failed-to-push-some-refs-to-git" class="headerlink" title="如何解决failed to push some refs to git"></a>如何解决failed to push some refs to git</h2><ul>
+<li><p>出现错误的主要原因是github中的README.md文件不在本地代码目录中</p>
+</li>
+<li><p>可以通过如下命令进行代码合并[注：pull=fetch+merge]  <code>git pull --rebase origin master</code></p>
+</li>
+<li><p>此时再执行语句 <code>git push -u origin master</code>即可完成代码上传到github</p>
+</li>
+</ul>
+<h2 id="项目上传github步骤"><a href="#项目上传github步骤" class="headerlink" title="项目上传github步骤"></a>项目上传github步骤</h2><ul>
+<li><p>一个项目建一个仓库，先在项目中 <code>git init</code>，再<code>git add ./</code>，最后 <code>git commit -m&quot;&quot;</code>。</p>
+</li>
+<li><p>tips：第一次push以前要先pull,因为有readme.md文件会冲突</p>
+</li>
+</ul>
+<h2 id="想上传除了某文件以外的所有文件"><a href="#想上传除了某文件以外的所有文件" class="headerlink" title="想上传除了某文件以外的所有文件"></a>想上传除了某文件以外的所有文件</h2><ul>
+<li>比如在react文件<code>node_modules</code>不想上传，想上传除了该文件以外的所有文件。先<code>vim .gitignore</code>写一个文件：<br><code>/.idea/</code><br><code>/node_modules/</code></li>
+<li><p>注意文件夹以前要写上/才可以被运行。</p>
+</li>
+<li><p><code>i</code>是插入可写，<code>：wq!</code>是提交文件。</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/17/搭建react时遇到的问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -995,7 +1163,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
