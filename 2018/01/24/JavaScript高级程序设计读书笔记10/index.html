@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="第10章 DOM节点层次 DOM可以将任何HTML或XML文档描绘成一个由多层节点构成的结构 文档节点是每个文档的根节点Node类型 DOM1级定义了一个Node接口，所有节点类型都继承自Node类型，因此所有节点类型都共享着相同的基本属性和方法 nodeType属性：1 元素节点，2 特性节点，3文档类型节点 nodeName属性：指定节点的节点名称 nodeValue属性：设置或返回指定节点的">
+<meta name="description" content="第10章 DOM节点层次 DOM可以将任何HTML或XML文档描绘成一个由多层节点构成的结构 文档节点是每个文档的根节点  Node类型 DOM1级定义了一个Node接口，所有节点类型都继承自Node类型，因此所有节点类型都共享着相同的基本属性和方法 nodeType属性：1 元素节点，2 特性节点，3文档类型节点 nodeName属性：指定节点的节点名称 nodeValue属性：设置或返回指定节">
 <meta name="keywords" content="Javascript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript高级程序设计读书笔记10">
 <meta property="og:url" content="http://yoursite.com/2018/01/24/JavaScript高级程序设计读书笔记10/index.html">
 <meta property="og:site_name" content="XyyFighting">
-<meta property="og:description" content="第10章 DOM节点层次 DOM可以将任何HTML或XML文档描绘成一个由多层节点构成的结构 文档节点是每个文档的根节点Node类型 DOM1级定义了一个Node接口，所有节点类型都继承自Node类型，因此所有节点类型都共享着相同的基本属性和方法 nodeType属性：1 元素节点，2 特性节点，3文档类型节点 nodeName属性：指定节点的节点名称 nodeValue属性：设置或返回指定节点的">
+<meta property="og:description" content="第10章 DOM节点层次 DOM可以将任何HTML或XML文档描绘成一个由多层节点构成的结构 文档节点是每个文档的根节点  Node类型 DOM1级定义了一个Node接口，所有节点类型都继承自Node类型，因此所有节点类型都共享着相同的基本属性和方法 nodeType属性：1 元素节点，2 特性节点，3文档类型节点 nodeName属性：指定节点的节点名称 nodeValue属性：设置或返回指定节">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-24T13:00:43.305Z">
+<meta property="og:updated_time" content="2018-01-26T12:39:41.136Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript高级程序设计读书笔记10">
-<meta name="twitter:description" content="第10章 DOM节点层次 DOM可以将任何HTML或XML文档描绘成一个由多层节点构成的结构 文档节点是每个文档的根节点Node类型 DOM1级定义了一个Node接口，所有节点类型都继承自Node类型，因此所有节点类型都共享着相同的基本属性和方法 nodeType属性：1 元素节点，2 特性节点，3文档类型节点 nodeName属性：指定节点的节点名称 nodeValue属性：设置或返回指定节点的">
+<meta name="twitter:description" content="第10章 DOM节点层次 DOM可以将任何HTML或XML文档描绘成一个由多层节点构成的结构 文档节点是每个文档的根节点  Node类型 DOM1级定义了一个Node接口，所有节点类型都继承自Node类型，因此所有节点类型都共享着相同的基本属性和方法 nodeType属性：1 元素节点，2 特性节点，3文档类型节点 nodeName属性：指定节点的节点名称 nodeValue属性：设置或返回指定节">
 
 
 
@@ -344,7 +344,9 @@
       
         <h1 id="第10章-DOM"><a href="#第10章-DOM" class="headerlink" title="第10章 DOM"></a>第10章 DOM</h1><h2 id="节点层次"><a href="#节点层次" class="headerlink" title="节点层次"></a>节点层次</h2><ul>
 <li>DOM可以将任何HTML或XML文档描绘成一个由多层节点构成的结构</li>
-<li>文档节点是每个文档的根节点<h3 id="Node类型"><a href="#Node类型" class="headerlink" title="Node类型"></a>Node类型</h3></li>
+<li>文档节点是每个文档的根节点</li>
+</ul>
+<h3 id="Node类型"><a href="#Node类型" class="headerlink" title="Node类型"></a>Node类型</h3><ul>
 <li>DOM1级定义了一个Node接口，所有节点类型都继承自Node类型，因此所有节点类型都共享着相同的基本属性和方法</li>
 <li>nodeType属性：1 元素节点，2 特性节点，3文档类型节点</li>
 <li>nodeName属性：指定节点的节点名称</li>
@@ -358,18 +360,14 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">convertArray</span>(<span class="params">nodes</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> array=<span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        array=<span class="built_in">Array</span>.prototype.slice.call(nodes,<span class="number">0</span>);<span class="comment">//IE以后及其他浏览器</span></span><br><span class="line">    &#125;<span class="keyword">catch</span>(ex)&#123;</span><br><span class="line">        array=<span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>,len=nodes.length;i&lt;len;i++)&#123;<span class="comment">//IE8及以前的版本</span></span><br><span class="line">            array.push(nodes[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> array;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>ownerDocument:指向表示整个文档的文档节点</p>
-</li>
-</ul>
-<h4 id="操作节点"><a href="#操作节点" class="headerlink" title="操作节点"></a>操作节点</h4><ul>
+<h4 id="操作节点"><a href="#操作节点" class="headerlink" title="操作节点"></a>操作节点</h4></li>
 <li>任何DOM节点都不能同时出现在文档中国的多个位置上，如果调用appendChild()时传入了父节点的一个子节点那么该节点就会成为父节点的最后一个子节点</li>
 <li>insertBefore():放在某个特定的节点之前</li>
 <li>replaceChild():替换节点。被替换的节点仍在还在文档中，但它在文档中没有了自己的位置</li>
 <li>removeChild():移除节点。被移除的节点仍在还在文档中，但它在文档中没有了自己的位置</li>
 <li>cloneNode(true)：深复制，复制节点机器整个子节点数</li>
 <li>cloneNode(false):浅复制，只复制节点本身</li>
-<li>normalize():如果找到空文本节点，就删除，找到相邻的文本节点，就合并</li>
-</ul>
-<h3 id="Document类型"><a href="#Document类型" class="headerlink" title="Document类型"></a>Document类型</h3><ul>
+<li>normalize():如果找到空文本节点，就删除，找到相邻的文本节点，就合并<h3 id="Document类型"><a href="#Document类型" class="headerlink" title="Document类型"></a>Document类型</h3></li>
 <li>Document类型可以表示HTML页面或者其他基于XML的文档</li>
 <li>最常见的应用是作为HTMLDocument实例的document对象<h4 id="文档的子节点"><a href="#文档的子节点" class="headerlink" title="文档的子节点"></a>文档的子节点</h4></li>
 <li>documentElement属性：始终指向HTML页面中的<html>元素</html></li>
@@ -415,7 +413,9 @@
 <li>可以通过nodeValue或者data属性访问Text节点包含的文本</li>
 <li>createTextNode():创建文本节点</li>
 <li>normalize():如果在包含两个或多个本文节点的父元素上调用该方法，则会将所有文本节点合并成一个节点</li>
-<li>splitText():按照指定的位置分割nodeValue值<h2 id="DOM操作技术"><a href="#DOM操作技术" class="headerlink" title="DOM操作技术"></a>DOM操作技术</h2><h3 id="动态脚本"><a href="#动态脚本" class="headerlink" title="动态脚本"></a>动态脚本</h3></li>
+<li>splitText():按照指定的位置分割nodeValue值</li>
+</ul>
+<h2 id="DOM操作技术"><a href="#DOM操作技术" class="headerlink" title="DOM操作技术"></a>DOM操作技术</h2><h3 id="动态脚本"><a href="#动态脚本" class="headerlink" title="动态脚本"></a>动态脚本</h3><ul>
 <li>在页面加载时不存在，但将来的某一时刻通过修改DOM动态添加的脚本</li>
 <li>创建动态脚本有两种方式：插入外部文件和直接插入JS代码<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//插入外部文件</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadScript</span>(<span class="params">url</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> script=<span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</span><br><span class="line">    script.type=<span class="string">"text/javascript"</span>;</span><br><span class="line">    script.src=url;</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(script);</span><br><span class="line">&#125;</span><br><span class="line">loadScript(<span class="string">"client.js"</span>);</span><br><span class="line"><span class="comment">//直接插入JS代码</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadScriptString</span>(<span class="params">code</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> script=<span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</span><br><span class="line">    script.type=<span class="string">"text/javascript"</span>;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        script.appendChild(<span class="built_in">document</span>.createTextNode(code);</span><br><span class="line">    &#125;<span class="keyword">catch</span>(ex)&#123;</span><br><span class="line">        script.text=code; <span class="comment">//用于IE，IE将&lt;script&gt;视为一个特殊的元素，不允许DOM访问其子节点</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(script);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
@@ -475,6 +475,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/25/JavaScript高级程序设计读书笔记11/" rel="prev" title="JavaScript高级程序设计读书笔记11">
+                JavaScript高级程序设计读书笔记11 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -555,7 +559,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
