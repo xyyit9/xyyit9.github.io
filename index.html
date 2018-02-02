@@ -252,6 +252,368 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/02/JavaScript高级程序设计读书笔记20/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/02/JavaScript高级程序设计读书笔记20/" itemprop="url">JavaScript高级程序设计读书笔记20</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-02T17:30:34+08:00">
+                2018-02-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第20章-Json"><a href="#第20章-Json" class="headerlink" title="第20章 Json"></a>第20章 Json</h1><ul>
+<li>JSON（Javascript Object Notaion，对象表示法）并不从属于Javascript，只是一种数据格式</li>
+</ul>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><ul>
+<li>简单值：使用与Javascript相同的语法，可以在JSON中表示字符串、数值、布尔值和null，但JSON不支持Javascript中的特殊值undefined</li>
+<li>对象：表示一组无序的键值对儿</li>
+<li>数组：表示一组有序的值的列表</li>
+</ul>
+<h3 id="简单值"><a href="#简单值" class="headerlink" title="简单值"></a>简单值</h3><ul>
+<li>JSON字符串必须使用双引号（单引号会导致语法错误）</li>
+</ul>
+<h3 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h3><ul>
+<li>JSON中的对象要求给属性加引号</li>
+<li>JSON对象与Javascript的对象字面量的区别：<blockquote>
+<p>1.没有声明变量；<br>2.没有末尾的分号（因为这不是Javascirpt语句，所以不需要分号）<br>3.对象的属性必须加双引号，这在JSON中是必须的</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"name"</span>:<span class="string">"Nicholas"</span>,</span><br><span class="line">    <span class="string">"age"</span>:<span class="number">19</span>,</span><br><span class="line">    <span class="string">"school"</span>:&#123;</span><br><span class="line">        <span class="string">"name"</span>:<span class="string">"school"</span>,</span><br><span class="line">        <span class="string">"location"</span>:<span class="string">"location"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><ul>
+<li>JSON数组采用的就是JavaScript的数组字面量形式。</li>
+<li>在JSON中，可以采用相同的语法表示同一个数组<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"title"</span>: <span class="string">"Professional JS"</span>,</span><br><span class="line">        <span class="string">"author"</span>: [<span class="string">"Nicholas C. Zakas"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="string">"edition"</span>: <span class="number">2</span>,</span><br><span class="line">        <span class="string">"year"</span>: <span class="number">2017</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">"title"</span>: <span class="string">"Reading notes"</span>,</span><br><span class="line">        <span class="string">"author"</span>: [<span class="string">"xyy"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="string">"edition"</span>: <span class="number">1</span>,</span><br><span class="line">        <span class="string">"year"</span>: <span class="number">2016</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="解析与序列化"><a href="#解析与序列化" class="headerlink" title="解析与序列化"></a>解析与序列化</h2><ul>
+<li>stringify()和parse()用于把JavaScript对象序列化为JSON字符串和把JSON字符串解析为原生JavaScript值。</li>
+<li>在序列化JS对象时，所有函数及原型成员都会被有意忽略，不体现在结果中</li>
+<li>值为undefined的任何属性也都会被跳过</li>
+</ul>
+<h3 id="序列化选项"><a href="#序列化选项" class="headerlink" title="序列化选项"></a>序列化选项</h3><ul>
+<li>JSON.stringify还可以接收另外两个参数：1、过滤器，可以是数组，也可以是函数。2、选项，表示是否在JSON字符串保留缩进</li>
+</ul>
+<h3 id="过滤结果"><a href="#过滤结果" class="headerlink" title="过滤结果"></a>过滤结果</h3><ul>
+<li><p>若过滤器是数组，则JSON.stringify结果将只包含数组列出的元素</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> book = &#123;</span><br><span class="line">    title:<span class="string">"title"</span>,</span><br><span class="line">    author:[</span><br><span class="line">        <span class="string">"Nicholas C. Zakas"</span></span><br><span class="line">    ],</span><br><span class="line">    edition:<span class="number">3</span>,</span><br><span class="line">    year:<span class="number">2011</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> jsonText = <span class="built_in">JSON</span>.stringify(book,[<span class="string">"title"</span>,<span class="string">"edition"</span>]);     </span><br><span class="line"><span class="comment">//&#123;"title":"title","edition":3&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>若过滤器是函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> jsonText = <span class="built_in">JSON</span>.stringify(book,<span class="function"><span class="keyword">function</span>(<span class="params">key,value</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">switch</span>(key)&#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">"author"</span>:</span><br><span class="line">            <span class="keyword">return</span> value.join(<span class="string">","</span>);</span><br><span class="line">           </span><br><span class="line">        <span class="keyword">case</span> <span class="string">"year"</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="number">5000</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">case</span> <span class="string">"edition"</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">undefined</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);                                   </span><br><span class="line"><span class="comment">//&#123;"title":"title","author":"Nicholas C. Zakas","year":5000&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="字符串缩进"><a href="#字符串缩进" class="headerlink" title="字符串缩进"></a>字符串缩进</h3><ul>
+<li>JSON.stringify第三个参数用于控制缩进和空白符，若是数值，表示每个级别的缩进空格数</li>
+<li>最大缩进空格数为10，大于10的数值全部转为10</li>
+<li>若缩进参数是字符串，则将被用于缩进字符</li>
+</ul>
+<h3 id="toJSON-方法"><a href="#toJSON-方法" class="headerlink" title="toJSON()方法"></a>toJSON()方法</h3><p>toJSON方法可以作为函数过滤器的补充，理解序列化顺序：</p>
+<ol>
+<li>如果存在toJSON方法，而且能通过它取得有效值，调用该方法，否则返回对象本身</li>
+<li>若提供了第二个参数，应用这个函数过滤器，传入函数过滤器的值是第一步返回值</li>
+<li>对第二步返回值进行序列化</li>
+<li>若提供了第三个参数，执行相应格式化</li>
+</ol>
+<h3 id="解析选项"><a href="#解析选项" class="headerlink" title="解析选项"></a>解析选项</h3><ul>
+<li>JSON.parse也接收另一个参数，是一个函数，将在每个键值对上调用。若返回结果为undefined，表示删除该值，返回其他值，则将该值插入到结果。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> book = &#123;</span><br><span class="line">    title:<span class="string">"title"</span>,</span><br><span class="line">    author:[</span><br><span class="line">        <span class="string">"Nicholas C. Zakas"</span></span><br><span class="line">    ],</span><br><span class="line">    edition:<span class="number">3</span>,</span><br><span class="line">    year:<span class="number">2011</span>,</span><br><span class="line">    releaseDate:<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2011</span>,<span class="number">11</span>,<span class="number">1</span>)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> jsonText = <span class="built_in">JSON</span>.stringify(book);</span><br><span class="line"><span class="keyword">var</span> bookCopy = <span class="built_in">JSON</span>.parse(jsonText,<span class="function"><span class="keyword">function</span>(<span class="params">key,value</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(key == <span class="string">"releaseDate"</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Date</span>(value);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">alert(bookCopy.releaseDate.getFullYear());               <span class="comment">//2011</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/02/JavaScript高级程序设计读书笔记19/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/02/JavaScript高级程序设计读书笔记19/" itemprop="url">JavaScript高级程序设计读书笔记19</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-02T17:30:34+08:00">
+                2018-02-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第19章-E4X"><a href="#第19章-E4X" class="headerlink" title="第19章 E4X"></a>第19章 E4X</h1><h2 id="E4X的类型"><a href="#E4X的类型" class="headerlink" title="E4X的类型"></a>E4X的类型</h2><ul>
+<li>XML：XML结构中的任何一个独立的部分</li>
+<li>XMList:XML对象的集合</li>
+<li>NameSpace:命名空间前缀与命名空间URI之间的映射</li>
+<li>QName:由内部名称和命名空间URI组成的一个限定名</li>
+</ul>
+<h2 id="一般用法"><a href="#一般用法" class="headerlink" title="一般用法"></a>一般用法</h2><ul>
+<li>点号加特性访问其中不同的层次和结构<code>employee.name</code></li>
+<li>如果有多个元素具有相同的标签名，就会返回XMLList <code>employees.employee[0].name</code></li>
+<li>若不确定资源的内部名称，可以使用星号。 <code>employees.*[0].name</code></li>
+<li>child():将属性名或者索引值传递给该方法</li>
+<li>children():返回所有子元素</li>
+<li>elements():与child()类似，但是只返回表示元素的XML对象</li>
+</ul>
+<h3 id="访问特性"><a href="#访问特性" class="headerlink" title="访问特性"></a>访问特性</h3><ul>
+<li>用@符号表示应该返回特性</li>
+<li><code>..</code>表示要匹配所有后代元素</li>
+</ul>
+<h3 id="其他节点类型"><a href="#其他节点类型" class="headerlink" title="其他节点类型"></a>其他节点类型</h3><ul>
+<li>nodeKind（）:可以得到XML对象表示的类型</li>
+</ul>
+<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><ul>
+<li>所有查询都可以通过一组执行相同操作的方法来实现</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/02/JavaScript高级程序设计读书笔记18/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2329,425 +2691,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/24/JavaScript高级程序设计读书笔记10/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XyyFighting">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/24/JavaScript高级程序设计读书笔记10/" itemprop="url">JavaScript高级程序设计读书笔记10</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-24T21:01:04+08:00">
-                2018-01-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第10章-DOM"><a href="#第10章-DOM" class="headerlink" title="第10章 DOM"></a>第10章 DOM</h1><h2 id="节点层次"><a href="#节点层次" class="headerlink" title="节点层次"></a>节点层次</h2><ul>
-<li>DOM可以将任何HTML或XML文档描绘成一个由多层节点构成的结构</li>
-<li>文档节点是每个文档的根节点</li>
-</ul>
-<h3 id="Node类型"><a href="#Node类型" class="headerlink" title="Node类型"></a>Node类型</h3><ul>
-<li>DOM1级定义了一个Node接口，所有节点类型都继承自Node类型，因此所有节点类型都共享着相同的基本属性和方法</li>
-<li>nodeType属性：1 元素节点，2 特性节点，3文档类型节点</li>
-<li>nodeName属性：指定节点的节点名称</li>
-<li>nodeValue属性：设置或返回指定节点的节点值</li>
-<li>previousSilbing属性：返回同一树层级中指定节点的前一个节点</li>
-<li>nextSibling属性：返回指定节点之后紧跟的节点</li>
-<li>parentNide属性：指向文档树中的父节点</li>
-<li>childNodes属性：保存着一个NodeList对象。可以通过方括号来访问NodeList的值，且有length属性，但它并不是Array的实例。</li>
-<li>arguments对象使用<code>Array.prototype.slice()</code>方法可以将其转换成数组</li>
-<li><p>同样，NodeList也可以转换为数组<code>var arrayOfNodes=Array.prototype.slice.call(someNode.childNodes,0)</code>,但此代码在IE8以前的版本无效</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">convertArray</span>(<span class="params">nodes</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> array=<span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        array=<span class="built_in">Array</span>.prototype.slice.call(nodes,<span class="number">0</span>);<span class="comment">//IE以后及其他浏览器</span></span><br><span class="line">    &#125;<span class="keyword">catch</span>(ex)&#123;</span><br><span class="line">        array=<span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>,len=nodes.length;i&lt;len;i++)&#123;<span class="comment">//IE8及以前的版本</span></span><br><span class="line">            array.push(nodes[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> array;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>ownerDocument:指向表示整个文档的文档节点</p>
-<h4 id="操作节点"><a href="#操作节点" class="headerlink" title="操作节点"></a>操作节点</h4></li>
-<li>任何DOM节点都不能同时出现在文档中国的多个位置上，如果调用appendChild()时传入了父节点的一个子节点那么该节点就会成为父节点的最后一个子节点</li>
-<li>insertBefore():放在某个特定的节点之前</li>
-<li>replaceChild():替换节点。被替换的节点仍在还在文档中，但它在文档中没有了自己的位置</li>
-<li>removeChild():移除节点。被移除的节点仍在还在文档中，但它在文档中没有了自己的位置</li>
-<li>cloneNode(true)：深复制，复制节点机器整个子节点数</li>
-<li>cloneNode(false):浅复制，只复制节点本身</li>
-<li>normalize():如果找到空文本节点，就删除，找到相邻的文本节点，就合并<h3 id="Document类型"><a href="#Document类型" class="headerlink" title="Document类型"></a>Document类型</h3></li>
-<li>Document类型可以表示HTML页面或者其他基于XML的文档</li>
-<li>最常见的应用是作为HTMLDocument实例的document对象<h4 id="文档的子节点"><a href="#文档的子节点" class="headerlink" title="文档的子节点"></a>文档的子节点</h4></li>
-<li>documentElement属性：始终指向HTML页面中的<html>元素</html></li>
-<li>childNodes:访问文档元素</li>
-<li>body属性：直接指向<body>元素</body></li>
-<li>doctype属性:取得在&lt;!DOCTYPE&gt;中的DocumentType节点</li>
-<li>文档类型是只读的，而且只能有一个元素节点<h4 id="文档信息"><a href="#文档信息" class="headerlink" title="文档信息"></a>文档信息</h4></li>
-<li>document.title:<title>元素的文本，显示在浏览器窗口的标题栏或标签页上</title></li>
-<li>document.URL:页面完整的url</li>
-<li>document.domain:页面的域名</li>
-<li>document.referrer:链接到当前页面的那个页面的url。在没有来源页面的情况下，可能包含空字符串。</li>
-<li>只有domain可以设置，但也并不是任何值。</li>
-<li>由于跨域安全限制，来自不同子域的页面无法通过JS通信，而将每个也没按的document.domain设置为相同的值，这些页面就可以互相访问对方包含的JS对象了。</li>
-<li>如果域名一开始是松散的，就不能再将其设置为紧绷的。<h4 id="查找元素"><a href="#查找元素" class="headerlink" title="查找元素"></a>查找元素</h4></li>
-<li>getElementById:严格匹配，包括大小写。只返回文档中第一次出现的元素</li>
-<li>getElementsByTagName():返回一个NodeList.在HTML文档中，返回一个HTMLCollection对象.</li>
-<li>HTMLCollection.namedItem():可以通过元素的name特性取得集合中的项，效果和方括号语法相同</li>
-<li>getElementsByName():最常用的情况是取得单选按钮<h4 id="DOM一致性检测"><a href="#DOM一致性检测" class="headerlink" title="DOM一致性检测"></a>DOM一致性检测</h4></li>
-<li>document.implementation:检测浏览器实现了DOM的哪些部分</li>
-<li>hasFeature():DOM1级只为document.implementation规定了一个方法<h4 id="文档写入"><a href="#文档写入" class="headerlink" title="文档写入"></a>文档写入</h4></li>
-<li>如果在文档加载结束后再调用document.write（）,输出的内容将会重写整个页面。</li>
-<li>以下代码页面上只有Tue Jan 23 2018 18:08:35 GMT+0800 (中国标准时间)。<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>The time is:<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="built_in">window</span>.onload=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.write(<span class="string">"&lt;strong&gt;"</span>+(<span class="keyword">new</span> <span class="built_in">Date</span>()).toString()+<span class="string">"&lt;/strong&gt;"</span>);</span></span><br><span class="line"><span class="undefined">        &#125;;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="Element类型"><a href="#Element类型" class="headerlink" title="Element类型"></a>Element类型</h3><ul>
-<li>tagName属性：和nodeName一样</li>
-<li>在HTML中标签名始终都会以全部大写表示，在XML中标签名会始终与源代码中的保持一致<code>if(element.tagName.toLowerCase()==&quot;div&quot;){}</code><h4 id="HTML元素"><a href="#HTML元素" class="headerlink" title="HTML元素"></a>HTML元素</h4></li>
-<li>所有HTML元素都由HTMLElement类型表示，不是直接通过这个类型，也是通过它的子类型来表示</li>
-<li>id、title、lang、dir、className<h4 id="取得特性"><a href="#取得特性" class="headerlink" title="取得特性"></a>取得特性</h4></li>
-<li>getAttribute（）</li>
-<li>通过属性的值和通过getAttribute都可以得到特性值，但是自定义的特性一定要用getAttribute</li>
-<li>注意，className的特殊性<code>&lt;div class=&quot;bd&quot;&gt;&lt;/div&gt;</code> <code>div.className</code> <code>div.getAttribute(&quot;class&quot;)</code></li>
-<li>style和onclick这样的时间处理程序在通过属性的值和通过getAttribute两种方法返回的值不同<h4 id="设置特性"><a href="#设置特性" class="headerlink" title="设置特性"></a>设置特性</h4></li>
-<li>setAttribute()：设置属性，也可以直接给属性赋值来设置</li>
-<li>removeAttribute()：清除特性的值，从元素中完全删除特性<h4 id="attributes属性"><a href="#attributes属性" class="headerlink" title="attributes属性"></a>attributes属性</h4></li>
-<li>ELement类型是使用attributes属性的唯一一个DOM节点类型。</li>
-<li>attributes属性中包含一个NamedNodeMap，与NodeList类似。<h4 id="创建元素"><a href="#创建元素" class="headerlink" title="创建元素"></a>创建元素</h4></li>
-<li>createElement()</li>
-<li>在HTML文档椎间盘美好你起个名大小写，在XML（或者XHTML）文档中区分大小写<h4 id="元素的子节点"><a href="#元素的子节点" class="headerlink" title="元素的子节点"></a>元素的子节点</h4></li>
-<li>如果需要通过childNodes属性遍历子节点，通常都要先吉安查一个nodeType属性</li>
-</ul>
-<h3 id="Text类型"><a href="#Text类型" class="headerlink" title="Text类型"></a>Text类型</h3><ul>
-<li>可以通过nodeValue或者data属性访问Text节点包含的文本</li>
-<li>createTextNode():创建文本节点</li>
-<li>normalize():如果在包含两个或多个本文节点的父元素上调用该方法，则会将所有文本节点合并成一个节点</li>
-<li>splitText():按照指定的位置分割nodeValue值</li>
-</ul>
-<h2 id="DOM操作技术"><a href="#DOM操作技术" class="headerlink" title="DOM操作技术"></a>DOM操作技术</h2><h3 id="动态脚本"><a href="#动态脚本" class="headerlink" title="动态脚本"></a>动态脚本</h3><ul>
-<li>在页面加载时不存在，但将来的某一时刻通过修改DOM动态添加的脚本</li>
-<li>创建动态脚本有两种方式：插入外部文件和直接插入JS代码<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//插入外部文件</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadScript</span>(<span class="params">url</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> script=<span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</span><br><span class="line">    script.type=<span class="string">"text/javascript"</span>;</span><br><span class="line">    script.src=url;</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(script);</span><br><span class="line">&#125;</span><br><span class="line">loadScript(<span class="string">"client.js"</span>);</span><br><span class="line"><span class="comment">//直接插入JS代码</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadScriptString</span>(<span class="params">code</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> script=<span class="built_in">document</span>.createElement(<span class="string">"script"</span>);</span><br><span class="line">    script.type=<span class="string">"text/javascript"</span>;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        script.appendChild(<span class="built_in">document</span>.createTextNode(code);</span><br><span class="line">    &#125;<span class="keyword">catch</span>(ex)&#123;</span><br><span class="line">        script.text=code; <span class="comment">//用于IE，IE将&lt;script&gt;视为一个特殊的元素，不允许DOM访问其子节点</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(script);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="动态样式"><a href="#动态样式" class="headerlink" title="动态样式"></a>动态样式</h3><ul>
-<li>在页面加载完成后添加到页面中的。</li>
-<li>加载外部样式文件的过程是异步的，也就是加载样式与执行JS代码的过程没有固定的次序。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//插入外部文件</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadStyles</span>(<span class="params">url</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> link=<span class="built_in">document</span>.createElement(<span class="string">"link"</span>);</span><br><span class="line">    link.rel=<span class="string">"stylesheet"</span>;</span><br><span class="line">    link.type=<span class="string">"text/css"</span>;</span><br><span class="line">    link.href=url;</span><br><span class="line">    <span class="keyword">var</span> head=<span class="built_in">document</span>.getElementsByTagName(<span class="string">"head"</span>)[<span class="number">0</span>];</span><br><span class="line">    head.appendChild(link);</span><br><span class="line">&#125;</span><br><span class="line">loadStyles(<span class="string">"styles.css"</span>);</span><br><span class="line"><span class="comment">//直接插入JS代码</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loadStyleString</span>(<span class="params">css</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> style=<span class="built_in">document</span>.createElement(<span class="string">"style"</span>);</span><br><span class="line">    style.type=<span class="string">"text/css"</span>;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        style.appendChild(<span class="built_in">document</span>.createTextNode(css));</span><br><span class="line">    &#125;<span class="keyword">catch</span>(ex)&#123;</span><br><span class="line">        style.styleSheet.cssText=css; <span class="comment">//用于IE，IE将&lt;style&gt;视为一个特殊的元素，不允许DOM访问其子节点</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> head=<span class="built_in">document</span>.getElementsByTagName(<span class="string">"head"</span>)[<span class="number">0</span>];</span><br><span class="line">    head.appendChild(style);</span><br><span class="line">&#125;</span><br><span class="line">loadStyleString(<span class="string">"body&#123;background-color:red&#125;"</span>);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="操作表格"><a href="#操作表格" class="headerlink" title="操作表格"></a>操作表格</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> table=<span class="built_in">document</span>.createElement(<span class="string">"table"</span>);</span><br><span class="line">table.border=<span class="number">1</span>;</span><br><span class="line">table.width=<span class="string">"100%"</span>;</span><br><span class="line"><span class="keyword">var</span> tbody=<span class="built_in">document</span>.createElement(<span class="string">"tbody"</span>);</span><br><span class="line">table.appendChild(tbody);</span><br><span class="line"><span class="comment">//创建第一行</span></span><br><span class="line">tbody.insertRow(<span class="number">0</span>);</span><br><span class="line">tbody.rows[<span class="number">0</span>].insertCell(<span class="number">0</span>);</span><br><span class="line">tbody.rows[<span class="number">0</span>].cells[<span class="number">0</span>].appendChild(<span class="built_in">document</span>.createTextNode(<span class="string">"cell 1,1"</span>));</span><br><span class="line">tbody.rows[<span class="number">0</span>].insertCell(<span class="number">1</span>);</span><br><span class="line">tbody.rows[<span class="number">0</span>].cells[<span class="number">0</span>].appendChild(<span class="built_in">document</span>.createTextNode(<span class="string">"cell 2,1"</span>));</span><br><span class="line"><span class="comment">//创建第二行</span></span><br><span class="line">tbody.insertRow(<span class="number">1</span>);</span><br><span class="line">tbody.rows[<span class="number">0</span>].insertCell(<span class="number">0</span>);</span><br><span class="line">tbody.rows[<span class="number">0</span>].cells[<span class="number">0</span>].appendChild(<span class="built_in">document</span>.createTextNode(<span class="string">"cell 1,2"</span>));</span><br><span class="line">tbody.rows[<span class="number">0</span>].insertCell(<span class="number">1</span>);</span><br><span class="line">tbody.rows[<span class="number">0</span>].cells[<span class="number">0</span>].appendChild(<span class="built_in">document</span>.createTextNode(<span class="string">"cell 2,2"</span>));</span><br></pre></td></tr></table></figure>
-<h3 id="使用NodeList"><a href="#使用NodeList" class="headerlink" title="使用NodeList"></a>使用NodeList</h3><ul>
-<li>NodeList、NamedNodeMap、HTMLCollection这三个集合是动态的，每当文档结构发生变化时，它们都会得到更新。</li>
-<li>因此，它们始终都会保存着最新、最准确地信息。</li>
-<li>从本质上说。所有NodeList对象都是在访问DOM文档时实时运行的查询。</li>
-<li><p>浏览器不会将创建的所有集合都保存在一个列表中，而是在下一次访问集合时再更新集合。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> divs=<span class="built_in">document</span>.getElementsByTagName(<span class="string">"div"</span>),</span><br><span class="line">    i,</span><br><span class="line">    len,</span><br><span class="line">    div;</span><br><span class="line"><span class="keyword">for</span>(i=<span class="number">0</span>,len=divs.length;i&lt;len;i++)&#123;</span><br><span class="line">    div=<span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(div);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>length属性初始化len变量，然后将迭代器与该变量进行比较，避免直接比较造成的无限循环问题。</p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/24/JavaScript高级程序设计读书笔记9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XyyFighting">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/24/JavaScript高级程序设计读书笔记9/" itemprop="url">JavaScript高级程序设计读书笔记9</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-24T16:39:11+08:00">
-                2018-01-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第9章-客户端检测"><a href="#第9章-客户端检测" class="headerlink" title="第9章 客户端检测"></a>第9章 客户端检测</h1><ul>
-<li>不到万不得已，不要使用客户端检测<h2 id="能力检测"><a href="#能力检测" class="headerlink" title="能力检测"></a>能力检测</h2></li>
-<li>最常用也最为人们广泛接受的客户端检测形式是能力检测（又称特性检测）</li>
-<li>1.先检测答到目的的最常用的特性，保证代码最优化，在多数情况下都可以避免测试多个条件</li>
-<li>2.必须测试实际要用到的特性，即一个特性国的存在，不一定意味着另一个特性也存在<h3 id="更可靠的能力检测"><a href="#更可靠的能力检测" class="headerlink" title="更可靠的能力检测"></a>更可靠的能力检测</h3></li>
-<li><p>确定一个对象是否支持排序，检测其是否是有排序属性并不能确定这个对象是否支持排序，更好的方法是确定sort是不是一个函数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isSortable</span>(<span class="params">object</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">typeof</span> object.sort==<span class="string">"function"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>但是宿主兑现更没有义务让typeof返回合理的值，因此在浏览器环境下的测试任何对象的某个特性是否存在，要使用下面这个函数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isHostMethod</span>(<span class="params">object,property</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> t=<span class="keyword">typeof</span> object[property];</span><br><span class="line">    <span class="keyword">return</span> t==<span class="string">'function'</span>||(!!(t==<span class="string">'object'</span>&amp;&amp;object[property]))||t==<span class="string">'unknown'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="能力检测，不是浏览器检测"><a href="#能力检测，不是浏览器检测" class="headerlink" title="能力检测，不是浏览器检测"></a>能力检测，不是浏览器检测</h3><ul>
-<li>检测某个或几个特性并不能够确定浏览器</li>
-<li>确定浏览器是否支持Netscape风格的插件<br><code>var hasNSPlugins=!!(navigator.plugins&amp;&amp;navigator.plugins.length);</code></li>
-<li>确定浏览器是否支持DOM1级规定的能力<br><code>var hasDOM1=!!(document.getElementById&amp;&amp;document.createElement&amp;&amp;document.getElementsByTagName);</code><h2 id="怪癖检测"><a href="#怪癖检测" class="headerlink" title="怪癖检测"></a>怪癖检测</h2></li>
-<li>怪癖检测的目的是识别浏览器的特殊行为</li>
-<li><p>IE8及更早的版本会存在：如果某个实例属性与[[Enumerable]]标记为false的某个原型属性同名，那么该实例属性将不会出现在for-in循环中</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> hasDontEnumQuirk = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> o = &#123; <span class="attr">toString</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125; &#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> prop <span class="keyword">in</span> o) &#123;</span><br><span class="line">        <span class="keyword">if</span> (prop == <span class="string">"toString"</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;();</span><br><span class="line"><span class="built_in">console</span>.log(hasDontEnumQuirk);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Safari3以前的版本会枚举被隐藏的属性</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> hasEnumShadowsQuirk = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> o = &#123;<span class="attr">toString</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;&#125;;</span><br><span class="line">    <span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> prop <span class="keyword">in</span> o) &#123;</span><br><span class="line">        <span class="keyword">if</span> (prop == <span class="string">"toString"</span>) &#123;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (count==<span class="number">1</span>);</span><br><span class="line">&#125;();</span><br><span class="line"><span class="built_in">console</span>.log(hasEnumShadowsQuirk);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="用户代理检测"><a href="#用户代理检测" class="headerlink" title="用户代理检测"></a>用户代理检测</h2><ul>
-<li>用户代理检测通过检测用户代理字符串来确定实际使用的浏览器</li>
-<li>在每一次HTTP请求过程中，用户代理字符串是作为响应首部发送的，而且该字符串可以通过JavaScript的navigator.userAgent属性访问</li>
-<li>在服务器端，通过检测用户代理字符串来确定用户使用过的浏览器是一种常用且广为接受的做法</li>
-<li>在客户端，检测用户代理是一种万不得已采用的做法</li>
-<li>电子欺骗：浏览器通过在自己的用户代理字符串中加入一些错误或误导的信息，达到欺骗服务器的目的<h3 id="用户代理字符串的历史"><a href="#用户代理字符串的历史" class="headerlink" title="用户代理字符串的历史"></a>用户代理字符串的历史</h3></li>
-<li>加密类型：即安全加密的类型。U：128位加密 I:40位加密 N：未加密<h3 id="用户代理字符串检测技术"><a href="#用户代理字符串检测技术" class="headerlink" title="用户代理字符串检测技术"></a>用户代理字符串检测技术</h3></li>
-<li>一般情况下，知道呈现引擎和最低限度的版本就足以确定正确的操作方法了<h4 id="识别呈现引擎"><a href="#识别呈现引擎" class="headerlink" title="识别呈现引擎"></a>识别呈现引擎</h4></li>
-<li>五大呈现引擎：IE、Gecko、WebKit、KHTML、Opera</li>
-<li>正确地检测顺序：1.Opera 2.WebKit 3.KHTML 4.Gecko 5.IE<h4 id="识别浏览器"><a href="#识别浏览器" class="headerlink" title="识别浏览器"></a>识别浏览器</h4></li>
-<li>只有呈现引擎还不能说明存在所需的JS功能<h4 id="识别平台"><a href="#识别平台" class="headerlink" title="识别平台"></a>识别平台</h4></li>
-<li>在某些条件下，平台可能是必须关注的问题</li>
-<li>目前三大主流平台：Windows、Mac、Unix<h3 id="使用用户代理检测的场景"><a href="#使用用户代理检测的场景" class="headerlink" title="使用用户代理检测的场景"></a>使用用户代理检测的场景</h3></li>
-</ul>
-<ol>
-<li>不能直接准确地使用能力检测或怪癖检测</li>
-<li>用一款浏览器在不同平台下具备不同的能力</li>
-<li>为了跟踪分析等目的需要知道确切的浏览器</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2802,7 +2745,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

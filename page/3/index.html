@@ -252,6 +252,330 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/08/Javascript DOM编程艺术读书笔记11/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/08/Javascript DOM编程艺术读书笔记11/" itemprop="url">Javascript DOM编程艺术读书笔记11</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-08T15:12:43+08:00">
+                2018-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="HTML5"><a href="#HTML5" class="headerlink" title="HTML5"></a>HTML5</h2><h3 id="Modernizr"><a href="#Modernizr" class="headerlink" title="Modernizr"></a>Modernizr</h3><ul>
+<li>提供一些不同的CSS类名以及特性检测属性<h3 id="音频和视频"><a href="#音频和视频" class="headerlink" title="音频和视频"></a>音频和视频</h3></li>
+<li>在每个影片容器中，音频和视频轨道都使用不同的编解码器来编码。编码器决定了浏览器在播放时应该如何解码音频和视频。</li>
+<li>有代表性的视频解码器有：H.264、Theora和VP8</li>
+<li>没有一款浏览器支持所有容器和编解码器，因此必须提供多种后备格式。</li>
+<li>为了确保HTML5的最大兼容性，至少包含下列三个版本：<blockquote>
+<p>基于H.264和AAC的MP4<br>webM(VP8+Vorbis)<br>基于Theora视频和Vorbis音频的Ogg文件</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="表单"><a href="#表单" class="headerlink" title="表单"></a>表单</h3><ul>
+<li><p>如果没有使用Modernize,可以使用如下函数检查浏览器是否支持某种类型的输入控件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inputSupporsType</span>(<span class="params">type</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">document</span>.createElement) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> input=<span class="built_in">document</span>.createElement(<span class="string">'input'</span>);</span><br><span class="line">    <span class="comment">//设置input表单的type属性</span></span><br><span class="line">    input.setAttribute(<span class="string">'type'</span>,type);</span><br><span class="line">    <span class="comment">//如果input表单的type属性是text,但是传入的type类型不是text,说明浏览器不支持该类型的输入控件</span></span><br><span class="line">    <span class="keyword">if</span>(input.type==<span class="string">'text'</span>&amp;&amp;type!=<span class="string">'text'</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果没有使用Modernize,可以使用如下函数检查浏览器是否支持特定的属性</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">elementSupportsAttribute</span>(<span class="params">elementName,attribute</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">document</span>.createElement) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> temp=<span class="built_in">document</span>.createElement(elementName);</span><br><span class="line">    <span class="comment">//如果浏览器支持该属性，则会返回true，否则是false</span></span><br><span class="line">    <span class="keyword">return</span>(attribute <span class="keyword">in</span> temp);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在不支持placeholder属性的浏览器中实现相同的效果，得编写以下DOM脚本实现完成同样的功能<br><code>&lt;input type=&quot;text&quot; id=&quot;first-name&quot; placeholder=&quot;you first name&quot; /&gt;</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用Modernizr判断当前浏览器是否支持placeholder属性</span></span><br><span class="line"><span class="keyword">if</span>(!Modernizr.input.placeholder)&#123;</span><br><span class="line">    <span class="comment">//根据id获得placeholder的input元素</span></span><br><span class="line">    <span class="keyword">var</span> input=<span class="built_in">document</span>.getElementById(<span class="string">'first-name'</span>);</span><br><span class="line">    input.onfocus=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">//如果input元素有placeholder属性值</span></span><br><span class="line">        <span class="keyword">var</span> text=<span class="keyword">this</span>.placeholder||<span class="keyword">this</span>.getAttribute(<span class="string">'placeholder'</span>);</span><br><span class="line">        <span class="comment">//当鼠标焦距时是提示信息，就不显示提示信息</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">this</span>.value==text)&#123;</span><br><span class="line">            <span class="keyword">this</span>.value=<span class="string">''</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    input.onblur=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">//当鼠标离开时，没有文本内容，就仍然显示提示信息</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">this</span>.value==<span class="string">''</span>)&#123;</span><br><span class="line">            <span class="keyword">this</span>.value=<span class="keyword">this</span>.placeholder||<span class="keyword">this</span>.getAttribute(<span class="string">'placeholder'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    input.onblur();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/06/Javascript DOM编程艺术读书笔记10/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/06/Javascript DOM编程艺术读书笔记10/" itemprop="url">Javascript DOM编程艺术读书笔记10</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-06T21:37:02+08:00">
+                2018-01-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="第10章-用javascript实现动画效果"><a href="#第10章-用javascript实现动画效果" class="headerlink" title="第10章 用javascript实现动画效果"></a>第10章 用javascript实现动画效果</h2><h3 id="css的overflow属性"><a href="#css的overflow属性" class="headerlink" title="css的overflow属性"></a>css的overflow属性</h3><p>overflow属性的可取值有4种：visible、hidden、scroll、auto。</p>
+<ul>
+<li>visible:不裁剪溢出的内容。内容只显示在其容器元素的显示区域内，这意味着只有一部分内容可见。</li>
+<li>hidden:隐藏溢出的内容。内容只显示在其容器元素的显示区域里，这意味着只有一部分内容可见。</li>
+<li>scroll：类似于hidden，浏览器将对溢出的内容进行隐藏，但显示一个滚动条以便让用户能够滚动看到内容的其他部分。</li>
+<li>auto：类似于scroll,但是浏览器只在确实发生溢出时才显示滚动条，如果内容没有溢出，就不显示滚动条。</li>
+</ul>
+<h3 id="position"><a href="#position" class="headerlink" title="position"></a>position</h3><ul>
+<li>如果把position属性值是absolute的元素A，放入一个position是relative的元素B，B就成为A的容器元素，A将在B的显示区域里按absolute方式进行摆放。</li>
+</ul>
+<h3 id="math函数"><a href="#math函数" class="headerlink" title="math函数"></a>math函数</h3><ul>
+<li>Math.ceil(number)将浮点数number向“大于”方向舍入为与之最接近的整数</li>
+<li>Math.floor(number)将浮点数number向“小于”方向舍入为与之最接近的整数</li>
+<li>Math.round(number)将浮点数number舍入为与之最接近的整数</li>
+</ul>
+<h3 id="动画效果"><a href="#动画效果" class="headerlink" title="动画效果"></a>动画效果</h3><p>message.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Message<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"message1"</span>&gt;</span>Whee!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">P</span> <span class="attr">id</span>=<span class="string">"message2"</span>&gt;</span>Whoa!<span class="tag">&lt;/<span class="name">P</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"scripts/addLoadEvent.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"scripts/positionMessage.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"scripts/moveElement.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>addLoadEvent.js<br>moveElement.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//elementID打算移动的元素id,final_x元素目的地左位置，final_y元素目的地上位置，interval两次移动之间的停顿时间</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">moveElement</span>(<span class="params">elementID,final_x,final_y,interval</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">document</span>.getElementById) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">document</span>.getElementById(elementID))<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> elem=<span class="built_in">document</span>.getElementById(elementID);</span><br><span class="line">    <span class="keyword">var</span> xpos=<span class="built_in">parseInt</span>(elem.style.left);</span><br><span class="line">    <span class="keyword">var</span> ypos=<span class="built_in">parseInt</span>(elem.style.top);</span><br><span class="line">    <span class="keyword">if</span>(xpos==final_x&amp;&amp; ypos==final_y) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//进行位置的移动</span></span><br><span class="line">    <span class="keyword">if</span>(xpos&lt;final_x)&#123;</span><br><span class="line">        xpos++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(xpos&gt;final_x)&#123;</span><br><span class="line">        xpos--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(ypos&lt;final_y)&#123;</span><br><span class="line">        ypos++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(ypos&gt;final_y)&#123;</span><br><span class="line">        ypos--;</span><br><span class="line">    &#125;</span><br><span class="line">    elem.style.left=xpos+<span class="string">"px"</span>;</span><br><span class="line">    elem.style.top=ypos+<span class="string">"px"</span>;</span><br><span class="line">    <span class="comment">//注意其中的双引号和单引号的格式</span></span><br><span class="line">    <span class="keyword">var</span> repeat=<span class="string">"moveElement('"</span>+elementID+<span class="string">"',"</span>+final_x+<span class="string">","</span>+final_y+<span class="string">","</span>+interval+<span class="string">")"</span>;</span><br><span class="line">    movement=setTimeout(repeat,interval);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>positionMessage.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">positionMessage</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById(<span class="string">"message1"</span>)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> elem = <span class="built_in">document</span>.getElementById(<span class="string">"message1"</span>);</span><br><span class="line">    elem.style.position = <span class="string">"absolute"</span>;</span><br><span class="line">    elem.style.left = <span class="string">"50px"</span>;</span><br><span class="line">    elem.style.top = <span class="string">"100px"</span>;</span><br><span class="line">    moveElement(<span class="string">"message1"</span>, <span class="number">125</span>, <span class="number">25</span>, <span class="number">20</span>);</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById(<span class="string">"message2"</span>)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> elem = <span class="built_in">document</span>.getElementById(<span class="string">"message2"</span>);</span><br><span class="line">    elem.style.position = <span class="string">"absolute"</span>;</span><br><span class="line">    elem.style.left = <span class="string">"50px"</span>;</span><br><span class="line">    elem.style.top = <span class="string">"50px"</span>;</span><br><span class="line">    moveElement(<span class="string">"message2"</span>, <span class="number">125</span>, <span class="number">125</span>, <span class="number">20</span>);</span><br><span class="line">&#125;</span><br><span class="line">addLoadEvent(positionMessage);</span><br></pre></td></tr></table></figure></p>
+<h3 id="滑动的效果"><a href="#滑动的效果" class="headerlink" title="滑动的效果"></a>滑动的效果</h3><p>鼠标放在链接上，就会滑动到该图片<br>list.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"content-type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=utf-8"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Web Design<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">media</span>=<span class="string">"screen"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    @import url(styles/layout.css);</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/addLoadEvent.js"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/moveElement.js"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/prepareSlideshow.js"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/insertAfter.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Web Design<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>These are the things you should know.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ol</span> <span class="attr">id</span>=<span class="string">"linklist"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"structure.html"</span>&gt;</span>Structure<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"presentation.html"</span>&gt;</span>Presentation<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"behavior.html"</span>&gt;</span>Behavior<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ol</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>addLoadEvent.js<br>insertAfter.js<br>moveElement.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">moveElement</span>(<span class="params">elementID,final_x,final_y,interval</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById(elementID)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> elem = <span class="built_in">document</span>.getElementById(elementID);</span><br><span class="line">    <span class="comment">//每当用户吧鼠标悬停在某个连接上，不管上一次调用是否已经把图片移动到位，moveElement函数都会再次调用并试图把这个函数移动到另一个地方。当用户在链接之间快读移动鼠标时，movement变量会像拔河绳一样来回。</span></span><br><span class="line">    <span class="keyword">if</span> (elem.movement) &#123;</span><br><span class="line">        clearTimeout(elem.movement);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//添加安全检查，如果没有被设置，就设置成0px</span></span><br><span class="line">    <span class="keyword">if</span> (!elem.style.left) &#123;</span><br><span class="line">        elem.style.left = <span class="string">"0px"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!elem.style.top) &#123;</span><br><span class="line">        elem.style.top = <span class="string">"0px"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> xpos = <span class="built_in">parseInt</span>(elem.style.left);</span><br><span class="line">    <span class="keyword">var</span> ypos = <span class="built_in">parseInt</span>(elem.style.top);</span><br><span class="line">    <span class="keyword">if</span> (xpos == final_x &amp;&amp; ypos == final_y) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//动画设置越远移动越快，越近移动越慢</span></span><br><span class="line">    <span class="keyword">if</span> (xpos &lt; final_x) &#123;</span><br><span class="line">        <span class="comment">//math.ceil(number)浮点数number向“大于”方向舍入为最接近的整数</span></span><br><span class="line">        <span class="keyword">var</span> dist = <span class="built_in">Math</span>.ceil((final_x - xpos)/<span class="number">10</span>);</span><br><span class="line">        xpos = xpos + dist;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (xpos &gt; final_x) &#123;</span><br><span class="line">        <span class="keyword">var</span> dist = <span class="built_in">Math</span>.ceil((xpos - final_x)/<span class="number">10</span>);</span><br><span class="line">        xpos = xpos - dist;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (ypos &lt; final_y) &#123;</span><br><span class="line">        <span class="keyword">var</span> dist = <span class="built_in">Math</span>.ceil((final_y - ypos)/<span class="number">10</span>);</span><br><span class="line">        ypos = ypos + dist;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (ypos &gt; final_y) &#123;</span><br><span class="line">        <span class="keyword">var</span> dist = <span class="built_in">Math</span>.ceil((ypos - final_y)/<span class="number">10</span>);</span><br><span class="line">        ypos = ypos - dist;</span><br><span class="line">    &#125;</span><br><span class="line">    elem.style.left = xpos + <span class="string">"px"</span>;</span><br><span class="line">    elem.style.top = ypos + <span class="string">"px"</span>;</span><br><span class="line">    <span class="keyword">var</span> repeat = <span class="string">"moveElement('"</span>+elementID+<span class="string">"',"</span>+final_x+<span class="string">","</span>+final_y+<span class="string">","</span>+interval+<span class="string">")"</span>;</span><br><span class="line">    <span class="comment">//不能使用全局变量，不能使用局部变量，需要一个至于正在被移动的那个元素有关的变量，即将movement设置成属性。</span></span><br><span class="line">    elem.movement = setTimeout(repeat,interval);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>prepareSlidershow.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">prepareSlideshow</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="comment">// 确保浏览器支持DOM方法</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementsByTagName) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"><span class="comment">//确保元素存在</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById(<span class="string">"linklist"</span>)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"><span class="comment">//创建并添加元素</span></span><br><span class="line">    <span class="keyword">var</span> slideshow = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">    slideshow.setAttribute(<span class="string">"id"</span>,<span class="string">"slideshow"</span>);</span><br><span class="line">    <span class="keyword">var</span> preview = <span class="built_in">document</span>.createElement(<span class="string">"img"</span>);</span><br><span class="line">    preview.setAttribute(<span class="string">"src"</span>,<span class="string">"topics.gif"</span>);</span><br><span class="line">    preview.setAttribute(<span class="string">"alt"</span>,<span class="string">"building blocks of web design"</span>);</span><br><span class="line">    preview.setAttribute(<span class="string">"id"</span>,<span class="string">"preview"</span>);</span><br><span class="line">    slideshow.appendChild(preview);</span><br><span class="line">    <span class="keyword">var</span> list = <span class="built_in">document</span>.getElementById(<span class="string">"linklist"</span>);</span><br><span class="line">    insertAfter(slideshow,list);</span><br><span class="line"><span class="comment">// 取得列表中的所有链接</span></span><br><span class="line">    <span class="keyword">var</span> links = list.getElementsByTagName(<span class="string">"a"</span>);</span><br><span class="line"><span class="comment">// 为mouseover实践添加动画效果</span></span><br><span class="line">    links[<span class="number">0</span>].onmouseover = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        moveElement(<span class="string">"preview"</span>,<span class="number">-100</span>,<span class="number">0</span>,<span class="number">10</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    links[<span class="number">1</span>].onmouseover = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        moveElement(<span class="string">"preview"</span>,<span class="number">-200</span>,<span class="number">0</span>,<span class="number">10</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    links[<span class="number">2</span>].onmouseover = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        moveElement(<span class="string">"preview"</span>,<span class="number">-300</span>,<span class="number">0</span>,<span class="number">10</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">addLoadEvent(prepareSlideshow);</span><br></pre></td></tr></table></figure></p>
+<p>layout.css<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#slideshow</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#preview</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/04/Javascript DOM编程艺术读书笔记9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1543,320 +1867,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/02/编写页面时遇到的问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XyyFighting">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/02/编写页面时遇到的问题/" itemprop="url">实训项目遇到的问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-02T15:31:31+08:00">
-                2018-01-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/工作/" itemprop="url" rel="index">
-                    <span itemprop="name">工作</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="在加入表单组件时出现getFieldDecorator-of-undefined错误"><a href="#在加入表单组件时出现getFieldDecorator-of-undefined错误" class="headerlink" title="在加入表单组件时出现getFieldDecorator of undefined错误"></a>在加入表单组件时出现getFieldDecorator of undefined错误</h3><ul>
-<li>必须调用Form.create()，否则在使用getFieldDecorator时便会出现getFieldDecorator of undefined错误<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//可以这么写</span></span><br><span class="line"><span class="keyword">let</span> Test = React.createClass(&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; getFieldProps &#125; = <span class="keyword">this</span>.props.form;</span><br><span class="line">    <span class="keyword">return</span>(  );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">Test = Form.create()(Test);</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Test;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>//最终我是这么写的，也是可以的<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Down</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; getFieldProps &#125; = <span class="keyword">this</span>.props.form;</span><br><span class="line">    <span class="keyword">return</span>(  );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">Test = Form.create()(Test);</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Test;</span><br></pre></td></tr></table></figure></p>
-<h3 id="margin-0-auto-是让样式居中"><a href="#margin-0-auto-是让样式居中" class="headerlink" title="margin:0 auto;是让样式居中"></a>margin:0 auto;是让样式居中</h3><h3 id="windows-下-webstorm-格式化代码的快键键-Ctrl-Alt-l"><a href="#windows-下-webstorm-格式化代码的快键键-Ctrl-Alt-l" class="headerlink" title="windows 下 webstorm 格式化代码的快键键 Ctrl+Alt+l"></a>windows 下 webstorm 格式化代码的快键键 Ctrl+Alt+l</h3>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/22/在使用git时遇到的问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XyyFighting">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/22/在使用git时遇到的问题/" itemprop="url">在使用git时遇到的问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-22T21:00:24+08:00">
-                2017-12-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/工具/" itemprop="url" rel="index">
-                    <span itemprop="name">工具</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="git修改远程仓库地址"><a href="#git修改远程仓库地址" class="headerlink" title="git修改远程仓库地址"></a>git修改远程仓库地址</h2><ul>
-<li><p><code>git remote rm origin</code></p>
-</li>
-<li><p><code>git remote add origin [url]</code></p>
-</li>
-</ul>
-<h2 id="如何解决failed-to-push-some-refs-to-git"><a href="#如何解决failed-to-push-some-refs-to-git" class="headerlink" title="如何解决failed to push some refs to git"></a>如何解决failed to push some refs to git</h2><ul>
-<li><p>出现错误的主要原因是github中的README.md文件不在本地代码目录中</p>
-</li>
-<li><p>可以通过如下命令进行代码合并[注：pull=fetch+merge]  <code>git pull --rebase origin master</code></p>
-</li>
-<li><p>此时再执行语句 <code>git push -u origin master</code>即可完成代码上传到github</p>
-</li>
-</ul>
-<h2 id="项目上传github步骤"><a href="#项目上传github步骤" class="headerlink" title="项目上传github步骤"></a>项目上传github步骤</h2><ul>
-<li><p>一个项目建一个仓库，先在项目中 <code>git init</code>，再<code>git add ./</code>，最后 <code>git commit -m&quot;&quot;</code>。</p>
-</li>
-<li><p>tips：第一次push以前要先pull,因为有readme.md文件会冲突</p>
-</li>
-</ul>
-<h2 id="想上传除了某文件以外的所有文件"><a href="#想上传除了某文件以外的所有文件" class="headerlink" title="想上传除了某文件以外的所有文件"></a>想上传除了某文件以外的所有文件</h2><ul>
-<li>比如在react文件<code>node_modules</code>不想上传，想上传除了该文件以外的所有文件。先<code>vim .gitignore</code>写一个文件：<br><code>/.idea/</code><br><code>/node_modules/</code></li>
-<li><p>注意文件夹以前要写上/才可以被运行。</p>
-</li>
-<li><p><code>i</code>是插入可写，<code>：wq!</code>是提交文件。</p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1911,7 +1921,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
