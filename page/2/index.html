@@ -252,6 +252,569 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/26/JavaScript高级程序设计读书笔记12/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/26/JavaScript高级程序设计读书笔记12/" itemprop="url">JavaScript高级程序设计读书笔记12</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-26T20:29:27+08:00">
+                2018-01-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/JavaScript高级程序设计/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript高级程序设计</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第12章-DOM2和DOM3"><a href="#第12章-DOM2和DOM3" class="headerlink" title="第12章 DOM2和DOM3"></a>第12章 DOM2和DOM3</h1><h2 id="DOM变化"><a href="#DOM变化" class="headerlink" title="DOM变化"></a>DOM变化</h2><ul>
+<li>可以通过下列代码来确定浏览器是否支持这些DOM模块<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> supportsDOM2Core = <span class="built_in">document</span>.implementation.hasFeature(<span class="string">"Core"</span>, <span class="string">"2.0"</span>);</span><br><span class="line"><span class="keyword">var</span> supportsDOM3Core = <span class="built_in">document</span>.implementation.hasFeature(<span class="string">"Core"</span>, <span class="string">"3.0"</span>);</span><br><span class="line"><span class="keyword">var</span> supportsDom2HTML = <span class="built_in">document</span>.implementation.hasFeature(<span class="string">"HTML"</span>, <span class="string">"2.0"</span>);</span><br><span class="line"><span class="keyword">var</span> supportsDOM2Views = <span class="built_in">document</span>.implementation.hasFeature(<span class="string">"Views"</span>, <span class="string">"2.0"</span>);</span><br><span class="line"><span class="keyword">var</span> supportsDOM2XML = <span class="built_in">document</span>.implementation.hasFeature(<span class="string">"XML"</span>, <span class="string">"2.0"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="针对XML命名空间的变化"><a href="#针对XML命名空间的变化" class="headerlink" title="针对XML命名空间的变化"></a>针对XML命名空间的变化</h3><ul>
+<li>HTML不支持XML命名空间，单XHTML支持XML命名空间。 </li>
+</ul>
+<h3 id="其他方面的变化"><a href="#其他方面的变化" class="headerlink" title="其他方面的变化"></a>其他方面的变化</h3><h4 id="DocumentType类型的变化"><a href="#DocumentType类型的变化" class="headerlink" title="DocumentType类型的变化"></a>DocumentType类型的变化</h4><ul>
+<li>DocumentType类型新增了3个属性：publicId、systemId和internalSubset. </li>
+<li>publicId、systemId表示文档类型声明中的两个信息段，在DOM1中无法访问。<h4 id="Document类型的变化"><a href="#Document类型的变化" class="headerlink" title="Document类型的变化"></a>Document类型的变化</h4></li>
+<li>Document类型的变化中唯一与命名空间无关的方法是importNode()。</li>
+<li>用途：从文档中取得一个节点，然后将其导入另一个文档，使其成为文档结构的一部分。</li>
+<li>注意：每个节点都有一个ownerDocument属性，表示所属文档，如果调动appendChild()是传入的节点属于不同的文档 <h4 id="Node类型的变化"><a href="#Node类型的变化" class="headerlink" title="Node类型的变化"></a>Node类型的变化</h4></li>
+<li>Node类型中唯一与命名空间无关的变化，为添加了isSupported()方法。与DOM1级document.implementation引入的hasFeature()方法类似。</li>
+<li>isSupported()方法用于确定当前节点具有什么能力，接受两个参数：特性名和特性版本号。<h4 id="框架的变化"><a href="#框架的变化" class="headerlink" title="框架的变化"></a>框架的变化</h4></li>
+<li>框架和内嵌框架分别用HTMLFrameElement和HTMLIFrameElement表示，在DOM2中新增contentDocument（包含一个指针，指向表示框架内容的文档对象）</li>
+</ul>
+<h2 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h2><h3 id="访问元素的样式"><a href="#访问元素的样式" class="headerlink" title="访问元素的样式"></a>访问元素的样式</h3><ul>
+<li>任何支持style特性的HTML元素在JavaScript中都有一个对应的style属性，这个style对象是CSSStyleDeclaration的实例，包含着通过HTML的style特性指定的所有样式信息，但不包含与外部样式表或嵌入样式表经层叠而来的样式。</li>
+<li>支持style特性的HTML元素在JavaScript中都有一个对应的style属性。对于使用短划线的css属性，必须将其转换成驼峰大小写形式。</li>
+<li>多数情况下，都可以通过简单地转化属性名的格式来实现转换。其中一个不能直接转换的CSS属性就是float。</li>
+<li>由于float是JavaScript中的保留字，因此不能用作属性名。</li>
+</ul>
+<h3 id="操作样式表"><a href="#操作样式表" class="headerlink" title="操作样式表"></a>操作样式表</h3><ul>
+<li>insertRule()：创建规则。参数：规则文本和表示在哪里插入规则的索引。</li>
+<li>deletRule()：删除规则。参数：要删除的规则位置。</li>
+</ul>
+<h3 id="元素大小"><a href="#元素大小" class="headerlink" title="元素大小"></a>元素大小</h3><ul>
+<li><p>偏移量：元素在屏幕上占用的所有可见的空间</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getElementLeft</span>(<span class="params">element</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> actualLeft = element.offsetLeft;</span><br><span class="line">    <span class="keyword">var</span> current = element.offsetParent;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(current !== <span class="literal">null</span>)&#123;</span><br><span class="line">        actualLeft += current.offsetLeft;</span><br><span class="line">        current = current.offsetParent;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> actuaLeft;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getElementTop</span>(<span class="params">element</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> actualTop += current.offsetTop;</span><br><span class="line">    <span class="keyword">var</span> current = current.offsetParent;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (current != <span class="literal">null</span>)&#123;</span><br><span class="line">        actualTop += current.offsetTop;</span><br><span class="line">        current = current.offsetParent;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> actualTop;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>客户区大小(client dimension)，指的是元素内容及其内边距所占的空间大小。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getViewport</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 检查document.compatMode属性，以确定浏览器是否运行在混杂模式</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">document</span>.compatMode == <span class="string">"BackCompat"</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>(</span><br><span class="line">            width: <span class="built_in">document</span>.body.clientWidth,</span><br><span class="line">            height: <span class="built_in">document</span>.body.clientHeight</span><br><span class="line">        );</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span>&#123;</span><br><span class="line">        <span class="comment">//documentElement 属性可返回文档的根节点</span></span><br><span class="line">            width: <span class="built_in">document</span>.documentElement.clientWidth,</span><br><span class="line">            height: <span class="built_in">document</span>.documentElement.clientHeight</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>滚动大小： 包含滚动内容的元素的大小。</p>
+</li>
+<li>scrollHeight 在没有滚动条的情况下，元素内容的高度</li>
+<li>scrollWidth 在没有滚动条的情况下，元素内容的总宽度</li>
+<li>scrollLeft 隐藏在内容区域左侧的像素数</li>
+<li>scrollTop 隐藏在内容区域上方的像素数</li>
+<li><p>在确定文档的总高度时（包括基于视口的最小高度），必须取得scrollWidth/clientWidth和scrollHeight/clientHeight中的最大值，才能保证在跨浏览器的环境下得到精确的结果：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//对于运行在混杂模式下的IE，则需要用document.body代替document.documentElement</span></span><br><span class="line"><span class="keyword">var</span> docHeight = <span class="built_in">Math</span>.max(<span class="built_in">document</span>.documentElement.scrollHeight, documentElement.clientHeight);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> docWidth = <span class="built_in">Math</span>.max(<span class="built_in">document</span>.documentElement.scrollWidth, documentElement.clientWidth);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>确定元素大小，在IE8及以前认为文档左上角坐标是(2,2)，其他浏览器包括IE9则将传统的(0，0)作为起点坐标。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getBoundingClientRect</span>(<span class="params">element</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> scrollTop = <span class="built_in">document</span>.documentElement.scrollTop;</span><br><span class="line">    <span class="keyword">var</span> scrollLeft = <span class="built_in">document</span>.documentElement.scrollLeft;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(element.getBoundingClientRect(element))&#123;</span><br><span class="line">        <span class="keyword">var</span> temp = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">        temp.style.cssText = <span class="string">"position:absolute; left:0; top:0;"</span>;</span><br><span class="line">        <span class="built_in">document</span>.body.appendChild(<span class="string">"temp"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="built_in">arguments</span>.callee.offset = -temp.getBoundingClientRect().top - scrollTop;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">document</span>.body.removeChild(temp);</span><br><span class="line">        temp = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> rect = element.getBoundingClientRect();</span><br><span class="line">    <span class="keyword">var</span> offset = <span class="built_in">arguments</span>.callee.offset;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span>(</span><br><span class="line">        left: rect.left + offset,</span><br><span class="line">        right: rect.right + offset,</span><br><span class="line">        top: rect.top + offset,</span><br><span class="line">        bottom: rect.bottom + offset,</span><br><span class="line">    );</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> actualLeft = getElementLeft(element);</span><br><span class="line">    <span class="keyword">var</span> actualTop = getElementTop(element);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span>&#123;</span><br><span class="line">        left: aotualLeft - scrollLeft,</span><br><span class="line">        right: actualLeft + element.offsetWidth - scrollLeft,</span><br><span class="line">        top: actualTop - scrollTop,</span><br><span class="line">        bottom: actualTop + element.offsetHeight - scrollTop</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="http://image.jiantuku.com/18-1-26/21791190.jpg?e=1517036410&amp;token=el7kgPgYzpJoB23jrChWJ2gV3HpRl0VCzFn8rKKv:mIx_3z1Fdlq8GzkFgaS3MM1_S8c=" alt=""></p>
+<h2 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h2><ul>
+<li>NodeIterator(迭代节点)和TreeWalker；这两个类型能够基于给定的起点对DOM结构执行深度优先(depth-first)的遍历操作。</li>
+</ul>
+<h3 id="NodeIterator"><a href="#NodeIterator" class="headerlink" title="NodeIterator"></a>NodeIterator</h3><ul>
+<li>可以使用document.createNodeIterator()方法创建新的实例，接收4个参数。<ul>
+<li>root：想要作为搜索起点的树中的节点</li>
+</ul>
+</li>
+<li>whatToShow：表示要访问哪些节点的数字代码</li>
+<li>filter：是一个NodeFilter对象，或者一个表示应该接受还是拒绝某种特定节点的函数</li>
+<li>entityRefrenceExpansion：布尔值，表示是否要扩展实体引用。在HTML页面中没用，因为其中的实体引用不能扩展。</li>
+<li>如何创建一个只显示p元素的节点迭代器<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> filter = &#123;<span class="attr">acceptNode</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> node.tageName.toLowerCase() == <span class="string">"p"</span>?</span><br><span class="line">        NodeFilter.FILTER_ACCEPT:</span><br><span class="line">        NodeFilter.FILTER_SKIP;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> iterator = <span class="built_in">document</span>.createNodeIterator(root, NodeFilter.SHOW_ELEMENT, filter, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="TreeWalker"><a href="#TreeWalker" class="headerlink" title="TreeWalker"></a>TreeWalker</h3><ul>
+<li>比NodeIterator更高级的版本。除了nextNode()和previousNode()在内的相同功能之外还提供其他方法。<ul>
+<li>parentNode()：遍历到当前节点的父节点；</li>
+<li>firstChild()：遍历当前节点的第一个子节点；</li>
+</ul>
+</li>
+<li>lastChild()：遍历当前节点的最后一个子节点；</li>
+<li>nextSibling()：遍历当前节点的下一个同辈节点；</li>
+<li>previousSibling()：遍历当前节点的上一个同辈节点；</li>
+<li>TreeWalker真正强大的地方在于能够在DOM结构中沿任何方向移动，即使不使用过滤器也可以得到想要的元素.</li>
+</ul>
+<h2 id="范围"><a href="#范围" class="headerlink" title="范围"></a>范围</h2><h3 id="DOM中的范围"><a href="#DOM中的范围" class="headerlink" title="DOM中的范围"></a>DOM中的范围</h3><ul>
+<li>createRange()方法创建范围。<code>var range = document.createRange();</code></li>
+</ul>
+<h3 id="简单选择"><a href="#简单选择" class="headerlink" title="简单选择"></a>简单选择</h3><ul>
+<li>selectNode() 选择整个节点</li>
+<li>selectNodeContents() 选择节点的子节点</li>
+</ul>
+<h3 id="复杂选择"><a href="#复杂选择" class="headerlink" title="复杂选择"></a>复杂选择</h3><ul>
+<li>setStart()和setEnd()方法：接受两个参数，一个是参照节点，一个是偏移量</li>
+</ul>
+<h3 id="操作DOM范围中的内容"><a href="#操作DOM范围中的内容" class="headerlink" title="操作DOM范围中的内容"></a>操作DOM范围中的内容</h3><ul>
+<li>deleteContents()，删除范围中的内容。调用方式：range.deleteContents()；</li>
+<li>extractContents(),从文档区域移除范围的内容，返回范围内容的文档片段，可以对文档片段进行进一步操作，调用方式：<code>var fragment=range.extractContents();</code></li>
+<li>cloneContents(),创建一个文档片段，保存范围的副本，可以对文档片段进行进一步操作，调用方式：<code>var fragment=range.cloneContents();</code></li>
+</ul>
+<h3 id="插入DOM范围中的内容"><a href="#插入DOM范围中的内容" class="headerlink" title="插入DOM范围中的内容"></a>插入DOM范围中的内容</h3><ul>
+<li>除了向范围内部插入内容之外，还可以环绕范围插入内容，此时要使用surroundContents()方法。这个方法接收一个参数，即环绕范围内容的节点。</li>
+</ul>
+<h3 id="折叠DOM范围"><a href="#折叠DOM范围" class="headerlink" title="折叠DOM范围"></a>折叠DOM范围</h3><ul>
+<li>范围折叠就是指范围中未选择文档的任何部分。通俗的描述就是当你选择范围内的文本，点击左键的时候，光标会落在范围的开始或者范围的结束。</li>
+<li>使用collapse()进行折叠，接收一个参数，一个布尔值，表示要折叠到范围的那一端，true表示范围的起点，false表示范围的终点。要确定范围已经折叠外币，可以用collapsed属性检查。</li>
+</ul>
+<h3 id="比较DOM的范围"><a href="#比较DOM的范围" class="headerlink" title="比较DOM的范围"></a>比较DOM的范围</h3><ul>
+<li>在有多个范围的情况下，可以使用compareBoundaryPoints()方法来确定这些范围是否有公共边界。</li>
+<li>这个方法接收两个参数：比较方式的常量值和要比较的范围。</li>
+</ul>
+<h3 id="复制DOM的范围"><a href="#复制DOM的范围" class="headerlink" title="复制DOM的范围"></a>复制DOM的范围</h3><ul>
+<li>可以使用cloneRange()方法复制范围，返回范围的一个副本<code>var newRange=range.cloneRange();</code></li>
+</ul>
+<h3 id="清理DOM范围"><a href="#清理DOM范围" class="headerlink" title="清理DOM范围"></a>清理DOM范围</h3><ul>
+<li>在使用完范围之后，最好调用detach()方法，清理范围，回收内存.<br><code>range.detach()；// 从文档中分离</code><br><code>range=null;//  解除引用</code></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/25/JavaScript高级程序设计读书笔记11/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/25/JavaScript高级程序设计读书笔记11/" itemprop="url">JavaScript高级程序设计读书笔记11</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-25T22:04:44+08:00">
+                2018-01-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/JavaScript高级程序设计/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript高级程序设计</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第11章-DOM扩展"><a href="#第11章-DOM扩展" class="headerlink" title="第11章 DOM扩展"></a>第11章 DOM扩展</h1><ul>
+<li>Selectors API和HTML5</li>
+</ul>
+<h2 id="选择符API"><a href="#选择符API" class="headerlink" title="选择符API"></a>选择符API</h2><ul>
+<li>Selectors API致力于让浏览器原生支持CSS查询</li>
+</ul>
+<h3 id="querySelector-方法"><a href="#querySelector-方法" class="headerlink" title="querySelector()方法"></a>querySelector()方法</h3><ul>
+<li><p>querySelector()方法：接收一个CSS选择符，返回与该模式匹配的第一个元素，如果没有找到匹配的元素，就返回null。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//取得body元素</span></span><br><span class="line"><span class="keyword">var</span> body=<span class="built_in">document</span>.querySelector(<span class="string">"body"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//取得ID为mydiv的元素</span></span><br><span class="line"><span class="keyword">var</span> myDiv=<span class="built_in">document</span>.querySelector(<span class="string">"#myDiv"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//取得类为“Selected”的第一个元素</span></span><br><span class="line"><span class="keyword">var</span> selected = <span class="built_in">document</span>.querySelector(<span class="string">".selected"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//取得类为button的第一个图像元素</span></span><br><span class="line"><span class="keyword">var</span> img=<span class="built_in">document</span>.querySelector(<span class="string">"img.button"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过Document类型调用querySelector方法，会在文档元素的范围内查找匹配的元素</p>
+</li>
+<li>通过Element类型调用的querySelector方法，会在该元素后代元素的范围内查找匹配的元素</li>
+</ul>
+<h3 id="querySelectorAll-方法"><a href="#querySelectorAll-方法" class="headerlink" title="querySelectorAll()方法"></a>querySelectorAll()方法</h3><ul>
+<li>querySelectorAll():返回一个NodeList实例</li>
+<li>延伸：querySelectorAll()与getElementBy系列的区别<blockquote>
+<p>1.query选择符选出的元素及元素数组是静态的，getElement方法选出的元素是动态的。<br>2.querySelectorAll 方法接收的参数是一个 CSS 选择符。而 getElementsBy 系列接收的参数只能是单一的className、tagName 和 name。<br>3.getElementBy系列比querySelectorAll()性能好很多<br>4.如果只要一次查找就可得到元素时，首选getElementBy系列，如果需要经过多级查找，才能得到元素时，首选querySelector。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="matchsSelector-方法"><a href="#matchsSelector-方法" class="headerlink" title="matchsSelector()方法"></a>matchsSelector()方法</h3><ul>
+<li>如果调用元素与该选择符匹配，返回true,否则，false</li>
+</ul>
+<h2 id="元素遍历"><a href="#元素遍历" class="headerlink" title="元素遍历"></a>元素遍历</h2><ul>
+<li>问题：IE与其他浏览器在返回子节点时会因文本节点是否返回而存在差异，IE不返回，其他版本返回。</li>
+<li>解决方式：为DOM元素添加以下属性，不必担心空白的文本节点</li>
+<li>childElementCount：返回子元素的个数。（不包括文本节点和注释）</li>
+<li>firstElementChild：指向第一个子元素。firstChild的元素版。</li>
+<li>lastElementChild：指向最后一个子元素。lastChild的元素版。</li>
+<li>previousElementSilbing：指向前一个同辈元素。previousSibling的元素版。</li>
+<li>nextElementSibling：指向后一个同辈元素。nextSibling的元素版。</li>
+</ul>
+<h2 id="HTML5"><a href="#HTML5" class="headerlink" title="HTML5"></a>HTML5</h2><h3 id="与类相关的扩充"><a href="#与类相关的扩充" class="headerlink" title="与类相关的扩充"></a>与类相关的扩充</h3><h4 id="getElementsByClassName"><a href="#getElementsByClassName" class="headerlink" title="getElementsByClassName()"></a>getElementsByClassName()</h4><ul>
+<li><p>getElementsByClassName():接收一个参数，即一个包含一或多个类名的字符串，返回带有指定类的所有元素的NodeList。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//取得类中包含“username”和“current”的元素，类名的先后顺序不重要。</span></span><br><span class="line"><span class="keyword">var</span> allCurrentUsernames = <span class="built_in">document</span>.getElementsByClassName(<span class="string">"current username"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//取得ID为“myDiv”的元素中带有类名“selected”的所有元素：</span></span><br><span class="line"><span class="keyword">var</span> selected = <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>).getElementsByClassName(<span class="string">"selected"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用这个方法时，只有位于调用元素子树中的元素才会返回。</p>
+</li>
+</ul>
+<h4 id="classList属性"><a href="#classList属性" class="headerlink" title="classList属性"></a>classList属性</h4><ul>
+<li><p>问题：在操作类名时，需要通过className属性添加、删除和替换类名、因为className中是一个字符串，所以即使只修改字符串一部分，也必须每次都设置整个字符串的值，如删除其中一个类或者添加一个类，操作都十分麻烦。<br><code>&lt;div class=&quot;bd user disabled&quot;&gt;...&lt;/div&gt;</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//删除user类</span></span><br><span class="line"><span class="comment">//取得类名字符串并拆分成数组</span></span><br><span class="line"><span class="keyword">var</span> classNames = div.className.split(<span class="regexp">/\s+/</span>);</span><br><span class="line"><span class="comment">//找到要删的类名</span></span><br><span class="line"><span class="keyword">var</span> pos = <span class="number">-1</span>,</span><br><span class="line">    i,</span><br><span class="line">    len;</span><br><span class="line"><span class="keyword">for</span>(i = <span class="number">0</span>, len = classNames.length; i &lt; len; i++)&#123;</span><br><span class="line">    <span class="keyword">if</span>(classNames[i] == <span class="string">"user"</span>)&#123;</span><br><span class="line">        pos = i;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//删除类名</span></span><br><span class="line">classNames.splice(i,<span class="number">1</span>);</span><br><span class="line"><span class="comment">//把剩下的类名拼成字符串并重新设置</span></span><br><span class="line">div.className = classNames.join(<span class="string">" "</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解决方式：为所有元素添加classList属性<br><code>div.classList.remove(&quot;user&quot;);</code></p>
+</li>
+<li>add（value）：将指定的字符串值添加到列表中，如果值已经存在，就不添加了。</li>
+<li>contains（value）：表示列表中是否存在给定的值，如果存在则返回true，否则返回false。</li>
+<li>remove（value）：从列表中删除给定的字符串</li>
+<li>toggle（value）：如果列表中已经存在给定的值，删除它；如果列表中没有给定的值，添加它。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//删除"disabled"类</span></span><br><span class="line">div.classList.remove(<span class="string">"disabled"</span>);</span><br><span class="line"><span class="comment">//添加"添加current"类</span></span><br><span class="line">div.classList.toggle(<span class="string">"user"</span>);</span><br><span class="line"><span class="comment">//确定元素中是否包含既定的类名</span></span><br><span class="line"><span class="keyword">if</span>(div.classList.contain(<span class="string">"bd"</span>) &amp;&amp; !div.classList.contains(<span class="string">"disabled"</span>))&#123;</span><br><span class="line">    <span class="comment">//执行操作</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//迭代类名</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>,len = div.classList.length;i &lt; len; i++)&#123;</span><br><span class="line">    doSomething(div.classList[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="焦点管理"><a href="#焦点管理" class="headerlink" title="焦点管理"></a>焦点管理</h3><ul>
+<li>document.activeElement：始终都会引用DOM中当前获得了焦点的元素。</li>
+<li>document.hasFocus():用于确定文档是否获得了焦点。</li>
+<li>以上的属性和方法最重要的用途就是提高web应用的无障碍性。无障碍web应用的一个主要标志就是恰当的焦点管理。</li>
+</ul>
+<h3 id="HTMLDocument的变化"><a href="#HTMLDocument的变化" class="headerlink" title="HTMLDocument的变化"></a>HTMLDocument的变化</h3><ul>
+<li>readyState属性：通过它来实现一个指示文档已经加载完成的指示器</li>
+<li>可能的取值<blockquote>
+<p>loading：正在加载文档<br>complete：已经加载完文档</p>
+</blockquote>
+</li>
+<li>compatMode属性：区分渲染页面的模式是标准的还是混杂的</li>
+<li>可能的取值<blockquote>
+<p>CSS1Compat：标准<br>BackCompat：混杂</p>
+</blockquote>
+</li>
+<li>head属性：<code>var head = document.head || document.getElementsByTagName(&quot;head&quot;)[0];</code></li>
+</ul>
+<h3 id="字符集属性"><a href="#字符集属性" class="headerlink" title="字符集属性"></a>字符集属性</h3><ul>
+<li>charset属性：表示文档中实际使用的字符集。</li>
+<li>defaultCharset：表示根据默认浏览器及操作系统的设置</li>
+</ul>
+<h3 id="自定义数据属性"><a href="#自定义数据属性" class="headerlink" title="自定义数据属性"></a>自定义数据属性</h3><ul>
+<li>HTML5规定可以为元素添加非标准的属性，但要添加前缀data-，目的是为元素提供与渲染无关的信息，或者提供语义信息。</li>
+<li><code>&lt;div id=&quot;myDiv&quot; data-appId=&quot;12345&quot; data-myname=&quot;Nicholas&quot;&gt;&lt;/div&gt;</code></li>
+<li>可以通过元素的dataset属性来访问自定义属性的值。dataset属性的值是DOMStringMap的一个实例，也就是一个名值对的映射。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>);</span><br><span class="line"><span class="comment">//取得自定义属性的值</span></span><br><span class="line"><span class="keyword">var</span> appId = div.dataset.appId;</span><br><span class="line"><span class="keyword">var</span> myname = div.dataset.myname;</span><br><span class="line"><span class="comment">//设置值</span></span><br><span class="line">div.dataset.appId = <span class="number">23456</span>;</span><br><span class="line">div.dataset.myname = <span class="string">"Nicholas"</span>;</span><br><span class="line"><span class="keyword">if</span>(div.dataset.myname)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Hello, "</span>+ div.dataset.myname);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="插入标记"><a href="#插入标记" class="headerlink" title="插入标记"></a>插入标记</h3><h4 id="innerHTML属性"><a href="#innerHTML属性" class="headerlink" title="innerHTML属性"></a>innerHTML属性</h4><ul>
+<li>读模式：返回调用元素的所有子节点的HTML标记。（包括元素、注释、文本节点）</li>
+<li>写模式：根据指定的值创建新的DOM树，然后用这个DOM树完全替换调用元素原先的所有子节点。</li>
+<li>为innerHTML设置HTML字符串后，浏览器会将这个字符串解析为相应的DOM树。因此设置了innerHTML后，再从中读取HTML字符串，会得到与设置时不一样的结果。原因在于返回的字符串是根据原始HTML字符串创建的DOM数经过序列化之后的结果。</li>
+</ul>
+<h4 id="outerHTML"><a href="#outerHTML" class="headerlink" title="outerHTML"></a>outerHTML</h4><ul>
+<li>读模式：返回调用它的元素及所有子节点的HTML标签</li>
+<li>写模式：会根据指定的HTML字符串创建新的DOM子树，然后用这个DOM子树完全替换调用元素。</li>
+<li><code>div.outerHTML = &quot;&lt;p&gt;this is paragraph&lt;/p&gt;&quot;;</code>新创建的&lt; p&gt;元素会取代DOM树中的div元素。</li>
+</ul>
+<h4 id="insertAdjacentHTML（）"><a href="#insertAdjacentHTML（）" class="headerlink" title="insertAdjacentHTML（）"></a>insertAdjacentHTML（）</h4><ul>
+<li>insertAdjacentHTML（）:插入标记</li>
+<li>接收两个参数，插入位置和要插入的HTML文本。</li>
+<li>beforebegin 在当前元素之前插入一个紧邻的同辈元素</li>
+<li>afterbegin 在当前元素之下插入一个新的子元素或者在第一个子元素之前再插入新的子元素</li>
+<li>beforeend 在当前元素之下插入一个新的子元素或者在最后一个子元素之后再插入新的子元素</li>
+<li>afterend 在当前元素之后插入一个紧邻的同辈元素。</li>
+</ul>
+<h4 id="内存与性能问题"><a href="#内存与性能问题" class="headerlink" title="内存与性能问题"></a>内存与性能问题</h4><ul>
+<li>在删除带有时间处理程序或者引用了其他JavaScript对象子树时，元素与事件处理程序之间的绑定关系在内存中并没有一并删除。在使用innerHTML、outerHTML和insertAdjacentHTML()方法时，最好先手工删除要被替换的元素的所有事件处理程序和JavaScript对象属性。</li>
+<li>因此，在使用innerHTML、outerHTML和insertAdjacentHTML（）之前，最好先手工删除要被替换的元素的所有事件处理程序和js对象属性。</li>
+<li>使用innerHTML效率明显高，这是由于使用属性时创建的解释器是在浏览器级别的代码基础上运行的。</li>
+</ul>
+<h4 id="scrollIntoview"><a href="#scrollIntoview" class="headerlink" title="scrollIntoview()"></a>scrollIntoview()</h4><ul>
+<li>如果给这个方法传入true作为参数，或者不传入任何参数，那么窗口滚动之后会让调用元素的顶部与视口顶部尽可能平齐。</li>
+<li>如果传入false作为参数，调用元素会尽可能全部出现在视口中，（可能的话，调用元素的底部会与视口底部平齐），但是顶部不一定平齐。</li>
+</ul>
+<h2 id="专有扩展"><a href="#专有扩展" class="headerlink" title="专有扩展"></a>专有扩展</h2><h4 id="文档模式"><a href="#文档模式" class="headerlink" title="文档模式"></a>文档模式</h4><ul>
+<li>页面的文档模式决定了可以使用什么功能</li>
+</ul>
+<h3 id="children属性"><a href="#children属性" class="headerlink" title="children属性"></a>children属性</h3><ul>
+<li>是HTMLCollection的实例，只包含元素中同样还是元素的子节点</li>
+</ul>
+<h3 id="contains（）"><a href="#contains（）" class="headerlink" title="contains（）"></a>contains（）</h3><ul>
+<li>调用这个方法的是祖先节点。这个方法接收一个参数，即要检测的后代节点。如果是后代节点则返回true。</li>
+<li>DOM Level 3 compareDocumentPosition()也能确定节点间的关系。返回一个表示该关系的位掩码。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>掩码</th>
+<th style="text-align:center">节点关系</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td style="text-align:center">无关</td>
+</tr>
+<tr>
+<td>2</td>
+<td style="text-align:center">居前</td>
+</tr>
+<tr>
+<td>4</td>
+<td style="text-align:center">局后</td>
+</tr>
+<tr>
+<td>8</td>
+<td style="text-align:center">包含（给定的节点是参考节点的祖先）</td>
+</tr>
+<tr>
+<td>16</td>
+<td style="text-align:center">被包含（给定节点是参考节点的后代）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="插入文本"><a href="#插入文本" class="headerlink" title="插入文本"></a>插入文本</h3><ul>
+<li>innerText属性会过滤html标签</li>
+<li>outerText属性将作用范围扩大到了包含调用它的节点之外。</li>
+<li>scrollIntoViewIfNeeded(alignCenter) 如果不可见才滚动，参数设置true表示尽量将元素显示在视口中部</li>
+<li>scrollByLines() 将元素的内容滚动指定行高</li>
+<li>scrollByPages() 将元素的内容滚动指定页面高度</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/24/JavaScript高级程序设计读书笔记10/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2556,407 +3119,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/10/JavaScript高级程序设计读书笔记1-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XyyFighting">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/10/JavaScript高级程序设计读书笔记1-2/" itemprop="url">JavaScript高级程序设计读书笔记1-2</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-10T23:06:10+08:00">
-                2018-01-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/JavaScript高级程序设计/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript高级程序设计</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第1章-JavaScript简介"><a href="#第1章-JavaScript简介" class="headerlink" title="第1章 JavaScript简介"></a>第1章 JavaScript简介</h1><h2 id="JavaScript组成"><a href="#JavaScript组成" class="headerlink" title="JavaScript组成"></a>JavaScript组成</h2><ul>
-<li>核心-ECMAScript：对实现该标准规定的各个方面内容的语言的描述，提供核心语言功能</li>
-<li>文档对象模型-DOM：是针对XML但经过扩展用于HTML的应用程序编程接口（API），提供访问和操作网页内容的方法和接口</li>
-<li><p>浏览器对象模型-BOM：没有相关的标准，提供与浏览器交互的方法和接口</p>
-</li>
-<li><p>tips:DOM并不值针对JS，很多别的语言也都实现了DOM。</p>
-</li>
-<li>五个浏览器（IE、Firefox、Chrome、Safari、Opera)对ECMAScript支持程度都不错，对DOM的支持彼此相差比较多，BOM实现了某些众所周知的共同特性，但是其他特性还是会因浏览器而异。</li>
-</ul>
-<h1 id="第2章-在HTML中使用JavaScript"><a href="#第2章-在HTML中使用JavaScript" class="headerlink" title="第2章 在HTML中使用JavaScript"></a>第2章 在HTML中使用JavaScript</h1><h2 id="script函数"><a href="#script函数" class="headerlink" title="script函数"></a>script函数</h2><ul>
-<li>如果包含了嵌入代码，则只会下载并执行外部脚本文件，嵌入的代码会被忽略。</li>
-</ul>
-<h3 id="标签的位置"><a href="#标签的位置" class="headerlink" title="标签的位置"></a>标签的位置</h3><ul>
-<li>JS引用一般放在<code>&lt;body&gt;</code>元素中页面内容的后面。在解析包含Js代码之前，页面的内容将完全呈现在浏览器中。如果放在<code>&lt;head&gt;</code>中，必须等到所有的js代码都被下载解析和执行完成以后，才能开始呈现页面内容。</li>
-</ul>
-<h3 id="延迟脚本"><a href="#延迟脚本" class="headerlink" title="延迟脚本"></a>延迟脚本</h3><ul>
-<li><code>defer=&quot;defer&quot;</code>表明脚本会被延迟到整个页面都解析完毕后再运行，立即下载，但是延迟执行。</li>
-</ul>
-<p>###异步脚本 ###</p>
-<ul>
-<li><code>async</code>立即下载脚本，但不妨碍页面中的其他操作，并不保证按照指定的先后顺序执行。</li>
-<li>异步脚本不要在加载期间修改DOM。</li>
-<li>异步脚本一定会在页面的load事件前执行。</li>
-</ul>
-<h3 id="XHTML"><a href="#XHTML" class="headerlink" title="XHTML"></a>XHTML</h3><ul>
-<li>XHTML可扩展超文本标记语言，是将HTML作为XML的应用而重新定义的一个标准</li>
-</ul>
-<p>小于号(&lt;)在XHTML中将被当做开始一个新标签来解析。有两种方法可以解决：</p>
-<ol>
-<li>用相应的HTML实体（&lt;)替代代码中所有的小于号(&lt;)</li>
-<li>用一个CData片段来包含JS代码。在不兼容XHTML的浏览器中，不支持CData,故使用JS注释</li>
-</ol>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">script type="text/javascript"&gt;</span><br><span class="line">    //&lt;![CDATA[</span><br><span class="line">    function compare(a, b) &#123;</span><br><span class="line">        if (a &lt; b) &#123;</span><br><span class="line">            alert("A is less than B");</span><br><span class="line">        &#125; else if (a &gt; b) &#123;</span><br><span class="line">            alert("A is greater than B");</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            alert("A is equal to B");</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //]]&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>在XHTML中，CData片段是文档中的一个特殊区域，这个区域可以包含不需要解析的任意格式的文本内容</li>
-</ul>
-<h2 id="嵌入代码与外部文件"><a href="#嵌入代码与外部文件" class="headerlink" title="嵌入代码与外部文件"></a>嵌入代码与外部文件</h2><p>支持外部文件的人会有如下优点：</p>
-<ol>
-<li>可维护性</li>
-<li>可缓存</li>
-<li>适应未来</li>
-</ol>
-<h3 id="文档模式"><a href="#文档模式" class="headerlink" title="文档模式"></a>文档模式</h3><ul>
-<li>混杂模式、标准模式。如果在文档开始出没有发现文档类型声明，则所有浏览器都会默认开启混杂模式。</li>
-</ul>
-<h3 id="noscript元素"><a href="#noscript元素" class="headerlink" title="noscript元素"></a>noscript元素</h3><ul>
-<li><code>&lt;noscript&gt;</code>用于在不支持JS的浏览器中显示替代的内容。但在启用了脚本的浏览器中，用户不会看到它。</li>
-<li>包含在<code>&lt;noscript&gt;</code>元素中的内容只有在下列两种情况中的任何一种出现时，才会显示出来：</li>
-</ul>
-<ol>
-<li>浏览器不支持脚本</li>
-<li>浏览器支持脚本，但是脚本被禁用</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/09/Javascript DOM编程艺术读书笔记12/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XyyFighting">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/09/Javascript DOM编程艺术读书笔记12/" itemprop="url">Javascript DOM编程艺术读书笔记12</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-09T23:02:38+08:00">
-                2018-01-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/Javascript-DOM编程艺术/" itemprop="url" rel="index">
-                    <span itemprop="name">Javascript DOM编程艺术</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="综合示例"><a href="#综合示例" class="headerlink" title="综合示例"></a>综合示例</h2><h3 id="导航栏"><a href="#导航栏" class="headerlink" title="导航栏"></a>导航栏</h3><ul>
-<li>不同页面的导航栏拥有不同的样式，当前页面的导航栏应该颜色更深</li>
-</ul>
-<p><img src="http://image.jiantuku.com/18-1-8/92688918.jpg?e=1515650410&amp;token=el7kgPgYzpJoB23jrChWJ2gV3HpRl0VCzFn8rKKv:0KhDMw85vB1MIWdhGjEk6gC6l1o=" alt=""></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">highlightPage</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementsByTagName) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById) <span class="keyword">return</span> <span class="literal">false</span>;  </span><br><span class="line">  <span class="keyword">var</span> headers = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'header'</span>);</span><br><span class="line">  <span class="keyword">if</span> (headers.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">var</span> navs = headers[<span class="number">0</span>].getElementsByTagName(<span class="string">'nav'</span>);</span><br><span class="line">  <span class="keyword">if</span> (navs.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="comment">//取得导航链接，然后循环遍历它们</span></span><br><span class="line">  <span class="keyword">var</span> links = navs[<span class="number">0</span>].getElementsByTagName(<span class="string">"a"</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;links.length; i++) &#123;</span><br><span class="line">	  <span class="keyword">var</span> linkurl;</span><br><span class="line">	  <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;links.length; i++) &#123;</span><br><span class="line">	    <span class="comment">//取得链接中的URL</span></span><br><span class="line">	    linkurl = links[i].getAttribute(<span class="string">"href"</span>);</span><br><span class="line">	    <span class="comment">//window.location.href取得当前页面的URL。String.indexOf(substring)返回字符串第一次出现的位置，用于在字符串中寻找子字符串的位置。比较当前链接的URL与当前页面的URL</span></span><br><span class="line">	    <span class="keyword">if</span> (<span class="built_in">window</span>.location.href.indexOf(linkurl) != <span class="number">-1</span>) &#123;</span><br><span class="line">	      <span class="comment">//如果找到就添加here类</span></span><br><span class="line">	      links[i].className = <span class="string">"here"</span>;</span><br><span class="line">	      <span class="comment">//取得当前链接的文本，将其转换成小写形式。如果链接中的文本是"Home",那么linktext的值是home。</span></span><br><span class="line">	      <span class="keyword">var</span> linktext = links[i].lastChild.nodeValue.toLowerCase();</span><br><span class="line">	      <span class="comment">//为body添加上id属性，可以为不同弄的页面设置不同的页面头部</span></span><br><span class="line">	      <span class="built_in">document</span>.body.setAttribute(<span class="string">"id"</span>,linktext);</span><br><span class="line">	    &#125;</span><br><span class="line">	  &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="z-index"><a href="#z-index" class="headerlink" title="z-index"></a>z-index</h3><ul>
-<li>z-index 属性设置元素的堆叠顺序。拥有更高堆叠顺序的元素总是会处于堆叠顺序较低的元素的前面。</li>
-<li>Z-index 仅能在定位元素上奏效（例如 position:absolute;）</li>
-</ul>
-<h3 id="内部导航"><a href="#内部导航" class="headerlink" title="内部导航"></a>内部导航</h3><ul>
-<li>点击内部导航，只出现对应的那一部分内容，其他的内容不可见。</li>
-<li><p>1.传入元素ID，设置其可见，其余不可见。修改每个部分的display属性，除了作为参数传入的id对应的部分，其他部分的display属性都被设置成“none”，而与传入id对应的那个部分的display属性被设置成block。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showSection</span>(<span class="params">id</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> sections = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"section"</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;sections.length; i++ ) &#123;</span><br><span class="line">    <span class="keyword">if</span> (sections[i].getAttribute(<span class="string">"id"</span>) != id) &#123;</span><br><span class="line">      sections[i].style.display = <span class="string">"none"</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      sections[i].style.display = <span class="string">"block"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>2.设置onclick点击事件，传入需要可见部分的元素ID。<code>&lt;article&gt;&lt;nav&gt;&lt;li&gt;&lt;a href=&quot;#jay&quot;&gt;Jay Skript&lt;/a&gt;&lt;/li&gt;&lt;/nav&gt;&lt;/article&gt;</code> 需要在<article>中的<nav>所包含的链接被单击时调用showSection函数</nav></article></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">prepareInternalnav</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementsByTagName) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">var</span> articles = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"article"</span>);</span><br><span class="line">  <span class="keyword">if</span> (articles.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">var</span> navs = articles[<span class="number">0</span>].getElementsByTagName(<span class="string">"nav"</span>);</span><br><span class="line">  <span class="keyword">if</span> (navs.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">var</span> nav = navs[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">var</span> links = nav.getElementsByTagName(<span class="string">"a"</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;links.length; i++ ) &#123;</span><br><span class="line">      <span class="comment">// array=string.split(character)数组中的第一个元素是character以前的所有字符，第二个元素是character以后的所有字符</span></span><br><span class="line">    <span class="keyword">var</span> sectionId = links[i].getAttribute(<span class="string">"href"</span>).split(<span class="string">"#"</span>)[<span class="number">1</span>];</span><br><span class="line">    <span class="comment">//确保真的存在相应的id元素</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById(sectionId)) <span class="keyword">continue</span>;</span><br><span class="line">    <span class="comment">//页面加载以后，默认隐藏所有部分</span></span><br><span class="line">      <span class="built_in">document</span>.getElementById(sectionId).style.display = <span class="string">"none"</span>;</span><br><span class="line">      <span class="comment">//sectionId是一个局部变量，在onclick事件处理函数时就已经不存在了，可以设置一个属性</span></span><br><span class="line">    links[i].destination = sectionId;</span><br><span class="line">    <span class="comment">//事件处理函数</span></span><br><span class="line">    links[i].onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      showSection(<span class="keyword">this</span>.destination);</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="增强表单"><a href="#增强表单" class="headerlink" title="增强表单"></a>增强表单</h3><ul>
-<li>点击label元素，关联的表单字段就会获得焦点。并不是所有的浏览器都实现了该行为。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">focusLabels</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementsByTagName) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="comment">//取得文档的label元素</span></span><br><span class="line">  <span class="keyword">var</span> labels = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"label"</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;labels.length; i++) &#123;</span><br><span class="line">    <span class="comment">//如果label有for属性，添加一个事件处理函数</span></span><br><span class="line">    <span class="keyword">if</span> (!labels[i].getAttribute(<span class="string">"for"</span>)) <span class="keyword">continue</span>;</span><br><span class="line">    labels[i].onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">//在label被单击时，提取for属性的值，这个值就是相应表单字段的id。</span></span><br><span class="line">      <span class="keyword">var</span> id = <span class="keyword">this</span>.getAttribute(<span class="string">"for"</span>);</span><br><span class="line">        <span class="comment">//确保存在相应的表单字段</span></span><br><span class="line">      <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById(id)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      <span class="keyword">var</span> element = <span class="built_in">document</span>.getElementById(id);</span><br><span class="line">      <span class="comment">//让相应的表单字段获得焦点</span></span><br><span class="line">      element.focus();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="form对象和DOM"><a href="#form对象和DOM" class="headerlink" title="form对象和DOM"></a>form对象和DOM</h3><ul>
-<li>form.elements返回input、select、textarea以及其他表单字段。childNodes返回表单中的所有节点。</li>
-<li><p>每个表单元素都有自己的一组属性。element.value与element.getAttribute(“value”)等价。</p>
-</li>
-<li><p>在不支持placeholder属性的浏览器中也能实现就编写如下方法。这个方法与11章的方法类似，只是用的是HTML的form方法，11章用的是DOM方法。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">resetFields</span>(<span class="params">whichform</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//检查浏览器是否支持placeholder属性，如果不支持，继续</span></span><br><span class="line">  <span class="keyword">if</span> (Modernizr.input.placeholder) <span class="keyword">return</span>;</span><br><span class="line">  <span class="comment">//循环遍历表单中的每个元素</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;whichform.elements.length; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> element = whichform.elements[i];</span><br><span class="line">    <span class="comment">//如果当前元素是提交按钮，跳过。</span></span><br><span class="line">    <span class="keyword">if</span> (element.type == <span class="string">"submit"</span>) <span class="keyword">continue</span>;</span><br><span class="line">    <span class="comment">//如果没有placeholder属性，继续。</span></span><br><span class="line">    <span class="keyword">if</span> (!element.getAttribute(<span class="string">'placeholder'</span>)) <span class="keyword">continue</span>;</span><br><span class="line">    <span class="comment">//元素获得焦点的事件添加一个处理函数。如果字段的值等于占位符文本，则将字段的值设置为空</span></span><br><span class="line">    element.onfocus = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.value == <span class="keyword">this</span>.getAttribute(<span class="string">'placeholder'</span>)) &#123;</span><br><span class="line">      <span class="keyword">this</span>.value = <span class="string">""</span>;</span><br><span class="line">     &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//元素失去焦点的事件添加一个处理函数。如果字段的值为空，则将字段的值设置为占位符</span></span><br><span class="line">    element.onblur = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.value == <span class="string">""</span>) &#123;</span><br><span class="line">          <span class="comment">//为了应用样式，在字段显示占位符值的时候，添加placeholder类</span></span><br><span class="line">        <span class="keyword">this</span>.className=<span class="string">'placeholder'</span>;</span><br><span class="line">        <span class="comment">//鉴于不同的浏览器对位置属性的实现方式有所不同。同时使用了DOM placeholder属性和DOM的getAttribute('placeholder')方法</span></span><br><span class="line">        <span class="keyword">this</span>.value = <span class="keyword">this</span>.getAttribute(<span class="string">'placeholder'</span>)|| <span class="keyword">this</span>.getAttribute(<span class="string">'placeholder'</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    element.onblur();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="表单验证"><a href="#表单验证" class="headerlink" title="表单验证"></a>表单验证</h3><p><strong>使用JS验证表单的注意事项</strong></p>
-<ol>
-<li>验证脚本写的不好，反而不如没有验证</li>
-<li>千万不要完全依赖JS。客户端验证并不能取代服务器端的验证。即使有了JS验证，服务器照样还应该对接收到的数据再次验证。</li>
-<li>客户端验证的目的在于帮助用户填好表单，避免他们提交未完成的表单，从而节省他们的时间。服务器验证的目的在于保证数据库和后台系统的安全。</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//表单验证</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">validateForm</span>(<span class="params">whichform</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//循环遍历表单的elements数组</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;whichform.elements.length; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> element = whichform.elements[i];</span><br><span class="line">    <span class="comment">//如果发现了required属性，把相应的元素传递给isFilled函数</span></span><br><span class="line">    <span class="keyword">if</span> (element.getAttribute(<span class="string">"required"</span>) == <span class="string">'required'</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (!isFilled(element)) &#123;</span><br><span class="line">        <span class="comment">//如果isFilled函数返回false,显示警告信息，并且validateForm函数也返回false</span></span><br><span class="line">        alert(<span class="string">"Please fill in the "</span>+element.name+<span class="string">" field."</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">      <span class="comment">//如果发现了email类型的字段，把相应的元素传递给isEmail函数</span></span><br><span class="line">    <span class="keyword">if</span> (element.getAttribute(<span class="string">"type"</span>) == <span class="string">'email'</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (!isEmail(element)) &#123;</span><br><span class="line">          <span class="comment">//如果isEmail函数返回false,显示警告信息，并且validateForm函数也返回false</span></span><br><span class="line">        alert(<span class="string">"The "</span>+element.name+<span class="string">" field must be a valid email address."</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//否则validateForm返回true</span></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isFilled</span>(<span class="params">field</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (field.value.length &gt; <span class="number">1</span> &amp;&amp; field.value != field.placeholder);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isEmail</span>(<span class="params">field</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (field.value.indexOf(<span class="string">"@"</span>) != <span class="number">-1</span> &amp;&amp; field.value.indexOf(<span class="string">"."</span>) != <span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Ajax"><a href="#Ajax" class="headerlink" title="Ajax"></a>Ajax</h3><ul>
-<li>提交表单能够发送一个Ajax请求，感谢信息以嵌入方式添加到表单所在的页面，体验会更好。就是表单提交成功后，不打开新页面了，而是拦截请求，自己显示结果。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建XMLHttpRequest对象</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getHTTPObject</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> XMLHttpRequest == <span class="string">"undefined"</span>)</span><br><span class="line">    XMLHttpRequest = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">try</span> &#123; <span class="keyword">return</span> <span class="keyword">new</span> ActiveXObject(<span class="string">"Msxml2.XMLHTTP.6.0"</span>); &#125;</span><br><span class="line">        <span class="keyword">catch</span> (e) &#123;&#125;</span><br><span class="line">      <span class="keyword">try</span> &#123; <span class="keyword">return</span> <span class="keyword">new</span> ActiveXObject(<span class="string">"Msxml2.XMLHTTP.3.0"</span>); &#125;</span><br><span class="line">        <span class="keyword">catch</span> (e) &#123;&#125;</span><br><span class="line">      <span class="keyword">try</span> &#123; <span class="keyword">return</span> <span class="keyword">new</span> ActiveXObject(<span class="string">"Msxml2.XMLHTTP"</span>); &#125;</span><br><span class="line">        <span class="keyword">catch</span> (e) &#123;&#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//展示loading图片</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">displayAjaxLoading</span>(<span class="params">element</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 删除所有子元素</span></span><br><span class="line">  <span class="keyword">while</span> (element.hasChildNodes()) &#123;</span><br><span class="line">      element.removeChild(element.lastChild);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 创建一个图像元素</span></span><br><span class="line">  <span class="keyword">var</span> content = <span class="built_in">document</span>.createElement(<span class="string">"img"</span>);</span><br><span class="line">  content.setAttribute(<span class="string">"src"</span>,<span class="string">"images/loading.gif"</span>);</span><br><span class="line">  content.setAttribute(<span class="string">"alt"</span>,<span class="string">"Loading..."</span>);</span><br><span class="line">  <span class="comment">// 将图像添加到该元素中</span></span><br><span class="line">  element.appendChild(content);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">submitFormWithAjax</span>(<span class="params"> whichform, thetarget </span>) </span>&#123;</span><br><span class="line">  <span class="comment">//在修改DOM和显示加载图像之前，首先要检查是否存在有效的XMLHttpRequest对象</span></span><br><span class="line">  <span class="keyword">var</span> request = getHTTPObject();</span><br><span class="line">  <span class="keyword">if</span> (!request) &#123; <span class="keyword">return</span> <span class="literal">false</span>; &#125;</span><br><span class="line">  <span class="comment">//调用displayAjaxLoading函数，删除目标元素的子元素，并添加loading.gif图像</span></span><br><span class="line">  displayAjaxLoading(thetarget);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//循环遍历表单的每个字段，手机他们的名字和编码后的值</span></span><br><span class="line">  <span class="keyword">var</span> dataParts = [];</span><br><span class="line">  <span class="keyword">var</span> element;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;whichform.elements.length; i++) &#123;</span><br><span class="line">    element = whichform.elements[i];</span><br><span class="line">    dataParts[i] = element.name + <span class="string">'='</span> + <span class="built_in">encodeURIComponent</span>(element.value);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//收集到所有数据后，把数组中的项用和号&amp;连接起来</span></span><br><span class="line">  <span class="keyword">var</span> data = dataParts.join(<span class="string">'&amp;'</span>);</span><br><span class="line">  <span class="comment">//向原始表单的action属性指定的处理函数发送post请求</span></span><br><span class="line">  request.open(<span class="string">'POST'</span>, whichform.getAttribute(<span class="string">"action"</span>), <span class="literal">true</span>);</span><br><span class="line">  <span class="comment">//并在请求头部添加application/x-www-form-urlencoded头部。这个头部信息对于POST请求是必须的，它表示请求中包含URL编码的表单</span></span><br><span class="line">  request.setRequestHeader(<span class="string">"Content-type"</span>, <span class="string">"application/x-www-form-urlencoded"</span>);</span><br><span class="line"></span><br><span class="line">  request.onreadystatechange = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (request.readyState == <span class="number">4</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (request.status == <span class="number">200</span> || request.status == <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="comment">//数组matches的第一个元素是responseText中的整个模式匹配的部分，即包括&lt;article&gt;和&lt;/article&gt;在内的部分</span></span><br><span class="line">            <span class="comment">//数组matches的第二个元素responseText中与补货组中的模式匹配的部分</span></span><br><span class="line">          <span class="keyword">var</span> matches = request.responseText.match(<span class="regexp">/&lt;article&gt;([\s\S]+)&lt;\/article&gt;/</span>);</span><br><span class="line">          <span class="keyword">if</span> (matches.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            thetarget.innerHTML = matches[<span class="number">1</span>];</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            thetarget.innerHTML = <span class="string">'&lt;p&gt;Oops, there was an error. Sorry.&lt;/p&gt;'</span>;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          thetarget.innerHTML = <span class="string">'&lt;p&gt;'</span> + request.statusText + <span class="string">'&lt;/p&gt;'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  request.send(data);</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//提交表单触发的onclick按钮</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">prepareForms</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;<span class="built_in">document</span>.forms.length; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> thisform = <span class="built_in">document</span>.forms[i];</span><br><span class="line">    resetFields(thisform);</span><br><span class="line">    thisform.onsubmit = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="comment">//如果表单没有通过验证，就返回false.验证失败，不能提交表单</span></span><br><span class="line">      <span class="keyword">if</span> (!validateForm(<span class="keyword">this</span>)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      <span class="keyword">var</span> article = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'article'</span>)[<span class="number">0</span>];</span><br><span class="line">      <span class="comment">//submitFormWithAjax函数成功发送了Ajax请求并返回true,则让submit事件处理函数返回false,以便阻止浏览器重复提交表单</span></span><br><span class="line">      <span class="keyword">if</span> (submitFormWithAjax(<span class="keyword">this</span>, article)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      <span class="comment">//submitFormWithAjax函数没有成功发送了Ajax请求，故submit事件返回true,让表单 像什么也没有发生一样继续通过页面提交</span></span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="压缩代码"><a href="#压缩代码" class="headerlink" title="压缩代码"></a>压缩代码</h3><ul>
-<li>谷歌的closure Compiler可以压缩代码</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3011,7 +3173,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3033,7 +3195,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

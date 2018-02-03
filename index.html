@@ -252,6 +252,542 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/03/JavaScript高级程序设计读书笔记22/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/03/JavaScript高级程序设计读书笔记22/" itemprop="url">JavaScript高级程序设计读书笔记22</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-03T16:19:45+08:00">
+                2018-02-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第22章-高级技巧"><a href="#第22章-高级技巧" class="headerlink" title="第22章 高级技巧"></a>第22章 高级技巧</h1><h2 id="高级函数"><a href="#高级函数" class="headerlink" title="高级函数"></a>高级函数</h2><h3 id="安全的类型检测"><a href="#安全的类型检测" class="headerlink" title="安全的类型检测"></a>安全的类型检测</h3><ul>
+<li>typeof在Safari中对正则表达式也返回function。</li>
+<li>instanceof在存在多个全局作用域时也会把同种却不同作用域中构造函数的实例识别为不同的实例</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isArray</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString.call(value) == <span class="string">"[object Array]"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isFunction</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString.call(value) == <span class="string">"[object Function]"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isRegExp</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString.call(value) == <span class="string">"[object RegExp]"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="作用域安全的构造函数"><a href="#作用域安全的构造函数" class="headerlink" title="作用域安全的构造函数"></a>作用域安全的构造函数</h3><ul>
+<li>当使用new操作符，构造函数内用到的this对象会指向新创建的对象实例</li>
+<li><p>作用域安全的构造函数在进行任何更改前，首先确认this对象是正确类型的实例。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name, age, job</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span> <span class="keyword">instanceof</span> Person)&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">        <span class="keyword">this</span>.job = job;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Person(name, age, job);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person1 = Person(<span class="string">"Nicholas"</span>, <span class="number">29</span>, <span class="string">"Software Engineer"</span>);</span><br><span class="line">alert(<span class="built_in">window</span>.name);   <span class="comment">//""</span></span><br><span class="line">alert(person1.name);  <span class="comment">//"Nicholas"</span></span><br><span class="line"><span class="keyword">var</span> person2 = <span class="keyword">new</span> Person(<span class="string">"Shelby"</span>, <span class="number">34</span>, <span class="string">"Ergonomist"</span>);</span><br><span class="line">alert(person2.name);  <span class="comment">//"Shelby"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不过在使用了这样作用域安全的构造函数后，如果使用基于构造函数窃取的继承且不使用原型链，就会出现问题</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Polygon</span>(<span class="params">sides</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span> <span class="keyword">instanceof</span> Polygon) &#123;</span><br><span class="line">        <span class="keyword">this</span>.sides = sides;</span><br><span class="line">        <span class="keyword">this</span>.getArea = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Polygon(sides);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Rectangle</span>(<span class="params">width, height</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//this对象并非Polygn的实例，所以会创建并返回一个新的Polygn对象</span></span><br><span class="line">    Polygon.call(<span class="keyword">this</span>, <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">this</span>.width = width;</span><br><span class="line">    <span class="keyword">this</span>.height = height;</span><br><span class="line">    <span class="keyword">this</span>.getArea = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.width * <span class="keyword">this</span>.height;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> rect = <span class="keyword">new</span> Rectangle(<span class="number">5</span>, <span class="number">10</span>);</span><br><span class="line">alert(rect.sides);        <span class="comment">//undefined</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用原型链或者寄生组合可以解决</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Polygon</span>(<span class="params">sides</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span> <span class="keyword">instanceof</span> Polygon) &#123;</span><br><span class="line">        <span class="keyword">this</span>.sides = sides;</span><br><span class="line">        <span class="keyword">this</span>.getArea = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Polygon(sides);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Rectangle</span>(<span class="params">width, height</span>)</span>&#123;</span><br><span class="line">    Polygon.call(<span class="keyword">this</span>, <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">this</span>.width = width;</span><br><span class="line">    <span class="keyword">this</span>.height = height;</span><br><span class="line">    <span class="keyword">this</span>.getArea = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.width * <span class="keyword">this</span>.height;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line">Rectangle.prototype = <span class="keyword">new</span> Polygon();</span><br><span class="line"><span class="keyword">var</span> rect = <span class="keyword">new</span> Rectangle(<span class="number">5</span>, <span class="number">10</span>);</span><br><span class="line">alert(rect.sides);   <span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+<h3 id="惰性载入函数"><a href="#惰性载入函数" class="headerlink" title="惰性载入函数"></a>惰性载入函数</h3><ul>
+<li>大量的判断浏览器能力的函数需要被使用（通常是大量的if），然而这些判断一般其实不必每次都执行，在执行一次后，浏览器的能力就确定了，以后就应该不用在判断了。</li>
+<li>第一种方式就是在函数被调用时再处理函数。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createXHR</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> XMLHttpRequest != <span class="string">"undefined"</span>)&#123;</span><br><span class="line">        createXHR = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> ActiveXObject != <span class="string">"undefined"</span>)&#123;</span><br><span class="line">        createXHR = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;                    </span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">arguments</span>.callee.activeXString != <span class="string">"string"</span>)&#123;</span><br><span class="line">                <span class="keyword">var</span> versions = [<span class="string">"MSXML2.XMLHttp.6.0"</span>, <span class="string">"MSXML2.XMLHttp.3.0"</span>,</span><br><span class="line">                                <span class="string">"MSXML2.XMLHttp"</span>],</span><br><span class="line">                    i, len;</span><br><span class="line">                <span class="keyword">for</span> (i=<span class="number">0</span>,len=versions.length; i &lt; len; i++)&#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        <span class="keyword">new</span> ActiveXObject(versions[i]);</span><br><span class="line">                        <span class="built_in">arguments</span>.callee.activeXString = versions[i];</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (ex)&#123;</span><br><span class="line">                        <span class="comment">//skip</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ActiveXObject(<span class="built_in">arguments</span>.callee.activeXString);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        createXHR = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"No XHR object available."</span>);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> createXHR();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第二种实现惰性载入的方式是在声明函数时就指定适当的函数。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> createXHR = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> XMLHttpRequest != <span class="string">"undefined"</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> ActiveXObject != <span class="string">"undefined"</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;                    </span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">arguments</span>.callee.activeXString != <span class="string">"string"</span>)&#123;</span><br><span class="line">                <span class="keyword">var</span> versions = [<span class="string">"MSXML2.XMLHttp.6.0"</span>, <span class="string">"MSXML2.XMLHttp.3.0"</span>,</span><br><span class="line">                                <span class="string">"MSXML2.XMLHttp"</span>],</span><br><span class="line">                    i, len;</span><br><span class="line">                <span class="keyword">for</span> (i=<span class="number">0</span>,len=versions.length; i &lt; len; i++)&#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        <span class="keyword">new</span> ActiveXObject(versions[i]);</span><br><span class="line">                        <span class="built_in">arguments</span>.callee.activeXString = versions[i];</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (ex)&#123;</span><br><span class="line">                        <span class="comment">//skip</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ActiveXObject(<span class="built_in">arguments</span>.callee.activeXString);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"No XHR object available."</span>);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br><span class="line"><span class="keyword">var</span> xhr1 = createXHR();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="函数绑定"><a href="#函数绑定" class="headerlink" title="函数绑定"></a>函数绑定</h3><ul>
+<li>bind()函数可以将函数绑定到指定环境<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bind</span>(<span class="params">fn, context</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> fn.apply(context, <span class="built_in">arguments</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="函数柯里化"><a href="#函数柯里化" class="headerlink" title="函数柯里化"></a>函数柯里化</h3><ul>
+<li>函数柯里化：用来创建已经设置好一个或多个参数的函数</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">curry</span>(<span class="params">fn</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> args = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> innerArgs = <span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>);</span><br><span class="line">        <span class="keyword">var</span> finalArgs = args.concat(innerArgs);</span><br><span class="line">        <span class="keyword">return</span> fn.apply(<span class="literal">null</span>, finalArgs);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="防篡改对象"><a href="#防篡改对象" class="headerlink" title="防篡改对象"></a>防篡改对象</h2><h3 id="不可拓展对象"><a href="#不可拓展对象" class="headerlink" title="不可拓展对象"></a>不可拓展对象</h3><ul>
+<li>不能给对象添加属性和方法。但是可以删除和修改已有成员。</li>
+<li>preventExtensions()方法：对象不可扩展</li>
+<li>Object.isExtensible():确定对象是否可以扩展</li>
+</ul>
+<h3 id="密封的对象"><a href="#密封的对象" class="headerlink" title="密封的对象"></a>密封的对象</h3><ul>
+<li>密封对象不可扩展，已有成员的[[Configurable]]特性将被设置为false。不能删除属性和方法。</li>
+<li>Object.frozen()：密封对象</li>
+<li>Object.isFrozen()：确定对象是否被密封了</li>
+</ul>
+<h3 id="冻结的对象"><a href="#冻结的对象" class="headerlink" title="冻结的对象"></a>冻结的对象</h3><ul>
+<li>frozen对象不可拓展又是密封的，而且对象属性的[[Writable]]特性会被设置为false。如果定义[[Set]]函数，访问器属性仍是可写的。</li>
+<li>Object.frozen(person)：冻结对象</li>
+<li>Object.isFrozen(person)：确定对象是否被冻结</li>
+</ul>
+<h2 id="高级定时器"><a href="#高级定时器" class="headerlink" title="高级定时器"></a>高级定时器</h2><ul>
+<li>关于定时器要记住的最重要的事情是，指定的时间间隔表示何时将定时器的代码添加到队列，而不是何时执行代码。</li>
+</ul>
+<h3 id="重复的定时器"><a href="#重复的定时器" class="headerlink" title="重复的定时器"></a>重复的定时器</h3><ul>
+<li>使用setInterval创建定时器的目的是使代码规则的插入到队列中。这个方式的问题在于，存在这样一种可能，在上次代码还没执行完的时候代码再次被添加到队列。</li>
+<li>解决方式：使用链式setTimeout（）<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span><br><span class="line">    setTimeout(<span class="built_in">arguments</span>.callee, interval);</span><br><span class="line">&#125;, interval);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Yielding-Processes"><a href="#Yielding-Processes" class="headerlink" title="Yielding Processes"></a>Yielding Processes</h3><ul>
+<li>如果你的页面中要进行大量的循环处理，每次循环会消耗大量的时间，那就会阻塞用户的操作。</li>
+<li>解决方法：数组分块<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">chunk</span>(<span class="params">array, process, context</span>)</span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> item = array.shift();</span><br><span class="line">        process.call(context, item);</span><br><span class="line">        <span class="keyword">if</span> (array.length &gt; <span class="number">0</span>)&#123;</span><br><span class="line">            setTimeout(<span class="built_in">arguments</span>.callee, <span class="number">100</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, <span class="number">100</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> data = [<span class="number">12</span>,<span class="number">123</span>,<span class="number">1234</span>,<span class="number">453</span>,<span class="number">436</span>,<span class="number">23</span>,<span class="number">23</span>,<span class="number">5</span>,<span class="number">4123</span>,<span class="number">45</span>,<span class="number">346</span>,<span class="number">5634</span>,<span class="number">2234</span>,<span class="number">345</span>,<span class="number">342</span>];</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printValue</span>(<span class="params">item</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>);</span><br><span class="line">    div.innerHTML += item + <span class="string">"&lt;br&gt;"</span>;</span><br><span class="line">&#125;</span><br><span class="line">chunk(data, printValue);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="函数节流"><a href="#函数节流" class="headerlink" title="函数节流"></a>函数节流</h3><ul>
+<li>这个是为了避免某个操作连续不停的触发，比如涉及到DOM操作，连续大量的DOM操作非常耗资源。</li>
+<li>解决方式：函数节流</li>
+<li>函数节流的基本思想是，每一次调用其实是设置一个真正调用的setTimeout操作，每次调用都会先清除当前的setTimeout再设置一个新的。如果短时间内大量调用，就回一直设置新的setTimeout而不执行setTimeout内的操作。只有停止调用足够长的时间，直到setTimeout时间到了，内部的真正操作才会执行一次。这个对onresize事件特别有用。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">method, context</span>) </span>&#123;</span><br><span class="line">    clearTimeout(method.tId);</span><br><span class="line">    method.tId= setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        method.call(context);</span><br><span class="line">    &#125;, <span class="number">100</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reDiv</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>);</span><br><span class="line">    div.innerHTML += <span class="string">"qqqqqq"</span> + <span class="string">"&lt;br&gt;"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.onresize = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    throttle(reDiv);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="自定义事件"><a href="#自定义事件" class="headerlink" title="自定义事件"></a>自定义事件</h2><ul>
+<li>事件这样的交互其实就是观察者模式，这类模式由两类对象组成：主体和观察者。主体负责发布事件，观察者通过订阅这些事件来观察该主体。</li>
+<li>观察者知道主体并能注册事件的回调函数（事件处理程序）。涉及DOM上时，DOM元素便是主体，事件处理程序代码便是观察者。</li>
+<li><p>创建自定义事件实际上就是创建一个管理事件的对象，并在里面存入各种事件类型的处理函数，触发事件时，只要你给出事件类型，这个对象就会找到相应的事件处理程序并执行。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">EventTarget</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.handlers = &#123;&#125;;</span><br><span class="line">&#125;</span><br><span class="line">EventTarget.prototype = &#123;</span><br><span class="line">    <span class="keyword">constructor</span>: EventTarget,</span><br><span class="line">    addHandler: function(type, handler)&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="keyword">this</span>.handlers[type] == <span class="string">"undefined"</span>)&#123;</span><br><span class="line">            <span class="keyword">this</span>.handlers[type] = [];</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">this</span>.handlers[type].push(handler);</span><br><span class="line">    &#125;,</span><br><span class="line">    fire: <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!event.target)&#123;</span><br><span class="line">            event.target = <span class="keyword">this</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.handlers[event.type] <span class="keyword">instanceof</span> <span class="built_in">Array</span>)&#123;</span><br><span class="line">            <span class="keyword">var</span> handlers = <span class="keyword">this</span>.handlers[event.type];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>, len=handlers.length; i &lt; len; i++)&#123;</span><br><span class="line">                handlers[i](event);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    removeHandler: <span class="function"><span class="keyword">function</span>(<span class="params">type, handler</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.handlers[type] <span class="keyword">instanceof</span> <span class="built_in">Array</span>)&#123;</span><br><span class="line">            <span class="keyword">var</span> handlers = <span class="keyword">this</span>.handlers[type];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>, len=handlers.length; i &lt; len; i++)&#123;</span><br><span class="line">                <span class="keyword">if</span> (handlers[i] === handler)&#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        handlers.splice(i, <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用EventTarget类型的自定义事件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleMessage</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">    alert(<span class="string">"Message received: "</span> + event.message);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> target = <span class="keyword">new</span> EventTarget();</span><br><span class="line">target.addHandler(<span class="string">"message"</span>, handleMessage);</span><br><span class="line">target.fire(&#123; <span class="attr">type</span>: <span class="string">"message"</span>, <span class="attr">message</span>: <span class="string">"Hello world!"</span>&#125;);</span><br><span class="line">target.removeHandler(<span class="string">"message"</span>, handleMessage);</span><br><span class="line">target.fire(&#123; <span class="attr">type</span>: <span class="string">"message"</span>, <span class="attr">message</span>: <span class="string">"Hello world!"</span>&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="拖放"><a href="#拖放" class="headerlink" title="拖放"></a>拖放</h2><ul>
+<li>创建一个绝对定位的元素，使其可以用鼠标移动<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> DragDrop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"><span class="keyword">var</span> dragging = <span class="literal">null</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleEvent</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//获取事件和目标</span></span><br><span class="line">    event = EventUtil.getEvent(event);</span><br><span class="line">    <span class="keyword">var</span> target = EventUtil.getTarget(event);            </span><br><span class="line">    <span class="comment">//确定事件类型</span></span><br><span class="line">    <span class="keyword">switch</span>(event.type)&#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">"mousedown"</span>:</span><br><span class="line">            <span class="keyword">if</span> (target.className.indexOf(<span class="string">"draggable"</span>) &gt; <span class="number">-1</span>)&#123;</span><br><span class="line">                dragging = target;</span><br><span class="line">            &#125;                     </span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">"mousemove"</span>:</span><br><span class="line">            <span class="keyword">if</span> (dragging !== <span class="literal">null</span>)&#123;</span><br><span class="line">                <span class="comment">//指定位置</span></span><br><span class="line">                dragging.style.left = event.clientX + <span class="string">"px"</span>;</span><br><span class="line">                dragging.style.top = event.clientY + <span class="string">"px"</span>;                    </span><br><span class="line">            &#125;                    </span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">"mouseup"</span>:</span><br><span class="line">            dragging = <span class="literal">null</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//公共接口</span></span><br><span class="line"><span class="keyword">return</span> &#123;            </span><br><span class="line">    enable: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        EventUtil.addHandler(<span class="built_in">document</span>, <span class="string">"mousedown"</span>, handleEvent);</span><br><span class="line">        EventUtil.addHandler(<span class="built_in">document</span>, <span class="string">"mousemove"</span>, handleEvent);</span><br><span class="line">        EventUtil.addHandler(<span class="built_in">document</span>, <span class="string">"mouseup"</span>, handleEvent);</span><br><span class="line">    &#125;,</span><br><span class="line">    disable: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        EventUtil.removeHandler(<span class="built_in">document</span>, <span class="string">"mousedown"</span>, handleEvent);</span><br><span class="line">        EventUtil.removeHandler(<span class="built_in">document</span>, <span class="string">"mousemove"</span>, handleEvent);</span><br><span class="line">        EventUtil.removeHandler(<span class="built_in">document</span>, <span class="string">"mouseup"</span>, handleEvent);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="修缮拖动方法"><a href="#修缮拖动方法" class="headerlink" title="修缮拖动方法"></a>修缮拖动方法</h3><ul>
+<li>原先的代码会让被拖动的元素的左上角在鼠标下方。</li>
+<li>现在对鼠标相对元素的位置记录后再次计算元素的绝对位置。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> DragDrop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> dragging = <span class="literal">null</span>,</span><br><span class="line">        diffX = <span class="number">0</span>,</span><br><span class="line">        diffY = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">handleEvent</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">        <span class="comment">//获取事件和目标</span></span><br><span class="line">        event = EventUtil.getEvent(event);</span><br><span class="line">        <span class="keyword">var</span> target = EventUtil.getTarget(event);</span><br><span class="line">        <span class="comment">//确定事件类型</span></span><br><span class="line">        <span class="keyword">switch</span>(event.type)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"mousedown"</span>:</span><br><span class="line">                <span class="keyword">if</span> (target.className.indexOf(<span class="string">"draggable"</span>) &gt; <span class="number">-1</span>)&#123;</span><br><span class="line">                    dragging = target;</span><br><span class="line">                    diffX = event.clientX - target.offsetLeft;</span><br><span class="line">                    diffY = event.clientY - target.offsetTop;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"mousemove"</span>:</span><br><span class="line">                <span class="keyword">if</span> (dragging !== <span class="literal">null</span>)&#123;</span><br><span class="line">                    <span class="comment">//指定位置</span></span><br><span class="line">                    dragging.style.left = (event.clientX - diffX) + <span class="string">"px"</span>;</span><br><span class="line">                    dragging.style.top = (event.clientY - diffY) + <span class="string">"px"</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"mouseup"</span>:</span><br><span class="line">                dragging = <span class="literal">null</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">//公共接口</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        enable: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            EventUtil.addHandler(<span class="built_in">document</span>, <span class="string">"mousedown"</span>, handleEvent);</span><br><span class="line">            EventUtil.addHandler(<span class="built_in">document</span>, <span class="string">"mousemove"</span>, handleEvent);</span><br><span class="line">            EventUtil.addHandler(<span class="built_in">document</span>, <span class="string">"mouseup"</span>, handleEvent);</span><br><span class="line">        &#125;,</span><br><span class="line">        disable: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            EventUtil.removeHandler(<span class="built_in">document</span>, <span class="string">"mousedown"</span>, handleEvent);</span><br><span class="line">            EventUtil.removeHandler(<span class="built_in">document</span>, <span class="string">"mousemove"</span>, handleEvent);</span><br><span class="line">            EventUtil.removeHandler(<span class="built_in">document</span>, <span class="string">"mouseup"</span>, handleEvent);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="添加自定义事件"><a href="#添加自定义事件" class="headerlink" title="添加自定义事件"></a>添加自定义事件</h3><ul>
+<li>新定义一个dragdrop变量，它是EventTarget类型的对象，在它上面我们可以添加事件处理函数或触发事件。在拖动开始时，过程中，结束时，都触发了自定义事件，这样有人想在这几个节点做什么就直接添加事件处理函数就可以了。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> DragDrop = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> dragdrop = <span class="keyword">new</span> EventTarget(),</span><br><span class="line">        dragging = <span class="literal">null</span>,</span><br><span class="line">        diffX = <span class="number">0</span>,</span><br><span class="line">        diffY = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">handleEvent</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">        <span class="comment">//获取事件和目标</span></span><br><span class="line">        event = EventUtil.getEvent(event);</span><br><span class="line">        <span class="keyword">var</span> target = EventUtil.getTarget(event);            </span><br><span class="line">        <span class="comment">//确定事件类型</span></span><br><span class="line">        <span class="keyword">switch</span>(event.type)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"mousedown"</span>:</span><br><span class="line">                <span class="keyword">if</span> (target.className.indexOf(<span class="string">"draggable"</span>) &gt; <span class="number">-1</span>)&#123;</span><br><span class="line">                    dragging = target;</span><br><span class="line">                    diffX = event.clientX - target.offsetLeft;</span><br><span class="line">                    diffY = event.clientY - target.offsetTop;</span><br><span class="line">                    dragdrop.fire(&#123;<span class="attr">type</span>:<span class="string">"dragstart"</span>, <span class="attr">target</span>: dragging, <span class="attr">x</span>: event.clientX, <span class="attr">y</span>: event.clientY&#125;);</span><br><span class="line">                &#125;                     </span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"mousemove"</span>:</span><br><span class="line">                <span class="keyword">if</span> (dragging !== <span class="literal">null</span>)&#123;</span><br><span class="line">                    <span class="comment">//指定位置</span></span><br><span class="line">                    dragging.style.left = (event.clientX - diffX) + <span class="string">"px"</span>;</span><br><span class="line">                    dragging.style.top = (event.clientY - diffY) + <span class="string">"px"</span>;   </span><br><span class="line">                    <span class="comment">//触发自定义事件</span></span><br><span class="line">                    dragdrop.fire(&#123;<span class="attr">type</span>:<span class="string">"drag"</span>, <span class="attr">target</span>: dragging, <span class="attr">x</span>: event.clientX, <span class="attr">y</span>: event.clientY&#125;);</span><br><span class="line">                &#125;                    </span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"mouseup"</span>:</span><br><span class="line">                dragdrop.fire(&#123;<span class="attr">type</span>:<span class="string">"dragend"</span>, <span class="attr">target</span>: dragging, <span class="attr">x</span>: event.clientX, <span class="attr">y</span>: event.clientY&#125;);</span><br><span class="line">                dragging = <span class="literal">null</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">//公共接口</span></span><br><span class="line">    dragdrop.enable = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            EventUtil.addHandler(<span class="built_in">document</span>, <span class="string">"mousedown"</span>, handleEvent);</span><br><span class="line">            EventUtil.addHandler(<span class="built_in">document</span>, <span class="string">"mousemove"</span>, handleEvent);</span><br><span class="line">            EventUtil.addHandler(<span class="built_in">document</span>, <span class="string">"mouseup"</span>, handleEvent);</span><br><span class="line">    &#125;;</span><br><span class="line">    dragdrop.disable = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            EventUtil.removeHandler(<span class="built_in">document</span>, <span class="string">"mousedown"</span>, handleEvent);</span><br><span class="line">            EventUtil.removeHandler(<span class="built_in">document</span>, <span class="string">"mousemove"</span>, handleEvent);</span><br><span class="line">            EventUtil.removeHandler(<span class="built_in">document</span>, <span class="string">"mouseup"</span>, handleEvent);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> dragdrop;</span><br><span class="line">&#125;();</span><br><span class="line">DragDrop.enable();</span><br><span class="line">DragDrop.addHandler(<span class="string">"dragstart"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> status = <span class="built_in">document</span>.getElementById(<span class="string">"status"</span>);</span><br><span class="line">    status.innerHTML = <span class="string">"Started dragging "</span> + event.target.id;</span><br><span class="line">&#125;);</span><br><span class="line">DragDrop.addHandler(<span class="string">"drag"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> status = <span class="built_in">document</span>.getElementById(<span class="string">"status"</span>);</span><br><span class="line">    status.innerHTML += <span class="string">"&lt;br&gt;Dragged "</span> + event.target.id + <span class="string">" to ("</span> + event.x + <span class="string">","</span> + event.y + <span class="string">")"</span>;</span><br><span class="line">&#125;);</span><br><span class="line">DragDrop.addHandler(<span class="string">"dragend"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> status = <span class="built_in">document</span>.getElementById(<span class="string">"status"</span>);</span><br><span class="line">    status.innerHTML += <span class="string">"&lt;br&gt;Dropped "</span> + event.target.id + <span class="string">" at ("</span> + event.x + <span class="string">","</span> + event.y + <span class="string">")"</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/03/JavaScript高级程序设计读书笔记21/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/03/JavaScript高级程序设计读书笔记21/" itemprop="url">JavaScript高级程序设计读书笔记21</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-03T16:19:45+08:00">
+                2018-02-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第21章-Ajax与Comet"><a href="#第21章-Ajax与Comet" class="headerlink" title="第21章 Ajax与Comet"></a>第21章 Ajax与Comet</h1><ul>
+<li>Ajax核心是XMLHttpRequest对象，能够以异步的方式从服务器获取更多信息，意味着用户单击后，可以不必刷新页面也能取得数据</li>
+</ul>
+<h1 id="XMLHttpReques对象"><a href="#XMLHttpReques对象" class="headerlink" title="XMLHttpReques对象"></a>XMLHttpReques对象</h1><ul>
+<li>浏览器兼容</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createXHR</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> XMLHttpRequest != <span class="string">"undefined"</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> XMLHttpRequest;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">typeof</span> ActiveXObject != <span class="string">"undefined"</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="built_in">arguments</span>.callee.activeXString != <span class="string">"string"</span>)&#123;</span><br><span class="line">            <span class="keyword">var</span> versions = [<span class="string">"MSXML2.XMLHttp.6.0"</span>,<span class="string">"MSXML2.XMLHttp.3.0"</span>,<span class="string">"MSXML2.XMLHttp"</span>],i,len;</span><br><span class="line">            <span class="keyword">for</span>(i=<span class="number">0</span>,len=versions.length;i &lt; len;i++)&#123;</span><br><span class="line">                <span class="keyword">try</span>&#123;</span><br><span class="line">                    <span class="keyword">new</span> ActiveXObject(versions[i]);</span><br><span class="line">                    <span class="built_in">arguments</span>.callee.activeXString = versions[i];</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;<span class="keyword">catch</span>(ex)&#123;</span><br><span class="line">                    <span class="comment">//跳过</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ActiveXObject(<span class="built_in">arguments</span>.callee.activeXString);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"No XHR Object available"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//使用示例</span></span><br><span class="line"><span class="keyword">var</span> xhr = createXHR();</span><br></pre></td></tr></table></figure>
+<h3 id="HXR的用法"><a href="#HXR的用法" class="headerlink" title="HXR的用法"></a>HXR的用法</h3><ul>
+<li>open，接收3个参数：要发送的请求的类型（“get”，“post”）、请求的URL、表示是否异步发送请求的布尔值</li>
+<li>URL相对于执行代码的当前页面</li>
+<li>调用open()方法并不会真正发送请求</li>
+<li>send接受一个参数：作为请求主体发送的数据，不需要则要传入null。</li>
+<li>请求是同步的，JavaScript代码会等到服务器响应之后再继续执行。在收到响应后，响应的数据会自动填充xhr对象的属性：<blockquote>
+<p>responseText： 作为响应主体被返回的文本。<br>responseXML： 如果响应的内容类型是”text/xml”或”application/xml”，这个属性中将保存包含着响应数据&gt; 的XML DOM文档。<br>status： 响应的HTTP状态。<br>statusText： HTTP状态的说明。</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">xhr.open(<span class="string">"get"</span>,<span class="string">"example.php"</span>,<span class="literal">false</span>);               <span class="comment">//同步请求</span></span><br><span class="line">xhr.send(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>((xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>) || xhr.status == <span class="number">304</span>)&#123;</span><br><span class="line">    alert(xhr.resopnseText);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    alert(<span class="string">"Request was unsuccessful: "</span>+xhr.status);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>如果要发送异步请求，可以检测XHR对象的readyState属性，该属性表示请求/响应过程的当前活动阶段：</p>
+<blockquote>
+<p>0: 未初始化。尚未调用open()方法<br>1: 启动。已经调用open()方法但尚未调用send()方法<br>2：发送。已经调用send()方法但尚未接收到响应。<br>3：接受。已经接受到部分响应数据。<br>4：完成。已经接受到全部响应数据，而且可以在客户端使用了。</p>
+</blockquote>
+</li>
+<li><p>readyState属性的值由一个值变成另一个值，都触发一次readystatechange事件。</p>
+</li>
+<li>必须在调用open之前指定onreadystatechange事件处理程序才能确保跨浏览器兼容性<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = createXHR();</span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;                         <span class="comment">//DOM0级方法，不是所有浏览器都支持DOM2级方法</span></span><br><span class="line">    <span class="keyword">if</span>(xhr.readyState == <span class="number">4</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>((xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>) || xhr.status == <span class="number">304</span>)&#123;</span><br><span class="line">            alert(xhr.resopnseText);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            alert(<span class="string">"Request was unsuccessful: "</span>+xhr.status);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">xhr.open(<span class="string">"get"</span>,<span class="string">"example.php"</span>,<span class="literal">true</span>);                         <span class="comment">//异步请求</span></span><br><span class="line">xhr.send(<span class="literal">null</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="HTTP头部"><a href="#HTTP头部" class="headerlink" title="HTTP头部"></a>HTTP头部</h3><ul>
+<li><p>默认情况下，发送XHR请求的同时，还会发送下列头部信息</p>
+<blockquote>
+<p>Accept：浏览器能够处理的内容类型<br>Accept-Charset：浏览器能够显示的字符集<br>Accept-Encoding：浏览器能够处理的压缩编码<br>Accept-Language：浏览器当前设置语言<br>Connection：浏览器与服务器之间的链接类型<br>Cookie：当前页面设置的热河Cookie<br>Host：发出请求的页面所在的域<br>Referer：发出请求的页面的URI。(正确拼法是referrer)<br>User-Agent：浏览器的用户代理字符串</p>
+</blockquote>
+</li>
+<li><p>setRequestHeader方法设置自定义的请求头部信息。接收两个参数：头部字段名称，头部字段值，</p>
+</li>
+<li>要成功发送请求头部信息，必须在调用open方法之后，调用send方法之前调用setRequestHeader</li>
+<li>调用XHR对象的getRequestHeader方法并传入头部字段名称，可以取得相应头部信息</li>
+<li>调用getAllResponseHeaders()方法则可以获得一个包含所有头部信息的长字符串。</li>
+</ul>
+<h3 id="GET请求"><a href="#GET请求" class="headerlink" title="GET请求"></a>GET请求</h3><ul>
+<li>GET请求最常用语想服务器查询某些信息</li>
+<li>经常发生的一个错误，就是查询字符串的格式有问题，查询字符串的每个参数的名称和值都必须使用encodeURIComponent()编码，然后才能放到URL末尾</li>
+<li>下面这个函数可以辅助向现有URL的末尾添加查询字符串参数<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addURLParam</span>(<span class="params">url, name, value</span>)</span>&#123;</span><br><span class="line">    url += (url.indexOf(<span class="string">"?"</span>)) == <span class="number">-1</span>? <span class="string">"?"</span> : <span class="string">"&amp;"</span>;</span><br><span class="line">    url += <span class="built_in">encodeURIComponent</span>(name) + <span class="string">"="</span> + <span class="built_in">encodeURIComponent</span>(value);</span><br><span class="line">    <span class="keyword">return</span> url;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="POST请求-​"><a href="#POST请求-​" class="headerlink" title="POST请求 ###​"></a>POST请求 ###​</h3><ul>
+<li>通常用于向服务器发送应该保存的数据，应该把数据作为请求的主体提交，可以包含非常多的数据，且格式不限。</li>
+<li>如果需要将页面中的表单数据进行序列化，然后通过XHR放到服务器，则可以使用14章的serialize函数来创建字符串<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">submitData</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> xhr = createXHR();</span><br><span class="line">    xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(xhr.readyState == <span class="number">4</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>) || xhr.status == <span class="number">304</span>)&#123;</span><br><span class="line">                alert(xhr.resopnseText);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                alert(<span class="string">"Request was unsuccessful: "</span>+xhr.status);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    xhr.open(<span class="string">"post"</span>,<span class="string">"postExample.php"</span>,<span class="literal">true</span>);</span><br><span class="line">    xhr.setRequestHeader(<span class="string">"Content-Type"</span>,<span class="string">"application/x-www-form-urlencoded"</span>);</span><br><span class="line">    <span class="keyword">var</span> form = <span class="built_in">document</span>.getElementById(<span class="string">"user-info"</span>);</span><br><span class="line">    xhr.send(serialize(form));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="XMLHttpRequest-2级"><a href="#XMLHttpRequest-2级" class="headerlink" title="XMLHttpRequest 2级"></a>XMLHttpRequest 2级</h2><h3 id="FormData"><a href="#FormData" class="headerlink" title="FormData"></a>FormData</h3><ul>
+<li>FormData类型:为序列化表单以及创建与表单格式相同的数据（用于通过XHR传输）提供了便利。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">submitData</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> xhr = createXHR();        </span><br><span class="line">    xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (xhr.readyState == <span class="number">4</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span> ((xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>) || xhr.status == <span class="number">304</span>)&#123;</span><br><span class="line">                alert(xhr.responseText);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                alert(<span class="string">"Request was unsuccessful: "</span> + xhr.status);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    xhr.open(<span class="string">"post"</span>, <span class="string">"postexample.php"</span>, <span class="literal">true</span>);</span><br><span class="line">    <span class="keyword">var</span> form = <span class="built_in">document</span>.getElementById(<span class="string">"user-info"</span>);            </span><br><span class="line">    xhr.send(<span class="keyword">new</span> FormData(form));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="超时设定"><a href="#超时设定" class="headerlink" title="超时设定"></a>超时设定</h3><ul>
+<li>timeout属性，表示请求在等待响应多少毫秒之后就终止。如果在规定的时间内浏览器还没有接收到响应，那么就会触发timeout事件，进而会调用ontimeout事件处理程序。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = createXHR();        </span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (xhr.readyState == <span class="number">4</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span> ((xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>) || xhr.status == <span class="number">304</span>)&#123;</span><br><span class="line">                alert(xhr.responseText);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                alert(<span class="string">"Request was unsuccessful: "</span> + xhr.status);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ex)&#123;</span><br><span class="line">        <span class="comment">//assume handled by ontimeout</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">xhr.open(<span class="string">"get"</span>, <span class="string">"timeout.php"</span>, <span class="literal">true</span>);</span><br><span class="line">xhr.timeout = <span class="number">1000</span>;</span><br><span class="line">xhr.ontimeout = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="string">"Request did not return in a second."</span>);</span><br><span class="line">&#125;;        </span><br><span class="line">xhr.send(<span class="literal">null</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="overrideMimeType-方法"><a href="#overrideMimeType-方法" class="headerlink" title="overrideMimeType()方法"></a>overrideMimeType()方法</h3><ul>
+<li>overrideMimeType()方法：重写XHR响应的MIME类型</li>
+<li>必须在send()方法之前调用overrideMimeType()，才能保证重写相应的MIME类型</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = createXHR();</span><br><span class="line">xhr.open(<span class="string">"get"</span>, <span class="string">"text.php"</span>, <span class="literal">true</span>);</span><br><span class="line">xhr.overrideMimeType(<span class="string">"text/xml"</span>);</span><br><span class="line">xhr.send(<span class="literal">null</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="进度事件"><a href="#进度事件" class="headerlink" title="进度事件"></a>进度事件</h2><ul>
+<li>loadstrart：在接收到响应数据的第一个字节时触发。</li>
+<li>progress：在接收响应期间持续不断地触发。</li>
+<li>error：在请求发生错误时触发</li>
+<li>abort：在因为调用abort()方法而终止连接时触发。</li>
+<li>load：在接收到完整的响应数据时触发。</li>
+<li>loadend：在通信完成或者触发error、abort或load事件后触发。</li>
+</ul>
+<h3 id="load事件"><a href="#load事件" class="headerlink" title="load事件"></a>load事件</h3><ul>
+<li>用于替代readystatechange事件。onload事件处理程序会接收到一个event对象，其target属性就指向XHR对象实例，因而可以访问到XHR对象的所有方法和属性。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> xhr = createXHR();        </span><br><span class="line">    xhr.onload = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ((xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>) || </span><br><span class="line">                xhr.status == <span class="number">304</span>)&#123;</span><br><span class="line">            alert(xhr.responseText);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            alert(<span class="string">"Request was unsuccessful: "</span> + xhr.status);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    xhr.open(<span class="string">"get"</span>, <span class="string">"altevents.php"</span>, <span class="literal">true</span>);</span><br><span class="line">    xhr.send(<span class="literal">null</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="progress事件"><a href="#progress事件" class="headerlink" title="progress事件"></a>progress事件</h3><ul>
+<li>这个事件会在浏览器接收新数据期间周期性地触发。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> xhr = createXHR();        </span><br><span class="line">    xhr.onload = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ((xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status &lt; <span class="number">300</span>) || </span><br><span class="line">                xhr.status == <span class="number">304</span>)&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(xhr.responseText);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"Request was unsuccessful: "</span> + xhr.status);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    xhr.onprogress = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> divStatus = <span class="built_in">document</span>.getElementById(<span class="string">"status"</span>);</span><br><span class="line">        <span class="keyword">if</span> (event.lengthComputable)&#123;</span><br><span class="line">            divStatus.innerHTML = <span class="string">"Received "</span> + event.position + <span class="string">" of "</span> + event.totalSize + <span class="string">" bytes"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    xhr.open(<span class="string">"get"</span>, <span class="string">"altevents.php"</span>, <span class="literal">true</span>);</span><br><span class="line">    xhr.send(<span class="literal">null</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="跨资源共享-CORS"><a href="#跨资源共享-CORS" class="headerlink" title="跨资源共享 CORS"></a>跨资源共享 CORS</h2><ul>
+<li>在发送请求时，需要给它附加一个额外的Origin头部，其中包含请求页面的源信息，以便服务器根据这个头部信息来决定是否给予响应。</li>
+<li>如果服务器认为这个请求可以接受，就在Access-Control_Allow-Origin头部中发相同的源信息。</li>
+</ul>
+<h3 id="IE对CORS的支持"><a href="#IE对CORS的支持" class="headerlink" title="IE对CORS的支持"></a>IE对CORS的支持</h3><ul>
+<li><p>IE8中引入了XDR（XDomainRequest）类型，与XHR类似，但能实现安全可靠的跨域通信。与XHR不同：</p>
+<blockquote>
+<p>1.cookie不会随请求发送，也不会随请求返回<br>2.只能设置头部信息中的Content-Type<br>3.不能访问响应头部信息<br>4.只支持GET和POST请求</p>
+</blockquote>
+</li>
+<li><p>使用方法，也是创建一个XDomainRequest实例，调用open，调用send，open方法只接受两个参数，请求类型，URL。所有请求都是异步。</p>
+</li>
+</ul>
+<h3 id="其他浏览器对CORS的支持"><a href="#其他浏览器对CORS的支持" class="headerlink" title="其他浏览器对CORS的支持"></a>其他浏览器对CORS的支持</h3><ul>
+<li>Firefox3.5+，Safari4+，Chrome，ios版Safari，Android平台中的WebKit都通过XHR对象实现了对CORS的原生支持。</li>
+<li>限制：<blockquote>
+<p>1.不能使用setRequestHeader()设置自定义头部<br>2.不能发送和接受cookie<br>3.调用getAllResponseHeaders()方法总会返回空字符串</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="Preflighted-Reqeusts"><a href="#Preflighted-Reqeusts" class="headerlink" title="Preflighted Reqeusts"></a>Preflighted Reqeusts</h3><ul>
+<li>CORS通过一种叫做PreFlighted Requests的透明服务器验证机制支持使用自定义头部、get和post之外的方法以及不同类型的主体内容。</li>
+</ul>
+<h3 id="带凭据的请求"><a href="#带凭据的请求" class="headerlink" title="带凭据的请求"></a>带凭据的请求</h3><ul>
+<li>默认情况下，跨源请求不提供凭据(cookie、HTTP认证及客户端SSL证明等)。通过将withCredentials属性设置为true，可以指定某个请求应该发送凭据。</li>
+<li>服务器如果接受带凭据的请求，会响应<code>Access-Control-Allow-Credentials: true</code></li>
+</ul>
+<h3 id="跨浏览器的CORS"><a href="#跨浏览器的CORS" class="headerlink" title="跨浏览器的CORS"></a>跨浏览器的CORS</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createCORSRequest</span>(<span class="params">method, url</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">    <span class="keyword">if</span> (<span class="string">"withCredentials"</span> <span class="keyword">in</span> xhr)&#123;</span><br><span class="line">        xhr.open(method, url, <span class="literal">true</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> XDomainRequest != <span class="string">"undefined"</span>)&#123;</span><br><span class="line">        xhr = <span class="keyword">new</span> XDomainRequest();</span><br><span class="line">        xhr.open(method, url);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        xhr = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> xhr;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> request = createCORSRequest(<span class="string">"get"</span>, <span class="string">"http://www.somewhere-else.com/xdr.php"</span>);</span><br><span class="line"><span class="keyword">if</span> (request)&#123;</span><br><span class="line">    request.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="comment">//do something with request.responseText</span></span><br><span class="line">    &#125;;</span><br><span class="line">    request.send();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="其他跨域技术"><a href="#其他跨域技术" class="headerlink" title="其他跨域技术"></a>其他跨域技术</h2><h3 id="图像ping"><a href="#图像ping" class="headerlink" title="图像ping"></a>图像ping</h3><ul>
+<li>图像ping最常用于跟踪用户点击页面或动态广告曝光次数。</li>
+<li><p>图像ping有两个主要的缺点：</p>
+<blockquote>
+<p>只能发送get请求<br>无法访问服务器的响应文本。</p>
+</blockquote>
+</li>
+<li><p>因此，图像ping只能用于浏览器与服务器的单向通信。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> img = <span class="keyword">new</span> Image();</span><br><span class="line">img.onload = img.onerror = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    alert(<span class="string">"Done!"</span>);</span><br><span class="line">&#125;;</span><br><span class="line">img.src = <span class="string">"http://www.example.com/test?name=Nicholas"</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h3><ul>
+<li>JSONP由两部分组成：回调函数和数据。回调函数是当响应到来时应该在页面中调用的函数。回调函数的名称一般是在请求中指定的。而数据就是传入回调函数中的JSON数据。</li>
+<li><p>与图像Ping相比优点：</p>
+<blockquote>
+<p>能够直接访问相应文本<br>支持在浏览器与服务器之间双向通信</p>
+</blockquote>
+</li>
+<li><p>不足：</p>
+<blockquote>
+<p>是从其他域中家在代码执行，可能会夹带一些恶意代码<br>要确定JSONP请求是否失败并不容易</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="Comet"><a href="#Comet" class="headerlink" title="Comet"></a>Comet</h3><ul>
+<li>Comet一种更高级的Ajax技术。Ajax是从页面向服务器请求数据的技术，Comet是服务器向页面推送数据的技术。能够让信息近乎实时的被推送到页面上。</li>
+<li>实现Comet的方式：长轮询和流</li>
+</ul>
+<h3 id="服务器发送数据"><a href="#服务器发送数据" class="headerlink" title="服务器发送数据"></a>服务器发送数据</h3><ul>
+<li>SSE（Server-Sent Events，服务器发送事件）是围绕只读Comet交互推出的API或者模式</li>
+</ul>
+<h3 id="Web-Socket"><a href="#Web-Socket" class="headerlink" title="Web Socket"></a>Web Socket</h3><ul>
+<li>Web Socket的目标是在一个单独的持久连接上提供全双工、双向通信。</li>
+<li>使用标准的HTTP服务器无法实现Web Socket，只有支持这种协议的专门服务器才能工作。</li>
+</ul>
+<h4 id="Web-Sockets-API"><a href="#Web-Sockets-API" class="headerlink" title="Web Sockets API"></a>Web Sockets API</h4><ul>
+<li>表示当前状态的readyState属性：<blockquote>
+<p>WebSocket.OPENING(0)：正在建立连接<br>WebSocket.OPEN(1)：已建立连接<br>WebSocket.CLOSING(1)：正在关闭连接<br>WebSocket.CLOSE(3)：已关闭</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="发送和接收数据"><a href="#发送和接收数据" class="headerlink" title="发送和接收数据"></a>发送和接收数据</h4><ul>
+<li>send():只能发送纯文本数据，发杂结构的数据要经过序列化。</li>
+</ul>
+<h4 id="其他事件"><a href="#其他事件" class="headerlink" title="其他事件"></a>其他事件</h4><ul>
+<li>open：成功建立连接触发</li>
+<li>error：发生错误触发，连接不能持续</li>
+<li>close：连接关闭触发</li>
+</ul>
+<h2 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h2><ul>
+<li>为确保通过XHR访问的URL安全，通行的做法就是验证发送请求者是否有权限访问相应的资源，有下列几种方式可供选择<blockquote>
+<p>要求以SSL连接来访问可以通过XHR请求的资源<br>要求每一次请求都要附带经过相应算法计算得到的验证码。</p>
+</blockquote>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/02/JavaScript高级程序设计读书笔记20/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2244,569 +2780,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/26/JavaScript高级程序设计读书笔记12/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XyyFighting">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/26/JavaScript高级程序设计读书笔记12/" itemprop="url">JavaScript高级程序设计读书笔记12</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-26T20:29:27+08:00">
-                2018-01-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/JavaScript高级程序设计/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript高级程序设计</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第12章-DOM2和DOM3"><a href="#第12章-DOM2和DOM3" class="headerlink" title="第12章 DOM2和DOM3"></a>第12章 DOM2和DOM3</h1><h2 id="DOM变化"><a href="#DOM变化" class="headerlink" title="DOM变化"></a>DOM变化</h2><ul>
-<li>可以通过下列代码来确定浏览器是否支持这些DOM模块<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> supportsDOM2Core = <span class="built_in">document</span>.implementation.hasFeature(<span class="string">"Core"</span>, <span class="string">"2.0"</span>);</span><br><span class="line"><span class="keyword">var</span> supportsDOM3Core = <span class="built_in">document</span>.implementation.hasFeature(<span class="string">"Core"</span>, <span class="string">"3.0"</span>);</span><br><span class="line"><span class="keyword">var</span> supportsDom2HTML = <span class="built_in">document</span>.implementation.hasFeature(<span class="string">"HTML"</span>, <span class="string">"2.0"</span>);</span><br><span class="line"><span class="keyword">var</span> supportsDOM2Views = <span class="built_in">document</span>.implementation.hasFeature(<span class="string">"Views"</span>, <span class="string">"2.0"</span>);</span><br><span class="line"><span class="keyword">var</span> supportsDOM2XML = <span class="built_in">document</span>.implementation.hasFeature(<span class="string">"XML"</span>, <span class="string">"2.0"</span>);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="针对XML命名空间的变化"><a href="#针对XML命名空间的变化" class="headerlink" title="针对XML命名空间的变化"></a>针对XML命名空间的变化</h3><ul>
-<li>HTML不支持XML命名空间，单XHTML支持XML命名空间。 </li>
-</ul>
-<h3 id="其他方面的变化"><a href="#其他方面的变化" class="headerlink" title="其他方面的变化"></a>其他方面的变化</h3><h4 id="DocumentType类型的变化"><a href="#DocumentType类型的变化" class="headerlink" title="DocumentType类型的变化"></a>DocumentType类型的变化</h4><ul>
-<li>DocumentType类型新增了3个属性：publicId、systemId和internalSubset. </li>
-<li>publicId、systemId表示文档类型声明中的两个信息段，在DOM1中无法访问。<h4 id="Document类型的变化"><a href="#Document类型的变化" class="headerlink" title="Document类型的变化"></a>Document类型的变化</h4></li>
-<li>Document类型的变化中唯一与命名空间无关的方法是importNode()。</li>
-<li>用途：从文档中取得一个节点，然后将其导入另一个文档，使其成为文档结构的一部分。</li>
-<li>注意：每个节点都有一个ownerDocument属性，表示所属文档，如果调动appendChild()是传入的节点属于不同的文档 <h4 id="Node类型的变化"><a href="#Node类型的变化" class="headerlink" title="Node类型的变化"></a>Node类型的变化</h4></li>
-<li>Node类型中唯一与命名空间无关的变化，为添加了isSupported()方法。与DOM1级document.implementation引入的hasFeature()方法类似。</li>
-<li>isSupported()方法用于确定当前节点具有什么能力，接受两个参数：特性名和特性版本号。<h4 id="框架的变化"><a href="#框架的变化" class="headerlink" title="框架的变化"></a>框架的变化</h4></li>
-<li>框架和内嵌框架分别用HTMLFrameElement和HTMLIFrameElement表示，在DOM2中新增contentDocument（包含一个指针，指向表示框架内容的文档对象）</li>
-</ul>
-<h2 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h2><h3 id="访问元素的样式"><a href="#访问元素的样式" class="headerlink" title="访问元素的样式"></a>访问元素的样式</h3><ul>
-<li>任何支持style特性的HTML元素在JavaScript中都有一个对应的style属性，这个style对象是CSSStyleDeclaration的实例，包含着通过HTML的style特性指定的所有样式信息，但不包含与外部样式表或嵌入样式表经层叠而来的样式。</li>
-<li>支持style特性的HTML元素在JavaScript中都有一个对应的style属性。对于使用短划线的css属性，必须将其转换成驼峰大小写形式。</li>
-<li>多数情况下，都可以通过简单地转化属性名的格式来实现转换。其中一个不能直接转换的CSS属性就是float。</li>
-<li>由于float是JavaScript中的保留字，因此不能用作属性名。</li>
-</ul>
-<h3 id="操作样式表"><a href="#操作样式表" class="headerlink" title="操作样式表"></a>操作样式表</h3><ul>
-<li>insertRule()：创建规则。参数：规则文本和表示在哪里插入规则的索引。</li>
-<li>deletRule()：删除规则。参数：要删除的规则位置。</li>
-</ul>
-<h3 id="元素大小"><a href="#元素大小" class="headerlink" title="元素大小"></a>元素大小</h3><ul>
-<li><p>偏移量：元素在屏幕上占用的所有可见的空间</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getElementLeft</span>(<span class="params">element</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> actualLeft = element.offsetLeft;</span><br><span class="line">    <span class="keyword">var</span> current = element.offsetParent;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(current !== <span class="literal">null</span>)&#123;</span><br><span class="line">        actualLeft += current.offsetLeft;</span><br><span class="line">        current = current.offsetParent;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> actuaLeft;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getElementTop</span>(<span class="params">element</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> actualTop += current.offsetTop;</span><br><span class="line">    <span class="keyword">var</span> current = current.offsetParent;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (current != <span class="literal">null</span>)&#123;</span><br><span class="line">        actualTop += current.offsetTop;</span><br><span class="line">        current = current.offsetParent;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> actualTop;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>客户区大小(client dimension)，指的是元素内容及其内边距所占的空间大小。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getViewport</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 检查document.compatMode属性，以确定浏览器是否运行在混杂模式</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">document</span>.compatMode == <span class="string">"BackCompat"</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>(</span><br><span class="line">            width: <span class="built_in">document</span>.body.clientWidth,</span><br><span class="line">            height: <span class="built_in">document</span>.body.clientHeight</span><br><span class="line">        );</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span>&#123;</span><br><span class="line">        <span class="comment">//documentElement 属性可返回文档的根节点</span></span><br><span class="line">            width: <span class="built_in">document</span>.documentElement.clientWidth,</span><br><span class="line">            height: <span class="built_in">document</span>.documentElement.clientHeight</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>滚动大小： 包含滚动内容的元素的大小。</p>
-</li>
-<li>scrollHeight 在没有滚动条的情况下，元素内容的高度</li>
-<li>scrollWidth 在没有滚动条的情况下，元素内容的总宽度</li>
-<li>scrollLeft 隐藏在内容区域左侧的像素数</li>
-<li>scrollTop 隐藏在内容区域上方的像素数</li>
-<li><p>在确定文档的总高度时（包括基于视口的最小高度），必须取得scrollWidth/clientWidth和scrollHeight/clientHeight中的最大值，才能保证在跨浏览器的环境下得到精确的结果：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//对于运行在混杂模式下的IE，则需要用document.body代替document.documentElement</span></span><br><span class="line"><span class="keyword">var</span> docHeight = <span class="built_in">Math</span>.max(<span class="built_in">document</span>.documentElement.scrollHeight, documentElement.clientHeight);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> docWidth = <span class="built_in">Math</span>.max(<span class="built_in">document</span>.documentElement.scrollWidth, documentElement.clientWidth);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>确定元素大小，在IE8及以前认为文档左上角坐标是(2,2)，其他浏览器包括IE9则将传统的(0，0)作为起点坐标。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getBoundingClientRect</span>(<span class="params">element</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> scrollTop = <span class="built_in">document</span>.documentElement.scrollTop;</span><br><span class="line">    <span class="keyword">var</span> scrollLeft = <span class="built_in">document</span>.documentElement.scrollLeft;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(element.getBoundingClientRect(element))&#123;</span><br><span class="line">        <span class="keyword">var</span> temp = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">        temp.style.cssText = <span class="string">"position:absolute; left:0; top:0;"</span>;</span><br><span class="line">        <span class="built_in">document</span>.body.appendChild(<span class="string">"temp"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="built_in">arguments</span>.callee.offset = -temp.getBoundingClientRect().top - scrollTop;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">document</span>.body.removeChild(temp);</span><br><span class="line">        temp = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> rect = element.getBoundingClientRect();</span><br><span class="line">    <span class="keyword">var</span> offset = <span class="built_in">arguments</span>.callee.offset;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span>(</span><br><span class="line">        left: rect.left + offset,</span><br><span class="line">        right: rect.right + offset,</span><br><span class="line">        top: rect.top + offset,</span><br><span class="line">        bottom: rect.bottom + offset,</span><br><span class="line">    );</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> actualLeft = getElementLeft(element);</span><br><span class="line">    <span class="keyword">var</span> actualTop = getElementTop(element);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span>&#123;</span><br><span class="line">        left: aotualLeft - scrollLeft,</span><br><span class="line">        right: actualLeft + element.offsetWidth - scrollLeft,</span><br><span class="line">        top: actualTop - scrollTop,</span><br><span class="line">        bottom: actualTop + element.offsetHeight - scrollTop</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><img src="http://image.jiantuku.com/18-1-26/21791190.jpg?e=1517036410&amp;token=el7kgPgYzpJoB23jrChWJ2gV3HpRl0VCzFn8rKKv:mIx_3z1Fdlq8GzkFgaS3MM1_S8c=" alt=""></p>
-<h2 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h2><ul>
-<li>NodeIterator(迭代节点)和TreeWalker；这两个类型能够基于给定的起点对DOM结构执行深度优先(depth-first)的遍历操作。</li>
-</ul>
-<h3 id="NodeIterator"><a href="#NodeIterator" class="headerlink" title="NodeIterator"></a>NodeIterator</h3><ul>
-<li>可以使用document.createNodeIterator()方法创建新的实例，接收4个参数。<ul>
-<li>root：想要作为搜索起点的树中的节点</li>
-</ul>
-</li>
-<li>whatToShow：表示要访问哪些节点的数字代码</li>
-<li>filter：是一个NodeFilter对象，或者一个表示应该接受还是拒绝某种特定节点的函数</li>
-<li>entityRefrenceExpansion：布尔值，表示是否要扩展实体引用。在HTML页面中没用，因为其中的实体引用不能扩展。</li>
-<li>如何创建一个只显示p元素的节点迭代器<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> filter = &#123;<span class="attr">acceptNode</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> node.tageName.toLowerCase() == <span class="string">"p"</span>?</span><br><span class="line">        NodeFilter.FILTER_ACCEPT:</span><br><span class="line">        NodeFilter.FILTER_SKIP;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> iterator = <span class="built_in">document</span>.createNodeIterator(root, NodeFilter.SHOW_ELEMENT, filter, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="TreeWalker"><a href="#TreeWalker" class="headerlink" title="TreeWalker"></a>TreeWalker</h3><ul>
-<li>比NodeIterator更高级的版本。除了nextNode()和previousNode()在内的相同功能之外还提供其他方法。<ul>
-<li>parentNode()：遍历到当前节点的父节点；</li>
-<li>firstChild()：遍历当前节点的第一个子节点；</li>
-</ul>
-</li>
-<li>lastChild()：遍历当前节点的最后一个子节点；</li>
-<li>nextSibling()：遍历当前节点的下一个同辈节点；</li>
-<li>previousSibling()：遍历当前节点的上一个同辈节点；</li>
-<li>TreeWalker真正强大的地方在于能够在DOM结构中沿任何方向移动，即使不使用过滤器也可以得到想要的元素.</li>
-</ul>
-<h2 id="范围"><a href="#范围" class="headerlink" title="范围"></a>范围</h2><h3 id="DOM中的范围"><a href="#DOM中的范围" class="headerlink" title="DOM中的范围"></a>DOM中的范围</h3><ul>
-<li>createRange()方法创建范围。<code>var range = document.createRange();</code></li>
-</ul>
-<h3 id="简单选择"><a href="#简单选择" class="headerlink" title="简单选择"></a>简单选择</h3><ul>
-<li>selectNode() 选择整个节点</li>
-<li>selectNodeContents() 选择节点的子节点</li>
-</ul>
-<h3 id="复杂选择"><a href="#复杂选择" class="headerlink" title="复杂选择"></a>复杂选择</h3><ul>
-<li>setStart()和setEnd()方法：接受两个参数，一个是参照节点，一个是偏移量</li>
-</ul>
-<h3 id="操作DOM范围中的内容"><a href="#操作DOM范围中的内容" class="headerlink" title="操作DOM范围中的内容"></a>操作DOM范围中的内容</h3><ul>
-<li>deleteContents()，删除范围中的内容。调用方式：range.deleteContents()；</li>
-<li>extractContents(),从文档区域移除范围的内容，返回范围内容的文档片段，可以对文档片段进行进一步操作，调用方式：<code>var fragment=range.extractContents();</code></li>
-<li>cloneContents(),创建一个文档片段，保存范围的副本，可以对文档片段进行进一步操作，调用方式：<code>var fragment=range.cloneContents();</code></li>
-</ul>
-<h3 id="插入DOM范围中的内容"><a href="#插入DOM范围中的内容" class="headerlink" title="插入DOM范围中的内容"></a>插入DOM范围中的内容</h3><ul>
-<li>除了向范围内部插入内容之外，还可以环绕范围插入内容，此时要使用surroundContents()方法。这个方法接收一个参数，即环绕范围内容的节点。</li>
-</ul>
-<h3 id="折叠DOM范围"><a href="#折叠DOM范围" class="headerlink" title="折叠DOM范围"></a>折叠DOM范围</h3><ul>
-<li>范围折叠就是指范围中未选择文档的任何部分。通俗的描述就是当你选择范围内的文本，点击左键的时候，光标会落在范围的开始或者范围的结束。</li>
-<li>使用collapse()进行折叠，接收一个参数，一个布尔值，表示要折叠到范围的那一端，true表示范围的起点，false表示范围的终点。要确定范围已经折叠外币，可以用collapsed属性检查。</li>
-</ul>
-<h3 id="比较DOM的范围"><a href="#比较DOM的范围" class="headerlink" title="比较DOM的范围"></a>比较DOM的范围</h3><ul>
-<li>在有多个范围的情况下，可以使用compareBoundaryPoints()方法来确定这些范围是否有公共边界。</li>
-<li>这个方法接收两个参数：比较方式的常量值和要比较的范围。</li>
-</ul>
-<h3 id="复制DOM的范围"><a href="#复制DOM的范围" class="headerlink" title="复制DOM的范围"></a>复制DOM的范围</h3><ul>
-<li>可以使用cloneRange()方法复制范围，返回范围的一个副本<code>var newRange=range.cloneRange();</code></li>
-</ul>
-<h3 id="清理DOM范围"><a href="#清理DOM范围" class="headerlink" title="清理DOM范围"></a>清理DOM范围</h3><ul>
-<li>在使用完范围之后，最好调用detach()方法，清理范围，回收内存.<br><code>range.detach()；// 从文档中分离</code><br><code>range=null;//  解除引用</code></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/25/JavaScript高级程序设计读书笔记11/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XyyFighting">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/25/JavaScript高级程序设计读书笔记11/" itemprop="url">JavaScript高级程序设计读书笔记11</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-25T22:04:44+08:00">
-                2018-01-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/JavaScript高级程序设计/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript高级程序设计</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第11章-DOM扩展"><a href="#第11章-DOM扩展" class="headerlink" title="第11章 DOM扩展"></a>第11章 DOM扩展</h1><ul>
-<li>Selectors API和HTML5</li>
-</ul>
-<h2 id="选择符API"><a href="#选择符API" class="headerlink" title="选择符API"></a>选择符API</h2><ul>
-<li>Selectors API致力于让浏览器原生支持CSS查询</li>
-</ul>
-<h3 id="querySelector-方法"><a href="#querySelector-方法" class="headerlink" title="querySelector()方法"></a>querySelector()方法</h3><ul>
-<li><p>querySelector()方法：接收一个CSS选择符，返回与该模式匹配的第一个元素，如果没有找到匹配的元素，就返回null。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//取得body元素</span></span><br><span class="line"><span class="keyword">var</span> body=<span class="built_in">document</span>.querySelector(<span class="string">"body"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//取得ID为mydiv的元素</span></span><br><span class="line"><span class="keyword">var</span> myDiv=<span class="built_in">document</span>.querySelector(<span class="string">"#myDiv"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//取得类为“Selected”的第一个元素</span></span><br><span class="line"><span class="keyword">var</span> selected = <span class="built_in">document</span>.querySelector(<span class="string">".selected"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//取得类为button的第一个图像元素</span></span><br><span class="line"><span class="keyword">var</span> img=<span class="built_in">document</span>.querySelector(<span class="string">"img.button"</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>通过Document类型调用querySelector方法，会在文档元素的范围内查找匹配的元素</p>
-</li>
-<li>通过Element类型调用的querySelector方法，会在该元素后代元素的范围内查找匹配的元素</li>
-</ul>
-<h3 id="querySelectorAll-方法"><a href="#querySelectorAll-方法" class="headerlink" title="querySelectorAll()方法"></a>querySelectorAll()方法</h3><ul>
-<li>querySelectorAll():返回一个NodeList实例</li>
-<li>延伸：querySelectorAll()与getElementBy系列的区别<blockquote>
-<p>1.query选择符选出的元素及元素数组是静态的，getElement方法选出的元素是动态的。<br>2.querySelectorAll 方法接收的参数是一个 CSS 选择符。而 getElementsBy 系列接收的参数只能是单一的className、tagName 和 name。<br>3.getElementBy系列比querySelectorAll()性能好很多<br>4.如果只要一次查找就可得到元素时，首选getElementBy系列，如果需要经过多级查找，才能得到元素时，首选querySelector。</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="matchsSelector-方法"><a href="#matchsSelector-方法" class="headerlink" title="matchsSelector()方法"></a>matchsSelector()方法</h3><ul>
-<li>如果调用元素与该选择符匹配，返回true,否则，false</li>
-</ul>
-<h2 id="元素遍历"><a href="#元素遍历" class="headerlink" title="元素遍历"></a>元素遍历</h2><ul>
-<li>问题：IE与其他浏览器在返回子节点时会因文本节点是否返回而存在差异，IE不返回，其他版本返回。</li>
-<li>解决方式：为DOM元素添加以下属性，不必担心空白的文本节点</li>
-<li>childElementCount：返回子元素的个数。（不包括文本节点和注释）</li>
-<li>firstElementChild：指向第一个子元素。firstChild的元素版。</li>
-<li>lastElementChild：指向最后一个子元素。lastChild的元素版。</li>
-<li>previousElementSilbing：指向前一个同辈元素。previousSibling的元素版。</li>
-<li>nextElementSibling：指向后一个同辈元素。nextSibling的元素版。</li>
-</ul>
-<h2 id="HTML5"><a href="#HTML5" class="headerlink" title="HTML5"></a>HTML5</h2><h3 id="与类相关的扩充"><a href="#与类相关的扩充" class="headerlink" title="与类相关的扩充"></a>与类相关的扩充</h3><h4 id="getElementsByClassName"><a href="#getElementsByClassName" class="headerlink" title="getElementsByClassName()"></a>getElementsByClassName()</h4><ul>
-<li><p>getElementsByClassName():接收一个参数，即一个包含一或多个类名的字符串，返回带有指定类的所有元素的NodeList。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//取得类中包含“username”和“current”的元素，类名的先后顺序不重要。</span></span><br><span class="line"><span class="keyword">var</span> allCurrentUsernames = <span class="built_in">document</span>.getElementsByClassName(<span class="string">"current username"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//取得ID为“myDiv”的元素中带有类名“selected”的所有元素：</span></span><br><span class="line"><span class="keyword">var</span> selected = <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>).getElementsByClassName(<span class="string">"selected"</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>调用这个方法时，只有位于调用元素子树中的元素才会返回。</p>
-</li>
-</ul>
-<h4 id="classList属性"><a href="#classList属性" class="headerlink" title="classList属性"></a>classList属性</h4><ul>
-<li><p>问题：在操作类名时，需要通过className属性添加、删除和替换类名、因为className中是一个字符串，所以即使只修改字符串一部分，也必须每次都设置整个字符串的值，如删除其中一个类或者添加一个类，操作都十分麻烦。<br><code>&lt;div class=&quot;bd user disabled&quot;&gt;...&lt;/div&gt;</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//删除user类</span></span><br><span class="line"><span class="comment">//取得类名字符串并拆分成数组</span></span><br><span class="line"><span class="keyword">var</span> classNames = div.className.split(<span class="regexp">/\s+/</span>);</span><br><span class="line"><span class="comment">//找到要删的类名</span></span><br><span class="line"><span class="keyword">var</span> pos = <span class="number">-1</span>,</span><br><span class="line">    i,</span><br><span class="line">    len;</span><br><span class="line"><span class="keyword">for</span>(i = <span class="number">0</span>, len = classNames.length; i &lt; len; i++)&#123;</span><br><span class="line">    <span class="keyword">if</span>(classNames[i] == <span class="string">"user"</span>)&#123;</span><br><span class="line">        pos = i;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//删除类名</span></span><br><span class="line">classNames.splice(i,<span class="number">1</span>);</span><br><span class="line"><span class="comment">//把剩下的类名拼成字符串并重新设置</span></span><br><span class="line">div.className = classNames.join(<span class="string">" "</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>解决方式：为所有元素添加classList属性<br><code>div.classList.remove(&quot;user&quot;);</code></p>
-</li>
-<li>add（value）：将指定的字符串值添加到列表中，如果值已经存在，就不添加了。</li>
-<li>contains（value）：表示列表中是否存在给定的值，如果存在则返回true，否则返回false。</li>
-<li>remove（value）：从列表中删除给定的字符串</li>
-<li>toggle（value）：如果列表中已经存在给定的值，删除它；如果列表中没有给定的值，添加它。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//删除"disabled"类</span></span><br><span class="line">div.classList.remove(<span class="string">"disabled"</span>);</span><br><span class="line"><span class="comment">//添加"添加current"类</span></span><br><span class="line">div.classList.toggle(<span class="string">"user"</span>);</span><br><span class="line"><span class="comment">//确定元素中是否包含既定的类名</span></span><br><span class="line"><span class="keyword">if</span>(div.classList.contain(<span class="string">"bd"</span>) &amp;&amp; !div.classList.contains(<span class="string">"disabled"</span>))&#123;</span><br><span class="line">    <span class="comment">//执行操作</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//迭代类名</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>,len = div.classList.length;i &lt; len; i++)&#123;</span><br><span class="line">    doSomething(div.classList[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="焦点管理"><a href="#焦点管理" class="headerlink" title="焦点管理"></a>焦点管理</h3><ul>
-<li>document.activeElement：始终都会引用DOM中当前获得了焦点的元素。</li>
-<li>document.hasFocus():用于确定文档是否获得了焦点。</li>
-<li>以上的属性和方法最重要的用途就是提高web应用的无障碍性。无障碍web应用的一个主要标志就是恰当的焦点管理。</li>
-</ul>
-<h3 id="HTMLDocument的变化"><a href="#HTMLDocument的变化" class="headerlink" title="HTMLDocument的变化"></a>HTMLDocument的变化</h3><ul>
-<li>readyState属性：通过它来实现一个指示文档已经加载完成的指示器</li>
-<li>可能的取值<blockquote>
-<p>loading：正在加载文档<br>complete：已经加载完文档</p>
-</blockquote>
-</li>
-<li>compatMode属性：区分渲染页面的模式是标准的还是混杂的</li>
-<li>可能的取值<blockquote>
-<p>CSS1Compat：标准<br>BackCompat：混杂</p>
-</blockquote>
-</li>
-<li>head属性：<code>var head = document.head || document.getElementsByTagName(&quot;head&quot;)[0];</code></li>
-</ul>
-<h3 id="字符集属性"><a href="#字符集属性" class="headerlink" title="字符集属性"></a>字符集属性</h3><ul>
-<li>charset属性：表示文档中实际使用的字符集。</li>
-<li>defaultCharset：表示根据默认浏览器及操作系统的设置</li>
-</ul>
-<h3 id="自定义数据属性"><a href="#自定义数据属性" class="headerlink" title="自定义数据属性"></a>自定义数据属性</h3><ul>
-<li>HTML5规定可以为元素添加非标准的属性，但要添加前缀data-，目的是为元素提供与渲染无关的信息，或者提供语义信息。</li>
-<li><code>&lt;div id=&quot;myDiv&quot; data-appId=&quot;12345&quot; data-myname=&quot;Nicholas&quot;&gt;&lt;/div&gt;</code></li>
-<li>可以通过元素的dataset属性来访问自定义属性的值。dataset属性的值是DOMStringMap的一个实例，也就是一个名值对的映射。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">"myDiv"</span>);</span><br><span class="line"><span class="comment">//取得自定义属性的值</span></span><br><span class="line"><span class="keyword">var</span> appId = div.dataset.appId;</span><br><span class="line"><span class="keyword">var</span> myname = div.dataset.myname;</span><br><span class="line"><span class="comment">//设置值</span></span><br><span class="line">div.dataset.appId = <span class="number">23456</span>;</span><br><span class="line">div.dataset.myname = <span class="string">"Nicholas"</span>;</span><br><span class="line"><span class="keyword">if</span>(div.dataset.myname)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Hello, "</span>+ div.dataset.myname);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="插入标记"><a href="#插入标记" class="headerlink" title="插入标记"></a>插入标记</h3><h4 id="innerHTML属性"><a href="#innerHTML属性" class="headerlink" title="innerHTML属性"></a>innerHTML属性</h4><ul>
-<li>读模式：返回调用元素的所有子节点的HTML标记。（包括元素、注释、文本节点）</li>
-<li>写模式：根据指定的值创建新的DOM树，然后用这个DOM树完全替换调用元素原先的所有子节点。</li>
-<li>为innerHTML设置HTML字符串后，浏览器会将这个字符串解析为相应的DOM树。因此设置了innerHTML后，再从中读取HTML字符串，会得到与设置时不一样的结果。原因在于返回的字符串是根据原始HTML字符串创建的DOM数经过序列化之后的结果。</li>
-</ul>
-<h4 id="outerHTML"><a href="#outerHTML" class="headerlink" title="outerHTML"></a>outerHTML</h4><ul>
-<li>读模式：返回调用它的元素及所有子节点的HTML标签</li>
-<li>写模式：会根据指定的HTML字符串创建新的DOM子树，然后用这个DOM子树完全替换调用元素。</li>
-<li><code>div.outerHTML = &quot;&lt;p&gt;this is paragraph&lt;/p&gt;&quot;;</code>新创建的&lt; p&gt;元素会取代DOM树中的div元素。</li>
-</ul>
-<h4 id="insertAdjacentHTML（）"><a href="#insertAdjacentHTML（）" class="headerlink" title="insertAdjacentHTML（）"></a>insertAdjacentHTML（）</h4><ul>
-<li>insertAdjacentHTML（）:插入标记</li>
-<li>接收两个参数，插入位置和要插入的HTML文本。</li>
-<li>beforebegin 在当前元素之前插入一个紧邻的同辈元素</li>
-<li>afterbegin 在当前元素之下插入一个新的子元素或者在第一个子元素之前再插入新的子元素</li>
-<li>beforeend 在当前元素之下插入一个新的子元素或者在最后一个子元素之后再插入新的子元素</li>
-<li>afterend 在当前元素之后插入一个紧邻的同辈元素。</li>
-</ul>
-<h4 id="内存与性能问题"><a href="#内存与性能问题" class="headerlink" title="内存与性能问题"></a>内存与性能问题</h4><ul>
-<li>在删除带有时间处理程序或者引用了其他JavaScript对象子树时，元素与事件处理程序之间的绑定关系在内存中并没有一并删除。在使用innerHTML、outerHTML和insertAdjacentHTML()方法时，最好先手工删除要被替换的元素的所有事件处理程序和JavaScript对象属性。</li>
-<li>因此，在使用innerHTML、outerHTML和insertAdjacentHTML（）之前，最好先手工删除要被替换的元素的所有事件处理程序和js对象属性。</li>
-<li>使用innerHTML效率明显高，这是由于使用属性时创建的解释器是在浏览器级别的代码基础上运行的。</li>
-</ul>
-<h4 id="scrollIntoview"><a href="#scrollIntoview" class="headerlink" title="scrollIntoview()"></a>scrollIntoview()</h4><ul>
-<li>如果给这个方法传入true作为参数，或者不传入任何参数，那么窗口滚动之后会让调用元素的顶部与视口顶部尽可能平齐。</li>
-<li>如果传入false作为参数，调用元素会尽可能全部出现在视口中，（可能的话，调用元素的底部会与视口底部平齐），但是顶部不一定平齐。</li>
-</ul>
-<h2 id="专有扩展"><a href="#专有扩展" class="headerlink" title="专有扩展"></a>专有扩展</h2><h4 id="文档模式"><a href="#文档模式" class="headerlink" title="文档模式"></a>文档模式</h4><ul>
-<li>页面的文档模式决定了可以使用什么功能</li>
-</ul>
-<h3 id="children属性"><a href="#children属性" class="headerlink" title="children属性"></a>children属性</h3><ul>
-<li>是HTMLCollection的实例，只包含元素中同样还是元素的子节点</li>
-</ul>
-<h3 id="contains（）"><a href="#contains（）" class="headerlink" title="contains（）"></a>contains（）</h3><ul>
-<li>调用这个方法的是祖先节点。这个方法接收一个参数，即要检测的后代节点。如果是后代节点则返回true。</li>
-<li>DOM Level 3 compareDocumentPosition()也能确定节点间的关系。返回一个表示该关系的位掩码。</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>掩码</th>
-<th style="text-align:center">节点关系</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td style="text-align:center">无关</td>
-</tr>
-<tr>
-<td>2</td>
-<td style="text-align:center">居前</td>
-</tr>
-<tr>
-<td>4</td>
-<td style="text-align:center">局后</td>
-</tr>
-<tr>
-<td>8</td>
-<td style="text-align:center">包含（给定的节点是参考节点的祖先）</td>
-</tr>
-<tr>
-<td>16</td>
-<td style="text-align:center">被包含（给定节点是参考节点的后代）</td>
-</tr>
-</tbody>
-</table>
-<h3 id="插入文本"><a href="#插入文本" class="headerlink" title="插入文本"></a>插入文本</h3><ul>
-<li>innerText属性会过滤html标签</li>
-<li>outerText属性将作用范围扩大到了包含调用它的节点之外。</li>
-<li>scrollIntoViewIfNeeded(alignCenter) 如果不可见才滚动，参数设置true表示尽量将元素显示在视口中部</li>
-<li>scrollByLines() 将元素的内容滚动指定行高</li>
-<li>scrollByPages() 将元素的内容滚动指定页面高度</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2861,7 +2834,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2883,7 +2856,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
