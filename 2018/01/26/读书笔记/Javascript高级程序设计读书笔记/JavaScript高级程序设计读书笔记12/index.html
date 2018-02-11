@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="javascript," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第12章 DOM2和DOM3DOM变化 可以通过下列代码来确定浏览器是否支持这些DOM模块12345var supportsDOM2Core = document.implementation.hasFeature(&quot;Core&quot;, &quot;2.0&quot;);var supportsDOM3Core = document.implementation.hasFeature(&quot;Core&quot;, &quot;3.0&quot;);var">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript高级程序设计读书笔记12">
+<meta property="og:url" content="http://yoursite.com/2018/01/26/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记12/index.html">
+<meta property="og:site_name" content="XyyFighting">
+<meta property="og:description" content="第12章 DOM2和DOM3DOM变化 可以通过下列代码来确定浏览器是否支持这些DOM模块12345var supportsDOM2Core = document.implementation.hasFeature(&quot;Core&quot;, &quot;2.0&quot;);var supportsDOM3Core = document.implementation.hasFeature(&quot;Core&quot;, &quot;3.0&quot;);var">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://image.jiantuku.com/18-1-26/21791190.jpg?e=1517036410&token=el7kgPgYzpJoB23jrChWJ2gV3HpRl0VCzFn8rKKv:mIx_3z1Fdlq8GzkFgaS3MM1_S8c=">
+<meta property="og:updated_time" content="2018-02-02T13:24:49.394Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript高级程序设计读书笔记12">
+<meta name="twitter:description" content="第12章 DOM2和DOM3DOM变化 可以通过下列代码来确定浏览器是否支持这些DOM模块12345var supportsDOM2Core = document.implementation.hasFeature(&quot;Core&quot;, &quot;2.0&quot;);var supportsDOM3Core = document.implementation.hasFeature(&quot;Core&quot;, &quot;3.0&quot;);var">
+<meta name="twitter:image" content="http://image.jiantuku.com/18-1-26/21791190.jpg?e=1517036410&token=el7kgPgYzpJoB23jrChWJ2gV3HpRl0VCzFn8rKKv:mIx_3z1Fdlq8GzkFgaS3MM1_S8c=">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/26/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记12/"/>
+
+
+
+
+
+  <title>JavaScript高级程序设计读书笔记12 | XyyFighting</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">XyyFighting</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/26/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记12/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript高级程序设计读书笔记12</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-26T20:29:27+08:00">
+                2018-01-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/JavaScript高级程序设计/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript高级程序设计</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="第12章-DOM2和DOM3"><a href="#第12章-DOM2和DOM3" class="headerlink" title="第12章 DOM2和DOM3"></a>第12章 DOM2和DOM3</h1><h2 id="DOM变化"><a href="#DOM变化" class="headerlink" title="DOM变化"></a>DOM变化</h2><ul>
+<li>可以通过下列代码来确定浏览器是否支持这些DOM模块<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> supportsDOM2Core = <span class="built_in">document</span>.implementation.hasFeature(<span class="string">"Core"</span>, <span class="string">"2.0"</span>);</span><br><span class="line"><span class="keyword">var</span> supportsDOM3Core = <span class="built_in">document</span>.implementation.hasFeature(<span class="string">"Core"</span>, <span class="string">"3.0"</span>);</span><br><span class="line"><span class="keyword">var</span> supportsDom2HTML = <span class="built_in">document</span>.implementation.hasFeature(<span class="string">"HTML"</span>, <span class="string">"2.0"</span>);</span><br><span class="line"><span class="keyword">var</span> supportsDOM2Views = <span class="built_in">document</span>.implementation.hasFeature(<span class="string">"Views"</span>, <span class="string">"2.0"</span>);</span><br><span class="line"><span class="keyword">var</span> supportsDOM2XML = <span class="built_in">document</span>.implementation.hasFeature(<span class="string">"XML"</span>, <span class="string">"2.0"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="针对XML命名空间的变化"><a href="#针对XML命名空间的变化" class="headerlink" title="针对XML命名空间的变化"></a>针对XML命名空间的变化</h3><ul>
+<li>HTML不支持XML命名空间，单XHTML支持XML命名空间。 </li>
+</ul>
+<h3 id="其他方面的变化"><a href="#其他方面的变化" class="headerlink" title="其他方面的变化"></a>其他方面的变化</h3><h4 id="DocumentType类型的变化"><a href="#DocumentType类型的变化" class="headerlink" title="DocumentType类型的变化"></a>DocumentType类型的变化</h4><ul>
+<li>DocumentType类型新增了3个属性：publicId、systemId和internalSubset. </li>
+<li>publicId、systemId表示文档类型声明中的两个信息段，在DOM1中无法访问。<h4 id="Document类型的变化"><a href="#Document类型的变化" class="headerlink" title="Document类型的变化"></a>Document类型的变化</h4></li>
+<li>Document类型的变化中唯一与命名空间无关的方法是importNode()。</li>
+<li>用途：从文档中取得一个节点，然后将其导入另一个文档，使其成为文档结构的一部分。</li>
+<li>注意：每个节点都有一个ownerDocument属性，表示所属文档，如果调动appendChild()是传入的节点属于不同的文档 <h4 id="Node类型的变化"><a href="#Node类型的变化" class="headerlink" title="Node类型的变化"></a>Node类型的变化</h4></li>
+<li>Node类型中唯一与命名空间无关的变化，为添加了isSupported()方法。与DOM1级document.implementation引入的hasFeature()方法类似。</li>
+<li>isSupported()方法用于确定当前节点具有什么能力，接受两个参数：特性名和特性版本号。<h4 id="框架的变化"><a href="#框架的变化" class="headerlink" title="框架的变化"></a>框架的变化</h4></li>
+<li>框架和内嵌框架分别用HTMLFrameElement和HTMLIFrameElement表示，在DOM2中新增contentDocument（包含一个指针，指向表示框架内容的文档对象）</li>
+</ul>
+<h2 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h2><h3 id="访问元素的样式"><a href="#访问元素的样式" class="headerlink" title="访问元素的样式"></a>访问元素的样式</h3><ul>
+<li>任何支持style特性的HTML元素在JavaScript中都有一个对应的style属性，这个style对象是CSSStyleDeclaration的实例，包含着通过HTML的style特性指定的所有样式信息，但不包含与外部样式表或嵌入样式表经层叠而来的样式。</li>
+<li>支持style特性的HTML元素在JavaScript中都有一个对应的style属性。对于使用短划线的css属性，必须将其转换成驼峰大小写形式。</li>
+<li>多数情况下，都可以通过简单地转化属性名的格式来实现转换。其中一个不能直接转换的CSS属性就是float。</li>
+<li>由于float是JavaScript中的保留字，因此不能用作属性名。</li>
+</ul>
+<h3 id="操作样式表"><a href="#操作样式表" class="headerlink" title="操作样式表"></a>操作样式表</h3><ul>
+<li>insertRule()：创建规则。参数：规则文本和表示在哪里插入规则的索引。</li>
+<li>deletRule()：删除规则。参数：要删除的规则位置。</li>
+</ul>
+<h3 id="元素大小"><a href="#元素大小" class="headerlink" title="元素大小"></a>元素大小</h3><ul>
+<li><p>偏移量：元素在屏幕上占用的所有可见的空间</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getElementLeft</span>(<span class="params">element</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> actualLeft = element.offsetLeft;</span><br><span class="line">    <span class="keyword">var</span> current = element.offsetParent;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(current !== <span class="literal">null</span>)&#123;</span><br><span class="line">        actualLeft += current.offsetLeft;</span><br><span class="line">        current = current.offsetParent;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> actuaLeft;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getElementTop</span>(<span class="params">element</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> actualTop += current.offsetTop;</span><br><span class="line">    <span class="keyword">var</span> current = current.offsetParent;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (current != <span class="literal">null</span>)&#123;</span><br><span class="line">        actualTop += current.offsetTop;</span><br><span class="line">        current = current.offsetParent;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> actualTop;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>客户区大小(client dimension)，指的是元素内容及其内边距所占的空间大小。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getViewport</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 检查document.compatMode属性，以确定浏览器是否运行在混杂模式</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">document</span>.compatMode == <span class="string">"BackCompat"</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>(</span><br><span class="line">            width: <span class="built_in">document</span>.body.clientWidth,</span><br><span class="line">            height: <span class="built_in">document</span>.body.clientHeight</span><br><span class="line">        );</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span>&#123;</span><br><span class="line">        <span class="comment">//documentElement 属性可返回文档的根节点</span></span><br><span class="line">            width: <span class="built_in">document</span>.documentElement.clientWidth,</span><br><span class="line">            height: <span class="built_in">document</span>.documentElement.clientHeight</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>滚动大小： 包含滚动内容的元素的大小。</p>
+</li>
+<li>scrollHeight 在没有滚动条的情况下，元素内容的高度</li>
+<li>scrollWidth 在没有滚动条的情况下，元素内容的总宽度</li>
+<li>scrollLeft 隐藏在内容区域左侧的像素数</li>
+<li>scrollTop 隐藏在内容区域上方的像素数</li>
+<li><p>在确定文档的总高度时（包括基于视口的最小高度），必须取得scrollWidth/clientWidth和scrollHeight/clientHeight中的最大值，才能保证在跨浏览器的环境下得到精确的结果：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//对于运行在混杂模式下的IE，则需要用document.body代替document.documentElement</span></span><br><span class="line"><span class="keyword">var</span> docHeight = <span class="built_in">Math</span>.max(<span class="built_in">document</span>.documentElement.scrollHeight, documentElement.clientHeight);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> docWidth = <span class="built_in">Math</span>.max(<span class="built_in">document</span>.documentElement.scrollWidth, documentElement.clientWidth);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>确定元素大小，在IE8及以前认为文档左上角坐标是(2,2)，其他浏览器包括IE9则将传统的(0，0)作为起点坐标。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getBoundingClientRect</span>(<span class="params">element</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> scrollTop = <span class="built_in">document</span>.documentElement.scrollTop;</span><br><span class="line">    <span class="keyword">var</span> scrollLeft = <span class="built_in">document</span>.documentElement.scrollLeft;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(element.getBoundingClientRect(element))&#123;</span><br><span class="line">        <span class="keyword">var</span> temp = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">        temp.style.cssText = <span class="string">"position:absolute; left:0; top:0;"</span>;</span><br><span class="line">        <span class="built_in">document</span>.body.appendChild(<span class="string">"temp"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="built_in">arguments</span>.callee.offset = -temp.getBoundingClientRect().top - scrollTop;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">document</span>.body.removeChild(temp);</span><br><span class="line">        temp = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> rect = element.getBoundingClientRect();</span><br><span class="line">    <span class="keyword">var</span> offset = <span class="built_in">arguments</span>.callee.offset;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span>(</span><br><span class="line">        left: rect.left + offset,</span><br><span class="line">        right: rect.right + offset,</span><br><span class="line">        top: rect.top + offset,</span><br><span class="line">        bottom: rect.bottom + offset,</span><br><span class="line">    );</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> actualLeft = getElementLeft(element);</span><br><span class="line">    <span class="keyword">var</span> actualTop = getElementTop(element);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span>&#123;</span><br><span class="line">        left: aotualLeft - scrollLeft,</span><br><span class="line">        right: actualLeft + element.offsetWidth - scrollLeft,</span><br><span class="line">        top: actualTop - scrollTop,</span><br><span class="line">        bottom: actualTop + element.offsetHeight - scrollTop</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="http://image.jiantuku.com/18-1-26/21791190.jpg?e=1517036410&amp;token=el7kgPgYzpJoB23jrChWJ2gV3HpRl0VCzFn8rKKv:mIx_3z1Fdlq8GzkFgaS3MM1_S8c=" alt=""></p>
+<h2 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h2><ul>
+<li>NodeIterator(迭代节点)和TreeWalker；这两个类型能够基于给定的起点对DOM结构执行深度优先(depth-first)的遍历操作。</li>
+</ul>
+<h3 id="NodeIterator"><a href="#NodeIterator" class="headerlink" title="NodeIterator"></a>NodeIterator</h3><ul>
+<li>可以使用document.createNodeIterator()方法创建新的实例，接收4个参数。<ul>
+<li>root：想要作为搜索起点的树中的节点</li>
+</ul>
+</li>
+<li>whatToShow：表示要访问哪些节点的数字代码</li>
+<li>filter：是一个NodeFilter对象，或者一个表示应该接受还是拒绝某种特定节点的函数</li>
+<li>entityRefrenceExpansion：布尔值，表示是否要扩展实体引用。在HTML页面中没用，因为其中的实体引用不能扩展。</li>
+<li>如何创建一个只显示p元素的节点迭代器<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> filter = &#123;<span class="attr">acceptNode</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> node.tageName.toLowerCase() == <span class="string">"p"</span>?</span><br><span class="line">        NodeFilter.FILTER_ACCEPT:</span><br><span class="line">        NodeFilter.FILTER_SKIP;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> iterator = <span class="built_in">document</span>.createNodeIterator(root, NodeFilter.SHOW_ELEMENT, filter, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="TreeWalker"><a href="#TreeWalker" class="headerlink" title="TreeWalker"></a>TreeWalker</h3><ul>
+<li>比NodeIterator更高级的版本。除了nextNode()和previousNode()在内的相同功能之外还提供其他方法。<ul>
+<li>parentNode()：遍历到当前节点的父节点；</li>
+<li>firstChild()：遍历当前节点的第一个子节点；</li>
+</ul>
+</li>
+<li>lastChild()：遍历当前节点的最后一个子节点；</li>
+<li>nextSibling()：遍历当前节点的下一个同辈节点；</li>
+<li>previousSibling()：遍历当前节点的上一个同辈节点；</li>
+<li>TreeWalker真正强大的地方在于能够在DOM结构中沿任何方向移动，即使不使用过滤器也可以得到想要的元素.</li>
+</ul>
+<h2 id="范围"><a href="#范围" class="headerlink" title="范围"></a>范围</h2><h3 id="DOM中的范围"><a href="#DOM中的范围" class="headerlink" title="DOM中的范围"></a>DOM中的范围</h3><ul>
+<li>createRange()方法创建范围。<code>var range = document.createRange();</code></li>
+</ul>
+<h3 id="简单选择"><a href="#简单选择" class="headerlink" title="简单选择"></a>简单选择</h3><ul>
+<li>selectNode() 选择整个节点</li>
+<li>selectNodeContents() 选择节点的子节点</li>
+</ul>
+<h3 id="复杂选择"><a href="#复杂选择" class="headerlink" title="复杂选择"></a>复杂选择</h3><ul>
+<li>setStart()和setEnd()方法：接受两个参数，一个是参照节点，一个是偏移量</li>
+</ul>
+<h3 id="操作DOM范围中的内容"><a href="#操作DOM范围中的内容" class="headerlink" title="操作DOM范围中的内容"></a>操作DOM范围中的内容</h3><ul>
+<li>deleteContents()，删除范围中的内容。调用方式：range.deleteContents()；</li>
+<li>extractContents(),从文档区域移除范围的内容，返回范围内容的文档片段，可以对文档片段进行进一步操作，调用方式：<code>var fragment=range.extractContents();</code></li>
+<li>cloneContents(),创建一个文档片段，保存范围的副本，可以对文档片段进行进一步操作，调用方式：<code>var fragment=range.cloneContents();</code></li>
+</ul>
+<h3 id="插入DOM范围中的内容"><a href="#插入DOM范围中的内容" class="headerlink" title="插入DOM范围中的内容"></a>插入DOM范围中的内容</h3><ul>
+<li>除了向范围内部插入内容之外，还可以环绕范围插入内容，此时要使用surroundContents()方法。这个方法接收一个参数，即环绕范围内容的节点。</li>
+</ul>
+<h3 id="折叠DOM范围"><a href="#折叠DOM范围" class="headerlink" title="折叠DOM范围"></a>折叠DOM范围</h3><ul>
+<li>范围折叠就是指范围中未选择文档的任何部分。通俗的描述就是当你选择范围内的文本，点击左键的时候，光标会落在范围的开始或者范围的结束。</li>
+<li>使用collapse()进行折叠，接收一个参数，一个布尔值，表示要折叠到范围的那一端，true表示范围的起点，false表示范围的终点。要确定范围已经折叠外币，可以用collapsed属性检查。</li>
+</ul>
+<h3 id="比较DOM的范围"><a href="#比较DOM的范围" class="headerlink" title="比较DOM的范围"></a>比较DOM的范围</h3><ul>
+<li>在有多个范围的情况下，可以使用compareBoundaryPoints()方法来确定这些范围是否有公共边界。</li>
+<li>这个方法接收两个参数：比较方式的常量值和要比较的范围。</li>
+</ul>
+<h3 id="复制DOM的范围"><a href="#复制DOM的范围" class="headerlink" title="复制DOM的范围"></a>复制DOM的范围</h3><ul>
+<li>可以使用cloneRange()方法复制范围，返回范围的一个副本<code>var newRange=range.cloneRange();</code></li>
+</ul>
+<h3 id="清理DOM范围"><a href="#清理DOM范围" class="headerlink" title="清理DOM范围"></a>清理DOM范围</h3><ul>
+<li>在使用完范围之后，最好调用detach()方法，清理范围，回收内存.<br><code>range.detach()；// 从文档中分离</code><br><code>range=null;//  解除引用</code></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/25/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记11/" rel="next" title="JavaScript高级程序设计读书笔记11">
+                <i class="fa fa-chevron-left"></i> JavaScript高级程序设计读书笔记11
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/28/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记13/" rel="prev" title="JavaScript高级程序设计读书笔记13">
+                JavaScript高级程序设计读书笔记13 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Xyy" />
+            
+              <p class="site-author-name" itemprop="name">Xyy</p>
+              <p class="site-description motion-element" itemprop="description">I want to get ahead in a step-by-step</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第12章-DOM2和DOM3"><span class="nav-number">1.</span> <span class="nav-text">第12章 DOM2和DOM3</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DOM变化"><span class="nav-number">1.1.</span> <span class="nav-text">DOM变化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#针对XML命名空间的变化"><span class="nav-number">1.1.1.</span> <span class="nav-text">针对XML命名空间的变化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他方面的变化"><span class="nav-number">1.1.2.</span> <span class="nav-text">其他方面的变化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DocumentType类型的变化"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">DocumentType类型的变化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Document类型的变化"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">Document类型的变化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Node类型的变化"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">Node类型的变化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#框架的变化"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">框架的变化</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#样式"><span class="nav-number">1.2.</span> <span class="nav-text">样式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#访问元素的样式"><span class="nav-number">1.2.1.</span> <span class="nav-text">访问元素的样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作样式表"><span class="nav-number">1.2.2.</span> <span class="nav-text">操作样式表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元素大小"><span class="nav-number">1.2.3.</span> <span class="nav-text">元素大小</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遍历"><span class="nav-number">1.3.</span> <span class="nav-text">遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NodeIterator"><span class="nav-number">1.3.1.</span> <span class="nav-text">NodeIterator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TreeWalker"><span class="nav-number">1.3.2.</span> <span class="nav-text">TreeWalker</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#范围"><span class="nav-number">1.4.</span> <span class="nav-text">范围</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM中的范围"><span class="nav-number">1.4.1.</span> <span class="nav-text">DOM中的范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单选择"><span class="nav-number">1.4.2.</span> <span class="nav-text">简单选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复杂选择"><span class="nav-number">1.4.3.</span> <span class="nav-text">复杂选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作DOM范围中的内容"><span class="nav-number">1.4.4.</span> <span class="nav-text">操作DOM范围中的内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入DOM范围中的内容"><span class="nav-number">1.4.5.</span> <span class="nav-text">插入DOM范围中的内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#折叠DOM范围"><span class="nav-number">1.4.6.</span> <span class="nav-text">折叠DOM范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#比较DOM的范围"><span class="nav-number">1.4.7.</span> <span class="nav-text">比较DOM的范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制DOM的范围"><span class="nav-number">1.4.8.</span> <span class="nav-text">复制DOM的范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清理DOM范围"><span class="nav-number">1.4.9.</span> <span class="nav-text">清理DOM范围</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xyy</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="javascript," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第1章 JavaScript简介JavaScript组成 核心-ECMAScript：对实现该标准规定的各个方面内容的语言的描述，提供核心语言功能 文档对象模型-DOM：是针对XML但经过扩展用于HTML的应用程序编程接口（API），提供访问和操作网页内容的方法和接口 浏览器对象模型-BOM：没有相关的标准，提供与浏览器交互的方法和接口  tips:DOM并不值针对JS，很多别的语言也都实现了DO">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript高级程序设计读书笔记1-2">
+<meta property="og:url" content="http://yoursite.com/2018/01/10/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记1-2/index.html">
+<meta property="og:site_name" content="XyyFighting">
+<meta property="og:description" content="第1章 JavaScript简介JavaScript组成 核心-ECMAScript：对实现该标准规定的各个方面内容的语言的描述，提供核心语言功能 文档对象模型-DOM：是针对XML但经过扩展用于HTML的应用程序编程接口（API），提供访问和操作网页内容的方法和接口 浏览器对象模型-BOM：没有相关的标准，提供与浏览器交互的方法和接口  tips:DOM并不值针对JS，很多别的语言也都实现了DO">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-02T13:19:48.254Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript高级程序设计读书笔记1-2">
+<meta name="twitter:description" content="第1章 JavaScript简介JavaScript组成 核心-ECMAScript：对实现该标准规定的各个方面内容的语言的描述，提供核心语言功能 文档对象模型-DOM：是针对XML但经过扩展用于HTML的应用程序编程接口（API），提供访问和操作网页内容的方法和接口 浏览器对象模型-BOM：没有相关的标准，提供与浏览器交互的方法和接口  tips:DOM并不值针对JS，很多别的语言也都实现了DO">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/10/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记1-2/"/>
+
+
+
+
+
+  <title>JavaScript高级程序设计读书笔记1-2 | XyyFighting</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">XyyFighting</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/10/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记1-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript高级程序设计读书笔记1-2</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-10T23:06:10+08:00">
+                2018-01-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/JavaScript高级程序设计/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript高级程序设计</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="第1章-JavaScript简介"><a href="#第1章-JavaScript简介" class="headerlink" title="第1章 JavaScript简介"></a>第1章 JavaScript简介</h1><h2 id="JavaScript组成"><a href="#JavaScript组成" class="headerlink" title="JavaScript组成"></a>JavaScript组成</h2><ul>
+<li>核心-ECMAScript：对实现该标准规定的各个方面内容的语言的描述，提供核心语言功能</li>
+<li>文档对象模型-DOM：是针对XML但经过扩展用于HTML的应用程序编程接口（API），提供访问和操作网页内容的方法和接口</li>
+<li><p>浏览器对象模型-BOM：没有相关的标准，提供与浏览器交互的方法和接口</p>
+</li>
+<li><p>tips:DOM并不值针对JS，很多别的语言也都实现了DOM。</p>
+</li>
+<li>五个浏览器（IE、Firefox、Chrome、Safari、Opera)对ECMAScript支持程度都不错，对DOM的支持彼此相差比较多，BOM实现了某些众所周知的共同特性，但是其他特性还是会因浏览器而异。</li>
+</ul>
+<h1 id="第2章-在HTML中使用JavaScript"><a href="#第2章-在HTML中使用JavaScript" class="headerlink" title="第2章 在HTML中使用JavaScript"></a>第2章 在HTML中使用JavaScript</h1><h2 id="script函数"><a href="#script函数" class="headerlink" title="script函数"></a>script函数</h2><ul>
+<li>如果包含了嵌入代码，则只会下载并执行外部脚本文件，嵌入的代码会被忽略。</li>
+</ul>
+<h3 id="标签的位置"><a href="#标签的位置" class="headerlink" title="标签的位置"></a>标签的位置</h3><ul>
+<li>JS引用一般放在<code>&lt;body&gt;</code>元素中页面内容的后面。在解析包含Js代码之前，页面的内容将完全呈现在浏览器中。如果放在<code>&lt;head&gt;</code>中，必须等到所有的js代码都被下载解析和执行完成以后，才能开始呈现页面内容。</li>
+</ul>
+<h3 id="延迟脚本"><a href="#延迟脚本" class="headerlink" title="延迟脚本"></a>延迟脚本</h3><ul>
+<li><code>defer=&quot;defer&quot;</code>表明脚本会被延迟到整个页面都解析完毕后再运行，立即下载，但是延迟执行。</li>
+</ul>
+<p>###异步脚本 ###</p>
+<ul>
+<li><code>async</code>立即下载脚本，但不妨碍页面中的其他操作，并不保证按照指定的先后顺序执行。</li>
+<li>异步脚本不要在加载期间修改DOM。</li>
+<li>异步脚本一定会在页面的load事件前执行。</li>
+</ul>
+<h3 id="XHTML"><a href="#XHTML" class="headerlink" title="XHTML"></a>XHTML</h3><ul>
+<li>XHTML可扩展超文本标记语言，是将HTML作为XML的应用而重新定义的一个标准</li>
+</ul>
+<p>小于号(&lt;)在XHTML中将被当做开始一个新标签来解析。有两种方法可以解决：</p>
+<ol>
+<li>用相应的HTML实体（&lt;)替代代码中所有的小于号(&lt;)</li>
+<li>用一个CData片段来包含JS代码。在不兼容XHTML的浏览器中，不支持CData,故使用JS注释</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">script type="text/javascript"&gt;</span><br><span class="line">    //&lt;![CDATA[</span><br><span class="line">    function compare(a, b) &#123;</span><br><span class="line">        if (a &lt; b) &#123;</span><br><span class="line">            alert("A is less than B");</span><br><span class="line">        &#125; else if (a &gt; b) &#123;</span><br><span class="line">            alert("A is greater than B");</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            alert("A is equal to B");</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //]]&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>在XHTML中，CData片段是文档中的一个特殊区域，这个区域可以包含不需要解析的任意格式的文本内容</li>
+</ul>
+<h2 id="嵌入代码与外部文件"><a href="#嵌入代码与外部文件" class="headerlink" title="嵌入代码与外部文件"></a>嵌入代码与外部文件</h2><p>支持外部文件的人会有如下优点：</p>
+<ol>
+<li>可维护性</li>
+<li>可缓存</li>
+<li>适应未来</li>
+</ol>
+<h3 id="文档模式"><a href="#文档模式" class="headerlink" title="文档模式"></a>文档模式</h3><ul>
+<li>混杂模式、标准模式。如果在文档开始出没有发现文档类型声明，则所有浏览器都会默认开启混杂模式。</li>
+</ul>
+<h3 id="noscript元素"><a href="#noscript元素" class="headerlink" title="noscript元素"></a>noscript元素</h3><ul>
+<li><code>&lt;noscript&gt;</code>用于在不支持JS的浏览器中显示替代的内容。但在启用了脚本的浏览器中，用户不会看到它。</li>
+<li>包含在<code>&lt;noscript&gt;</code>元素中的内容只有在下列两种情况中的任何一种出现时，才会显示出来：</li>
+</ul>
+<ol>
+<li>浏览器不支持脚本</li>
+<li>浏览器支持脚本，但是脚本被禁用</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/02/问题解决/编写页面时遇到的问题/" rel="next" title="实训项目遇到的问题">
+                <i class="fa fa-chevron-left"></i> 实训项目遇到的问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/11/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记3/" rel="prev" title="JavaScript高级程序设计读书笔记3">
+                JavaScript高级程序设计读书笔记3 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Xyy" />
+            
+              <p class="site-author-name" itemprop="name">Xyy</p>
+              <p class="site-description motion-element" itemprop="description">I want to get ahead in a step-by-step</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第1章-JavaScript简介"><span class="nav-number">1.</span> <span class="nav-text">第1章 JavaScript简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript组成"><span class="nav-number">1.1.</span> <span class="nav-text">JavaScript组成</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第2章-在HTML中使用JavaScript"><span class="nav-number">2.</span> <span class="nav-text">第2章 在HTML中使用JavaScript</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#script函数"><span class="nav-number">2.1.</span> <span class="nav-text">script函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#标签的位置"><span class="nav-number">2.1.1.</span> <span class="nav-text">标签的位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#延迟脚本"><span class="nav-number">2.1.2.</span> <span class="nav-text">延迟脚本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XHTML"><span class="nav-number">2.1.3.</span> <span class="nav-text">XHTML</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#嵌入代码与外部文件"><span class="nav-number">2.2.</span> <span class="nav-text">嵌入代码与外部文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文档模式"><span class="nav-number">2.2.1.</span> <span class="nav-text">文档模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#noscript元素"><span class="nav-number">2.2.2.</span> <span class="nav-text">noscript元素</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xyy</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

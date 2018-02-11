@@ -252,7 +252,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/04/Javascript DOM编程艺术读书笔记4/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/17/读书笔记/JSDOM编程艺术读书笔记/Javascript DOM编程艺术读书笔记9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Xyy">
@@ -271,7 +271,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/04/Javascript DOM编程艺术读书笔记4/" itemprop="url">Javascript DOM编程艺术读书笔记4</a></h1>
+                <a class="post-title-link" href="/2017/10/17/读书笔记/JSDOM编程艺术读书笔记/Javascript DOM编程艺术读书笔记9/" itemprop="url">Javascript DOM编程艺术读书笔记9</a></h1>
         
 
         <div class="post-meta">
@@ -283,8 +283,858 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-04T15:09:55+08:00">
-                2018-01-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-17T00:00:00+08:00">
+                2017-10-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/Javascript-DOM编程艺术/" itemprop="url" rel="index">
+                    <span itemprop="name">Javascript DOM编程艺术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="第9章-CSS-DOM"><a href="#第9章-CSS-DOM" class="headerlink" title="第9章 CSS-DOM"></a>第9章 CSS-DOM</h2><ul>
+<li>网页由一下三层信息构成一个共同体：结构层、表示层、行为层</li>
+<li>只有把CSS style属性插入到标记里，才可以用DOM style属性去查询这些信息。放在style.css或者写在文件<head>部分里的<code>&lt;style&gt;</code>标签里，都没有用。</head></li>
+</ul>
+<h3 id="根据元素在节点树里的位置来设置样式"><a href="#根据元素在节点树里的位置来设置样式" class="headerlink" title="根据元素在节点树里的位置来设置样式"></a>根据元素在节点树里的位置来设置样式</h3><p>查找<code>&lt;h1&gt;</code>元素后面的元素，设置成加粗。</p>
+<p><img src="http://image.jiantuku.com/18-1-4/32476790.jpg?e=1515222010&amp;token=el7kgPgYzpJoB23jrChWJ2gV3HpRl0VCzFn8rKKv:v_SemyIZXr8uNIlI3haT4pbI6Vg=" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">├─story.html</span><br><span class="line">│</span><br><span class="line">├─scripts</span><br><span class="line">│      addLoadEvent.js</span><br><span class="line">│      styleHeaderSiblings.js</span><br><span class="line">│      </span><br><span class="line">└─styles</span><br><span class="line">        format.css</span><br></pre></td></tr></table></figure>
+<p>story.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"</span></span><br><span class="line"><span class="meta">        "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"content-type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=utf-8"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Man bites dog<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/addLoadEvent.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/styleHeaderSiblings.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">media</span>=<span class="string">"screen"</span> <span class="attr">href</span>=<span class="string">"styles/format.css"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hold the front page<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>This first paragraph leads you in.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Now you get the nitty-gritty of the story.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>The most important information is delivered first.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Extra! Extra!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Further developments are unfolding.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>You can read all about it here.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>addLoadEvent.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addLoadEvent</span>(<span class="params">func</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> oldonload = <span class="built_in">window</span>.onload;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">window</span>.onload != <span class="string">'function'</span>) &#123;</span><br><span class="line">    <span class="built_in">window</span>.onload = func;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      oldonload();</span><br><span class="line">      func();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>styleHeaderSiblings.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">styleHeaderSiblings</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(!<span class="built_in">document</span>.getElementsByTagName) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">var</span> headers=<span class="built_in">document</span>.getElementsByTagName(<span class="string">"h1"</span>);</span><br><span class="line">  <span class="keyword">var</span> elem;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;headers.length;i++)&#123;</span><br><span class="line">      elem=getNextElement(headers[i].nextSibling);</span><br><span class="line">      addClass(elem,<span class="string">"intro"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getNextElement</span>(<span class="params">node</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//如果这个节点是元素节点就返回这个节点</span></span><br><span class="line">    <span class="keyword">if</span>(node.nodeType==<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果这个节点不是元素节点，就继续寻找下一个节点</span></span><br><span class="line">    <span class="keyword">if</span>(node.nextSibling)&#123;</span><br><span class="line">        <span class="keyword">return</span> getNextElement(node.nextSibling);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//以下两种是更通用的方法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addClass</span>(<span class="params">element,value</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//检查className属性的值是否为null</span></span><br><span class="line">    <span class="keyword">if</span> (!element.className) &#123;</span><br><span class="line">        <span class="comment">//如果是把新的class设置值直接赋值给className</span></span><br><span class="line">        element.className = value;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//如果不是，就把一个空格和新的calss设置值追加到className属性上去</span></span><br><span class="line">        newClassName = element.className;</span><br><span class="line">        newClassName+= <span class="string">" "</span>;</span><br><span class="line">        newClassName+= value;</span><br><span class="line">        element.className = newClassName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">styleElementSiblings</span>(<span class="params">tag,theclass</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">document</span>.getElementsByTagName)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> elems=<span class="built_in">document</span>.getElementsByTagName(tag);</span><br><span class="line">    <span class="keyword">var</span> elem;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;elems.length ;i++)&#123;</span><br><span class="line">        elem=getNextElement(elems[i].nextSibling);</span><br><span class="line">        addClass(elem,theclass);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//addLoadEvent(styleHeaderSiblings);</span></span><br><span class="line">addLoadEvent(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    styleElementSiblings(<span class="string">"h1"</span>,<span class="string">"intro"</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>format.css<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.intro</span> &#123;</span><br><span class="line">  <span class="attribute">font-weight</span>: bold;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">1.2em</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="根据某种条件反复设置某种样式"><a href="#根据某种条件反复设置某种样式" class="headerlink" title="根据某种条件反复设置某种样式"></a>根据某种条件反复设置某种样式</h3><p>将表格中奇数行和偶数行的背景颜色设置成不同的<br><img src="http://image.jiantuku.com/18-1-4/98245172.jpg?e=1515222010&amp;token=el7kgPgYzpJoB23jrChWJ2gV3HpRl0VCzFn8rKKv:fZW-hgrzVqfXuRbZ2s-JSAHHOmY=" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">│  itinerary.html</span><br><span class="line">│  </span><br><span class="line">├─scripts</span><br><span class="line">│      addLoadEvent.js</span><br><span class="line">│      displayAbbreviations.js</span><br><span class="line">│      highlightRows.js</span><br><span class="line">│      stripeTables.js</span><br><span class="line">│      </span><br><span class="line">└─styles</span><br><span class="line">        format.css</span><br></pre></td></tr></table></figure></p>
+<p>itinerary.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"content-type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=utf-8"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Cities<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">media</span>=<span class="string">"screen"</span> <span class="attr">href</span>=<span class="string">"styles/format.css"</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/addLoadEvent.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/stripeTables.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/displayAbbreviations.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/highlightRows.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">table</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">caption</span>&gt;</span>Itinerary<span class="tag">&lt;/<span class="name">caption</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">thead</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">th</span>&gt;</span>When<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">th</span>&gt;</span>Where<span class="tag">&lt;/<span class="name">th</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">thead</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>June 9th<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>Portland, <span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span>=<span class="string">"Oregon"</span>&gt;</span>OR<span class="tag">&lt;/<span class="name">abbr</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>June 10th<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>Seattle, <span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span>=<span class="string">"Washington"</span>&gt;</span>WA<span class="tag">&lt;/<span class="name">abbr</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>June 12th<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">td</span>&gt;</span>Sacramento, <span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span>=<span class="string">"California"</span>&gt;</span>CA<span class="tag">&lt;/<span class="name">abbr</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>addLoadEvent.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addLoadEvent</span>(<span class="params">func</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> oldonload = <span class="built_in">window</span>.onload;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">window</span>.onload != <span class="string">'function'</span>) &#123;</span><br><span class="line">    <span class="built_in">window</span>.onload = func;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      oldonload();</span><br><span class="line">      func();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>displayAbbreviations.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">displayAbbreviations</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementsByTagName || !<span class="built_in">document</span>.createElement || !<span class="built_in">document</span>.createTextNode) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"><span class="comment">// 得到所有"abbr"元素</span></span><br><span class="line">  <span class="keyword">var</span> abbreviations = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"abbr"</span>);</span><br><span class="line">  <span class="keyword">if</span> (abbreviations.length &lt; <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">var</span> defs = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line"><span class="comment">// 循环遍历</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;abbreviations.length; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> current_abbr = abbreviations[i];</span><br><span class="line">    <span class="keyword">if</span> (current_abbr.childNodes.length &lt; <span class="number">1</span>) <span class="keyword">continue</span>;</span><br><span class="line">    <span class="keyword">var</span> definition = current_abbr.getAttribute(<span class="string">"title"</span>);</span><br><span class="line">    <span class="keyword">var</span> key = current_abbr.lastChild.nodeValue;</span><br><span class="line">    defs[key] = definition;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">// 创建一个dl列表</span></span><br><span class="line">  <span class="keyword">var</span> dlist = <span class="built_in">document</span>.createElement(<span class="string">"dl"</span>);</span><br><span class="line"><span class="comment">// 循环创建列表内的元素</span></span><br><span class="line">  <span class="keyword">for</span> (key <span class="keyword">in</span> defs) &#123;</span><br><span class="line">    <span class="keyword">var</span> definition = defs[key];</span><br><span class="line"><span class="comment">// 创建列表中的项目</span></span><br><span class="line">    <span class="keyword">var</span> dtitle = <span class="built_in">document</span>.createElement(<span class="string">"dt"</span>);</span><br><span class="line">    <span class="keyword">var</span> dtitle_text = <span class="built_in">document</span>.createTextNode(key);</span><br><span class="line">    dtitle.appendChild(dtitle_text);</span><br><span class="line"><span class="comment">// 创建它的描述</span></span><br><span class="line">    <span class="keyword">var</span> ddesc = <span class="built_in">document</span>.createElement(<span class="string">"dd"</span>);</span><br><span class="line">    <span class="keyword">var</span> ddesc_text = <span class="built_in">document</span>.createTextNode(definition);</span><br><span class="line">    ddesc.appendChild(ddesc_text);</span><br><span class="line"><span class="comment">// 将他们添加到列表上</span></span><br><span class="line">    dlist.appendChild(dtitle);</span><br><span class="line">    dlist.appendChild(ddesc);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (dlist.childNodes.length &lt; <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"><span class="comment">// 创建一个标题</span></span><br><span class="line">  <span class="keyword">var</span> header = <span class="built_in">document</span>.createElement(<span class="string">"h2"</span>);</span><br><span class="line">  <span class="keyword">var</span> header_text = <span class="built_in">document</span>.createTextNode(<span class="string">"Abbreviations"</span>);</span><br><span class="line">  header.appendChild(header_text);</span><br><span class="line"><span class="comment">// 添加标题和列表到html页面上</span></span><br><span class="line">  <span class="built_in">document</span>.body.appendChild(header);</span><br><span class="line">  <span class="built_in">document</span>.body.appendChild(dlist);</span><br><span class="line">&#125;</span><br><span class="line">addLoadEvent(displayAbbreviations);</span><br></pre></td></tr></table></figure></p>
+<p>highlightRows.js:鼠标指针悬停在某个表格行的上方时，把该文本加黑加粗<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">highlightRows</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(!<span class="built_in">document</span>.getElementsByTagName) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="keyword">var</span> rows = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"tr"</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;rows.length; i++) &#123;</span><br><span class="line">    rows[i].onmouseover = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.style.fontWeight = <span class="string">"bold"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    rows[i].onmouseout = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.style.fontWeight = <span class="string">"normal"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">addLoadEvent(highlightRows);</span><br></pre></td></tr></table></figure></p>
+<p>stripeTables.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stripeTables</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(!<span class="built_in">document</span>.getElementsByTagName) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  <span class="comment">//找出文档中的所有table元素</span></span><br><span class="line">  <span class="keyword">var</span> tables=<span class="built_in">document</span>.getElementsByTagName(<span class="string">"table"</span>);</span><br><span class="line">  <span class="keyword">var</span> odd,rows;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;tables.length;i++)&#123;</span><br><span class="line">      <span class="comment">//对每个table元素，创建odd变量并把它初始化为false</span></span><br><span class="line">      odd=<span class="literal">false</span>;</span><br><span class="line">      <span class="comment">//遍历表格中的所有数据行</span></span><br><span class="line">      rows=tables[i].getElementsByTagName(<span class="string">"tr"</span>);</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>;j&lt;rows.length;j++)&#123;</span><br><span class="line">          <span class="comment">//如果变量odd的值是true,设置样式并把odd变量修改为false</span></span><br><span class="line">          <span class="keyword">if</span>(odd==<span class="literal">true</span>)&#123;</span><br><span class="line">              addClass(rows[j],<span class="string">"odd"</span>);</span><br><span class="line">              odd=<span class="literal">false</span>;</span><br><span class="line">          &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">              <span class="comment">//如果变量odd的值是false,不设置样式，但把odd变量修改为true</span></span><br><span class="line">              odd=<span class="literal">true</span>;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addClass</span>(<span class="params">element,value</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//检查className属性的值是否为null</span></span><br><span class="line">    <span class="keyword">if</span> (!element.className) &#123;</span><br><span class="line">        <span class="comment">//如果是把新的class设置值直接赋值给className</span></span><br><span class="line">    element.className = value;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//如果不是，就把一个空格和新的calss设置值追加到className属性上去</span></span><br><span class="line">    newClassName = element.className;</span><br><span class="line">    newClassName+= <span class="string">" "</span>;</span><br><span class="line">    newClassName+= value;</span><br><span class="line">    element.className = newClassName;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">addLoadEvent(stripeTables);</span><br></pre></td></tr></table></figure></p>
+<h3 id="ClassName"><a href="#ClassName" class="headerlink" title="ClassName"></a>ClassName</h3><ul>
+<li><strong>问题：</strong>在DOM直接设置或修改样式，让行为层干表示层的活，并不是理想的工作方式。</li>
+<li><strong>解决方法：</strong>为元素追加一个className,在css文档中含有该类名的样式。可以通过修改CSS中类名的样式修改样式而不需要修改JS函数。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addClass</span>(<span class="params">element,value</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//检查className属性的值是否为null</span></span><br><span class="line">    <span class="keyword">if</span> (!element.className) &#123;</span><br><span class="line">        <span class="comment">//如果是把新的class设置值直接赋值给className</span></span><br><span class="line">        element.className = value;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//如果不是，就把一个空格和新的calss设置值追加到className属性上去</span></span><br><span class="line">        newClassName = element.className;</span><br><span class="line">        newClassName+= <span class="string">" "</span>;</span><br><span class="line">        newClassName+= value;</span><br><span class="line">        element.className = newClassName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/16/读书笔记/JSDOM编程艺术读书笔记/Javascript DOM编程艺术读书笔记8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/16/读书笔记/JSDOM编程艺术读书笔记/Javascript DOM编程艺术读书笔记8/" itemprop="url">Javascript DOM编程艺术读书笔记8</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-16T00:00:00+08:00">
+                2017-10-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/Javascript-DOM编程艺术/" itemprop="url" rel="index">
+                    <span itemprop="name">Javascript DOM编程艺术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="第8章-充实文档的内容"><a href="#第8章-充实文档的内容" class="headerlink" title="第8章 充实文档的内容"></a>第8章 充实文档的内容</h2><p>两项重要原则：</p>
+<ol>
+<li>渐进增强：应该总是从最核心的部分，也就是从内容开始逐步加强</li>
+<li>平稳退化：缺乏必要的CSS和JS支持的访问者也可以访问到核心内容</li>
+</ol>
+<p><strong>充实文档的基本思路</strong><br>用JS函数先把文档结构里的一些现有信息提取出来，再把哪些信息以一种清晰和有意义的方式插入到文档中去。比如下面编写的几个函数：</p>
+<ul>
+<li>displayAbbreviations.js:把文档里的缩略语显示为一个“缩略语”列表</li>
+<li>displayCitations.js:把文档里引用的每段文献节选生成一个“文献来源链接”</li>
+<li>displsyAccesskeys.js:把一个元素与键盘上的某个特定按键关联在一起</li>
+</ul>
+<p><img src="http://image.jiantuku.com/18-1-4/20507689.jpg?e=1515222010&amp;token=el7kgPgYzpJoB23jrChWJ2gV3HpRl0VCzFn8rKKv:yV25O4U8E-ng376-2pfTeI8eUsY=" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">├─explanation.html</span><br><span class="line">│  </span><br><span class="line">├─scripts</span><br><span class="line">│      addLoadEvent.js</span><br><span class="line">│      displayAbbreviations.js</span><br><span class="line">│      displayCitations.js</span><br><span class="line">│      displsyAccesskeys.js</span><br><span class="line">│      </span><br><span class="line">└─styles</span><br><span class="line">        typography.css</span><br></pre></td></tr></table></figure>
+<p>explanation.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"content-type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=utf-8"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Explaining the Document Object Model<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">media</span>=<span class="string">"screen"</span> <span class="attr">href</span>=<span class="string">"styles/typography.css"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/addLoadEvent.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/displayAbbreviations.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/displayCitations.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"scripts/displsyAccesskeys.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"navigation"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"index.html"</span> <span class="attr">accesskey</span>=<span class="string">"1"</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"search.html"</span> <span class="attr">accesskey</span>=<span class="string">"4"</span>&gt;</span>Search<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"contact.html"</span> <span class="attr">accesskey</span>=<span class="string">"0"</span>&gt;</span>Contact<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>What is the Document Object Model?<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    The <span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span>=<span class="string">"World Wide Web Consortium"</span>&gt;</span>W3C<span class="tag">&lt;/<span class="name">abbr</span>&gt;</span> defines</span><br><span class="line">    the <span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span>=<span class="string">"Document Object Model"</span>&gt;</span>DOM<span class="tag">&lt;/<span class="name">abbr</span>&gt;</span> as:</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">blockquote</span> <span class="attr">cite</span>=<span class="string">"http://www.w3.org/DOM/"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">        A platform- and language-neutral interface that will allow programs</span><br><span class="line">        and scripts to dynamically access and update the</span><br><span class="line">        content, structure and style of documents.</span><br><span class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">blockquote</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    It is an <span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span>=<span class="string">"Application Programming Interface"</span>&gt;</span>API<span class="tag">&lt;/<span class="name">abbr</span>&gt;</span></span><br><span class="line">    that can be used to navigate <span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span>=<span class="string">"HyperText Markup Language"</span>&gt;</span></span><br><span class="line">    HTML<span class="tag">&lt;/<span class="name">abbr</span>&gt;</span> and <span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span>=<span class="string">"eXtensible Markup Language"</span>&gt;</span>XML</span><br><span class="line"><span class="tag">&lt;/<span class="name">abbr</span>&gt;</span> documents.</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>addLoadEvent.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addLoadEvent</span>(<span class="params">func</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> oldonload = <span class="built_in">window</span>.onload;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">window</span>.onload != <span class="string">'function'</span>) &#123;</span><br><span class="line">    <span class="built_in">window</span>.onload = func;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      oldonload();</span><br><span class="line">      func();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>displayAbbreviations.js:把文档里的缩略语显示为一个“缩略语”列表<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">displayAbbreviations</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementsByTagName || !<span class="built_in">document</span>.createElement || !<span class="built_in">document</span>.createTextNode) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//取得所有缩略词</span></span><br><span class="line">    <span class="keyword">var</span> abbrevistions = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"abbr"</span>);</span><br><span class="line">    <span class="comment">//判断是否有abbr元素</span></span><br><span class="line">    <span class="keyword">if</span> (abbrevistions.length &lt; <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> defs = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">    <span class="comment">//遍历这些缩略词</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; abbrevistions.length; i++) &#123;</span><br><span class="line">        <span class="keyword">var</span> current_abbr = abbrevistions[i];</span><br><span class="line">        <span class="comment">//在IE浏览器中的平稳退化，如果当前元素没有子节点，就会立刻开始下一次循环。因为IE浏览器在统计abbr元素的子节点的个数时总会返回一个错误的值0.</span></span><br><span class="line">        <span class="keyword">if</span>(current_abbr.childNodes.length&lt;<span class="number">1</span>)<span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">var</span> definition = current_abbr.getAttribute(<span class="string">"title"</span>);</span><br><span class="line">        <span class="comment">//文本节点是元素内部的第一个也是最后一个节点，即唯一节点</span></span><br><span class="line">        <span class="keyword">var</span> key = current_abbr.lastChild.nodeValue;</span><br><span class="line">        defs[key] = definition;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//创建定义列表</span></span><br><span class="line">    <span class="keyword">var</span> dlist = <span class="built_in">document</span>.createElement(<span class="string">"dl"</span>);</span><br><span class="line">    <span class="comment">//遍历定义</span></span><br><span class="line">    <span class="keyword">for</span> (key <span class="keyword">in</span> defs) &#123;</span><br><span class="line">        <span class="keyword">var</span> definition = defs[key];</span><br><span class="line">        <span class="comment">//创建定义标题</span></span><br><span class="line">        <span class="keyword">var</span> dtitle = <span class="built_in">document</span>.createElement(<span class="string">"dt"</span>);</span><br><span class="line">        <span class="keyword">var</span> dtitle_text = <span class="built_in">document</span>.createTextNode(key);</span><br><span class="line">        dtitle.appendChild(dtitle_text);</span><br><span class="line">        <span class="comment">//创建定义描述</span></span><br><span class="line">        <span class="keyword">var</span> ddesc = <span class="built_in">document</span>.createElement(<span class="string">"dd"</span>);</span><br><span class="line">        <span class="keyword">var</span> ddesc_text = <span class="built_in">document</span>.createTextNode(definition);</span><br><span class="line">        ddesc.appendChild(ddesc_text);</span><br><span class="line">        <span class="comment">//把他们添加到定义列表</span></span><br><span class="line">        dlist.appendChild(dtitle);</span><br><span class="line">        dlist.appendChild(ddesc);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//ie浏览器的defs数组是空的，就不会创建出任何dt和dd元素，如果dl没有任何子节点，就立刻退出该函数</span></span><br><span class="line">    <span class="keyword">if</span>(dlist.childNodes.length&lt;<span class="number">1</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//创建标题</span></span><br><span class="line">    <span class="keyword">var</span> header = <span class="built_in">document</span>.createElement(<span class="string">"h2"</span>);</span><br><span class="line">    <span class="keyword">var</span> header_text = <span class="built_in">document</span>.createTextNode(<span class="string">"Abbreviations"</span>);</span><br><span class="line">    header.appendChild(header_text);</span><br><span class="line">    <span class="comment">//把标题添加到页面主体</span></span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(header);</span><br><span class="line">    <span class="comment">//把定义列表添加到页面主体</span></span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(dlist);</span><br><span class="line">&#125;</span><br><span class="line">addLoadEvent(displayAbbreviations);</span><br></pre></td></tr></table></figure></p>
+<p>displayCitations.js:把文档里引用的每段文献节选生成一个“文献来源链接”<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">displayCitations</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">document</span>.getElementsByTagName||!<span class="built_in">document</span>.createElement||!<span class="built_in">document</span>.createTextNode) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//取得所有的引用</span></span><br><span class="line">    <span class="keyword">var</span> quotes=<span class="built_in">document</span>.getElementsByTagName(<span class="string">"blockquote"</span>);</span><br><span class="line">    <span class="comment">//遍历引用</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;quotes.length;i++)&#123;</span><br><span class="line">        <span class="comment">//如果该节点没有cite属性，就立刻跳到下一个循环</span></span><br><span class="line">        <span class="keyword">if</span>(!quotes[i].getAttribute(<span class="string">"cite"</span>))&#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//保存cite属性</span></span><br><span class="line">        <span class="keyword">var</span> url=quotes[i].getAttribute(<span class="string">"cite"</span>);</span><br><span class="line">        <span class="comment">//取得引用中的所有元素节点的固定用法，不能直接quites[i].lastChild因为最后一个子节点可能是换行符之类，而不是最后一个元素节点</span></span><br><span class="line">        <span class="keyword">var</span> quoteChildren=quotes[i].getElementsByTagName(<span class="string">'*'</span>);</span><br><span class="line">        <span class="comment">//如果没有元素节点，就继续循环</span></span><br><span class="line">        <span class="keyword">if</span>(quoteChildren.length&lt;<span class="number">1</span>)<span class="keyword">continue</span>;</span><br><span class="line">        <span class="comment">//取得引用中的最后一个元素节点</span></span><br><span class="line">        <span class="keyword">var</span> elem=quoteChildren[quoteChildren.length<span class="number">-1</span>];</span><br><span class="line">        <span class="comment">//创建标记</span></span><br><span class="line">        <span class="keyword">var</span> link=<span class="built_in">document</span>.createElement(<span class="string">"a"</span>);</span><br><span class="line">        <span class="keyword">var</span> link_text=<span class="built_in">document</span>.createTextNode(<span class="string">"source"</span>);</span><br><span class="line">        link.appendChild(link_text);</span><br><span class="line">        link.setAttribute(<span class="string">"href"</span>,url);</span><br><span class="line">        <span class="keyword">var</span> superscript=<span class="built_in">document</span>.createElement(<span class="string">"sup"</span>);</span><br><span class="line">        superscript.appendChild(link);</span><br><span class="line">        <span class="comment">//把标记添加到引用中的最后一个元素节点</span></span><br><span class="line">        elem.appendChild(superscript);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">addLoadEvent(displayCitations);</span><br></pre></td></tr></table></figure></p>
+<p>displsyAccesskeys.js:把一个元素与键盘上的某个特定按键关联在一起<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">displayAccesskeys</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">document</span>.getElementsByTagName||!<span class="built_in">document</span>.createElement||!<span class="built_in">document</span>.createTextNode)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//取得文档中的所有链接</span></span><br><span class="line">    <span class="keyword">var</span> links=<span class="built_in">document</span>.getElementsByTagName(<span class="string">"a"</span>);</span><br><span class="line">    <span class="comment">//创建一个数组，保存访问键</span></span><br><span class="line">    <span class="keyword">var</span> akeys=<span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">    <span class="comment">//遍历链接</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;links.length;i++)&#123;</span><br><span class="line">        <span class="keyword">var</span> current_link=links[i];</span><br><span class="line">        <span class="comment">//如果没有accesskey属性，就继续下一个循环</span></span><br><span class="line">        <span class="keyword">if</span>(!current_link.getAttribute(<span class="string">"accesskey"</span>))<span class="keyword">continue</span>;</span><br><span class="line">        <span class="comment">//取得accesskey的值</span></span><br><span class="line">        <span class="keyword">var</span> key=current_link.getAttribute(<span class="string">"accesskey"</span>);</span><br><span class="line">        <span class="comment">//取得链接文本</span></span><br><span class="line">        <span class="keyword">var</span> text=current_link.lastChild.nodeValue;</span><br><span class="line">        <span class="comment">//添加到数组</span></span><br><span class="line">        akeys[key]=text;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//创建列表</span></span><br><span class="line">    <span class="keyword">var</span> list=<span class="built_in">document</span>.createElement(<span class="string">"ul"</span>);</span><br><span class="line">    <span class="comment">//遍历访问键</span></span><br><span class="line">    <span class="keyword">for</span>(key <span class="keyword">in</span> akeys)&#123;</span><br><span class="line">        <span class="keyword">var</span> text=akeys[key];</span><br><span class="line">        <span class="comment">//创建放到列表项中的字符串</span></span><br><span class="line">        <span class="keyword">var</span> str=key+<span class="string">":"</span>+text;</span><br><span class="line">        <span class="comment">//创建列表项</span></span><br><span class="line">        <span class="keyword">var</span> item=<span class="built_in">document</span>.createElement(<span class="string">"li"</span>);</span><br><span class="line">        <span class="keyword">var</span> item_text=<span class="built_in">document</span>.createTextNode(str);</span><br><span class="line">        item.appendChild(item_text);</span><br><span class="line">        <span class="comment">//把列表项添加到列表中</span></span><br><span class="line">        list.appendChild(item);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//创建标题</span></span><br><span class="line">    <span class="keyword">var</span> header=<span class="built_in">document</span>.createElement(<span class="string">"h3"</span>);</span><br><span class="line">    <span class="keyword">var</span> header_text=<span class="built_in">document</span>.createTextNode(<span class="string">"Accesskeys"</span>);</span><br><span class="line">    header.appendChild(header_text);</span><br><span class="line">    <span class="comment">//把标题添加到页面主体</span></span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(header);</span><br><span class="line">    <span class="comment">//把列表添加到页面主体</span></span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(list);</span><br><span class="line">&#125;</span><br><span class="line">addLoadEvent(displayAccesskeys);</span><br></pre></td></tr></table></figure></p>
+<p>typography.css<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>: <span class="string">"Helvetica"</span>,<span class="string">"Arial"</span>,sans-serif;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">10pt</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">abbr</span> &#123;</span><br><span class="line">  <span class="attribute">text-decoration</span>: none;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">font-style</span>: normal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/14/读书笔记/JSDOM编程艺术读书笔记/Javascript DOM编程艺术读书笔记7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/14/读书笔记/JSDOM编程艺术读书笔记/Javascript DOM编程艺术读书笔记7/" itemprop="url">Javascript DOM编程艺术读书笔记7</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-14T00:00:00+08:00">
+                2017-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/Javascript-DOM编程艺术/" itemprop="url" rel="index">
+                    <span itemprop="name">Javascript DOM编程艺术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="第7章-动态创建标记"><a href="#第7章-动态创建标记" class="headerlink" title="第7章 动态创建标记"></a>第7章 动态创建标记</h2><ul>
+<li>document.write的最大缺点是它违背了”行为应该与表现分离”的原则</li>
+<li>MIME (Multipurpose Internet Mail Extensions) 是描述消息内容类型的因特网标准。</li>
+</ul>
+<h3 id="图片库二次改进"><a href="#图片库二次改进" class="headerlink" title="图片库二次改进"></a>图片库二次改进</h3><ul>
+<li><p><strong>问题</strong>：在原本的Xhtml文件中有一个图片和一段文字仅仅是为showPic脚本服务的</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">"placeholder"</span> <span class="attr">src</span>=<span class="string">"images/placeholder.gif"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"description"</span>&gt;</span>Choose an image<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"scripts/showPic.js"</span>&gt;</span><span class="undefined"></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>解决方法：</strong>结构和行为应该彻底分开，元素的存在只是让DOM方法处理他们，那么用DOM方法创建他们才是最合适的选择。</p>
+</li>
+</ul>
+<p>showPic.js含有五个函数</p>
+<ul>
+<li>addLoadEvent:通用型函数，在页面加载完毕时执行的函数</li>
+<li>insertAfter:通用型函数，在现有元素后面插入一个新元素</li>
+<li>preparePlaceholder:负责创建一个img和一个p元素，把新创建的函数插入到节点数里图片库清单的后面</li>
+<li>prepareGallery:遍历处理图片库清单里的每个链接</li>
+<li>showPic:当用户点击这些链接中的某一个时，就调用该函数。</li>
+</ul>
+<p>gallery.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Image Gallery<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"styles/layout.css"</span> <span class="attr">media</span>=<span class="string">"screen"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Snapshots<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"imagegallery"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"images/1.jpg"</span> <span class="attr">title</span>=<span class="string">"A fireworks display"</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"images/1.jpg"</span> <span class="attr">alt</span>=<span class="string">"fireworks"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"images/2.jpg"</span> <span class="attr">title</span>=<span class="string">"A cup of black coffee"</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"images/2.jpg"</span> <span class="attr">alt</span>=<span class="string">"coffee"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"images/3.jpg"</span> <span class="attr">title</span>=<span class="string">"A red, red rose"</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"images/3.jpg"</span> <span class="attr">alt</span>=<span class="string">"rose"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"scripts/showPic.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>showPic.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">addLoadEvent(prepareGallery);</span><br><span class="line">addLoadEvent(preparePlaceholder);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addLoadEvent</span>(<span class="params">func</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//把现有的window.onload事件梳理函数的值存入变量oldonload</span></span><br><span class="line">    <span class="keyword">var</span> oldonload = <span class="built_in">window</span>.onload;</span><br><span class="line">    <span class="comment">//如果这个处理函数上还没有绑定任何函数，就把新函数添加给她</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">window</span>.onload != <span class="string">'function'</span>) &#123;</span><br><span class="line">        <span class="built_in">window</span>.onload = func;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//如果已经绑定了一些函数，就把新函数追加到现有指令的末尾</span></span><br><span class="line">        <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            oldonload();</span><br><span class="line">            func();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">prepareGallery</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//1.检查点。不理解DOM方法的浏览器不执行这个函数</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementsByTagName) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//即使html页面中删除图片库，js代码也不会出错。JS代码不应该对网页的结构有任何依赖</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById(<span class="string">"imagegallery"</span>)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">//imagegallery中的所有链接</span></span><br><span class="line">    <span class="keyword">var</span> gallery = <span class="built_in">document</span>.getElementById(<span class="string">"imagegallery"</span>);</span><br><span class="line">    <span class="keyword">var</span> links = gallery.getElementsByTagName(<span class="string">"a"</span>);</span><br><span class="line">    <span class="comment">//遍历</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; links.length; i++) &#123;</span><br><span class="line">        <span class="comment">//定义一个匿名函数</span></span><br><span class="line">        links[i].onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="comment">//this指的是links[i]。如果showPic(this)返回true，就返回false，浏览器不会打开那个链接。如果showPic(this)返回false,就返回true以允许默认行为发生</span></span><br><span class="line">            <span class="keyword">return</span> showPic(<span class="keyword">this</span>) ? <span class="literal">false</span> : <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showPic</span>(<span class="params">whichpic</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//检查特定的placeholder元素是否存在</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById(<span class="string">"placeholder"</span>)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> source = whichpic.getAttribute(<span class="string">"href"</span>);</span><br><span class="line">    <span class="keyword">var</span> placeholder = <span class="built_in">document</span>.getElementById(<span class="string">"placeholder"</span>);</span><br><span class="line">    <span class="keyword">if</span> (placeholder.nodeName != <span class="string">"IMG"</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    placeholder.setAttribute(<span class="string">"src"</span>, source);</span><br><span class="line">    <span class="comment">//如果description元素存在，将会被更新，如果不存在就会被忽略。</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">document</span>.getElementById(<span class="string">"description"</span>)) &#123;</span><br><span class="line">        <span class="comment">//如果title属性存在，text将被赋值为whichpic.getAttribute("title")，如果不存在就是空字符串</span></span><br><span class="line">        <span class="keyword">var</span> text = whichpic.getAttribute(<span class="string">"title"</span>) ? whichpic.getAttribute(<span class="string">"title"</span>) : <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">var</span> description = <span class="built_in">document</span>.getElementById(<span class="string">"description"</span>);</span><br><span class="line">        <span class="comment">//description元素的第一个子元素是否是一个文本节点</span></span><br><span class="line">        <span class="keyword">if</span> (description.firstChild.nodeType == <span class="number">3</span>) &#123;</span><br><span class="line">            description.firstChild.nodeValue = text;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">insertAfter</span>(<span class="params">newElement, targetElement</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> parent = targetElement.parentNode;</span><br><span class="line">    <span class="keyword">if</span> (parent.lastChild == targetElement) &#123;</span><br><span class="line">        <span class="comment">//如果是最后一个元素，就把新元素追加到parent元素上</span></span><br><span class="line">        parent.appendChild(newElement);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//如果不是最后一个元素，就把新元素插入到目标元素的下一个兄弟元素之前</span></span><br><span class="line">        parent.insertBefore(newElement, targetElement.nextSibling);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">preparePlaceholder</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.createElement) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.createTextNode) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById(<span class="string">"imagegallery"</span>)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> placeholder = <span class="built_in">document</span>.createElement(<span class="string">"img"</span>);</span><br><span class="line">    placeholder.setAttribute(<span class="string">"id"</span>, <span class="string">"placeholder"</span>);</span><br><span class="line">    placeholder.setAttribute(<span class="string">"src"</span>, <span class="string">"images/placeholder.gif"</span>);</span><br><span class="line">    placeholder.setAttribute(<span class="string">"alt"</span>, <span class="string">"my image gallery"</span>);</span><br><span class="line">    <span class="keyword">var</span> description = <span class="built_in">document</span>.createElement(<span class="string">"p"</span>);</span><br><span class="line">    description.setAttribute(<span class="string">"id"</span>, <span class="string">"description"</span>);</span><br><span class="line">    <span class="keyword">var</span> desctext = <span class="built_in">document</span>.createTextNode(<span class="string">"Choose an image"</span>);</span><br><span class="line">    description.appendChild(desctext);</span><br><span class="line">    <span class="keyword">var</span> gallery = <span class="built_in">document</span>.getElementById(<span class="string">"imagegallery"</span>);</span><br><span class="line">    insertAfter(placeholder, gallery);</span><br><span class="line">    insertAfter(description, placeholder);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>layout.css<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">font-family</span>: <span class="string">"Helvetica"</span>, <span class="string">"Arial"</span>, serif;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#333</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#ccc</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">1em</span> <span class="number">10%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#333</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: transparent;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#c60</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: transparent;</span><br><span class="line">    <span class="attribute">font-weight</span>: bold;</span><br><span class="line">    <span class="attribute">text-decoration</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">ul</span> &#123;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">li</span> &#123;</span><br><span class="line">    <span class="attribute">float</span>: left;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">1em</span>;</span><br><span class="line">    <span class="attribute">list-style</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">img</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#imagegallery</span> &#123;</span><br><span class="line">    <span class="attribute">list-style</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#imagegallery</span> <span class="selector-tag">li</span>&#123;</span><br><span class="line">    <span class="attribute">display</span>: inline;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#imagegallery</span> <span class="selector-tag">li</span> <span class="selector-tag">a</span> <span class="selector-tag">img</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">10em</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">10em</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/13/读书笔记/JSDOM编程艺术读书笔记/Javascript DOM编程艺术读书笔记6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/13/读书笔记/JSDOM编程艺术读书笔记/Javascript DOM编程艺术读书笔记6/" itemprop="url">Javascript DOM编程艺术读书笔记6</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-13T00:00:00+08:00">
+                2017-10-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/Javascript-DOM编程艺术/" itemprop="url" rel="index">
+                    <span itemprop="name">Javascript DOM编程艺术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="第6章-案例研究：图片库改进版"><a href="#第6章-案例研究：图片库改进版" class="headerlink" title="第6章 案例研究：图片库改进版"></a>第6章 案例研究：图片库改进版</h2><ul>
+<li><strong>问题：</strong>结构和行为没有分离</li>
+<li><strong>解决方法：</strong>引入许多测试和检查使JS代码可以平稳退化，将实践处理函数从标记文档分离到了一个外部的JS文件，使JS代码不再依赖于HTML文档的内容和结构。</li>
+</ul>
+<h3 id="图片库一次改进"><a href="#图片库一次改进" class="headerlink" title="图片库一次改进"></a>图片库一次改进</h3><p>gallery.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Image Gallery<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">type</span>=<span class="string">"text/css"</span> <span class="attr">href</span>=<span class="string">"styles/layout.css"</span> <span class="attr">media</span>=<span class="string">"screen"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Snapshots<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"imagegallery"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"images/1.jpg"</span> <span class="attr">title</span>=<span class="string">"A fireworks display"</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"images/1.jpg"</span> <span class="attr">alt</span>=<span class="string">"fireworks"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"images/2.jpg"</span> <span class="attr">title</span>=<span class="string">"A cup of black coffee"</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"images/2.jpg"</span> <span class="attr">alt</span>=<span class="string">"coffee"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"images/3.jpg"</span> <span class="attr">title</span>=<span class="string">"A red, red rose"</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"images/3.jpg"</span> <span class="attr">alt</span>=<span class="string">"rose"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">id</span>=<span class="string">"placeholder"</span> <span class="attr">src</span>=<span class="string">"images/placeholder.gif"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"description"</span>&gt;</span>Choose an image<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"scripts/showPic.js"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>showPic.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">addLoadEvent(prepareGallery);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addLoadEvent</span>(<span class="params">func</span>) </span>&#123;</span><br><span class="line">	<span class="comment">//把现有的window.onload事件梳理函数的值存入变量oldonload</span></span><br><span class="line">	<span class="keyword">var</span> oldonload = <span class="built_in">window</span>.onload;</span><br><span class="line">	<span class="comment">//如果这个处理函数上还没有绑定任何函数，就把新函数添加给她</span></span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">window</span>.onload != <span class="string">'function'</span>) &#123;</span><br><span class="line">		<span class="built_in">window</span>.onload = func;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="comment">//如果已经绑定了一些函数，就把新函数追加到现有指令的末尾</span></span><br><span class="line">		<span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">			oldonload();</span><br><span class="line">			func();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">prepareGallery</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="comment">//1.检查点。不理解DOM方法的浏览器不执行这个函数</span></span><br><span class="line">	<span class="keyword">if</span> (!<span class="built_in">document</span>.getElementsByTagName) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="comment">//即使html页面中删除图片库，js代码也不会出错。JS代码不应该对网页的结构有任何依赖</span></span><br><span class="line">	<span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById(<span class="string">"imagegallery"</span>)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="comment">//imagegallery中的所有链接</span></span><br><span class="line">	<span class="keyword">var</span> gallery = <span class="built_in">document</span>.getElementById(<span class="string">"imagegallery"</span>);</span><br><span class="line">	<span class="keyword">var</span> links = gallery.getElementsByTagName(<span class="string">"a"</span>);</span><br><span class="line">	<span class="comment">//遍历</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; links.length; i++) &#123;</span><br><span class="line">		<span class="comment">//定义一个匿名函数</span></span><br><span class="line">		links[i].onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">			<span class="comment">//this指的是links[i]。如果showPic(this)返回true，就返回false，浏览器不会打开那个链接。如果showPic(this)返回false,就返回true以允许默认行为发生</span></span><br><span class="line">			<span class="keyword">return</span> showPic(<span class="keyword">this</span>) ? <span class="literal">false</span> : <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showPic</span>(<span class="params">whichpic</span>) </span>&#123;</span><br><span class="line">	<span class="comment">//检查特定的placeholder元素是否存在</span></span><br><span class="line">	<span class="keyword">if</span> (!<span class="built_in">document</span>.getElementById(<span class="string">"placeholder"</span>)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">var</span> source = whichpic.getAttribute(<span class="string">"href"</span>);</span><br><span class="line">	<span class="keyword">var</span> placeholder = <span class="built_in">document</span>.getElementById(<span class="string">"placeholder"</span>);</span><br><span class="line">	<span class="keyword">if</span> (placeholder.nodeName != <span class="string">"IMG"</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	placeholder.setAttribute(<span class="string">"src"</span>, source);</span><br><span class="line">	<span class="comment">//如果description元素存在，将会被更新，如果不存在就会被忽略。</span></span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">document</span>.getElementById(<span class="string">"description"</span>)) &#123;</span><br><span class="line">		<span class="comment">//如果title属性存在，text将被赋值为whichpic.getAttribute("title")，如果不存在就是空字符串</span></span><br><span class="line">		<span class="keyword">var</span> text = whichpic.getAttribute(<span class="string">"title"</span>) ? whichpic.getAttribute(<span class="string">"title"</span>) : <span class="string">""</span>;</span><br><span class="line">		<span class="keyword">var</span> description = <span class="built_in">document</span>.getElementById(<span class="string">"description"</span>);</span><br><span class="line">		<span class="comment">//description元素的第一个子元素是否是一个文本节点</span></span><br><span class="line">		<span class="keyword">if</span> (description.firstChild.nodeType == <span class="number">3</span>) &#123;</span><br><span class="line">			description.firstChild.nodeValue = text;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>showPic的另一种方法，与上一种的true false相反</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">addLoadEvent(prepareGallery);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addLoadEvent</span>(<span class="params">func</span>)</span>&#123;           <span class="comment">//多个函数绑定到onload事件处理函数上</span></span><br><span class="line">    <span class="keyword">var</span> oldonload = <span class="built_in">window</span>.onload;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="built_in">window</span>.onload != <span class="string">'function'</span>)&#123;</span><br><span class="line">        <span class="built_in">window</span>.onload = func;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            oldonload();</span><br><span class="line">            func();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">prepareGallery</span>(<span class="params"></span>)</span>&#123;     <span class="comment">//该方法只在页面加载完毕后才执行。</span></span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">document</span>.getElementById) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">document</span>.getElementsByTagName) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">document</span>.getElementById(<span class="string">"imagegallery"</span>)) <span class="keyword">return</span> <span class="literal">false</span>;  <span class="comment">//预留后路  </span></span><br><span class="line">  <span class="keyword">var</span> gallery = <span class="built_in">document</span>.getElementById(<span class="string">"imagegallery"</span>);        <span class="comment">//将html和js通过id标识进行连接，分离javascript</span></span><br><span class="line">  <span class="keyword">var</span> links = gallery.getElementsByTagName(<span class="string">"a"</span>);</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;links.length;i++)&#123;</span><br><span class="line">        links[i].onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> showPic(<span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showPic</span>(<span class="params">whichpic</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">document</span>.getElementById(<span class="string">"placeholder"</span>)) <span class="keyword">return</span> <span class="literal">true</span>;  <span class="comment">//如果没有该元素，返回true使a标签的默认行为发生，即href有效</span></span><br><span class="line">    <span class="keyword">var</span> source = whichpic.getAttribute(<span class="string">"href"</span>);</span><br><span class="line">    <span class="keyword">var</span> placeholder = <span class="built_in">document</span>.getElementById(<span class="string">"placeholder"</span>);</span><br><span class="line">    placeholder.setAttribute(<span class="string">"src"</span>,source);</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">document</span>.getElementById(<span class="string">"description"</span>)) <span class="keyword">return</span> <span class="literal">false</span>;   <span class="comment">//假设没有p元素,照片照常显示，返回false后，不会执行a标签中的href</span></span><br><span class="line">    <span class="keyword">var</span> text = whichpic.getAttribute(<span class="string">"title"</span>);</span><br><span class="line">    <span class="keyword">var</span> description = <span class="built_in">document</span>.getElementById(<span class="string">"description"</span>);</span><br><span class="line">    description.firstChild.nodeValue = text;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>layout.css<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">font-family</span>: <span class="string">"Helvetica"</span>, <span class="string">"Arial"</span>, serif;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#333</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="number">#ccc</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">1em</span> <span class="number">10%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">h1</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#333</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: transparent;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">a</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#c60</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: transparent;</span><br><span class="line">    <span class="attribute">font-weight</span>: bold;</span><br><span class="line">    <span class="attribute">text-decoration</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">ul</span> &#123;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">li</span> &#123;</span><br><span class="line">    <span class="attribute">float</span>: left;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">1em</span>;</span><br><span class="line">    <span class="attribute">list-style</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">img</span> &#123;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#imagegallery</span> &#123;</span><br><span class="line">    <span class="attribute">list-style</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#imagegallery</span> <span class="selector-tag">li</span>&#123;</span><br><span class="line">    <span class="attribute">display</span>: inline;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#imagegallery</span> <span class="selector-tag">li</span> <span class="selector-tag">a</span> <span class="selector-tag">img</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">10em</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">10em</span>;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/12/读书笔记/JSDOM编程艺术读书笔记/Javascript DOM编程艺术读书笔记5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/12/读书笔记/JSDOM编程艺术读书笔记/Javascript DOM编程艺术读书笔记5/" itemprop="url">Javascript DOM编程艺术读书笔记5</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-12T00:00:00+08:00">
+                2017-10-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/Javascript-DOM编程艺术/" itemprop="url" rel="index">
+                    <span itemprop="name">Javascript DOM编程艺术</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="第5章-最佳实践"><a href="#第5章-最佳实践" class="headerlink" title="第5章 最佳实践"></a>第5章 最佳实践</h2><ul>
+<li>平稳退化：如果正确地使用了JavaScript脚本，就可以让访问者在他们地浏览器不支持JS地情况下仍能顺利地浏览你地网站。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">popUp</span>(<span class="params">winURL</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">window</span>.open(winURL,<span class="string">"popUp"</span>,<span class="string">"width=320,height=480"</span>);</span><br><span class="line">&#125;</span><br><span class="line">&lt;a href=<span class="string">"javascript:popUp('http://www.baidu.com/');"</span>&gt;Example&lt;<span class="regexp">/a&gt; /</span><span class="regexp">/伪协议，不好</span></span><br><span class="line"><span class="regexp">&lt;a href="#" onclick="popUp('http:/</span><span class="regexp">/www.baidu.com/</span><span class="string">'); return false;"&gt;Example&lt;/a&gt; //使用内嵌事件处理函数，不好</span></span><br><span class="line"><span class="string">&lt;a href="http://www.baidu.com/" onclick="popUp('</span>http:<span class="comment">//www.baidu.com/'); return false;"&gt;Example&lt;/a&gt; </span></span><br><span class="line"><span class="comment">//或者采用更加简介的写法 </span></span><br><span class="line">&lt;a href=<span class="string">"http://www.baidu.com/"</span> onclick=<span class="string">"popUp(this.href); return false;"</span>&gt;Example&lt;<span class="regexp">/a&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>getElementsByTagName记住这其中有S !!</strong></li>
+</ul>
+<h3 id="CSS渐进增强"><a href="#CSS渐进增强" class="headerlink" title="CSS渐进增强"></a>CSS渐进增强</h3><ul>
+<li>渐进增强就是用一些额外的信息层去包裹袁术数据，按照渐进增强原则创建出的来的网页几乎都符合平稳退化原则</li>
+</ul>
+<h3 id="分离JS"><a href="#分离JS" class="headerlink" title="分离JS"></a>分离JS</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//&lt;a href="http://www.example.com/" class="popup"&gt; Example &lt;/a&gt;</span></span><br><span class="line"><span class="comment">//要把点击链接之后的行为与html分离可以使用以下代码</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//行为与结构分离的例子</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">popUp</span>(<span class="params">winURL</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">window</span>.open(winURL, <span class="string">"popup"</span>, <span class="string">"width=320,height=480"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//JS代码必须在html文档全部加载到浏览器后开始执行。将JS代码打包在prepareLinks函数里，并把这个函数添加到window对象的onload事件上去。</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.onload = prepareLinks;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">prepareLinks</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">//让脚本有更好的向后兼容性，如果浏览器不能理解getElementByTagName就退出函数。</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">document</span>.getElementsByTagName) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">var</span> links = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"a"</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; links.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (links[i].getAttribute(<span class="string">"class"</span>) == <span class="string">"popup"</span>) &#123;</span><br><span class="line">            links[i].onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                popUp(<span class="keyword">this</span>.getAttribute(<span class="string">"href"</span>));</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>与DOM脚本变成工作有关的问题：</p>
+<ol>
+<li>平稳退化：如果正确地使用JS脚本，就可以让访问者在他们的浏览器不支持JS的情况下仍能顺利地浏览你的网站</li>
+<li>向后兼容：确保网页在古老的浏览器中也可以被正常浏览</li>
+<li>分离JS：将JS和HTML分离开来</li>
+<li>性能考虑：脚本对web应用整体性能的影响。应该尽量减少访问DOM和尽量减少标记、合并和防止脚本、压缩脚本。</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/11/读书笔记/JSDOM编程艺术读书笔记/Javascript DOM编程艺术读书笔记4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/11/读书笔记/JSDOM编程艺术读书笔记/Javascript DOM编程艺术读书笔记4/" itemprop="url">Javascript DOM编程艺术读书笔记4</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-11T00:00:00+08:00">
+                2017-10-11
               </time>
             
 
@@ -416,7 +1266,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/04/Javascript DOM编程艺术读书笔记1-3/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/10/读书笔记/JSDOM编程艺术读书笔记/Javascript DOM编程艺术读书笔记1-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Xyy">
@@ -435,7 +1285,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/04/Javascript DOM编程艺术读书笔记1-3/" itemprop="url">Javascript DOM编程艺术读书笔记1-3</a></h1>
+                <a class="post-title-link" href="/2017/10/10/读书笔记/JSDOM编程艺术读书笔记/Javascript DOM编程艺术读书笔记1-3/" itemprop="url">Javascript DOM编程艺术读书笔记1-3</a></h1>
         
 
         <div class="post-meta">
@@ -447,8 +1297,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-04T14:38:13+08:00">
-                2018-01-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-10T00:00:00+08:00">
+                2017-10-10
               </time>
             
 
@@ -604,7 +1454,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/03/w3cschool-css/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/01/学习记录/w3cschool/w3cschool-javascript/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Xyy">
@@ -623,7 +1473,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/03/w3cschool-css/" itemprop="url">w3cschool-css</a></h1>
+                <a class="post-title-link" href="/2017/10/01/学习记录/w3cschool/w3cschool-javascript/" itemprop="url">w3cschool-javascript</a></h1>
         
 
         <div class="post-meta">
@@ -635,8 +1485,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-03T19:49:44+08:00">
-                2018-01-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-01T00:00:00+08:00">
+                2017-10-01
               </time>
             
 
@@ -665,998 +1515,12 @@
 
                 
                 
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><ul>
-<li>如果需要根据属性值中的词列表的某个词进行选择，则需要使用波浪号（~）。如果忽略了波浪号，则说明需要完成完全值匹配。 </li>
-<li>根据 CSS，子元素从父元素继承属性。但是它并不总是按此方式工作。比如：Netscape 4 就不支持继承，它不仅忽略继承，而且也忽略应用于 body 元素的规则。</li>
-<li>内边距是 padding</li>
-<li>当为链接的不同状态设置样式时，请按照以下次序规则：<br>a:hover 必须位于 a:link 和 a:visited 之后<br>a:active 必须位于 a:hover 之后</li>
-</ul>
-<h2 id="white-space"><a href="#white-space" class="headerlink" title="white-space"></a>white-space</h2><ul>
-<li>当 white-space 属性设置为 normal 时，会合并所有的空白符，并忽略换行符。</li>
-<li>当 white-space 属性设置为 pre 时，浏览器不会合并空白符，也不会忽略换行符。</li>
-<li>当 white-space 属性设置为 nowrap 时，它会防止元素中的文本换行，除非使用了一个 br 元素。在 CSS 中使用 nowrap 非常类似于 HTML 4 中用 <td nowrap=""> 将一个表单元格设置为不能换行，不过 white-space 值可以应用到任何元素。</td></li>
-<li>当 white-space 属性设置为 pre-wrap 时，浏览器不仅会保留空白符并保留换行符，还允许自动换行。</li>
-<li>当 white-space 属性设置为 pre-line 时，浏览器会保留换行符，并允许自动换行，但是会合并空白符，这是与 pre-wrap 值的不同之处。</li>
-</ul>
-<h2 id="padding和border-spacing的不同？"><a href="#padding和border-spacing的不同？" class="headerlink" title="padding和border-spacing的不同？"></a>padding和border-spacing的不同？</h2><ul>
-<li>表格内边距  如需控制表格中<font color="red">内容与边框</font>的距离，请为 td 和 th 元素设置 padding 属性</li>
-<li>border-spacing 属性设置<font color="red">相邻单元格</font>的边框间的距离（仅用于“边框分离”模式）。</li>
-</ul>
-<h2 id="类选择器还是-ID-选择器？"><a href="#类选择器还是-ID-选择器？" class="headerlink" title="类选择器还是 ID 选择器？"></a>类选择器还是 ID 选择器？</h2><p>在类选择器这一章中我们曾讲解过，可以为任意多个元素指定类。前一章中类名 important 被应用到 p 和 h1 元素，而且它还可以应用到更多元素。</p>
-<ul>
-<li><p><strong>区别 1：只能在文档中使用一次</strong><br>与类不同，在一个 HTML 文档中，ID 选择器会使用一次，而且仅一次。</p>
-</li>
-<li><p><strong>区别 2：不能使用 ID 词列表</strong><br>不同于类选择器，ID 选择器不能结合使用，因为 ID 属性不允许有以空格分隔的词列表。</p>
-</li>
-<li><p><strong>区别 3：ID 能包含更多含义</strong><br>类似于类，可以独立于元素来选择 ID。有些情况下，您知道文档中会出现某个特定 ID 值，但是并不知道它会出现在哪个元素上，所以您想声明独立的 ID 选择器。例如，您可能知道在一个给定的文档中会有一个 ID 值为 mostImportant 的元素。您不知道这个最重要的东西是一个段落、一个短语、一个列表项还是一个小节标题。您只知道每个文档都会有这么一个最重要的内容，它可能在任何元素中，而且只能出现一个。</p>
-</li>
-<li><p>请注意，类选择器和 ID 选择器可能是区分大小写的。这取决于文档的语言。HTML 和 XHTML 将类和 ID 值定义为区分大小写，所以类和 ID 值的大小写必须与文档中的相应值匹配。</p>
-</li>
-</ul>
-<h2 id="first-child"><a href="#first-child" class="headerlink" title="first-child"></a>first-child</h2><ul>
-<li><p>例子 1 - 匹配第一个<code>&lt;p&gt;</code> 元素</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span>: <span class="selector-tag">first-child</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>例子 2 - 匹配所有 <code>&lt;p&gt;</code> 元素中的第一个 <code>&lt;i&gt;</code> 元素</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &gt; <span class="selector-tag">i</span><span class="selector-pseudo">:first-child</span> &#123;</span><br><span class="line">  <span class="attribute">font-weight</span>:bold;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>例子 3 - 匹配所有作为第一个子元素的 <code>&lt;p&gt;</code>元素中的所有 <code>&lt;i&gt;</code>元素</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-pseudo">:first-child</span> <span class="selector-tag">i</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>:blue;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/02/编写页面时遇到的问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XyyFighting">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+                  ， 
                 
-                <a class="post-title-link" href="/2018/01/02/编写页面时遇到的问题/" itemprop="url">实训项目遇到的问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-02T15:31:31+08:00">
-                2018-01-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/问题解决/" itemprop="url" rel="index">
-                    <span itemprop="name">问题解决</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="在加入表单组件时出现getFieldDecorator-of-undefined错误"><a href="#在加入表单组件时出现getFieldDecorator-of-undefined错误" class="headerlink" title="在加入表单组件时出现getFieldDecorator of undefined错误"></a>在加入表单组件时出现getFieldDecorator of undefined错误</h3><ul>
-<li>必须调用Form.create()，否则在使用getFieldDecorator时便会出现getFieldDecorator of undefined错误<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//可以这么写</span></span><br><span class="line"><span class="keyword">let</span> Test = React.createClass(&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; getFieldProps &#125; = <span class="keyword">this</span>.props.form;</span><br><span class="line">    <span class="keyword">return</span>(  );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">Test = Form.create()(Test);</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Test;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>//最终我是这么写的，也是可以的<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Down</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; getFieldProps &#125; = <span class="keyword">this</span>.props.form;</span><br><span class="line">    <span class="keyword">return</span>(  );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line">Test = Form.create()(Test);</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Test;</span><br></pre></td></tr></table></figure></p>
-<h3 id="margin-0-auto-是让样式居中"><a href="#margin-0-auto-是让样式居中" class="headerlink" title="margin:0 auto;是让样式居中"></a>margin:0 auto;是让样式居中</h3><h3 id="windows-下-webstorm-格式化代码的快键键-Ctrl-Alt-l"><a href="#windows-下-webstorm-格式化代码的快键键-Ctrl-Alt-l" class="headerlink" title="windows 下 webstorm 格式化代码的快键键 Ctrl+Alt+l"></a>windows 下 webstorm 格式化代码的快键键 Ctrl+Alt+l</h3>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/22/在使用git时遇到的问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XyyFighting">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/22/在使用git时遇到的问题/" itemprop="url">在使用git时遇到的问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-22T21:00:24+08:00">
-                2017-12-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/问题解决/" itemprop="url" rel="index">
-                    <span itemprop="name">问题解决</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="git修改远程仓库地址"><a href="#git修改远程仓库地址" class="headerlink" title="git修改远程仓库地址"></a>git修改远程仓库地址</h2><ul>
-<li><p><code>git remote rm origin</code></p>
-</li>
-<li><p><code>git remote add origin [url]</code></p>
-</li>
-</ul>
-<h2 id="如何解决failed-to-push-some-refs-to-git"><a href="#如何解决failed-to-push-some-refs-to-git" class="headerlink" title="如何解决failed to push some refs to git"></a>如何解决failed to push some refs to git</h2><ul>
-<li><p>出现错误的主要原因是github中的README.md文件不在本地代码目录中</p>
-</li>
-<li><p>可以通过如下命令进行代码合并[注：pull=fetch+merge]  <code>git pull --rebase origin master</code></p>
-</li>
-<li><p>此时再执行语句 <code>git push -u origin master</code>即可完成代码上传到github</p>
-</li>
-</ul>
-<h2 id="项目上传github步骤"><a href="#项目上传github步骤" class="headerlink" title="项目上传github步骤"></a>项目上传github步骤</h2><ul>
-<li><p>一个项目建一个仓库，先在项目中 <code>git init</code>，再<code>git add ./</code>，最后 <code>git commit -m&quot;&quot;</code>。</p>
-</li>
-<li><p>tips：第一次push以前要先pull,因为有readme.md文件会冲突</p>
-</li>
-</ul>
-<h2 id="想上传除了某文件以外的所有文件"><a href="#想上传除了某文件以外的所有文件" class="headerlink" title="想上传除了某文件以外的所有文件"></a>想上传除了某文件以外的所有文件</h2><ul>
-<li>比如在react文件<code>node_modules</code>不想上传，想上传除了该文件以外的所有文件。先<code>vim .gitignore</code>写一个文件：<br><code>/.idea/</code><br><code>/node_modules/</code></li>
-<li><p>注意文件夹以前要写上/才可以被运行。</p>
-</li>
-<li><p><code>i</code>是插入可写，<code>：wq!</code>是提交文件。</p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/17/搭建react时遇到的问题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XyyFighting">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/17/搭建react时遇到的问题/" itemprop="url">react概念以及搭建react框架</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-17T23:27:05+08:00">
-                2017-12-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/问题解决/" itemprop="url" rel="index">
-                    <span itemprop="name">问题解决</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="react、react-js、react-native三者的区别"><a href="#react、react-js、react-native三者的区别" class="headerlink" title="react、react js、react native三者的区别"></a>react、react js、react native三者的区别</h2><ol>
-<li><p>React Js的目的是为了使前端的V层更具组件化，能更好的复用，它能够使用简单的html标签创建更多的自定义组件标签，内部绑定事件，同时可以让你从操作dom中解脱出来，只需要操作数据就会改变相应的dom。</p>
-</li>
-<li><p>React Native的目的是希望我们能够使用前端的技术栈就可以创建出能够在不同平台运行的一个框架。可以创建出在移动端运行的app，但是性能可能比原声app差一点。</p>
-</li>
-</ol>
-<h2 id="搭建react框架时遇到的问题"><a href="#搭建react框架时遇到的问题" class="headerlink" title="搭建react框架时遇到的问题"></a>搭建react框架时遇到的问题</h2><p>学习的教程是：<a href="https://github.com/brickspert/blog/issues/1#code-split" target="_blank" rel="noopener">从零搭建React全家桶教程</a>，在搭建的过程中也遇到了不少问题，基本都解决了，少数未解决的等到熟练运用了react,再重新搭一遍框架理解一下。</p>
-<h3 id="模块热替换（Hot-Module-Replacement）"><a href="#模块热替换（Hot-Module-Replacement）" class="headerlink" title="模块热替换（Hot Module Replacement）"></a>模块热替换（Hot Module Replacement）</h3><ul>
-<li>加入了react-hot-loader v3以后计数依然变成0：至今未解决</li>
-</ul>
-<h3 id="文件路径优化：找不到这些文件。"><a href="#文件路径优化：找不到这些文件。" class="headerlink" title="文件路径优化：找不到这些文件。"></a>文件路径优化：找不到这些文件。</h3><ul>
-<li>教程里写错了,不是在webpack.config.js中写路径文件,而是在webpack.dev.config.js中写</li>
-</ul>
-<h3 id="使用axios和middleware优化API请求，请求错误"><a href="#使用axios和middleware优化API请求，请求错误" class="headerlink" title="使用axios和middleware优化API请求，请求错误"></a>使用axios和middleware优化API请求，请求错误</h3><ul>
-<li>应该本来存在dist/api/user.json，模拟服务器传回来的数据,其中代码为</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"name"</span>: <span class="string">"brickspert"</span>,</span><br><span class="line">    <span class="string">"intro"</span>: <span class="string">"please give me a star"</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>但是我这边的不存在了,所以会请求错误.之后使用mock.js就可以代替这个api了.</li>
-</ul>
-<h3 id="调整文本编辑器"><a href="#调整文本编辑器" class="headerlink" title="调整文本编辑器"></a>调整文本编辑器</h3><ul>
-<li>Sublime和Intellij都没有找到safe write。不过在后续的工作中没有影响</li>
-</ul>
-<h3 id="使用-json-server-代替-Mock-js-出现用户信息请求失败错误"><a href="#使用-json-server-代替-Mock-js-出现用户信息请求失败错误" class="headerlink" title="使用 json-server 代替 Mock.js,出现用户信息请求失败错误"></a>使用 json-server 代替 Mock.js,出现用户信息请求失败错误</h3><ul>
-<li>是因为”mockdev”: “npm run mock &amp; npm start”这个运行命令只运行了npm run mock,&amp;不能同时运行两个命令。而用”mockdev”: “npm run mock  | npm start”就可以实现同时运行两个命令.</li>
-</ul>
-<h3 id="Error-listen-EADDRINUSE-0-0-0-0-8080"><a href="#Error-listen-EADDRINUSE-0-0-0-0-8080" class="headerlink" title="Error: listen EADDRINUSE 0.0.0.0:8080"></a>Error: listen EADDRINUSE 0.0.0.0:8080</h3><ul>
-<li>表明端口号被占用，要修改端口号。在webpack.dev.config.js中修改。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">devServer: &#123;</span><br><span class="line">        port: <span class="number">8081</span>, <span class="comment">//修改8081</span></span><br><span class="line">        contentBase: path.join(__dirname, <span class="string">'./dist'</span>),</span><br><span class="line">        historyApiFallback: <span class="literal">true</span>,</span><br><span class="line">        host: <span class="string">'0.0.0.0'</span>,</span><br><span class="line">        proxy: &#123;</span><br><span class="line">            <span class="string">"/api/*"</span>: <span class="string">"http://localhost:8090/$1"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/14/要在react全家桶中应用ant design的步骤/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XyyFighting">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/14/要在react全家桶中应用ant design的步骤/" itemprop="url">要在react全家桶中应用ant design的步骤</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-14T11:05:05+08:00">
-                2017-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/前端框架/" itemprop="url" rel="index">
-                    <span itemprop="name">前端框架</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>搭建react框架的教程是：<a href="https://github.com/brickspert/blog/issues/1#code-split" target="_blank" rel="noopener">从零搭建React全家桶教程</a>，应用ant design需要在安装后更改一些配置。</p>
-<ol>
-<li><p>webpack.dev.config.js中</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [&#123;</span><br><span class="line">            test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">            <span class="comment">// use: ["style-loader", "css-loader?modules&amp;localIdentName=[local]-[hash:base64:5]", "postcss-loader"] //把这句话中的参数去掉</span></span><br><span class="line">            use: [<span class="string">"style-loader"</span>, <span class="string">"css-loader"</span>, <span class="string">"postcss-loader"</span>]</span><br><span class="line">        &#125;]</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>.babelrc中添加</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"plugins"</span>: [</span><br><span class="line">   [<span class="string">"import"</span>, &#123; <span class="string">"libraryName"</span>: <span class="string">"antd"</span>, <span class="string">"libraryDirectory"</span>: <span class="string">"es"</span>, <span class="string">"style"</span>: <span class="string">"css"</span> &#125;]</span><br><span class="line"> ]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>webpack.config.js中</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [&#123;</span><br><span class="line">            test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">            use: ExtractTextPlugin.extract(&#123;</span><br><span class="line">                fallback: <span class="string">"style-loader"</span>,</span><br><span class="line">                <span class="comment">// use: ["css-loader?modules&amp;localIdentName=[local]-[hash:base64:5]", "postcss-loader"] //也把这句话中的参数去掉</span></span><br><span class="line">                use: [<span class="string">"css-loader"</span>, <span class="string">"postcss-loader"</span>]</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;]</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure></li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/23/w3cschool-html/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XyyFighting">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/23/w3cschool-html/" itemprop="url">w3cschool-html</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-23T13:21:38+08:00">
-                2017-11-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习记录/" itemprop="url" rel="index">
-                    <span itemprop="name">学习记录</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="html"><a href="#html" class="headerlink" title="html"></a>html</h2><ul>
-<li><p>不能将 <code>&lt;body&gt;``&lt;/body&gt;</code> 标签与 <code>&lt;frameset&gt;&lt;/frameset&gt;</code> 标签同时使用！不过，假如你添加包含一段文本的<code>&lt;noframes&gt;</code>标签，就必须将这段文字嵌套于 <code>&lt;body&gt;``&lt;/body&gt;</code>标签内。（在下面的第一个实例中，可以查看它是如何实现的。）</p>
-</li>
-<li><p>如果要正确地被提交，每个输入字段必须设置一个 name 属性。</p>
-</li>
-<li>autocomplete 属性。注意，表单的自动完成功能是打开的，但是 e-mail 字段的自动完成功能是关闭的。</li>
-</ul>
-<h2 id="html5"><a href="#html5" class="headerlink" title="html5"></a>html5</h2><ul>
-<li>越来越多的站点开始使用 HTML5 标签。但情况是还有很多人在使用IE6，IE7，IE8。为了让所有网站浏览者都能正常的访问网站，比较好的解决方案是html5shiv.所以只需要在页面head中添加如下代码即可：</li>
-</ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--[if lt IE 9]&gt;</span></span><br><span class="line"><span class="comment">&lt;script type="text/javascript" src="js/html5shiv.js"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="comment">&lt;![endif]--&gt;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>在 HTML5 中，关闭空元素是可选的。斜杠（/）在 XHTML 和 XML 中是必需的。</li>
-</ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>HTML5 web存储。sessionStorage 对象等同 localStorage 对象，不同之处在于只对一个 session 存储数据。如果用户关闭具体的浏览器标签页，数据也会被删除。</li>
-</ul>
-<p>省略 <code>&lt;head&gt;</code>？</p>
-<ul>
-<li>在 HTML5 标准中，<head> 标签也能够被省略。默认地，浏览器会把 </head><body> 之前的所有元素添加到默认的 <head> 元素。通过省略 <head> 标签，您能够降低 HTML 的复杂性.</head></head></body></li>
-</ul>
-<h3 id="object"><a href="#object" class="headerlink" title="object"></a>object</h3><ul>
-<li>最好的 HTML 解决方法：HTML 5 + <code>&lt;object&gt;</code> + <code>&lt;embed&gt;</code></li>
-</ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">width</span>=<span class="string">"320"</span> <span class="attr">height</span>=<span class="string">"240"</span> <span class="attr">controls</span>=<span class="string">"controls"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">"movie.mp4"</span> <span class="attr">type</span>=<span class="string">"video/mp4"</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">"movie.ogg"</span> <span class="attr">type</span>=<span class="string">"video/ogg"</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">"movie.webm"</span> <span class="attr">type</span>=<span class="string">"video/webm"</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">object</span> <span class="attr">data</span>=<span class="string">"movie.mp4"</span> <span class="attr">width</span>=<span class="string">"320"</span> <span class="attr">height</span>=<span class="string">"240"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">embed</span> <span class="attr">src</span>=<span class="string">"movie.swf"</span> <span class="attr">width</span>=<span class="string">"320"</span> <span class="attr">height</span>=<span class="string">"240"</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">object</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>功能：object标签用于定义一个嵌入的多媒体对象。</p>
-</li>
-<li><p>语法：<code>&lt;object&gt;...&lt;/object&gt;</code></p>
-</li>
-<li><p>object元素用于向页面添加多媒体对象，包括Flash、音频、视频等。它规定了对象的数据和参数，以及可用来显示和操作数据的代码。</p>
-</li>
-<li><p><code>&lt;object&gt;</code>与<code>&lt;/object&gt;</code>之间的文本是替换文本，如果用户的浏览器不支持此标签会显示这些文本。</p>
-</li>
-<li><p>object元素中一般会包含<code>&lt;param&gt;</code>标签，<code>&lt;param&gt;</code>标签可用来定义播放参数。</p>
-</li>
-<li><p><code>&lt;object&gt;</code>和<code>&lt;embed&gt;</code>标签的区别：两者都是用来播放多媒体文件的对象，object元素用于IE浏览器，embed元素用于非IE浏览器，为了保证兼容性，通常我们同时使用两个元素，浏览器会自动忽略它不支持的标签。同时使用两个元素时，应该把<code>&lt;embed&gt;</code>标签放在<code>&lt;object&gt;</code>标签的内部。</p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/08/w3cschool-javascript/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XyyFighting">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/08/w3cschool-javascript/" itemprop="url">w3cschool-javascript</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-08T20:11:25+08:00">
-                2017-11-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习记录/" itemprop="url" rel="index">
-                    <span itemprop="name">学习记录</span>
+                  <a href="/categories/学习记录/w3cschool/" itemprop="url" rel="index">
+                    <span itemprop="name">w3cschool</span>
                   </a>
                 </span>
 
@@ -1786,6 +1650,388 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/27/学习记录/w3cschool/w3cschool-css/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/27/学习记录/w3cschool/w3cschool-css/" itemprop="url">w3cschool-css</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-27T00:00:00+08:00">
+                2017-09-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习记录/" itemprop="url" rel="index">
+                    <span itemprop="name">学习记录</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习记录/w3cschool/" itemprop="url" rel="index">
+                    <span itemprop="name">w3cschool</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><ul>
+<li>如果需要根据属性值中的词列表的某个词进行选择，则需要使用波浪号（~）。如果忽略了波浪号，则说明需要完成完全值匹配。 </li>
+<li>根据 CSS，子元素从父元素继承属性。但是它并不总是按此方式工作。比如：Netscape 4 就不支持继承，它不仅忽略继承，而且也忽略应用于 body 元素的规则。</li>
+<li>内边距是 padding</li>
+<li>当为链接的不同状态设置样式时，请按照以下次序规则：<br>a:hover 必须位于 a:link 和 a:visited 之后<br>a:active 必须位于 a:hover 之后</li>
+</ul>
+<h2 id="white-space"><a href="#white-space" class="headerlink" title="white-space"></a>white-space</h2><ul>
+<li>当 white-space 属性设置为 normal 时，会合并所有的空白符，并忽略换行符。</li>
+<li>当 white-space 属性设置为 pre 时，浏览器不会合并空白符，也不会忽略换行符。</li>
+<li>当 white-space 属性设置为 nowrap 时，它会防止元素中的文本换行，除非使用了一个 br 元素。在 CSS 中使用 nowrap 非常类似于 HTML 4 中用 <td nowrap=""> 将一个表单元格设置为不能换行，不过 white-space 值可以应用到任何元素。</td></li>
+<li>当 white-space 属性设置为 pre-wrap 时，浏览器不仅会保留空白符并保留换行符，还允许自动换行。</li>
+<li>当 white-space 属性设置为 pre-line 时，浏览器会保留换行符，并允许自动换行，但是会合并空白符，这是与 pre-wrap 值的不同之处。</li>
+</ul>
+<h2 id="padding和border-spacing的不同？"><a href="#padding和border-spacing的不同？" class="headerlink" title="padding和border-spacing的不同？"></a>padding和border-spacing的不同？</h2><ul>
+<li>表格内边距  如需控制表格中<font color="red">内容与边框</font>的距离，请为 td 和 th 元素设置 padding 属性</li>
+<li>border-spacing 属性设置<font color="red">相邻单元格</font>的边框间的距离（仅用于“边框分离”模式）。</li>
+</ul>
+<h2 id="类选择器还是-ID-选择器？"><a href="#类选择器还是-ID-选择器？" class="headerlink" title="类选择器还是 ID 选择器？"></a>类选择器还是 ID 选择器？</h2><p>在类选择器这一章中我们曾讲解过，可以为任意多个元素指定类。前一章中类名 important 被应用到 p 和 h1 元素，而且它还可以应用到更多元素。</p>
+<ul>
+<li><p><strong>区别 1：只能在文档中使用一次</strong><br>与类不同，在一个 HTML 文档中，ID 选择器会使用一次，而且仅一次。</p>
+</li>
+<li><p><strong>区别 2：不能使用 ID 词列表</strong><br>不同于类选择器，ID 选择器不能结合使用，因为 ID 属性不允许有以空格分隔的词列表。</p>
+</li>
+<li><p><strong>区别 3：ID 能包含更多含义</strong><br>类似于类，可以独立于元素来选择 ID。有些情况下，您知道文档中会出现某个特定 ID 值，但是并不知道它会出现在哪个元素上，所以您想声明独立的 ID 选择器。例如，您可能知道在一个给定的文档中会有一个 ID 值为 mostImportant 的元素。您不知道这个最重要的东西是一个段落、一个短语、一个列表项还是一个小节标题。您只知道每个文档都会有这么一个最重要的内容，它可能在任何元素中，而且只能出现一个。</p>
+</li>
+<li><p>请注意，类选择器和 ID 选择器可能是区分大小写的。这取决于文档的语言。HTML 和 XHTML 将类和 ID 值定义为区分大小写，所以类和 ID 值的大小写必须与文档中的相应值匹配。</p>
+</li>
+</ul>
+<h2 id="first-child"><a href="#first-child" class="headerlink" title="first-child"></a>first-child</h2><ul>
+<li><p>例子 1 - 匹配第一个<code>&lt;p&gt;</code> 元素</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span>: <span class="selector-tag">first-child</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>例子 2 - 匹配所有 <code>&lt;p&gt;</code> 元素中的第一个 <code>&lt;i&gt;</code> 元素</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span> &gt; <span class="selector-tag">i</span><span class="selector-pseudo">:first-child</span> &#123;</span><br><span class="line">  <span class="attribute">font-weight</span>:bold;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>例子 3 - 匹配所有作为第一个子元素的 <code>&lt;p&gt;</code>元素中的所有 <code>&lt;i&gt;</code>元素</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">p</span><span class="selector-pseudo">:first-child</span> <span class="selector-tag">i</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>:blue;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/23/学习记录/w3cschool/w3cschool-html/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/23/学习记录/w3cschool/w3cschool-html/" itemprop="url">w3cschool-html</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-23T00:00:00+08:00">
+                2017-09-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习记录/" itemprop="url" rel="index">
+                    <span itemprop="name">学习记录</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习记录/w3cschool/" itemprop="url" rel="index">
+                    <span itemprop="name">w3cschool</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="html"><a href="#html" class="headerlink" title="html"></a>html</h2><ul>
+<li><p>不能将 <code>&lt;body&gt;``&lt;/body&gt;</code> 标签与 <code>&lt;frameset&gt;&lt;/frameset&gt;</code> 标签同时使用！不过，假如你添加包含一段文本的<code>&lt;noframes&gt;</code>标签，就必须将这段文字嵌套于 <code>&lt;body&gt;``&lt;/body&gt;</code>标签内。（在下面的第一个实例中，可以查看它是如何实现的。）</p>
+</li>
+<li><p>如果要正确地被提交，每个输入字段必须设置一个 name 属性。</p>
+</li>
+<li>autocomplete 属性。注意，表单的自动完成功能是打开的，但是 e-mail 字段的自动完成功能是关闭的。</li>
+</ul>
+<h2 id="html5"><a href="#html5" class="headerlink" title="html5"></a>html5</h2><ul>
+<li>越来越多的站点开始使用 HTML5 标签。但情况是还有很多人在使用IE6，IE7，IE8。为了让所有网站浏览者都能正常的访问网站，比较好的解决方案是html5shiv.所以只需要在页面head中添加如下代码即可：</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--[if lt IE 9]&gt;</span></span><br><span class="line"><span class="comment">&lt;script type="text/javascript" src="js/html5shiv.js"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="comment">&lt;![endif]--&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>在 HTML5 中，关闭空元素是可选的。斜杠（/）在 XHTML 和 XML 中是必需的。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>HTML5 web存储。sessionStorage 对象等同 localStorage 对象，不同之处在于只对一个 session 存储数据。如果用户关闭具体的浏览器标签页，数据也会被删除。</li>
+</ul>
+<p>省略 <code>&lt;head&gt;</code>？</p>
+<ul>
+<li>在 HTML5 标准中，<head> 标签也能够被省略。默认地，浏览器会把 </head><body> 之前的所有元素添加到默认的 <head> 元素。通过省略 <head> 标签，您能够降低 HTML 的复杂性.</head></head></body></li>
+</ul>
+<h3 id="object"><a href="#object" class="headerlink" title="object"></a>object</h3><ul>
+<li>最好的 HTML 解决方法：HTML 5 + <code>&lt;object&gt;</code> + <code>&lt;embed&gt;</code></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">width</span>=<span class="string">"320"</span> <span class="attr">height</span>=<span class="string">"240"</span> <span class="attr">controls</span>=<span class="string">"controls"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">"movie.mp4"</span> <span class="attr">type</span>=<span class="string">"video/mp4"</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">"movie.ogg"</span> <span class="attr">type</span>=<span class="string">"video/ogg"</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">"movie.webm"</span> <span class="attr">type</span>=<span class="string">"video/webm"</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">object</span> <span class="attr">data</span>=<span class="string">"movie.mp4"</span> <span class="attr">width</span>=<span class="string">"320"</span> <span class="attr">height</span>=<span class="string">"240"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">embed</span> <span class="attr">src</span>=<span class="string">"movie.swf"</span> <span class="attr">width</span>=<span class="string">"320"</span> <span class="attr">height</span>=<span class="string">"240"</span> /&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">object</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>功能：object标签用于定义一个嵌入的多媒体对象。</p>
+</li>
+<li><p>语法：<code>&lt;object&gt;...&lt;/object&gt;</code></p>
+</li>
+<li><p>object元素用于向页面添加多媒体对象，包括Flash、音频、视频等。它规定了对象的数据和参数，以及可用来显示和操作数据的代码。</p>
+</li>
+<li><p><code>&lt;object&gt;</code>与<code>&lt;/object&gt;</code>之间的文本是替换文本，如果用户的浏览器不支持此标签会显示这些文本。</p>
+</li>
+<li><p>object元素中一般会包含<code>&lt;param&gt;</code>标签，<code>&lt;param&gt;</code>标签可用来定义播放参数。</p>
+</li>
+<li><p><code>&lt;object&gt;</code>和<code>&lt;embed&gt;</code>标签的区别：两者都是用来播放多媒体文件的对象，object元素用于IE浏览器，embed元素用于非IE浏览器，为了保证兼容性，通常我们同时使用两个元素，浏览器会自动忽略它不支持的标签。同时使用两个元素时，应该把<code>&lt;embed&gt;</code>标签放在<code>&lt;object&gt;</code>标签的内部。</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -1840,7 +2086,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1851,7 +2097,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
