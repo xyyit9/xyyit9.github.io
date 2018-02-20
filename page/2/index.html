@@ -252,6 +252,262 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/30/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记14/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/30/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记14/" itemprop="url">JavaScript高级程序设计读书笔记14</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-30T23:17:06+08:00">
+                2018-01-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/JavaScript高级程序设计/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript高级程序设计</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第14章-表单脚本"><a href="#第14章-表单脚本" class="headerlink" title="第14章 表单脚本"></a>第14章 表单脚本</h1><h2 id="表单的基础知识"><a href="#表单的基础知识" class="headerlink" title="表单的基础知识"></a>表单的基础知识</h2><ul>
+<li>在HTML中，表单是由<code>&lt;form&gt;</code>表示的，在JS中，表单对应的是HTMLFormElemnt类型</li>
+<li>取得form表单元素的方法：1.添加id属性 2.通过数值索引 3.通过name值取得</li>
+<li>表单的id和name属性，它们的值不一定相同</li>
+</ul>
+<h3 id="提交表单"><a href="#提交表单" class="headerlink" title="提交表单"></a>提交表单</h3><ul>
+<li>提交表单的方式：</li>
+<li>通用提交按钮 <code>&lt;input type=&quot;submit&quot; value=&quot;Submit Form&quot;&gt;</code></li>
+<li>自定义提交按钮<code>&lt;button type=&quot;submit&quot;&gt;Submit Form&lt;/button&gt;</code></li>
+<li>图像按钮<code>&lt;input type=&quot;image&quot; src=&quot;graphic.gif&quot;&gt;</code></li>
+<li>以编程方式提交表单<code>form.submit()</code></li>
+<li>提交表单最大的问题是重复提交表单，解决方法：1.第一次提交表单后就禁用提交按钮2.利用onsubmit事件处理程序取消后续的表单提交操作</li>
+</ul>
+<h3 id="重置表单"><a href="#重置表单" class="headerlink" title="重置表单"></a>重置表单</h3><ul>
+<li>重置表单的方式：</li>
+<li>通用提交按钮 <code>&lt;input type=&quot;reset&quot; value=&quot;Reset Form&quot;&gt;</code></li>
+<li>自定义提交按钮<code>&lt;button type=&quot;reset&quot;&gt;Reset Form&lt;/button&gt;</code></li>
+</ul>
+<h3 id="表单字段"><a href="#表单字段" class="headerlink" title="表单字段"></a>表单字段</h3><ul>
+<li>每个表单都有elements属性，该属性是表单中所有表单元素的集合</li>
+<li><p>解决重复提交表单问题，在第一次单击后就禁用提交按钮</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">EventUtil.addHandler(form,<span class="string">"submit"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">    event=EventUtil.getEvent(event);</span><br><span class="line">    <span class="keyword">var</span> target=EventUtil.getTarget(event);</span><br><span class="line">    <span class="comment">//取得提交按钮</span></span><br><span class="line">    <span class="keyword">var</span> btn=target.elements[<span class="string">"submit-btn"</span>];</span><br><span class="line">    <span class="comment">//禁用它</span></span><br><span class="line">    btn.disabled=<span class="literal">true</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>focus和blur事件以某种方式改变用户界面，要么是向用户给出视觉提示，要么是向界面中添加额外的功能。change事件经常用于验证用户在字段中的输入数据。</p>
+</li>
+</ul>
+<h2 id="文本框脚本"><a href="#文本框脚本" class="headerlink" title="文本框脚本"></a>文本框脚本</h2><ul>
+<li>在HTML中，有两种方式来表现文本框：1.使用<code>&lt;input&gt;</code>元素的单行文本框 2.使用<code>&lt;textarea&gt;</code>的多行文本框。</li>
+<li>这两种文本框都会将用户输入的内容保存在value属性中。可以通过这个属性读取和设置文本框的值。</li>
+</ul>
+<h3 id="选择文本"><a href="#选择文本" class="headerlink" title="选择文本"></a>选择文本</h3><ul>
+<li>select():上述两种文本框都支持，用于选择文本框中的所有文本。</li>
+<li>在文本框获得焦点时选择其所有文本，特别是在文本框包含默认值的时候。这样做可以让用户不必一个一个地删除文本。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">EventUtil.addHandler(textbox,<span class="string">"focus"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">    event = EventUtil.getEvent(event);</span><br><span class="line">    <span class="keyword">var</span> target = EventUtil.getTarget(event);</span><br><span class="line">    target.select();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="选择事件"><a href="#选择事件" class="headerlink" title="选择事件"></a>选择事件</h4><ul>
+<li>在选择了文本框中的文本时，就会触发select事件。</li>
+<li>在调用select()方法时也会触发select事件。</li>
+</ul>
+<h3 id="取得选择的文本"><a href="#取得选择的文本" class="headerlink" title="取得选择的文本"></a>取得选择的文本</h3><ul>
+<li>通过select事件我们可以知道用户什么时候选择了文本，但是不知道用户选择了什么文本。HTML5 通过一些扩展方案解决了这个问题，以便更顺利的取得选择的文本。</li>
+<li>该规范采取的办法：添加两个属性，selectionStart和selectionEnd。这两个属性中保存的是基于0的数值，表示所选择文本的范围（即文本选区开头和结尾的偏移量）。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getSelectedText</span>(<span class="params">textbox</span>)</span>&#123;</span><br><span class="line">	<span class="comment">//IE9+、Firefox、Safari、Chrome和Opera</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> textbox.selectionStart == <span class="string">"number"</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> textbox.value.substring(textbox.selectionStart,textbox.selectionEnd);</span><br><span class="line">	<span class="comment">//IE8 及更早版本</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.selection)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">document</span>.selection.createRange().text;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="选择部分文本"><a href="#选择部分文本" class="headerlink" title="选择部分文本"></a>选择部分文本</h4><ul>
+<li>setSelectionRange()方法，参数：要选择的第一个字符的索引和要选择的最后一个字符之后的字符的索引</li>
+<li><p>IE8 及更早的版本支持使用范围选择部分文本。</p>
+<blockquote>
+<p>1.首先使用createTextRange()方法创建一个范围，并将其放在恰当的位置上。</p>
+<ol>
+<li>使用collapse()将范围折叠到文本框的开始位置。<br>3.再使用moveStart()和moveEnd()这两个范围方法将范围移动到位。此时，moveStart()将范围的起点和终点移动到了相同的位置，只要给moveEnd()传入要选择的字符总数即可。<br>4.最后，使用范围的select()方法选择文本。</li>
+</ol>
+</blockquote>
+</li>
+<li><p>跨浏览器实现选择部分文本</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">selectText</span>(<span class="params">textbox, startIndex, stopIndex</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (textbox.setSelectionRange) &#123;</span><br><span class="line">        textbox.setSelectionRange(startIndex, stopIndex);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (textbox.createTextRange) &#123;</span><br><span class="line">        <span class="keyword">var</span> range = textbox.createTextRange();</span><br><span class="line">        range.collapse(<span class="literal">true</span>);</span><br><span class="line">        range.moveStart(<span class="string">"character"</span>, startIndex);</span><br><span class="line">        range.moveEnd(<span class="string">"character"</span>, stopIndex - startIndex);</span><br><span class="line">        range.select();</span><br><span class="line">    &#125;</span><br><span class="line">    textbox.focus();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="过滤输入"><a href="#过滤输入" class="headerlink" title="过滤输入"></a>过滤输入</h3><h4 id="屏蔽字符"><a href="#屏蔽字符" class="headerlink" title="屏蔽字符"></a>屏蔽字符</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">EventUtil.addHandler(textbox, <span class="string">"keypress"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">    event = EventUtil.getEvent(event);</span><br><span class="line">    <span class="keyword">var</span> target = EventUtil.getTarget(event);</span><br><span class="line">    <span class="keyword">var</span> charCode = EventUtil.getCharCode(event);</span><br><span class="line">	<span class="comment">//屏蔽非数值字符，不屏蔽也会触发keypress事件的基本按键，确保用户没有按下ctrl键</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="regexp">/\d/</span>.test(<span class="built_in">String</span>.fromCharCode(charCode)) &amp;&amp; charCode &gt; <span class="number">9</span> &amp;&amp;</span><br><span class="line">        !event.ctrlKey) &#123;</span><br><span class="line">        EventUtil.preventDefault(event);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="操作剪贴板"><a href="#操作剪贴板" class="headerlink" title="操作剪贴板"></a>操作剪贴板</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> EventUtil = &#123;</span><br><span class="line">    <span class="comment">//省略的代码</span></span><br><span class="line">    getClipboardText: <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> clipboardData = (event.clipboardData || <span class="built_in">window</span>.clipboardData);</span><br><span class="line">        <span class="keyword">return</span> clipboardData.getData(<span class="string">"text"</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    setClipboardText: <span class="function"><span class="keyword">function</span> (<span class="params">event, value</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (event.clipboardData) &#123;</span><br><span class="line">            <span class="keyword">return</span> event.clipboardData.setData(<span class="string">"text/plain"</span>, value);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.clipboardData) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">window</span>.clipboardData.setData(<span class="string">"text"</span>, value);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> textbox = <span class="built_in">document</span>.forms[<span class="number">0</span>].elements[<span class="string">"textbox1"</span>]</span><br><span class="line">EventUtil.addHandler(textbox, <span class="string">"paste"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">    event = EventUtil.getEvent(event);</span><br><span class="line">    <span class="keyword">var</span> text = EventUtil.getClipboardText(event);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!<span class="regexp">/^\d*$/</span>.test(text)) &#123;</span><br><span class="line">        EventUtil.preventDefault(event);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="自动切换焦点"><a href="#自动切换焦点" class="headerlink" title="自动切换焦点"></a>自动切换焦点</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"tel1"</span> <span class="attr">id</span>=<span class="string">"txtTel1"</span> <span class="attr">size</span>=<span class="string">"3"</span> <span class="attr">maxlength</span>=<span class="string">"3"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"tel2"</span> <span class="attr">id</span>=<span class="string">"txtTel2"</span> <span class="attr">size</span>=<span class="string">"3"</span> <span class="attr">maxlength</span>=<span class="string">"3"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"tel3"</span> <span class="attr">id</span>=<span class="string">"txtTel3"</span> <span class="attr">size</span>=<span class="string">"4"</span> <span class="attr">maxlength</span>=<span class="string">"4"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">tabForward</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">        event = EventUtil.getEvent(event);</span><br><span class="line">        <span class="keyword">var</span> target = EventUtil.getTarget(event);</span><br><span class="line">        <span class="keyword">if</span> (target.value.length == target.maxLength) &#123;  <span class="comment">//  确定是否已经达到最大长度</span></span><br><span class="line">            <span class="keyword">var</span> form = target.form;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = form.elements.length; i &lt; len; i++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (form.elements[i] == target) &#123;</span><br><span class="line">                    form.elements[i + <span class="number">1</span>].focus();  <span class="comment">//将焦点切换到下一个文本框</span></span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> textbox1 = <span class="built_in">document</span>.getElementById(<span class="string">"txtTel1"</span>);</span><br><span class="line">    <span class="keyword">var</span> textbox2 = <span class="built_in">document</span>.getElementById(<span class="string">"txtTel2"</span>);</span><br><span class="line">    <span class="keyword">var</span> textbox3 = <span class="built_in">document</span>.getElementById(<span class="string">"txtTel3"</span>);</span><br><span class="line">    <span class="comment">//这个函数指定为每个文本框的onkeyup事件处理程序</span></span><br><span class="line">    EventUtil.addHandler(textbox1, <span class="string">"keyup"</span>, tabForward);</span><br><span class="line">    EventUtil.addHandler(textbox2, <span class="string">"keyup"</span>, tabForward);</span><br><span class="line">    EventUtil.addHandler(textbox3, <span class="string">"keyup"</span>, tabForward);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<h3 id="HTML5约束验证API"><a href="#HTML5约束验证API" class="headerlink" title="HTML5约束验证API"></a>HTML5约束验证API</h3><ul>
+<li>必填字段：required</li>
+<li>其他输入类型：email、url</li>
+<li>数值范围：number、range、datetime、datetime-local、date、month、week、time、stepUp()方法、stepDown()方法</li>
+<li>输入模式：pattern</li>
+<li>检测有效性：checkValidity()、validity</li>
+<li>禁用验证：novalidate、formnovalidate</li>
+</ul>
+<h2 id="选择框脚本"><a href="#选择框脚本" class="headerlink" title="选择框脚本"></a>选择框脚本</h2><ul>
+<li>在DOM中，每个<code>&lt;option&gt;</code>元素都有一个HTMLOptionElement对象表示。</li>
+</ul>
+<h3 id="选择选项"><a href="#选择选项" class="headerlink" title="选择选项"></a>选择选项</h3><ul>
+<li>对于只能选择一项的选项，访问选中项的方式是使用选择框的selectedIndex属性。对于多选项，selectedIndex只返回第一项的索引值。</li>
+<li>多选的情况下可以设置多个选项的selected属性为true</li>
+<li>以下适用于单选和多选选择框<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getSelectedOptions</span>(<span class="params">selectbox</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> result = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">    <span class="keyword">var</span> option = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>,len=selectbox.options.length; i &lt;len; i++) &#123;</span><br><span class="line">        option =selectbox.options[i];</span><br><span class="line">        <span class="keyword">if</span> (option.selected) &#123;</span><br><span class="line">            result.push(option);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="添加项"><a href="#添加项" class="headerlink" title="添加项"></a>添加项</h3><ul>
+<li>有三种方法：第一种方法DOM方法（appendChild方法），第二种方法Option构造函数（接收两个参数:text,value），第三种方法使用add函数（接收两个参数：新选项，位于新选项最后的选项；如果要插入成为最后的选项，第二个参数应该设置为undefined）</li>
+</ul>
+<h3 id="移除选项"><a href="#移除选项" class="headerlink" title="移除选项"></a>移除选项</h3><ul>
+<li>第一种方法DOM方法（利用removeChild方法），第二种方法用选择框的remove方法，第三种为设置null。</li>
+</ul>
+<h3 id="移动和重排选项"><a href="#移动和重排选项" class="headerlink" title="移动和重排选项"></a>移动和重排选项</h3><ul>
+<li>如果为appendChild()方法传入一个文档中已有的元素，那么久从该元素的父节点中移除它，再把它添加到指定的位置，移动选项会充值每一个选项的index属性</li>
+<li>重排选项次序最好的方法是DOM:insertBefore()</li>
+</ul>
+<h2 id="表单序列化"><a href="#表单序列化" class="headerlink" title="表单序列化"></a>表单序列化</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">serialize</span>(<span class="params">form</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> parts = [],</span><br><span class="line">        field = <span class="literal">null</span>,</span><br><span class="line">        i,</span><br><span class="line">        len,</span><br><span class="line">        j,</span><br><span class="line">        optLen,</span><br><span class="line">        option,</span><br><span class="line">        optValue;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>, len = form.elements.length; i &lt; len; i++) &#123;</span><br><span class="line">        field = form.elements[i];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">switch</span> (field.type) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"select-one"</span>:</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"select-multiple"</span>:</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (field.name.length) &#123;</span><br><span class="line">                    <span class="keyword">for</span> (j = <span class="number">0</span>, optLen = field.options.length; j &lt; optLen; j++) &#123;</span><br><span class="line">                        option = field.options[j];</span><br><span class="line">                        <span class="keyword">if</span> (option.selected) &#123;</span><br><span class="line">                            optValue = <span class="string">""</span>;</span><br><span class="line">                            <span class="keyword">if</span> (option.hasAttribute) &#123;</span><br><span class="line">                                optValue = (option.hasAttribute(<span class="string">"value"</span>) ? option.value : option.text);</span><br><span class="line">                            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                                optValue = (option.attributes[<span class="string">"value"</span>].specified ? option.value : option.text);</span><br><span class="line">                            &#125;</span><br><span class="line">                            parts.push(<span class="built_in">encodeURIComponent</span>(field.name) + <span class="string">"="</span> + <span class="built_in">encodeURIComponent</span>(optValue));</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">case</span> <span class="literal">undefined</span>:</span><br><span class="line">            <span class="comment">//字段集</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">"file"</span>:</span><br><span class="line">            <span class="comment">//文件输入</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">"submit"</span>:</span><br><span class="line">            <span class="comment">//提交按钮</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">"reset"</span>:</span><br><span class="line">            <span class="comment">//重置按钮</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">"button"</span>:</span><br><span class="line">                <span class="comment">//自定义按钮</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">case</span> <span class="string">"radio"</span>:</span><br><span class="line">            <span class="comment">//单选按钮</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">"checkbox"</span>:</span><br><span class="line">                <span class="comment">//复选框</span></span><br><span class="line">                <span class="keyword">if</span> (!field.checked) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="comment">//不包含没有名字的表单字段</span></span><br><span class="line">                <span class="keyword">if</span> (field.name.length) &#123;</span><br><span class="line">                    parts.push(<span class="built_in">encodeURIComponent</span>(field.name) + <span class="string">"="</span> + <span class="built_in">encodeURIComponent</span>(field.value));</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> parts.join(<span class="string">"&amp;"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="富文本编辑"><a href="#富文本编辑" class="headerlink" title="富文本编辑"></a>富文本编辑</h2><ul>
+<li><p>有两种编辑富文本的方式，一种是使用iframe元素，另一种是使用contenteditable属性</p>
+<blockquote>
+<p>1.在页面中嵌入一个包含空HTML页面的iframe。通过设置designMode属性位“on”，这个空白的HTML页面可以被编辑，<br>2.把contenteditable属性应用给页面中的任何元素，然后用户立即就可以编辑该元素</p>
+</blockquote>
+</li>
+<li><p>document.execCommand():可以对文档执行预定义的命令</p>
+</li>
+<li>queryCommandEnabled():查询浏览器中指定的编辑指令是否可用</li>
+<li>queryCommandState():确定是否已将指令命令应用到了选择的文本</li>
+<li>queryCommandValue():取得执行命令时传入的值</li>
+<li>使用框架（iframe）的getSelection（）方法可以确定实际选择的文本，返回一个Selection对象</li>
+<li>富文本编辑器中的HTML不会被自动提交给服务器，而需要手工提取并提交HTML。在提交表单之前，从iframe中提取出HTML，并将其插入到隐藏的字段中。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/28/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记13/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2977,233 +3233,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/12/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XyyFighting">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/12/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记4/" itemprop="url">JavaScript高级程序设计读书笔记4</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-12T16:42:34+08:00">
-                2018-01-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/JavaScript高级程序设计/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript高级程序设计</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="第4章-变量、作用域和内存问题"><a href="#第4章-变量、作用域和内存问题" class="headerlink" title="第4章 变量、作用域和内存问题"></a>第4章 变量、作用域和内存问题</h1><h2 id="基本类型和引用类型的值"><a href="#基本类型和引用类型的值" class="headerlink" title="基本类型和引用类型的值"></a>基本类型和引用类型的值</h2><ul>
-<li>基本数据类型保存在栈内存中，按值访问，引用数据类型保存在堆内存中，按引用访问。<h3 id="复制变量值"><a href="#复制变量值" class="headerlink" title="复制变量值"></a>复制变量值</h3></li>
-<li>复制引用类型的值时，两个变量引用同一个对象。改变其中一个变量，就会影响另一个变量<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj1=<span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="keyword">var</span> obj2=obj1;</span><br><span class="line">obj1.name=<span class="string">"hello"</span>;</span><br><span class="line">alert(obj2.name);  <span class="comment">//hello</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="传递参数"><a href="#传递参数" class="headerlink" title="传递参数"></a>传递参数</h3><ul>
-<li><p>把函数外部的值复制给函数内部的参数，是按值传递的。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addTen</span>(<span class="params">num</span>)</span>&#123;</span><br><span class="line">    num+=<span class="number">10</span>;</span><br><span class="line">    <span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> count=<span class="number">20</span>;</span><br><span class="line"><span class="keyword">var</span> result=addTen(count);</span><br><span class="line">alert(count);   <span class="comment">//20，没有变化</span></span><br><span class="line">alert(result);  <span class="comment">//30</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>person按值传递给obj，指向的对象在堆内存中是同一个，而且是全局对象。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setName</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    obj.name=<span class="string">"hello"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person =<span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">setName(person);</span><br><span class="line">alert(person.name);  <span class="comment">//"hello"</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>以下例子说明，确实是按值传递。如果是按引用传递，那么person就会自动修改为指向name属性值的“Greg”对象。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setName</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    obj.name=<span class="string">"hello"</span>;</span><br><span class="line">	obj=<span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">	obj.name=<span class="string">"Greg"</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person =<span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">setName(person);</span><br><span class="line">alert(person.name);  <span class="comment">//"hello"</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>确定一个值是哪种基本类型可以使用typeof操作符。</p>
-</li>
-<li>确定一个值是哪种引用类型可以使用instanceof操作符。</li>
-<li>如果变量是引用类型的实例，那么instanceof操作符就会返回true,如果是基本类型的值，那么instanceof操作符就会返回false。</li>
-</ul>
-<h2 id="执行环境与作用域"><a href="#执行环境与作用域" class="headerlink" title="执行环境与作用域"></a>执行环境与作用域</h2><ul>
-<li>每个执行环境都有一个与之关联的变量对象，环境中定义的所有变量和函数都保存在这个对象中。</li>
-<li>全局执行环境是最外围的一个执行环境。</li>
-<li>每个函数都有自己的执行环境。当执行流进入一个函数时，函数的环境就会被推入一个环境栈中。而在函数执行之后，栈将其环境弹出，把控制权返回给之前的执行环境。</li>
-<li>当代码在一个环境中执行时，会创建变量对象的一个作用域链。作用域链的用途是，保证对执行环境有权访问的所有变量和函数的有序访问。</li>
-<li>作用域链的前端，始终是当前执行的代码所在环境的变量对象。如果这个环境是函数，则将其活动对象作为变量对象。</li>
-<li>活动对象在最开始只包含一个变量，即arguments对象。</li>
-<li>作用域链的下一个变量对象来自包含（外部）环境，而在下一个变量对象则来自下一个包含环境。</li>
-<li>全局执行环境的变量对象始终都是作用域链中的最后一个对象。</li>
-<li>内部环境可以通过作用域链访问所有的外部环境，但外部环境不能访问内部环境中的任何变量和函数。</li>
-</ul>
-<h3 id="延长作用域链"><a href="#延长作用域链" class="headerlink" title="延长作用域链"></a>延长作用域链</h3><ul>
-<li>有些语句可以在作用域链的前端临时增加一个变量对象，该变量对象会在代码执行后被移除。在两种情况下会发生这种现象：<blockquote>
-<p>try-catch语句中的catch块：创建一个新的变量对象<br>with语句:会将指定的对象添加到作用域链中</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="没有块级作用域"><a href="#没有块级作用域" class="headerlink" title="没有块级作用域"></a>没有块级作用域</h3><ul>
-<li><font color="red">JS没有块级作用域</font></li>
-<li>在if、for语句中初始化的变量，在执行完后，也依旧会存在于外部的执行环境中。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> color=<span class="string">"blue"</span>;</span><br><span class="line">&#125;</span><br><span class="line">alert(color);  <span class="comment">//"blue"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">    doSomething(i);</span><br><span class="line">&#125;</span><br><span class="line">alert(i);     <span class="comment">//10</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="声明变量"><a href="#声明变量" class="headerlink" title="声明变量"></a>声明变量</h4><ul>
-<li><p>使用var声明的变量会自动被添加到最接近的环境中。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">num1,num2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> sum=num1+num2;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> result=add(<span class="number">10</span>,<span class="number">20</span>);   <span class="comment">//30</span></span><br><span class="line">alert(sum);              <span class="comment">//由于sum不是有效的变量，因此会导致错误</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如果初始化变量时没有使用var声明，该变量会自动被添加到全局环境</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">num1,num2</span>)</span>&#123;</span><br><span class="line">    sum=num1+num2;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> result=add(<span class="number">10</span>,<span class="number">20</span>);   <span class="comment">//30</span></span><br><span class="line">alert(sum);              <span class="comment">//30</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="查询标识符"><a href="#查询标识符" class="headerlink" title="查询标识符"></a>查询标识符</h4><ul>
-<li><p>当在环境中为了读取或写入而引用一个标识符时，必须通过搜索来确定该标识符实际代表什么，沿作用域链向上搜索。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> color=<span class="string">"blue"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getColor</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> color;</span><br><span class="line">&#125;</span><br><span class="line">alert(getColor());  <span class="comment">//"blue"</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如果局部环境中存在着同名标识符，就不会使用位于父环境中的标识符</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> color=<span class="string">"blue"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getColor</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> color=<span class="string">"red"</span>;</span><br><span class="line">    <span class="keyword">return</span> color;</span><br><span class="line">&#125;</span><br><span class="line">alert(getColor());  <span class="comment">//"red"</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h2><ul>
-<li>垃圾收集器会按照固定的时间间隔周期性地执行这一操作。</li>
-<li>IE6声明达到任何一个临界值，垃圾收集器就会运行，IE7则声明垃圾收集例程回收的内存分配量低于15%，则临界值加倍，若高于15%，则将临界值重置为默认值。</li>
-<li>一旦数据不再有用，最好将值设置为NULL来释放引用，这个做法是解除引用，适用于大多数全局变量和全局对象的属性。</li>
-<li>解除引用不等于自动回收内存，真正作用是让值脱离执行环境，便于垃圾收集器下次运行时回收。</li>
-</ul>
-<h3 id="标记清除"><a href="#标记清除" class="headerlink" title="标记清除"></a>标记清除</h3><ul>
-<li>JS中最常用的垃圾收集方式是标记清除。</li>
-<li>垃圾收集器在运行的时候会给存储在内存中的所有变量都加上标记，然后去掉环境中的变量以及被环境中搞得变量引用的变量标记，在此之后再被加上标记的变量将被视为准备删除的变量。因为环境中的的变量已经无法访问到这些变量了。最后垃圾收集器完成内存清除工作。</li>
-</ul>
-<h3 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h3><ul>
-<li>不太常用的垃圾收集策略是引用计数</li>
-<li>当生命的变量并将一个引用类型值赋给该变量时，则这个值的引用次数是1，如果同一个值又被赋给了另一个变量，则该值的引用次数加1，否则减1，直到这个值的引用次数为0</li>
-<li>存在循环引用的问题，对象A中包含一个指向对象B的指针，对象B也包含一个指向对象A的引用。最好的方式是在不适用的时候手工断开。</li>
-<li><code>ObjectA.someOtherObject=null;</code></li>
-<li><code>ObjectB.anotherObject=null;</code></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3258,7 +3287,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
