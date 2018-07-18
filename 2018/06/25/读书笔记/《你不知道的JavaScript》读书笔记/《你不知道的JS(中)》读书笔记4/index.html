@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Javascript," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第1章 类型 检测null值类型 12var a=null;(!a &amp;amp;&amp;amp; typeof a===&quot;object&quot;);  变量没有类型，只有值才有类型。变量可以随时持有任何类型的值。  在对变量执行typeof操作时，得到的结果并不是该变量的类型，而是该变量持有的值的类型  ReferenceError：b is not defined是指变量undeclared  应对多个脚本文件">
+<meta name="keywords" content="Javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《你不知道的JS(中)》读书笔记4">
+<meta property="og:url" content="http://yoursite.com/2018/06/25/读书笔记/《你不知道的JavaScript》读书笔记/《你不知道的JS(中)》读书笔记4/index.html">
+<meta property="og:site_name" content="XyyFighting">
+<meta property="og:description" content="第1章 类型 检测null值类型 12var a=null;(!a &amp;amp;&amp;amp; typeof a===&quot;object&quot;);  变量没有类型，只有值才有类型。变量可以随时持有任何类型的值。  在对变量执行typeof操作时，得到的结果并不是该变量的类型，而是该变量持有的值的类型  ReferenceError：b is not defined是指变量undeclared  应对多个脚本文件">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-18T15:18:15.930Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《你不知道的JS(中)》读书笔记4">
+<meta name="twitter:description" content="第1章 类型 检测null值类型 12var a=null;(!a &amp;amp;&amp;amp; typeof a===&quot;object&quot;);  变量没有类型，只有值才有类型。变量可以随时持有任何类型的值。  在对变量执行typeof操作时，得到的结果并不是该变量的类型，而是该变量持有的值的类型  ReferenceError：b is not defined是指变量undeclared  应对多个脚本文件">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/25/读书笔记/《你不知道的JavaScript》读书笔记/《你不知道的JS(中)》读书笔记4/"/>
+
+
+
+
+
+  <title>《你不知道的JS(中)》读书笔记4 | XyyFighting</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">XyyFighting</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/25/读书笔记/《你不知道的JavaScript》读书笔记/《你不知道的JS(中)》读书笔记4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《你不知道的JS(中)》读书笔记4</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-25T00:00:00+08:00">
+                2018-06-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/你不知道的JS/" itemprop="url" rel="index">
+                    <span itemprop="name">你不知道的JS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="第1章-类型"><a href="#第1章-类型" class="headerlink" title="第1章 类型"></a>第1章 类型</h2><ul>
+<li><p>检测null值类型</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=<span class="literal">null</span>;</span><br><span class="line">(!a &amp;&amp; <span class="keyword">typeof</span> a===<span class="string">"object"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>变量没有类型，只有值才有类型。变量可以随时持有任何类型的值。</p>
+</li>
+<li><p>在对变量执行typeof操作时，得到的结果并不是该变量的类型，而是该变量持有的值的类型</p>
+</li>
+<li><p><code>ReferenceError：b is not defined</code>是指变量undeclared</p>
+</li>
+<li><p>应对多个脚本文件在共享命名空间中加载变量的情况，有两种方法：</p>
+<ul>
+<li>使用typeof Undeclared安全防范机制</li>
+<li>检查全局变量，访问不存在的对象属性不会产生ReferenceError错误</li>
+</ul>
+</li>
+</ul>
+<h2 id="第2章-值"><a href="#第2章-值" class="headerlink" title="第2章 值"></a>第2章 值</h2><h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><ul>
+<li><p>使用delete运算符可以将单元从数组中删除，但是单元删除后，数组的length不会发生变化</p>
+</li>
+<li><p>数组也是对象，可以包含字符串键值和属性</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=[];</span><br><span class="line">a[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">a[<span class="string">"footer"</span>]=<span class="number">2</span>;</span><br><span class="line">a.length;  <span class="comment">//1</span></span><br><span class="line">a[<span class="string">"footer"</span>]; <span class="comment">//2</span></span><br><span class="line">a.footer;  <span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果字符串键值能够被强制类型转换成十进制数字的话，它就会被当做数字索引来处理</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=[];</span><br><span class="line">a[<span class="string">"13"</span>]=<span class="number">42</span>;</span><br><span class="line">a.length;  <span class="comment">//14</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将arguments对象（类数组）将函数的参数当做列表来访问</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr=<span class="built_in">Array</span>.prototype.slice.call(<span class="built_in">arguments</span>);</span><br><span class="line"><span class="comment">// 以上在ES6中已经废除，在ES6中使用如下形式</span></span><br><span class="line"><span class="keyword">var</span> arr=<span class="built_in">Array</span>.from(<span class="built_in">arguments</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><ul>
+<li><p>字符串不可变是指字符串的成员函数不会改变其原始值，而是创建并返回一个新的字符串，而数组的承运函数都是在其原始值上进行操作。</p>
+</li>
+<li><p>虽然字符串没有这些函数，但是可以通过“借用”数组的非变更方法来处理字符串</p>
+</li>
+<li><p>字符串反转，<code>split</code>会把字符串转成字符数组，<code>join</code>会把字符数组变成字符串</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=<span class="string">"foo"</span>;</span><br><span class="line"><span class="keyword">var</span> c=a.split(<span class="string">""</span>).reverse().join(<span class="string">""</span>);  <span class="comment">// "oof"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h3><ul>
+<li><p>JavaScript使用64位二进制存储数字</p>
+</li>
+<li><p>toExponential()：科学计数法</p>
+</li>
+<li><p>tofixed()：指定小数部分的显示位数</p>
+</li>
+<li><p>toPrecision()：指定有效数位的显示位数</p>
+</li>
+<li><p><code>42.toFixed(3)</code>无效，但是<code>42..toFixed(3)</code>有效，因为<code>.</code>运算符会被优先识别为数字常量的一部分，然后才是对象属性访问运算符</p>
+</li>
+<li><p><code>0.1+0.2===0.3//false</code>处理误差范围值，通常称为“机器精度”</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">numbersCloseEnoughtToEqual</span>(<span class="params">n1,n2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.abs(n1-n2)&lt;<span class="built_in">Number</span>.EPSILON</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最大浮点数 Number.MAX_VALUE </p>
+</li>
+<li><p>最小浮点数 Number.MIN_VALUE</p>
+</li>
+<li><p>安全呈现的最大整数 Number.MAX_SAFE_INTEGER</p>
+</li>
+<li><p>安全呈现的最小整数 Number.MIN_SAFE_INTEGER</p>
+</li>
+<li><p>void ___返回结果是undefined</p>
+</li>
+</ul>
+<h3 id="特殊的数字"><a href="#特殊的数字" class="headerlink" title="特殊的数字"></a>特殊的数字</h3><h4 id="NaN"><a href="#NaN" class="headerlink" title="NaN"></a>NaN</h4><ul>
+<li>不是数字的数字</li>
+</ul>
+<ul>
+<li><p>唯一的非自反值</p>
+</li>
+<li><p>ES6开始使用<code>Number.isNaN(…)</code></p>
+</li>
+<li><p>ES6之前使用如下代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(!<span class="built_in">Number</span>.isNaN)&#123;</span><br><span class="line">    <span class="built_in">Number</span>.isNaN=<span class="function"><span class="keyword">function</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span>(</span><br><span class="line">        <span class="keyword">typeof</span> n===<span class="string">"number"</span>&amp;&amp;</span><br><span class="line">        <span class="built_in">window</span>.isNaN(n)</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="无穷数"><a href="#无穷数" class="headerlink" title="无穷数"></a>无穷数</h4><ul>
+<li>可以从有穷走向无穷，但无法从无穷回到有穷</li>
+<li>Infinity/Infinity结果是NaN</li>
+</ul>
+<h4 id="负零"><a href="#负零" class="headerlink" title="负零"></a>负零</h4><ul>
+<li><p>区分0和-0</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isNegZero</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">    n=<span class="built_in">Number</span>(n);</span><br><span class="line">    <span class="keyword">return</span> (n===<span class="number">0</span>)&amp;&amp;(<span class="number">1</span>/n===-<span class="literal">Infinity</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ES6中Object.is(..)处理特殊值的相等比较</p>
+</li>
+</ul>
+<h3 id="值和引用"><a href="#值和引用" class="headerlink" title="值和引用"></a>值和引用</h3><ul>
+<li><p>引用无法改变另外一个引用的指向</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">  x.push(<span class="number">4</span>);</span><br><span class="line">  x; <span class="comment">//[1,2,3,4]</span></span><br><span class="line">  x=[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>];</span><br><span class="line">  x.push[<span class="number">7</span>];</span><br><span class="line">  x;  <span class="comment">//[4,5,6,7]</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">foo(a);</span><br><span class="line">a; <span class="comment">// [1,2,3,4]</span></span><br></pre></td></tr></table></figure>
+<p>函数传递a的时候，将引用a的复本赋值给x，但a仍然指向[1,2,3]。x=[4,5,6]并不影响a的指向</p>
+</li>
+<li><p>有两种方式：值复制、引用复制。基本数据类型是值复制，引用数据类型是引用复制。如果要让基本数据类型使用引用复制，可以写在一个对象中，相对的，也可以将引用类型进行一次浅复制。</p>
+</li>
+<li><p>标量基本类型值是不可更改的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">  x=x+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a=<span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> b=<span class="keyword">new</span> <span class="built_in">Number</span>(a);</span><br><span class="line">foo(b);</span><br><span class="line"><span class="built_in">console</span>.log(b); <span class="comment">//Number &#123;2&#125;</span></span><br></pre></td></tr></table></figure>
+<p>​</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/22/读书笔记/《你不知道的JavaScript》读书笔记/《你不知道的JS(上)》读书笔记3/" rel="next" title="《你不知道的JS(上)》读书笔记3">
+                <i class="fa fa-chevron-left"></i> 《你不知道的JS(上)》读书笔记3
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/27/读书笔记/《深入React技术栈》读书笔记/《深入React技术栈》读书笔记1/" rel="prev" title="《深入React技术栈》读书笔记1">
+                《深入React技术栈》读书笔记1 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Xyy" />
+            
+              <p class="site-author-name" itemprop="name">Xyy</p>
+              <p class="site-description motion-element" itemprop="description">I want to get ahead in a step-by-step</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第1章-类型"><span class="nav-number">1.</span> <span class="nav-text">第1章 类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第2章-值"><span class="nav-number">2.</span> <span class="nav-text">第2章 值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数组"><span class="nav-number">2.1.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串"><span class="nav-number">2.2.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数字"><span class="nav-number">2.3.</span> <span class="nav-text">数字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特殊的数字"><span class="nav-number">2.4.</span> <span class="nav-text">特殊的数字</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#NaN"><span class="nav-number">2.4.1.</span> <span class="nav-text">NaN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#无穷数"><span class="nav-number">2.4.2.</span> <span class="nav-text">无穷数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#负零"><span class="nav-number">2.4.3.</span> <span class="nav-text">负零</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#值和引用"><span class="nav-number">2.5.</span> <span class="nav-text">值和引用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xyy</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

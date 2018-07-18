@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Javascript," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第4章 混合对象“类” 多态在继承链的不同层次中一个方法名可以被多次定义，当调用方法时会自动选择合适的定义。 子类对继承到的一个方法进行“重写”，不会影响父类中的方法，这两个方法互不影响，因此才能使用相对多台引用访问父类中的方法。  混入 混入：模拟类的复制行为  显式混入：手动实现复制功能，但是对象只能复制引用，无法复制被引用的对象或者函数本身。 12345678function mixin(s">
+<meta name="keywords" content="Javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《你不知道的JS(上)》读书笔记3">
+<meta property="og:url" content="http://yoursite.com/2018/06/22/读书笔记/《你不知道的JavaScript》读书笔记/《你不知道的JS(上)》读书笔记3/index.html">
+<meta property="og:site_name" content="XyyFighting">
+<meta property="og:description" content="第4章 混合对象“类” 多态在继承链的不同层次中一个方法名可以被多次定义，当调用方法时会自动选择合适的定义。 子类对继承到的一个方法进行“重写”，不会影响父类中的方法，这两个方法互不影响，因此才能使用相对多台引用访问父类中的方法。  混入 混入：模拟类的复制行为  显式混入：手动实现复制功能，但是对象只能复制引用，无法复制被引用的对象或者函数本身。 12345678function mixin(s">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://image.jiantuku.com/18-6-24/27428852.jpg?e=1529820010&token=el7kgPgYzpJoB23jrChWJ2gV3HpRl0VCzFn8rKKv:vToz18Hj_l43qWiUkjNJBZCK8Ug=">
+<meta property="og:image" content="http://image.jiantuku.com/18-6-24/27504294.jpg?e=1529820010&token=el7kgPgYzpJoB23jrChWJ2gV3HpRl0VCzFn8rKKv:77rL7BFASHGSWsq1zgUNpJsI6pI=">
+<meta property="og:updated_time" content="2018-07-18T15:18:08.026Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《你不知道的JS(上)》读书笔记3">
+<meta name="twitter:description" content="第4章 混合对象“类” 多态在继承链的不同层次中一个方法名可以被多次定义，当调用方法时会自动选择合适的定义。 子类对继承到的一个方法进行“重写”，不会影响父类中的方法，这两个方法互不影响，因此才能使用相对多台引用访问父类中的方法。  混入 混入：模拟类的复制行为  显式混入：手动实现复制功能，但是对象只能复制引用，无法复制被引用的对象或者函数本身。 12345678function mixin(s">
+<meta name="twitter:image" content="http://image.jiantuku.com/18-6-24/27428852.jpg?e=1529820010&token=el7kgPgYzpJoB23jrChWJ2gV3HpRl0VCzFn8rKKv:vToz18Hj_l43qWiUkjNJBZCK8Ug=">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/22/读书笔记/《你不知道的JavaScript》读书笔记/《你不知道的JS(上)》读书笔记3/"/>
+
+
+
+
+
+  <title>《你不知道的JS(上)》读书笔记3 | XyyFighting</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">XyyFighting</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/22/读书笔记/《你不知道的JavaScript》读书笔记/《你不知道的JS(上)》读书笔记3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《你不知道的JS(上)》读书笔记3</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-22T00:00:00+08:00">
+                2018-06-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/你不知道的JS/" itemprop="url" rel="index">
+                    <span itemprop="name">你不知道的JS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="第4章-混合对象“类”"><a href="#第4章-混合对象“类”" class="headerlink" title="第4章 混合对象“类”"></a>第4章 混合对象“类”</h2><ul>
+<li>多态在继承链的不同层次中一个方法名可以被多次定义，当调用方法时会自动选择合适的定义。</li>
+<li>子类对继承到的一个方法进行“重写”，不会影响父类中的方法，这两个方法互不影响，因此才能使用相对多台引用访问父类中的方法。</li>
+</ul>
+<h4 id="混入"><a href="#混入" class="headerlink" title="混入"></a>混入</h4><ul>
+<li><p><strong>混入</strong>：模拟类的复制行为</p>
+</li>
+<li><p>显式混入：手动实现复制功能，但是对象只能复制引用，无法复制被引用的对象或者函数本身。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mixin</span>(<span class="params">sourceObj,targetObj</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> key <span class="keyword">in</span> sourceObj)&#123;</span><br><span class="line">    <span class="keyword">if</span>(!key <span class="keyword">in</span> targetObj)&#123;</span><br><span class="line">      targetObj[key]=sourceObj[key];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> targetObj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>寄生继承：显式混入模式的一种变体，既是显式的又是隐式的。</p>
+</li>
+<li><p>隐式继承：类似显式混入伪多态<code>(OtherObj.methodName.call(this, ...))</code></p>
+</li>
+</ul>
+<h2 id="第5章-原型"><a href="#第5章-原型" class="headerlink" title="第5章 原型"></a>第5章 原型</h2><ul>
+<li>使用<code>for..in</code>遍历对象时原理和查找[[Prototype]]链类似，任何可以通过原型链访问到（并且enumerable）的属性都会被枚举。</li>
+</ul>
+<h4 id="属性设置和屏蔽"><a href="#属性设置和屏蔽" class="headerlink" title="属性设置和屏蔽"></a>属性设置和屏蔽</h4><p><code>myObject.foo=&quot;bar&quot;</code></p>
+<ol>
+<li><p>myObject对象中有foo，原型链上没有：会修改已有属性值。</p>
+</li>
+<li><p>myObject对象中有foo，原型链上也有foo：屏蔽，修改myObject中的foo。</p>
+</li>
+<li><p>myObject没有foo，原型链上有foo：三种情况</p>
+<p>3.1 原型链上有foo，且没有被标记成只读。会在myObject中添加一个名为foo的新属性。</p>
+<p>3.2 原型链上有foo，但是是只读的。赋值语句会被忽略，严格模式下会抛出错误。</p>
+<p>3.3 圆形脸上有foo，并且是一个setter。赋值语句被忽略，并调用这个setter。</p>
+</li>
+<li><p>myObject没有foo，原型链上也没有：在myObject上添加foo。</p>
+</li>
+</ol>
+<h4 id="“类”函数"><a href="#“类”函数" class="headerlink" title="“类”函数"></a>“类”函数</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a=<span class="keyword">new</span> Foo();</span><br><span class="line">Objecr.getPrototypeOf(a) === Foo.prototype; <span class="comment">//true</span></span><br><span class="line">Foo.prototype.constructor === Foo; <span class="comment">//true</span></span><br><span class="line">a.constructor === Foo; </span><br><span class="line"><span class="comment">//true 实际a本身并没有.constructor属性，会委托[[Prototype]]链上的Foo.prototype</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>继承：继承意味着复制操作，但是JS并不会复制对象属性。JS会在两个对象之间创建一个关联，这样一个对象就可以通过委托访问另一个对象的属性和函数。</li>
+<li>差异继承：在描述对象行为时，使用其不同于普遍描述的特质。</li>
+</ul>
+<h4 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h4><ul>
+<li>Object.create（新创建对象的原型对象）会创建一个拥有null[[Prototype]]连接的新对象，并把新对象内部的[[Prototype]]对象并把它关联到你指定的对象。</li>
+<li><code>a=Object.create(b)</code>b是新创建对象a的[[prototype]]</li>
+<li><code>Bar.prototype=Object.create(Foo.prototype)</code>创建一个关联到Bar.prototype的新对象。<ul>
+<li>LHS先查找Bar.prorotype，找到后对其重新赋值</li>
+<li>赋予的值是Foo.prototype</li>
+</ul>
+</li>
+<li>在ES6后，可以使用新方法：<code>Object.setPrototyprOf(Bar.prototype,Foo.prototype)</code></li>
+</ul>
+<h4 id="检查”类”关系"><a href="#检查”类”关系" class="headerlink" title="检查”类”关系"></a>检查”类”关系</h4><ul>
+<li><strong>内省（反射）</strong>：检查一个实例的继承祖先</li>
+<li>对象和函数之间的关系：instanceof</li>
+<li>两个对象之间的关系：isPrototyprOf</li>
+<li>直接获取一个对象的[Protoype]链：Object.getPrototypeOf（a）或者a._proto </li>
+</ul>
+<h2 id="第6章-行为委托"><a href="#第6章-行为委托" class="headerlink" title="第6章 行为委托"></a>第6章 行为委托</h2><ul>
+<li>类和委托的区别：<ul>
+<li>在[[prototype]]委托中，最好把数据成员保存在委托者而不是委托目标上</li>
+<li>在类中，会利用多态、重写的优势。但是在委托中，要尽量避免这么做，否则就需要笨拙脆弱的语法: 隐式继承：<code>(OtherObj.methodName.call(this, ...))</code></li>
+<li>调用位置触发this的隐式绑定规则。</li>
+</ul>
+</li>
+<li>委托行为意味着某些对象在找不到属性或者方法引用时会把这个请求委托给另一个对象</li>
+</ul>
+<h4 id="比较思维模型"><a href="#比较思维模型" class="headerlink" title="比较思维模型"></a>比较思维模型</h4><ul>
+<li><p>面向对象(原型)风格代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params">who</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.me=who;</span><br><span class="line">&#125;</span><br><span class="line">Foo.prototype.identify=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">"I am"</span>+<span class="keyword">this</span>.me;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Bar</span>(<span class="params">who</span>)</span>&#123;</span><br><span class="line">  Foo.call(<span class="keyword">this</span>,who);</span><br><span class="line">&#125;</span><br><span class="line">Bar.prototype=<span class="built_in">Object</span>.create(Foo.prototype);</span><br><span class="line">Bar.prototype.speak=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> alert(<span class="string">"Hello,"</span>+<span class="keyword">this</span>.identify()+<span class="string">"."</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> b1=<span class="keyword">new</span> Bar(<span class="string">"b1"</span>);</span><br><span class="line"><span class="keyword">var</span> b2=<span class="keyword">new</span> Bar(<span class="string">"b2"</span>);</span><br><span class="line">b1.speak();</span><br><span class="line">b2.speak();</span><br></pre></td></tr></table></figure>
+<p><img src="http://image.jiantuku.com/18-6-24/27428852.jpg?e=1529820010&amp;token=el7kgPgYzpJoB23jrChWJ2gV3HpRl0VCzFn8rKKv:vToz18Hj_l43qWiUkjNJBZCK8Ug=" alt="js-1"></p>
+</li>
+<li><p>对象关联风格代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Foo=&#123;</span><br><span class="line">  init:<span class="function"><span class="keyword">function</span>(<span class="params">who</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.me=who;</span><br><span class="line">  &#125;,</span><br><span class="line">  identify:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"I am"</span>+<span class="keyword">this</span>.me;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">Bar=<span class="built_in">Object</span>.create(Foo);</span><br><span class="line">Bar.speak=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  alert(<span class="string">"Hello,"</span>+<span class="keyword">this</span>.identify()+<span class="string">"."</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> b1=<span class="built_in">Object</span>.create(Bar);</span><br><span class="line">b1.init(<span class="string">"b1"</span>);</span><br><span class="line"><span class="keyword">var</span> b2=<span class="built_in">Object</span>.create(Bar);</span><br><span class="line">b2.init(<span class="string">"b2"</span>);</span><br><span class="line">b1.speak();</span><br><span class="line">b2.speak();</span><br></pre></td></tr></table></figure>
+<p><img src="http://image.jiantuku.com/18-6-24/27504294.jpg?e=1529820010&amp;token=el7kgPgYzpJoB23jrChWJ2gV3HpRl0VCzFn8rKKv:77rL7BFASHGSWsq1zgUNpJsI6pI=" alt=""></p>
+</li>
+<li><p>使用构造函数，需要在同一步骤中实现构造和初始化<code>var b1=new Bar()</code>，但是对象关联风格代码分开两步，<code>b1=Object.create(Bar);b1.init(&quot;b1&quot;);</code>可以根据需要在创建后对象后，再在合适的位置初始化，更灵活，更具有优势。</p>
+</li>
+<li><p>行为委托模式中，Bar和Foo都是对象，它们之间是兄弟关系，并不是父类和子类的关系。</p>
+</li>
+</ul>
+<h4 id="更好的语法"><a href="#更好的语法" class="headerlink" title="更好的语法"></a>更好的语法</h4><ul>
+<li><p>ES6中可以在任意兑现改的字面形式中使用简洁方法声明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var LoginController=&#123;</span><br><span class="line">    errors:[],</span><br><span class="line">    bar()&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>存在的问题是：在对象创建方法的语法，其实是一个匿名函数表达式并赋值给bar属性，因此不具备自我引用的词法标识符。</p>
+</li>
+</ul>
+<h4 id="内省"><a href="#内省" class="headerlink" title="内省"></a>内省</h4><ul>
+<li>常见但脆弱的内省模式——鸭子类型：<code>if(a1.something){a1.something()}</code></li>
+<li>ES6中的Promise就是典型的“鸭子类型”</li>
+</ul>
+<h2 id="ES6中的class"><a href="#ES6中的class" class="headerlink" title="ES6中的class"></a>ES6中的class</h2><blockquote>
+<p>ES6的class解决了哪些问题</p>
+</blockquote>
+<ul>
+<li>不再使用杂乱的.prototype</li>
+<li>extends直接继承，不需要Object.create()</li>
+<li>可以通过super()实现多态</li>
+<li>class字面语法不能声明属性，只能声明方法，避免获取其他地方的属性。</li>
+<li>可以通过extends扩展对象子类型，甚至是内置的对象子类型。</li>
+</ul>
+<h4 id="class陷阱"><a href="#class陷阱" class="headerlink" title="class陷阱"></a>class陷阱</h4><ul>
+<li>若修改父类的方法，子类的所有实例都会受到影响。</li>
+<li>无法定义类成员属性，如果要跟踪实例之间共享状态，必须要使用.prototype语法</li>
+<li>class中会有意外屏蔽的问题</li>
+<li>super不一定会绑定到合适的对象，需要使用toMethod(…)手动绑定</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/20/读书笔记/《你不知道的JavaScript》读书笔记/《你不知道的JS(上)》读书笔记2/" rel="next" title="《你不知道的JS(上)》读书笔记2">
+                <i class="fa fa-chevron-left"></i> 《你不知道的JS(上)》读书笔记2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/25/读书笔记/《你不知道的JavaScript》读书笔记/《你不知道的JS(中)》读书笔记4/" rel="prev" title="《你不知道的JS(中)》读书笔记4">
+                《你不知道的JS(中)》读书笔记4 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Xyy" />
+            
+              <p class="site-author-name" itemprop="name">Xyy</p>
+              <p class="site-description motion-element" itemprop="description">I want to get ahead in a step-by-step</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第4章-混合对象“类”"><span class="nav-number">1.</span> <span class="nav-text">第4章 混合对象“类”</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#混入"><span class="nav-number">1.0.1.</span> <span class="nav-text">混入</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第5章-原型"><span class="nav-number">2.</span> <span class="nav-text">第5章 原型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#属性设置和屏蔽"><span class="nav-number">2.0.1.</span> <span class="nav-text">属性设置和屏蔽</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#“类”函数"><span class="nav-number">2.0.2.</span> <span class="nav-text">“类”函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#继承"><span class="nav-number">2.0.3.</span> <span class="nav-text">继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#检查”类”关系"><span class="nav-number">2.0.4.</span> <span class="nav-text">检查”类”关系</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第6章-行为委托"><span class="nav-number">3.</span> <span class="nav-text">第6章 行为委托</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#比较思维模型"><span class="nav-number">3.0.1.</span> <span class="nav-text">比较思维模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更好的语法"><span class="nav-number">3.0.2.</span> <span class="nav-text">更好的语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内省"><span class="nav-number">3.0.3.</span> <span class="nav-text">内省</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES6中的class"><span class="nav-number">4.</span> <span class="nav-text">ES6中的class</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#class陷阱"><span class="nav-number">4.0.1.</span> <span class="nav-text">class陷阱</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xyy</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

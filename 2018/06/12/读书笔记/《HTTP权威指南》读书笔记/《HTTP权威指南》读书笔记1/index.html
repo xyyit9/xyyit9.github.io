@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="网络," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第1章 HTTP概述 HTTP使用的是可靠的数据传输协议 客户端向服务器发送HTTP请求，服务器会在HTTP相应中回送所请求的数据 所有能够提供Web内容的东西都是Web资源 Web服务器会为所有HTTP对象数据附加一个MIME类型的数据格式标签 URI：服务器资源名称被称为统一资源标识符URI。URI有两种形式：URL和URN。 URL：统一资源定位符(URL)是资源标识符最常见的形式。URL">
+<meta name="keywords" content="网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《HTTP权威指南》读书笔记1">
+<meta property="og:url" content="http://yoursite.com/2018/06/12/读书笔记/《HTTP权威指南》读书笔记/《HTTP权威指南》读书笔记1/index.html">
+<meta property="og:site_name" content="XyyFighting">
+<meta property="og:description" content="第1章 HTTP概述 HTTP使用的是可靠的数据传输协议 客户端向服务器发送HTTP请求，服务器会在HTTP相应中回送所请求的数据 所有能够提供Web内容的东西都是Web资源 Web服务器会为所有HTTP对象数据附加一个MIME类型的数据格式标签 URI：服务器资源名称被称为统一资源标识符URI。URI有两种形式：URL和URN。 URL：统一资源定位符(URL)是资源标识符最常见的形式。URL">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-18T15:36:04.113Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《HTTP权威指南》读书笔记1">
+<meta name="twitter:description" content="第1章 HTTP概述 HTTP使用的是可靠的数据传输协议 客户端向服务器发送HTTP请求，服务器会在HTTP相应中回送所请求的数据 所有能够提供Web内容的东西都是Web资源 Web服务器会为所有HTTP对象数据附加一个MIME类型的数据格式标签 URI：服务器资源名称被称为统一资源标识符URI。URI有两种形式：URL和URN。 URL：统一资源定位符(URL)是资源标识符最常见的形式。URL">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/12/读书笔记/《HTTP权威指南》读书笔记/《HTTP权威指南》读书笔记1/"/>
+
+
+
+
+
+  <title>《HTTP权威指南》读书笔记1 | XyyFighting</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">XyyFighting</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/12/读书笔记/《HTTP权威指南》读书笔记/《HTTP权威指南》读书笔记1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">《HTTP权威指南》读书笔记1</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-12T00:00:00+08:00">
+                2018-06-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/HTTP权威指南/" itemprop="url" rel="index">
+                    <span itemprop="name">HTTP权威指南</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="第1章-HTTP概述"><a href="#第1章-HTTP概述" class="headerlink" title="第1章 HTTP概述"></a>第1章 HTTP概述</h2><ul>
+<li>HTTP使用的是可靠的数据传输协议</li>
+<li>客户端向服务器发送HTTP请求，服务器会在HTTP相应中回送所请求的数据</li>
+<li>所有能够提供Web内容的东西都是<strong>Web资源</strong></li>
+<li>Web服务器会为所有HTTP对象数据附加一个<strong>MIME类型</strong>的数据格式标签</li>
+<li><strong>URI</strong>：服务器资源名称被称为统一资源标识符URI。URI有两种形式：URL和URN。</li>
+<li><strong>URL</strong>：统一资源定位符(URL)是资源标识符最常见的形式。URL 描述了一台特定服务器上某资源的特定位置。</li>
+<li><strong>URN</strong>:URI 的第二种形式就是统一资源名(URN)。URN 是作为特定内容的唯一名称使用<br>的，与目前的资源所在地无关。</li>
+<li><strong>HTTP 事务</strong>由一条(从客户端发往服务器的)请求命令和一个(从服务器发回客户端的)响应结果组成。</li>
+<li>从 Web 客户端发往 Web 服务器的 HTTP 报文称为<strong>请求报文</strong>(request message)。从服务器发往客户端的报文称为<strong>响应报文</strong>(response message)</li>
+<li>浏览器通过 HTTP 显示HTML资源步骤：<ul>
+<li>浏览器从 URL 中解析出服务器的主机名;</li>
+<li>浏览器将服务器的主机名转换成服务器的 IP 地址;</li>
+<li>浏览器将端口号(如果有的话)从 URL 中解析出来;</li>
+<li>浏览器建立一条与 Web 服务器的 TCP 连接;</li>
+<li>浏览器向服务器发送一条 HTTP 请求报文;</li>
+<li>服务器向浏览器回送一条 HTTP 响应报文;<br>   关闭连接，浏览器显示文档。    </li>
+</ul>
+</li>
+<li><strong>代理</strong>：接收所有客户端HTTP请求，并将这些请求转发给服务器</li>
+<li><strong>缓存</strong>：将经过代理传送的常用文档复制保存起来，下一个请求统一文档的客户端可以享受缓存的私有副本。</li>
+<li><strong>网关</strong>：特殊的服务器，将HTTP流量转换成其他协议。</li>
+<li><strong>隧道</strong>：建立起来以后，就会在两条链接之间对原始数据进行盲转发的HTTP应用程序。常见用途是通过HTTP链接承载加密的安全套接字层SSL。</li>
+<li><strong>Agent代理</strong>：代表用户发起HTTP请求的客户端程序。所有发布Web请求的应用程序都是HTTP Agent代理。</li>
+</ul>
+<h2 id="第2章-URL与资源"><a href="#第2章-URL与资源" class="headerlink" title="第2章 URL与资源"></a>第2章 URL与资源</h2><ul>
+<li>URL分为以下三个部分：<ul>
+<li>URL方案，告知web客户端怎样访问资源</li>
+<li>服务器位置，告知客户端资源位于何处</li>
+<li>资源路径，请求的是服务器上那个特定的本地资源。</li>
+</ul>
+</li>
+<li><strong>片段#</strong>：引用部分资源或资源的一个片段</li>
+</ul>
+<h2 id="第3章-HTTP报文"><a href="#第3章-HTTP报文" class="headerlink" title="第3章 HTTP报文"></a>第3章 HTTP报文</h2><ul>
+<li><p>HTTP报文是在HTTP应用之间发送的数据块。这些数据块以一些文本形式的元信息开头。</p>
+</li>
+<li><p>报文的组成部分：</p>
+<ul>
+<li>起始行，对报文进行描述</li>
+<li>首部块，包含属性</li>
+<li>主体，可选的、包含数据的部分</li>
+</ul>
+<p>​</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/网络/" rel="tag"># 网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/09/读书笔记/《深入浅出ES6》/《深入浅出ES6》读书笔记2/" rel="next" title="《深入浅出ES6》读书笔记1">
+                <i class="fa fa-chevron-left"></i> 《深入浅出ES6》读书笔记1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/14/读书笔记/《你不知道的JavaScript》读书笔记/《你不知道的JS(上)》读书笔记1/" rel="prev" title="《你不知道的JS(上)》读书笔记1">
+                《你不知道的JS(上)》读书笔记1 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Xyy" />
+            
+              <p class="site-author-name" itemprop="name">Xyy</p>
+              <p class="site-description motion-element" itemprop="description">I want to get ahead in a step-by-step</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第1章-HTTP概述"><span class="nav-number">1.</span> <span class="nav-text">第1章 HTTP概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第2章-URL与资源"><span class="nav-number">2.</span> <span class="nav-text">第2章 URL与资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第3章-HTTP报文"><span class="nav-number">3.</span> <span class="nav-text">第3章 HTTP报文</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xyy</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
