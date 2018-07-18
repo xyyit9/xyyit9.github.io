@@ -359,10 +359,10 @@
 </ul>
 <h2 id="函数式组件和类组件"><a href="#函数式组件和类组件" class="headerlink" title="函数式组件和类组件"></a>函数式组件和类组件</h2><ul>
 <li><p>定义组件方式1：JS函数</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Welcome</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, &#123;props.name&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Welcome</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &lt;h1&gt;Hello, &#123;props.name&#125;&lt;/h1&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>定义组件的方式2：ES6的class</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Welcome</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, &#123;this.props.name&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Welcome</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;h1&gt;Hello, &#123;this.props.name&#125;&lt;/h1&gt;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <h2 id="异步更新State"><a href="#异步更新State" class="headerlink" title="异步更新State"></a>异步更新State</h2><ul>
@@ -399,7 +399,7 @@
 <blockquote>
 <p>在xm项目首页编写应用的组件中，需要在点击组件后，跳到不同的页面</p>
 </blockquote>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原本</span></span><br><span class="line">homeSource = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">    e.preventDefault();</span><br><span class="line">    <span class="keyword">this</span>.props.homeSource(<span class="keyword">this</span>.props.sourceType);</span><br><span class="line">  &#125;</span><br><span class="line">&lt;Button onClick=&#123;<span class="keyword">this</span>.homeSource&#125;&gt;<span class="xml"><span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span></span><br><span class="line"><span class="comment">// 也可以这样写</span></span><br><span class="line">homeSource = <span class="function">(<span class="params">e, sourceType</span>) =&gt;</span> &#123;</span><br><span class="line">    e.preventDefault();</span><br><span class="line">    <span class="keyword">this</span>.props.homeSource(sourceType);</span><br><span class="line">  &#125;</span><br><span class="line"> &lt;Button onClick=&#123;e =&gt; <span class="keyword">this</span>.homeSource(e, <span class="keyword">this</span>.props.sourceType)&#125;&gt;<span class="xml"><span class="tag">&lt;/<span class="name">Button</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原本</span></span><br><span class="line">homeSource = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">    e.preventDefault();</span><br><span class="line">    <span class="keyword">this</span>.props.homeSource(<span class="keyword">this</span>.props.sourceType);</span><br><span class="line">  &#125;</span><br><span class="line">&lt;Button onClick=&#123;<span class="keyword">this</span>.homeSource&#125;&gt;&lt;/Button&gt;</span><br><span class="line"><span class="comment">// 也可以这样写</span></span><br><span class="line">homeSource = <span class="function">(<span class="params">e, sourceType</span>) =&gt;</span> &#123;</span><br><span class="line">    e.preventDefault();</span><br><span class="line">    <span class="keyword">this</span>.props.homeSource(sourceType);</span><br><span class="line">  &#125;</span><br><span class="line"> &lt;Button onClick=&#123;e =&gt; <span class="keyword">this</span>.homeSource(e, <span class="keyword">this</span>.props.sourceType)&#125;&gt;&lt;/Button&gt;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>组件元素也是可以作为props进行传递</p>
 </li>
@@ -442,8 +442,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/05/前端框架/React文档学习/React文档学习(2)/" rel="next" title="React文档学习(2)">
-                <i class="fa fa-chevron-left"></i> React文档学习(2)
+              <a href="/2018/06/04/读书笔记/《精通CSS》读书笔记/《精通CSS》读书笔记5/" rel="next" title="《精通CSS》读书笔记5">
+                <i class="fa fa-chevron-left"></i> 《精通CSS》读书笔记5
               </a>
             
           </div>
@@ -452,8 +452,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/06/06/读书笔记/《深入浅出ES6》/《深入浅出ES6》读书笔记1/" rel="prev" title="《深入浅出ES6》读书笔记1">
-                《深入浅出ES6》读书笔记1 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/06/05/前端框架/React文档学习/React文档学习(2)/" rel="prev" title="React文档学习(2)">
+                React文档学习(2) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
