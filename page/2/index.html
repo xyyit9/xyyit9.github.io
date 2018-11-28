@@ -252,6 +252,244 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/06/读书笔记/《深入浅出ES6》/《深入浅出ES6》读书笔记1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/06/读书笔记/《深入浅出ES6》/《深入浅出ES6》读书笔记1/" itemprop="url">《深入浅出ES6》读书笔记1</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-06T00:00:00+08:00">
+                2018-06-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/深入浅出ES6/" itemprop="url" rel="index">
+                    <span itemprop="name">深入浅出ES6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>:warning:表示ES5和ES6的区别</p>
+<p>:seven:表示ES7中的内容</p>
+<h2 id="第一章-块级绑定"><a href="#第一章-块级绑定" class="headerlink" title="第一章 块级绑定"></a>第一章 块级绑定</h2><p>:warning:ES5:存在变量出现undefiend的变量提升、不存在块级声明</p>
+<ul>
+<li>let和const的<strong>重大区别</strong>：<ul>
+<li>试图对之前用const声明的常量进行赋值会抛出错误。但是const声明的对象可以修改，因为const阻止的是对于变量绑定的修改，不是对其中成员值的修改</li>
+<li>let 可以在循环内工作，也可以在for-in和for-of内工作</li>
+<li>const不可以在循环内工作（这是修改const声明的变量），但可以在for-in和for-of中中作（这是对变量的修改）</li>
+</ul>
+</li>
+</ul>
+<h2 id="第二章，字符串与正则表达式"><a href="#第二章，字符串与正则表达式" class="headerlink" title="第二章，字符串与正则表达式"></a>第二章，字符串与正则表达式</h2><h3 id="unicode方法"><a href="#unicode方法" class="headerlink" title="unicode方法"></a>unicode方法</h3><ul>
+<li>UTF-16中引入代理对解决超出范围代码点表示方法问题，允许使用两个16位码元来表示单个代码点，即用4个字节储存。</li>
+</ul>
+<p>:warning:ES5对于那些需要<code>4</code>个字节储存的字符（Unicode 码点大于<code>0xFFFF</code>的字符）会认为它们是两个字符。</p>
+<ul>
+<li><p>ES5与unicode相关的方法：</p>
+<ul>
+<li>charAt() 方法可返回指定位置的字符</li>
+<li>charCodeAt() 方法可返回指定位置的字符的 Unicode 编码。这个返回值是 0 - 65535 之间的整数。</li>
+<li>String.fromCharCode方法，用于从码点返回对应字符</li>
+</ul>
+</li>
+<li><p>at()方法：对应原本的charAt() 方法</p>
+</li>
+<li><p>codePointAt()方法：对应原来的charCodeAt()方法。可以用于检测一个字符由两个字节还是4个字节组成</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">is32Bit</span>(<span class="params">c</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> c.codePointAt(<span class="number">0</span>) &gt; <span class="number">0xFFFF</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>String.fromCodePoint()方法：对应原来的String.fromCharCode方法</p>
+</li>
+</ul>
+<h3 id="子字符串方法"><a href="#子字符串方法" class="headerlink" title="子字符串方法"></a>子字符串方法</h3><p>:warning:只有<code>indexOf</code>方法，可以用来确定一个字符串在另一个字符串中具体位置。</p>
+<ul>
+<li>ES6新增如下方法<ul>
+<li><strong>includes()</strong>：返回布尔值，表示是否找到了参数字符串。</li>
+<li><strong>startsWith()</strong>：返回布尔值，表示参数字符串是否在原字符串的头部。</li>
+<li><strong>endsWith()</strong>：返回布尔值，表示参数字符串是否在原字符串的尾部。</li>
+<li><strong>Repeat()：</strong>方法返回一个新字符串，表示将原字符串重复<code>n</code>次。</li>
+</ul>
+</li>
+</ul>
+<p>:seven:ES2017 引入了字符串补全长度的功能。如果某个字符串不够指定长度，会在头部或尾部补全。<code>padStart()</code>用于头部补全，<code>padEnd()</code>用于尾部补全。</p>
+<h3 id="模板字面量"><a href="#模板字面量" class="headerlink" title="模板字面量"></a>模板字面量</h3><p>:warning:改变ES5字符串换行的方式，ES6可以直接包含换行和缩进</p>
+<h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><p>:warning:ES5中正则表达式只匹配码元。ES6中引入u标志，即正则表达式会匹配字符而不是码元。</p>
+<ul>
+<li><code>y</code>修饰符的作用与<code>g</code>修饰符类似，也是全局匹配，后一次匹配都从上一次匹配成功的下一个位置开始。<code>g</code>修饰符只要剩余位置中存在匹配就可，而<code>y</code>修饰符确保匹配必须从剩余的第一个位置开始。<code>y</code>修饰符的一个应用，是从字符串提取 token</li>
+</ul>
+<p>:warning:在ES5中<code>var regex = new RegExp(/xyz/, &#39;i&#39;);</code>不行，在ES6中可行。</p>
+<h2 id="第三章-函数"><a href="#第三章-函数" class="headerlink" title="第三章 函数"></a>第三章 函数</h2><p>:warning:ES5中给函数参数指定默认值，需要<code>typeof &quot;undefined&quot;</code>，ES6规定了指定默认参数的方式</p>
+<p>:warning:ES5非严格模式下，arguments总是会被更新以反映出具名参数的变化，但在严格模式下，不再会反映出具名参数的变化。ES6则和ES5的严格模式一样。</p>
+<p>:warning: ES5中的不具名参数操作起来很麻烦，ES6引入rest参数。</p>
+<p>:warning:ES5判断函数是不是使用了new来调用，最流行的方式是使用instanceof。但是在<code>var notAPerson=Person.call(person,&quot;Mike&quot;)</code>的情况下，无法分辨。ES6引入new.target元属性。</p>
+<p>:warning:ES5中在代码块内部函数声明会出现错误，但是ES6中不会</p>
+<p>:warning:ES5中尾部调用是一个新的栈帧被创建并推到调用栈智商，用于表示该次函数调用。ES6中用优化会清除当前帧栈并再次利用它，而不是为尾调用创建新的栈帧。</p>
+<h2 id="第四章-扩展的对象功能"><a href="#第四章-扩展的对象功能" class="headerlink" title="第四章 扩展的对象功能"></a>第四章 扩展的对象功能</h2><p>:warning:ES5对象字面量不能有重复属性，但是ES6可以有重复属性，值以最后一个为准</p>
+<p>:warning: ES5避免创建新的全局函数，避免在object对象的原型上添加新方法，而是尝试寻找哪些对象应该被添加新方法。ES6提出Object.assign()</p>
+<p>:warning:ES5对象的原型在初始化完成后会保持不变，但是ES6通过添加Object.setPrototypeOf()方法改变指定对象的原型。</p>
+<ul>
+<li>ES6引入super，是当前对象的原型的一个指针，实际上就是object.getPrototypeOf(this)的值</li>
+<li>当有多重继承的时候，object.getPrototypeOf(this)会只想上一级原型，而super会指向最上层的原型</li>
+</ul>
+<h2 id="第五章-解构：更方便的数据访问"><a href="#第五章-解构：更方便的数据访问" class="headerlink" title="第五章 解构：更方便的数据访问"></a>第五章 解构：更方便的数据访问</h2><ul>
+<li>在使用var、let、const进行数组解构时，必须提供初始化器</li>
+</ul>
+<p>:warning:ES5中交换变量需要用到第三个变量，但是在ES6中只需要<code>[a,b]=[b,a]</code></p>
+<ul>
+<li>在ES5中clone数组一般用concat()，在ES6可以使用剩余项语法<code>let[...clonedColors]=colors</code></li>
+</ul>
+<h2 id="第六章-符号与符号属性"><a href="#第六章-符号与符号属性" class="headerlink" title="第六章 符号与符号属性"></a>第六章 符号与符号属性</h2><ul>
+<li>Symbol()：创建符号值</li>
+<li>Smybol.for()：创建共享符号值</li>
+<li>Symbol.keyFor()：在全局符号注册表中根据符号值搜索出对应的键值</li>
+<li>Symbol.hasInstance():判断指定对象是否为本函数的一个实例</li>
+<li>Symbol.isConcatSpreadable()：指示对象被添加到数组时应该适用分离的属性值</li>
+</ul>
+<p>:warning:ES5想要识别目标对象到底是什么类型的时候，此时对象已经在环境之间经历了传递，就无法正确识别出类型，需要通过以下方式正确识别。</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function isArray(value)&#123;</span><br><span class="line">    return Object.prototype.toString.call(value)===&quot;[object Array]&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在ES6中，Symbol.toStringTag():代表了所有对象的一种属性，定义object.prototype.toString.call()被调用时应该返回什么值。</p>
+<ul>
+<li>Symbol.unscopables（）：在Array.prototype上使用，指定哪些属性不孕育在with语句内被绑定。因为ES6添加了values方法，导致with语句内部的values并不会指向局部变量values，而是回想数组的values方法。</li>
+</ul>
+<h2 id="第七章-Set和Map"><a href="#第七章-Set和Map" class="headerlink" title="第七章 Set和Map"></a>第七章 Set和Map</h2><p>⚠️ES5中使用对象属性模拟Set和Map，会有以下问题：</p>
+<ol>
+<li>键有可能会被转换为相同的字符串</li>
+<li>在需要布尔值的地方，0也会被转换为false</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/06/前端框架/React文档学习/React文档学习(3)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -458,7 +696,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/06/读书笔记/《深入浅出ES6》/《深入浅出ES6》读书笔记1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/05/前端框架/React文档学习/React文档学习(1)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Xyy">
@@ -477,7 +715,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/06/读书笔记/《深入浅出ES6》/《深入浅出ES6》读书笔记1/" itemprop="url">《深入浅出ES6》读书笔记1</a></h1>
+                <a class="post-title-link" href="/2018/06/05/前端框架/React文档学习/React文档学习(1)/" itemprop="url">React文档学习(1)</a></h1>
         
 
         <div class="post-meta">
@@ -489,8 +727,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-06T00:00:00+08:00">
-                2018-06-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-05T00:00:00+08:00">
+                2018-06-05
               </time>
             
 
@@ -512,8 +750,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
+                  <a href="/categories/学习记录/" itemprop="url" rel="index">
+                    <span itemprop="name">学习记录</span>
                   </a>
                 </span>
 
@@ -523,8 +761,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/深入浅出ES6/" itemprop="url" rel="index">
-                    <span itemprop="name">深入浅出ES6</span>
+                  <a href="/categories/学习记录/React/" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
                   </a>
                 </span>
 
@@ -562,92 +800,65 @@
       
         
           
-            <p>:warning:表示ES5和ES6的区别</p>
-<p>:seven:表示ES7中的内容</p>
-<h2 id="第一章-块级绑定"><a href="#第一章-块级绑定" class="headerlink" title="第一章 块级绑定"></a>第一章 块级绑定</h2><p>:warning:ES5:存在变量出现undefiend的变量提升、不存在块级声明</p>
-<ul>
-<li>let和const的<strong>重大区别</strong>：<ul>
-<li>试图对之前用const声明的常量进行赋值会抛出错误。但是const声明的对象可以修改，因为const阻止的是对于变量绑定的修改，不是对其中成员值的修改</li>
-<li>let 可以在循环内工作，也可以在for-in和for-of内工作</li>
-<li>const不可以在循环内工作（这是修改const声明的变量），但可以在for-in和for-of中中作（这是对变量的修改）</li>
+            <h1 id="React文档学习-1"><a href="#React文档学习-1" class="headerlink" title="React文档学习(1)"></a>React文档学习(1)</h1><ul>
+<li>从去年10月开始使用react，在使用过程中一直不断地更新自己对react的认知，发现很多东西是之前看文档没有注意到的。现在再看一遍文档，用于解答一些自己在项目中的疑惑。</li>
+<li>基础篇</li>
 </ul>
+<h2 id="函数式组件和类组件"><a href="#函数式组件和类组件" class="headerlink" title="函数式组件和类组件"></a>函数式组件和类组件</h2><ul>
+<li><p>定义组件方式1：JS函数</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Welcome</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &lt;h1&gt;Hello, &#123;props.name&#125;&lt;/h1&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>定义组件的方式2：ES6的class</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Welcome</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;h1&gt;Hello, &#123;this.props.name&#125;&lt;/h1&gt;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="第二章，字符串与正则表达式"><a href="#第二章，字符串与正则表达式" class="headerlink" title="第二章，字符串与正则表达式"></a>第二章，字符串与正则表达式</h2><h3 id="unicode方法"><a href="#unicode方法" class="headerlink" title="unicode方法"></a>unicode方法</h3><ul>
-<li>UTF-16中引入代理对解决超出范围代码点表示方法问题，允许使用两个16位码元来表示单个代码点，即用4个字节储存。</li>
-</ul>
-<p>:warning:ES5对于那些需要<code>4</code>个字节储存的字符（Unicode 码点大于<code>0xFFFF</code>的字符）会认为它们是两个字符。</p>
-<ul>
-<li><p>ES5与unicode相关的方法：</p>
-<ul>
-<li>charAt() 方法可返回指定位置的字符</li>
-<li>charCodeAt() 方法可返回指定位置的字符的 Unicode 编码。这个返回值是 0 - 65535 之间的整数。</li>
-<li>String.fromCharCode方法，用于从码点返回对应字符</li>
-</ul>
-</li>
-<li><p>at()方法：对应原本的charAt() 方法</p>
-</li>
-<li><p>codePointAt()方法：对应原来的charCodeAt()方法。可以用于检测一个字符由两个字节还是4个字节组成</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">is32Bit</span>(<span class="params">c</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> c.codePointAt(<span class="number">0</span>) &gt; <span class="number">0xFFFF</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>String.fromCodePoint()方法：对应原来的String.fromCharCode方法</p>
+<h2 id="异步更新State"><a href="#异步更新State" class="headerlink" title="异步更新State"></a>异步更新State</h2><ul>
+<li><p>为了优化性能，有可能会将多个 <code>setState()</code> 调用合并为一次更新。接收一个函数，而不是一个对象。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 	写法1：es6箭头函数</span></span><br><span class="line"><span class="keyword">this</span>.setState(<span class="function">(<span class="params">prevState, props</span>) =&gt;</span> (&#123;</span><br><span class="line">  counter: prevState.counter + props.increment</span><br><span class="line">&#125;));</span><br><span class="line"><span class="comment">// 写法2：常规函数</span></span><br><span class="line"><span class="keyword">this</span>.setState(<span class="function"><span class="keyword">function</span>(<span class="params">prevState, props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    counter: prevState.counter + props.increment</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h3 id="子字符串方法"><a href="#子字符串方法" class="headerlink" title="子字符串方法"></a>子字符串方法</h3><p>:warning:只有<code>indexOf</code>方法，可以用来确定一个字符串在另一个字符串中具体位置。</p>
-<ul>
-<li>ES6新增如下方法<ul>
-<li><strong>includes()</strong>：返回布尔值，表示是否找到了参数字符串。</li>
-<li><strong>startsWith()</strong>：返回布尔值，表示参数字符串是否在原字符串的头部。</li>
-<li><strong>endsWith()</strong>：返回布尔值，表示参数字符串是否在原字符串的尾部。</li>
-<li><strong>Repeat()：</strong>方法返回一个新字符串，表示将原字符串重复<code>n</code>次。</li>
-</ul>
+<h2 id="处理事件"><a href="#处理事件" class="headerlink" title="处理事件"></a>处理事件</h2><ul>
+<li><p>this指向的问题</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Toggle</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;<span class="attr">isToggleOn</span>: <span class="literal">true</span>&#125;;</span><br><span class="line">    <span class="comment">// 这个绑定是必要的，使`this`在回调中起作用</span></span><br><span class="line">    <span class="keyword">this</span>.handleClick = <span class="keyword">this</span>.handleClick.bind(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  handleClick() &#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(<span class="function"><span class="params">prevState</span> =&gt;</span> (&#123;</span><br><span class="line">      isToggleOn: !prevState.isToggleOn</span><br><span class="line">    &#125;));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;button onClick=&#123;<span class="keyword">this</span>.handleClick&#125;&gt;</span><br><span class="line">        &#123;<span class="keyword">this</span>.state.isToggleOn ? <span class="string">'ON'</span> : <span class="string">'OFF'</span>&#125;</span><br><span class="line">      &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">ReactDOM.render(</span></span><br><span class="line"><span class="regexp">  &lt;Toggle /</span>&gt;,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">'root'</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>以下两种方法可以不用绑定</p>
+<p>方法1：属性初始化语法</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LoggingButton</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 这个语法确保 `this` 绑定在 handleClick 中。</span></span><br><span class="line">  <span class="comment">// 警告：这是 *实验性的* 语法。</span></span><br><span class="line">  handleClick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'this is:'</span>, <span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;button onClick=&#123;<span class="keyword">this</span>.handleClick&#125;&gt;</span><br><span class="line">        Click me</span><br><span class="line">      &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>方法2：在回调中使用箭头函数</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LoggingButton</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  handleClick() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'this is:'</span>, <span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="comment">// 这个语法确保 `this` 被绑定在 handleClick 中</span></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;button onClick=&#123;(e) =&gt; <span class="keyword">this</span>.handleClick(e)&#125;&gt;</span><br><span class="line">        Click me</span><br><span class="line">      &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>:seven:ES2017 引入了字符串补全长度的功能。如果某个字符串不够指定长度，会在头部或尾部补全。<code>padStart()</code>用于头部补全，<code>padEnd()</code>用于尾部补全。</p>
-<h3 id="模板字面量"><a href="#模板字面量" class="headerlink" title="模板字面量"></a>模板字面量</h3><p>:warning:改变ES5字符串换行的方式，ES6可以直接包含换行和缩进</p>
-<h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><p>:warning:ES5中正则表达式只匹配码元。ES6中引入u标志，即正则表达式会匹配字符而不是码元。</p>
-<ul>
-<li><code>y</code>修饰符的作用与<code>g</code>修饰符类似，也是全局匹配，后一次匹配都从上一次匹配成功的下一个位置开始。<code>g</code>修饰符只要剩余位置中存在匹配就可，而<code>y</code>修饰符确保匹配必须从剩余的第一个位置开始。<code>y</code>修饰符的一个应用，是从字符串提取 token</li>
+<h2 id="条件渲染"><a href="#条件渲染" class="headerlink" title="条件渲染"></a>条件渲染</h2><ul>
+<li><p>防止组件渲染</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">WaringBanner</span>(<span class="params">props</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!props.warn)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<p>:warning:在ES5中<code>var regex = new RegExp(/xyz/, &#39;i&#39;);</code>不行，在ES6中可行。</p>
-<h2 id="第三章-函数"><a href="#第三章-函数" class="headerlink" title="第三章 函数"></a>第三章 函数</h2><p>:warning:ES5中给函数参数指定默认值，需要<code>typeof &quot;undefined&quot;</code>，ES6规定了指定默认参数的方式</p>
-<p>:warning:ES5非严格模式下，arguments总是会被更新以反映出具名参数的变化，但在严格模式下，不再会反映出具名参数的变化。ES6则和ES5的严格模式一样。</p>
-<p>:warning: ES5中的不具名参数操作起来很麻烦，ES6引入rest参数。</p>
-<p>:warning:ES5判断函数是不是使用了new来调用，最流行的方式是使用instanceof。但是在<code>var notAPerson=Person.call(person,&quot;Mike&quot;)</code>的情况下，无法分辨。ES6引入new.target元属性。</p>
-<p>:warning:ES5中在代码块内部函数声明会出现错误，但是ES6中不会</p>
-<p>:warning:ES5中尾部调用是一个新的栈帧被创建并推到调用栈智商，用于表示该次函数调用。ES6中用优化会清除当前帧栈并再次利用它，而不是为尾调用创建新的栈帧。</p>
-<h2 id="第四章-扩展的对象功能"><a href="#第四章-扩展的对象功能" class="headerlink" title="第四章 扩展的对象功能"></a>第四章 扩展的对象功能</h2><p>:warning:ES5对象字面量不能有重复属性，但是ES6可以有重复属性，值以最后一个为准</p>
-<p>:warning: ES5避免创建新的全局函数，避免在object对象的原型上添加新方法，而是尝试寻找哪些对象应该被添加新方法。ES6提出Object.assign()</p>
-<p>:warning:ES5对象的原型在初始化完成后会保持不变，但是ES6通过添加Object.setPrototypeOf()方法改变指定对象的原型。</p>
-<ul>
-<li>ES6引入super，是当前对象的原型的一个指针，实际上就是object.getPrototypeOf(this)的值</li>
-<li>当有多重继承的时候，object.getPrototypeOf(this)会只想上一级原型，而super会指向最上层的原型</li>
+<h2 id="List和Keys"><a href="#List和Keys" class="headerlink" title="List和Keys"></a>List和Keys</h2><ul>
+<li>一个好的经验准则是元素中调用 <code>map()</code> 需要 keys 。</li>
+<li>在数组中使用的 keys 必须在它们的同辈之间唯一。然而它们并不需要全局唯一。</li>
 </ul>
-<h2 id="第五章-解构：更方便的数据访问"><a href="#第五章-解构：更方便的数据访问" class="headerlink" title="第五章 解构：更方便的数据访问"></a>第五章 解构：更方便的数据访问</h2><ul>
-<li>在使用var、let、const进行数组解构时，必须提供初始化器</li>
+<h2 id="表单"><a href="#表单" class="headerlink" title="表单"></a>表单</h2><h3 id="file-input标签"><a href="#file-input标签" class="headerlink" title="file input标签"></a>file input标签</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FileInput</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.handleSubmit = <span class="keyword">this</span>.handleSubmit.bind(</span><br><span class="line">      <span class="keyword">this</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  handleSubmit(event) &#123;</span><br><span class="line">    event.preventDefault();</span><br><span class="line">    alert(</span><br><span class="line">      <span class="string">`Selected file - <span class="subst">$&#123;</span></span></span><br><span class="line"><span class="string"><span class="subst">        <span class="keyword">this</span>.fileInput.files[<span class="number">0</span>].name</span></span></span><br><span class="line"><span class="string"><span class="subst">      &#125;</span>`</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;form</span><br><span class="line">        onSubmit=&#123;<span class="keyword">this</span>.handleSubmit&#125;&gt;</span><br><span class="line">        &lt;label&gt;</span><br><span class="line">          Upload file:</span><br><span class="line">          &lt;input</span><br><span class="line">            type=<span class="string">"file"</span></span><br><span class="line">            ref=&#123;input =&gt; &#123;</span><br><span class="line">              <span class="keyword">this</span>.fileInput = input;</span><br><span class="line">            &#125;&#125;</span><br><span class="line">          /&gt;</span><br><span class="line">        &lt;<span class="regexp">/label&gt;</span></span><br><span class="line"><span class="regexp">        &lt;br /</span>&gt;</span><br><span class="line">        &lt;button type=<span class="string">"submit"</span>&gt;</span><br><span class="line">          Submit</span><br><span class="line">        &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>form&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;FileInput /&gt;,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">'root'</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h2 id="状态提升"><a href="#状态提升" class="headerlink" title="状态提升"></a>状态提升</h2><ul>
+<li><p>状态提升：同一个数据的变化需要几个不同的组件来反映。我们建议提升共享的状态到它们最近的祖先组件中。</p>
+</li>
+<li><p>将组件中原本的state改成props，将原本的setState方法改成props传入的方法</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">handleChange=<span class="function">(<span class="params">e</span>)=&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.props.onTemperatureChange(e.target.value);</span><br><span class="line">  &#125;</span><br><span class="line">&lt;input onChange=&#123;<span class="keyword">this</span>.handleChange&#125; /&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在xm项目首页编写应用的组件中，需要在点击组件后，跳到不同的页面</p>
+</blockquote>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原本</span></span><br><span class="line">homeSource = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">    e.preventDefault();</span><br><span class="line">    <span class="keyword">this</span>.props.homeSource(<span class="keyword">this</span>.props.sourceType);</span><br><span class="line">  &#125;</span><br><span class="line">&lt;Button onClick=&#123;<span class="keyword">this</span>.homeSource&#125;&gt;&lt;/Button&gt;</span><br><span class="line"><span class="comment">// 也可以这样写</span></span><br><span class="line">homeSource = <span class="function">(<span class="params">e, sourceType</span>) =&gt;</span> &#123;</span><br><span class="line">    e.preventDefault();</span><br><span class="line">    <span class="keyword">this</span>.props.homeSource(sourceType);</span><br><span class="line">  &#125;</span><br><span class="line"> &lt;Button onClick=&#123;e =&gt; <span class="keyword">this</span>.homeSource(e, <span class="keyword">this</span>.props.sourceType)&#125;&gt;&lt;/Button&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>组件元素也是可以作为props进行传递</p>
+</li>
 </ul>
-<p>:warning:ES5中交换变量需要用到第三个变量，但是在ES6中只需要<code>[a,b]=[b,a]</code></p>
-<ul>
-<li>在ES5中clone数组一般用concat()，在ES6可以使用剩余项语法<code>let[...clonedColors]=colors</code></li>
-</ul>
-<h2 id="第六章-符号与符号属性"><a href="#第六章-符号与符号属性" class="headerlink" title="第六章 符号与符号属性"></a>第六章 符号与符号属性</h2><ul>
-<li>Symbol()：创建符号值</li>
-<li>Smybol.for()：创建共享符号值</li>
-<li>Symbol.keyFor()：在全局符号注册表中根据符号值搜索出对应的键值</li>
-<li>Symbol.hasInstance():判断指定对象是否为本函数的一个实例</li>
-<li>Symbol.isConcatSpreadable()：指示对象被添加到数组时应该适用分离的属性值</li>
-</ul>
-<p>:warning:ES5想要识别目标对象到底是什么类型的时候，此时对象已经在环境之间经历了传递，就无法正确识别出类型，需要通过以下方式正确识别。</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function isArray(value)&#123;</span><br><span class="line">    return Object.prototype.toString.call(value)===&quot;[object Array]&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在ES6中，Symbol.toStringTag():代表了所有对象的一种属性，定义object.prototype.toString.call()被调用时应该返回什么值。</p>
-<ul>
-<li>Symbol.unscopables（）：在Array.prototype上使用，指定哪些属性不孕育在with语句内被绑定。因为ES6添加了values方法，导致with语句内部的values并不会指向局部变量values，而是回想数组的values方法。</li>
-</ul>
-<h2 id="第七章-Set和Map"><a href="#第七章-Set和Map" class="headerlink" title="第七章 Set和Map"></a>第七章 Set和Map</h2><p>⚠️ES5中使用对象属性模拟Set和Map，会有以下问题：</p>
-<ol>
-<li>键有可能会被转换为相同的字符串</li>
-<li>在需要布尔值的地方，0也会被转换为false</li>
+<h2 id="React编程思想"><a href="#React编程思想" class="headerlink" title="React编程思想"></a>React编程思想</h2><ul>
+<li>对于数据，判断应该是state和props的关键点：<ol>
+<li>是否通过 props(属性) 从父级传入？ 如果是这样，它可能不是 state(状态) 。</li>
+<li>是否永远不会发生变化？ 如果是这样，它可能不是 state(状态)。</li>
+<li>是否可以由组件中其他的 state(状态) 或 props(属性) 计算得出？如果是这样，则它不是 state(状态)。</li>
 </ol>
+</li>
+</ul>
 
           
         
@@ -898,217 +1109,6 @@
 <li>更加糟糕的是，我们也不能在TodoList中手动实现<code>shouldComponentUpdate(nextProps, nextState, nextContext)</code>，因为SCU根本就不会接收到context数据(只有当它的state或者props修改了才能接收到，getChildContext才会调用)。</li>
 <li>因此，shouldComponentUpdate如果返回false，那么所有的子组件都不会接收到context的更新。如这里的TodoList组件返回了false,那么TodoList下所有的ThemedText从context中获取到的color都不会更新。</li>
 </ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/05/前端框架/React文档学习/React文档学习(1)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XyyFighting">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/05/前端框架/React文档学习/React文档学习(1)/" itemprop="url">React文档学习(1)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-05T00:00:00+08:00">
-                2018-06-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习记录/" itemprop="url" rel="index">
-                    <span itemprop="name">学习记录</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习记录/React/" itemprop="url" rel="index">
-                    <span itemprop="name">React</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="React文档学习-1"><a href="#React文档学习-1" class="headerlink" title="React文档学习(1)"></a>React文档学习(1)</h1><ul>
-<li>从去年10月开始使用react，在使用过程中一直不断地更新自己对react的认知，发现很多东西是之前看文档没有注意到的。现在再看一遍文档，用于解答一些自己在项目中的疑惑。</li>
-<li>基础篇</li>
-</ul>
-<h2 id="函数式组件和类组件"><a href="#函数式组件和类组件" class="headerlink" title="函数式组件和类组件"></a>函数式组件和类组件</h2><ul>
-<li><p>定义组件方式1：JS函数</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Welcome</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &lt;h1&gt;Hello, &#123;props.name&#125;&lt;/h1&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>定义组件的方式2：ES6的class</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Welcome</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;h1&gt;Hello, &#123;this.props.name&#125;&lt;/h1&gt;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="异步更新State"><a href="#异步更新State" class="headerlink" title="异步更新State"></a>异步更新State</h2><ul>
-<li><p>为了优化性能，有可能会将多个 <code>setState()</code> 调用合并为一次更新。接收一个函数，而不是一个对象。</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 	写法1：es6箭头函数</span></span><br><span class="line"><span class="keyword">this</span>.setState(<span class="function">(<span class="params">prevState, props</span>) =&gt;</span> (&#123;</span><br><span class="line">  counter: prevState.counter + props.increment</span><br><span class="line">&#125;));</span><br><span class="line"><span class="comment">// 写法2：常规函数</span></span><br><span class="line"><span class="keyword">this</span>.setState(<span class="function"><span class="keyword">function</span>(<span class="params">prevState, props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    counter: prevState.counter + props.increment</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="处理事件"><a href="#处理事件" class="headerlink" title="处理事件"></a>处理事件</h2><ul>
-<li><p>this指向的问题</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Toggle</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;<span class="attr">isToggleOn</span>: <span class="literal">true</span>&#125;;</span><br><span class="line">    <span class="comment">// 这个绑定是必要的，使`this`在回调中起作用</span></span><br><span class="line">    <span class="keyword">this</span>.handleClick = <span class="keyword">this</span>.handleClick.bind(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  handleClick() &#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(<span class="function"><span class="params">prevState</span> =&gt;</span> (&#123;</span><br><span class="line">      isToggleOn: !prevState.isToggleOn</span><br><span class="line">    &#125;));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;button onClick=&#123;<span class="keyword">this</span>.handleClick&#125;&gt;</span><br><span class="line">        &#123;<span class="keyword">this</span>.state.isToggleOn ? <span class="string">'ON'</span> : <span class="string">'OFF'</span>&#125;</span><br><span class="line">      &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">ReactDOM.render(</span></span><br><span class="line"><span class="regexp">  &lt;Toggle /</span>&gt;,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">'root'</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>以下两种方法可以不用绑定</p>
-<p>方法1：属性初始化语法</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LoggingButton</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 这个语法确保 `this` 绑定在 handleClick 中。</span></span><br><span class="line">  <span class="comment">// 警告：这是 *实验性的* 语法。</span></span><br><span class="line">  handleClick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'this is:'</span>, <span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;button onClick=&#123;<span class="keyword">this</span>.handleClick&#125;&gt;</span><br><span class="line">        Click me</span><br><span class="line">      &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
-<p>方法2：在回调中使用箭头函数</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LoggingButton</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  handleClick() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'this is:'</span>, <span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="comment">// 这个语法确保 `this` 被绑定在 handleClick 中</span></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;button onClick=&#123;(e) =&gt; <span class="keyword">this</span>.handleClick(e)&#125;&gt;</span><br><span class="line">        Click me</span><br><span class="line">      &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="条件渲染"><a href="#条件渲染" class="headerlink" title="条件渲染"></a>条件渲染</h2><ul>
-<li><p>防止组件渲染</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">WaringBanner</span>(<span class="params">props</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!props.warn)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="List和Keys"><a href="#List和Keys" class="headerlink" title="List和Keys"></a>List和Keys</h2><ul>
-<li>一个好的经验准则是元素中调用 <code>map()</code> 需要 keys 。</li>
-<li>在数组中使用的 keys 必须在它们的同辈之间唯一。然而它们并不需要全局唯一。</li>
-</ul>
-<h2 id="表单"><a href="#表单" class="headerlink" title="表单"></a>表单</h2><h3 id="file-input标签"><a href="#file-input标签" class="headerlink" title="file input标签"></a>file input标签</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FileInput</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.handleSubmit = <span class="keyword">this</span>.handleSubmit.bind(</span><br><span class="line">      <span class="keyword">this</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  handleSubmit(event) &#123;</span><br><span class="line">    event.preventDefault();</span><br><span class="line">    alert(</span><br><span class="line">      <span class="string">`Selected file - <span class="subst">$&#123;</span></span></span><br><span class="line"><span class="string"><span class="subst">        <span class="keyword">this</span>.fileInput.files[<span class="number">0</span>].name</span></span></span><br><span class="line"><span class="string"><span class="subst">      &#125;</span>`</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;form</span><br><span class="line">        onSubmit=&#123;<span class="keyword">this</span>.handleSubmit&#125;&gt;</span><br><span class="line">        &lt;label&gt;</span><br><span class="line">          Upload file:</span><br><span class="line">          &lt;input</span><br><span class="line">            type=<span class="string">"file"</span></span><br><span class="line">            ref=&#123;input =&gt; &#123;</span><br><span class="line">              <span class="keyword">this</span>.fileInput = input;</span><br><span class="line">            &#125;&#125;</span><br><span class="line">          /&gt;</span><br><span class="line">        &lt;<span class="regexp">/label&gt;</span></span><br><span class="line"><span class="regexp">        &lt;br /</span>&gt;</span><br><span class="line">        &lt;button type=<span class="string">"submit"</span>&gt;</span><br><span class="line">          Submit</span><br><span class="line">        &lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>form&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;FileInput /&gt;,</span><br><span class="line">  <span class="built_in">document</span>.getElementById(<span class="string">'root'</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<h2 id="状态提升"><a href="#状态提升" class="headerlink" title="状态提升"></a>状态提升</h2><ul>
-<li><p>状态提升：同一个数据的变化需要几个不同的组件来反映。我们建议提升共享的状态到它们最近的祖先组件中。</p>
-</li>
-<li><p>将组件中原本的state改成props，将原本的setState方法改成props传入的方法</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">handleChange=<span class="function">(<span class="params">e</span>)=&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.props.onTemperatureChange(e.target.value);</span><br><span class="line">  &#125;</span><br><span class="line">&lt;input onChange=&#123;<span class="keyword">this</span>.handleChange&#125; /&gt;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>在xm项目首页编写应用的组件中，需要在点击组件后，跳到不同的页面</p>
-</blockquote>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原本</span></span><br><span class="line">homeSource = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">    e.preventDefault();</span><br><span class="line">    <span class="keyword">this</span>.props.homeSource(<span class="keyword">this</span>.props.sourceType);</span><br><span class="line">  &#125;</span><br><span class="line">&lt;Button onClick=&#123;<span class="keyword">this</span>.homeSource&#125;&gt;&lt;/Button&gt;</span><br><span class="line"><span class="comment">// 也可以这样写</span></span><br><span class="line">homeSource = <span class="function">(<span class="params">e, sourceType</span>) =&gt;</span> &#123;</span><br><span class="line">    e.preventDefault();</span><br><span class="line">    <span class="keyword">this</span>.props.homeSource(sourceType);</span><br><span class="line">  &#125;</span><br><span class="line"> &lt;Button onClick=&#123;e =&gt; <span class="keyword">this</span>.homeSource(e, <span class="keyword">this</span>.props.sourceType)&#125;&gt;&lt;/Button&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>组件元素也是可以作为props进行传递</p>
-</li>
-</ul>
-<h2 id="React编程思想"><a href="#React编程思想" class="headerlink" title="React编程思想"></a>React编程思想</h2><ul>
-<li>对于数据，判断应该是state和props的关键点：<ol>
-<li>是否通过 props(属性) 从父级传入？ 如果是这样，它可能不是 state(状态) 。</li>
-<li>是否永远不会发生变化？ 如果是这样，它可能不是 state(状态)。</li>
-<li>是否可以由组件中其他的 state(状态) 或 props(属性) 计算得出？如果是这样，则它不是 state(状态)。</li>
-</ol>
-</li>
-</ul>
 
           
         
@@ -2125,7 +2125,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/16/问题解决/实习总结/第六周工作总结/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/17/编程题/JS能力测评/JS能力测评经典题11-20/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Xyy">
@@ -2144,7 +2144,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/16/问题解决/实习总结/第六周工作总结/" itemprop="url">实习第六周总结</a></h1>
+                <a class="post-title-link" href="/2018/02/17/编程题/JS能力测评/JS能力测评经典题11-20/" itemprop="url">JS能力测评经典题11-20</a></h1>
         
 
         <div class="post-meta">
@@ -2156,8 +2156,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-16T00:00:00+08:00">
-                2018-05-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-17T00:00:00+08:00">
+                2018-02-17
               </time>
             
 
@@ -2179,8 +2179,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/问题解决/" itemprop="url" rel="index">
-                    <span itemprop="name">问题解决</span>
+                  <a href="/categories/编程题/" itemprop="url" rel="index">
+                    <span itemprop="name">编程题</span>
                   </a>
                 </span>
 
@@ -2190,8 +2190,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/问题解决/实习总结/" itemprop="url" rel="index">
-                    <span itemprop="name">实习总结</span>
+                  <a href="/categories/编程题/JS能力测评/" itemprop="url" rel="index">
+                    <span itemprop="name">JS能力测评</span>
                   </a>
                 </span>
 
@@ -2229,18 +2229,61 @@
       
         
           
-            <ol>
-<li>原本就是state里面的对象，在setState的时候，要把对象的括号写进去，否则就是重新声明了一个新对象</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.state=&#123;</span><br><span class="line">	params:</span><br><span class="line">		&#123;<span class="attr">pagenum</span>:<span class="number">1</span>,</span><br><span class="line">		pageSzie:<span class="number">10</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">this</span>.setState(&#123;parmas&#125;);</span><br></pre></td></tr></table></figure>
-<ol>
-<li>input的onchange方法导致dataSource不断改变，可以使用lodash</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cacheData: _.cloneDeep(res.data.data)</span><br></pre></td></tr></table></figure>
-<ol>
-<li>当后台传递过来的数据的key相同时，会导致table的数据出现重复或者不同，可以使用字段拼接的形式给key重新设置，不要使用randomkey。</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">randomkey = <span class="built_in">Math</span>.random().toString(<span class="number">36</span>).split(<span class="string">'.'</span>)[<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+            <h2 id="11-计数"><a href="#11-计数" class="headerlink" title="11.计数"></a>11.计数</h2><p>统计数组 arr 中值等于 item 的元素出现的次数</p>
+<p>示例1</p>
+<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 4, 4, 3, 4, 3], 4</span><br></pre></td></tr></table></figure>
+<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//常规</span><br><span class="line">function count(arr, item) &#123;</span><br><span class="line">    var count=0;</span><br><span class="line">    for(var i=0;i&lt;arr.length;i++)&#123;</span><br><span class="line">        if(arr[i]===item)&#123;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return count;</span><br><span class="line">&#125;</span><br><span class="line">//filter</span><br><span class="line">function count(arr, item) &#123;</span><br><span class="line">    return arr.filter(function(a)&#123;</span><br><span class="line">        return (a==item);</span><br><span class="line">    &#125;).length;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="12-查找重复元素"><a href="#12-查找重复元素" class="headerlink" title="12.查找重复元素"></a>12.查找重复元素</h2><p>找出数组 arr 中重复出现过的元素</p>
+<p>示例1</p>
+<h2 id="输入-1"><a href="#输入-1" class="headerlink" title="输入"></a>输入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 4, 4, 3, 3, 1, 5, 3]</span><br></pre></td></tr></table></figure>
+<h2 id="输出-1"><a href="#输出-1" class="headerlink" title="输出"></a>输出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1, 3, 4]</span><br></pre></td></tr></table></figure>
+<p>我写的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function duplicates(arr) &#123;</span><br><span class="line">    var a=[];</span><br><span class="line">    for(var i=0;i&lt;arr.length/2;i++)&#123;</span><br><span class="line">        for(var j=i+1;j&lt;arr.length;j++)&#123;</span><br><span class="line">            if((arr[i]==arr[j])&amp;&amp;(a.indexOf(arr[i])==-1))&#123;</span><br><span class="line">                a.push(arr[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>讨论区：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">function duplicates(arr) &#123;</span><br><span class="line">     //声明两个数组，a数组用来存放结果，b数组用来存放arr中每个元素的个数</span><br><span class="line">     var a = [],b = [];</span><br><span class="line">     //遍历arr，如果以arr中元素为下标的的b元素已存在，则该b元素加1，否则设置为1</span><br><span class="line">     for(var i = 0; i &lt; arr.length; i++)&#123;</span><br><span class="line">         if(b[arr[i]])&#123;</span><br><span class="line">            b[arr[i]]++;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            b[arr[i]]=1;</span><br><span class="line">        &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     //遍历b数组，将其中元素值大于1的元素下标存入a数组中</span><br><span class="line">     for(var i = 0; i &lt; b.length; i++)&#123;</span><br><span class="line">         if(b[i] &gt; 1)&#123;</span><br><span class="line">             a.push(i);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     return a;</span><br><span class="line"> &#125;</span><br><span class="line"> //解决数组中某一数值过大，导致数组浪费问题，可以使用对象</span><br><span class="line"> function duplicates(arr) &#123;</span><br><span class="line">    var obj = &#123;&#125;;</span><br><span class="line">    var repeatList = [];</span><br><span class="line">    //遍历数组，将数组的值作为obj的索引，出现次数为值</span><br><span class="line">    arr.forEach(function(item)&#123;</span><br><span class="line">        if(obj[item])&#123;</span><br><span class="line">            obj[item] +=1;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            obj[item] = 1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    //获取对象自身属性</span><br><span class="line">    var propertyNames = Object.getOwnPropertyNames(obj);</span><br><span class="line">    //遍历对象，将重复出现的元素取出</span><br><span class="line">    propertyNames.forEach(function(item)&#123;</span><br><span class="line">        if(obj[item] &gt; 1)&#123;</span><br><span class="line">            repeatList.push(parseInt(item));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    return repeatList;</span><br><span class="line">&#125;</span><br><span class="line">//方法3</span><br><span class="line">function duplicates(arr) &#123;</span><br><span class="line"> var result = [];</span><br><span class="line">    arr.forEach(function(elem)&#123;</span><br><span class="line">       if(arr.indexOf(elem) !=arr.lastIndexOf(elem) &amp;&amp; result.indexOf(elem) == -1)&#123;</span><br><span class="line">           result.push(elem);</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="13-求二次方"><a href="#13-求二次方" class="headerlink" title="13.求二次方"></a>13.求二次方</h2><p>为数组 arr 中的每个元素求二次方。不要直接修改数组 arr，结果返回新的数组</p>
+<p>示例1</p>
+<h2 id="输入-2"><a href="#输入-2" class="headerlink" title="输入"></a>输入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 3, 4]</span><br></pre></td></tr></table></figure>
+<h2 id="输出-2"><a href="#输出-2" class="headerlink" title="输出"></a>输出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1, 4, 9, 16]</span><br></pre></td></tr></table></figure>
+<p>我写的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function square(arr) &#123;</span><br><span class="line">    var a=[];</span><br><span class="line">    arr.forEach(function(item,index,arr)&#123;</span><br><span class="line">        a.push(item*item);</span><br><span class="line">    &#125;)</span><br><span class="line">    return a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//map会返回数组，forEach不会</span><br><span class="line">function square(arr) &#123;</span><br><span class="line">    return arr.map(function(item,index,arr)&#123;</span><br><span class="line">       return item*item;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="14-查找元素位置"><a href="#14-查找元素位置" class="headerlink" title="14.查找元素位置"></a>14.查找元素位置</h2><p>在数组 arr 中，查找值与 item 相等的元素出现的所有位置</p>
+<p>示例1</p>
+<h2 id="输入-3"><a href="#输入-3" class="headerlink" title="输入"></a>输入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;abcdefabc&apos;</span><br></pre></td></tr></table></figure>
+<h2 id="输出-3"><a href="#输出-3" class="headerlink" title="输出"></a>输出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[0, 6]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function findAllOccurrences(arr, target) &#123;</span><br><span class="line">    var a=[];</span><br><span class="line">    for(var i=0;i&lt;arr.length;i++)&#123;</span><br><span class="line">        if(arr[i]==target)&#123;</span><br><span class="line">            a.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="15-避免全局变量"><a href="#15-避免全局变量" class="headerlink" title="15.避免全局变量"></a>15.避免全局变量</h2><p>给定的 js 代码中存在全局变量，请修复</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function globals() &#123;</span><br><span class="line">    var myObject = &#123;</span><br><span class="line">      name : &apos;Jory&apos;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    return myObject;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="16-正确的函数定义"><a href="#16-正确的函数定义" class="headerlink" title="16.正确的函数定义"></a>16.正确的函数定义</h2><p>请修复给定的 js 代码中，函数定义存在的问题</p>
+<p>示例1</p>
+<h2 id="输入-4"><a href="#输入-4" class="headerlink" title="输入"></a>输入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">true</span><br></pre></td></tr></table></figure>
+<h2 id="输出-4"><a href="#输出-4" class="headerlink" title="输出"></a>输出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a</span><br></pre></td></tr></table></figure>
+<p>题目：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function functions(flag) &#123;</span><br><span class="line">    if (flag) &#123;</span><br><span class="line">      function getValue() &#123; return &apos;a&apos;; &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      function getValue() &#123; return &apos;b&apos;; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return getValue();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>修改后：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function functions(flag) &#123;</span><br><span class="line">    if (flag) &#123;</span><br><span class="line">      var getValue = function () &#123; return &apos;a&apos;; &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      var getValue = function () &#123; return &apos;b&apos;; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return getValue();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="17-正确地使用praseInt"><a href="#17-正确地使用praseInt" class="headerlink" title="17.正确地使用praseInt"></a>17.正确地使用praseInt</h2><p>修改 js 代码中 parseInt 的调用方式，使之通过全部测试用例</p>
+<p>示例1</p>
+<h2 id="输入-5"><a href="#输入-5" class="headerlink" title="输入"></a>输入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;12&apos;</span><br></pre></td></tr></table></figure>
+<h2 id="输出-5"><a href="#输出-5" class="headerlink" title="输出"></a>输出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">12</span><br></pre></td></tr></table></figure>
+<p>示例2</p>
+<h2 id="输入-6"><a href="#输入-6" class="headerlink" title="输入"></a>输入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;12px&apos;</span><br></pre></td></tr></table></figure>
+<h2 id="输出-6"><a href="#输出-6" class="headerlink" title="输出"></a>输出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">12</span><br></pre></td></tr></table></figure>
+<p>示例3</p>
+<h2 id="输入-7"><a href="#输入-7" class="headerlink" title="输入"></a>输入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;0x12&apos;</span><br></pre></td></tr></table></figure>
+<h2 id="输出-7"><a href="#输出-7" class="headerlink" title="输出"></a>输出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function parse2Int(num) &#123;</span><br><span class="line">    return parseInt(num，10);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="18-完全等同"><a href="#18-完全等同" class="headerlink" title="18.完全等同"></a>18.完全等同</h2><p>判断 val1 和 val2 是否完全等同</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function identity(val1, val2) &#123;</span><br><span class="line">    return val1===val2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="19-计时器"><a href="#19-计时器" class="headerlink" title="19.计时器"></a>19.计时器</h2><p>实现一个打点计时器，要求<br>1、从 start 到 end（包含 start 和 end），每隔 100 毫秒 console.log 一个数字，每次数字增幅为 1<br>2、返回的对象中需要包含一个 cancel 方法，用于停止定时操作<br>3、第一个数需要立即输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function count(start, end) &#123;</span><br><span class="line">  //立即输出第一个值,记得第一个值要加上1</span><br><span class="line">  console.log(start++);</span><br><span class="line">     var timer = setInterval(function()&#123;</span><br><span class="line">         if(start &lt;= end)&#123;</span><br><span class="line">             console.log(start++);</span><br><span class="line">         &#125;else&#123;</span><br><span class="line">             clearInterval(timer);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;,100);</span><br><span class="line">    //返回一个对象，其中cancel是对象的一个属性</span><br><span class="line">     return &#123;</span><br><span class="line">         cancel : function()&#123;</span><br><span class="line">             clearInterval(timer);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="20-流程控制"><a href="#20-流程控制" class="headerlink" title="20.流程控制"></a>20.流程控制</h2><p>实现 fizzBuzz 函数，参数 num 与返回值的关系如下：<br>1、如果 num 能同时被 3 和 5 整除，返回字符串 fizzbuzz<br>2、如果 num 能被 3 整除，返回字符串 fizz<br>3、如果 num 能被 5 整除，返回字符串 buzz<br>4、如果参数为空或者不是 Number 类型，返回 false<br>5、其余情况，返回参数 num</p>
+<p>示例1</p>
+<h2 id="输入-8"><a href="#输入-8" class="headerlink" title="输入"></a>输入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">15</span><br></pre></td></tr></table></figure>
+<h2 id="输出-8"><a href="#输出-8" class="headerlink" title="输出"></a>输出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fizzbuzz</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function fizzBuzz(num) &#123;</span><br><span class="line">    if(num%3==0&amp;&amp;num%5==0)&#123;</span><br><span class="line">        return &quot;fizzbuzz&quot;;</span><br><span class="line">    &#125;else if(num%3==0)&#123;</span><br><span class="line">        return &quot;fizz&quot;;</span><br><span class="line">    &#125;else if(num%5==0)&#123;</span><br><span class="line">        return &quot;buzz&quot;;</span><br><span class="line">    &#125;else if(num===null|| typeof num != &quot;number&quot;)&#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return num;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
           
         
@@ -2280,7 +2323,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2330,7 +2373,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2341,7 +2384,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2352,7 +2395,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

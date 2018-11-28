@@ -252,1076 +252,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/07/问题解决/实习总结/消息模块问题整理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XyyFighting">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/07/问题解决/实习总结/消息模块问题整理/" itemprop="url">消息中心问题汇总</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-07T00:00:00+08:00">
-                2018-05-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/问题解决/" itemprop="url" rel="index">
-                    <span itemprop="name">问题解决</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/问题解决/实习总结/" itemprop="url" rel="index">
-                    <span itemprop="name">实习总结</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="项目中承担模块——消息中心问题汇总"><a href="#项目中承担模块——消息中心问题汇总" class="headerlink" title="项目中承担模块——消息中心问题汇总"></a>项目中承担模块——消息中心问题汇总</h3><ol>
-<li>问题：在别的页面点击basiclayout的铃铛可以实现消息列表页面被打开，但是在本页面点击铃铛内的消息不能打开。</li>
-</ol>
-<p>原因：只是在history.push中</p>
-<p>componentWillReceiveProps会在props改变的时候执行，一旦prop改变就会执行该方法</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">componentWillReceiveProps(props) &#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">      mesgCode: props.location.mesgCode</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
-<ol>
-<li>问题：点击左侧的列表会展开之前在铃铛里面点击过的消息</li>
-</ol>
-<p>原因：因为点击左侧列表的时候，basiclayout有setState的操作，页面会重新渲染，又会传入之前的props值，mesgcode重新设置成props中的值，就会展开。</p>
-<p>解决：componentWillReceiveProps（nextprops）与this.props进行比较，不一样才执行</p>
-<ol>
-<li>问题：消息列表中的数据已读后，右上角的铃铛也要进行更新</li>
-</ol>
-<p>解决：使用context全局方法，在basiclayout中写一个全局方法，只要在消息列表页面点击了消息，在callback调用这个全局方法，就会重新刷新basiclayout.</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 标记已读状态</span></span><br><span class="line">  callback = <span class="function">(<span class="params">key</span>) =&gt;</span> &#123;</span><br><span class="line">    readStatus(key);</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">      mesgCode: key</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">this</span>.getListByPage(<span class="keyword">this</span>.state.current, <span class="number">15</span>);</span><br><span class="line">    <span class="comment">// 调用全局方法，实现点击消息列表的页面，就可以刷新铃铛上面的数字和消息列表</span></span><br><span class="line">    <span class="keyword">this</span>.context.msgUnread();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<ol>
-<li>问题：在添加了全局方法后，出现新的问题是，在本页面不能点开其他消息。</li>
-</ol>
-<p>原因：点击消息的时候调用callback方法，接着调用全局方法，会传入props，mesgCode就又会设置成之前点击铃铛内的消息列表中的值。</p>
-<p>解决：还是和之前一样，componentWillReceiveProps（nextprops）与this.props进行比较，不一样才执行</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// props改变才会set mesgCode,不然就会导致每一次调用callback就会调用全局方法，props再次传入之前的值</span></span><br><span class="line">  componentWillReceiveProps(nextprops) &#123;</span><br><span class="line">    <span class="keyword">if</span> (nextprops.location.mesgCode !== <span class="keyword">this</span>.props.location.mesgCode) &#123;</span><br><span class="line">      <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">        mesgCode: nextprops.location.mesgCode</span><br><span class="line">      &#125;);</span><br><span class="line">      readStatus(nextprops.location.mesgCode);</span><br><span class="line">      <span class="keyword">this</span>.getListByPage(<span class="keyword">this</span>.state.current, <span class="number">15</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<ol>
-<li>问题：在添加了全局方法和componentWillReceiveProps（nextprops）后，出现只有在本页面点击铃铛才会展开，在别的页面点击铃铛不展开的问题</li>
-</ol>
-<p>原因：生命周期的问题。</p>
-<p>解决：在componentDidMount()中也要写上props的操作。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// componentDidMount里面也写了props,是为了解决在别的页面点击铃铛后，页面会跳转但消息不打开的问题（因为不执行componentWillReceiveProps）</span></span><br><span class="line">  componentDidMount = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.getListByPage(<span class="number">1</span>, <span class="number">15</span>);</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">      mesgCode: <span class="keyword">this</span>.props.location.mesgCode</span><br><span class="line">    &#125;);</span><br><span class="line">    readStatus(<span class="keyword">this</span>.props.location.mesgCode);</span><br><span class="line">    <span class="keyword">this</span>.getListByPage(<span class="keyword">this</span>.state.current, <span class="number">15</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/02/问题解决/实习总结/第四周工作总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XyyFighting">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/02/问题解决/实习总结/第四周工作总结/" itemprop="url">实习第四周总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-02T00:00:00+08:00">
-                2018-05-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/问题解决/" itemprop="url" rel="index">
-                    <span itemprop="name">问题解决</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/问题解决/实习总结/" itemprop="url" rel="index">
-                    <span itemprop="name">实习总结</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ol>
-<li>在搜索过程中，取值有问题，’^^’传值到后台是’billCode:^^’，但如果是’^^%%’传值到后台就是billCode: (unable to decode value)。搜索一番说是编码的问题，但是仍然没有解决。</li>
-</ol>
-<p>解决方法：在前端也加上正则判断。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">onSearch = <span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="regexp">/[A-Za-z0-9]+/g</span>.test(value)) &#123;</span><br><span class="line">      <span class="keyword">this</span>.getBillList(<span class="number">1</span>, <span class="keyword">this</span>.state.pageSize, value);</span><br><span class="line">      <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">        searchBillCode: value</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">        dataSource: [],</span><br><span class="line">        totalSize: <span class="number">0</span></span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<ol>
-<li>align-items无效的解决方式</li>
-</ol>
-<p>align-items必须用在已有高度的元素上。如果设置body为100%,align-items依旧无效，这是因为body的父元素html并没有设置高度。那么100%的body高度还是为未知的。</p>
-<p>参考链接：<a href="http://nekomiao.me/2017/04/26/css-align-items-no-effect/" target="_blank" rel="noopener">http://nekomiao.me/2017/04/26/css-align-items-no-effect/</a></p>
-<ol>
-<li>ant-design走马灯属性样式修改</li>
-</ol>
-<p>解决方法：引入了react-slick插件，其中的属性就可以使用了。在改变样式的时候，比如<code>slick-arrow slick-next</code>在CSS中写<code>:global{.slick-arrow .slick-next{}}</code>无效，但是其中若不加空格<code>:global{.slick-arrow.slick-next{}}</code>是有效的。因为在css选择器中一般写成<code>&lt;div class=&quot;slick-arrow slick-disabled&quot;&gt;</code>表示该div有两个类，<code>.slick-arrow 和.slick-disabled</code>两个类的样式共同应用，<strong>若一个空格的写两个类，表示在<code>.slick-arrow</code>类内部的<code>.slick-disabled</code>类，不加空格则表示这两个类。</strong></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/11/问题解决/实习总结/实习第二周总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XyyFighting">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/11/问题解决/实习总结/实习第二周总结/" itemprop="url">实习第二周总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-11T00:00:00+08:00">
-                2018-04-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/问题解决/" itemprop="url" rel="index">
-                    <span itemprop="name">问题解决</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/问题解决/实习总结/" itemprop="url" rel="index">
-                    <span itemprop="name">实习总结</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ol>
-<li><p>后台的方法调用很慢，data要很久才会被返回，接下去要用data的数据就会报错</p>
-<p><code>if (data === undefined) return &lt;div&gt;页面正在加载中，请稍后...&lt;/div&gt;;</code></p>
-<p>加上这个判断就不会有错误</p>
-</li>
-<li><p>在某一个页面中直接调用global改变antd组件样式，会引起全局antd组件样式的改变</p>
-<p>可以在页面的global外面套一层class，这样就只会改变本页面的样式而不是全局的样式</p>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/10/问题解决/实习总结/上传git的操作/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XyyFighting">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/10/问题解决/实习总结/上传git的操作/" itemprop="url">上传git的操作</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-10T00:00:00+08:00">
-                2018-04-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/问题解决/" itemprop="url" rel="index">
-                    <span itemprop="name">问题解决</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/问题解决/实习总结/" itemprop="url" rel="index">
-                    <span itemprop="name">实习总结</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="上传git的操作"><a href="#上传git的操作" class="headerlink" title="上传git的操作"></a>上传git的操作</h3><ol>
-<li>先切换到本地dev分支 <code>git checkout develop</code></li>
-<li>拉取远程dev分支<code>git pull</code></li>
-<li>切换到本地xyy分支<code>git checkout xyy</code></li>
-<li>本地xyy合并本地的dev分支<code>git merge develop</code></li>
-<li><code>git add .</code></li>
-<li><code>git commit -m&quot;&quot;</code></li>
-<li>切换到本地dev分支<code>git checkoout develop</code></li>
-<li>本地dev合并本地xyy分支<code>git merge xyy</code></li>
-<li>本地dev推到远程dev<code>git push</code></li>
-</ol>
-<ul>
-<li>以上操作需要本地一个dev跟踪远程dev，本地的xyy分支用于书写代码，解决冲突发生在本地dev和本地xyy之间。</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/02/问题解决/实习总结/实习第一周总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XyyFighting">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/02/问题解决/实习总结/实习第一周总结/" itemprop="url">实习第一周总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-02T00:00:00+08:00">
-                2018-04-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/问题解决/" itemprop="url" rel="index">
-                    <span itemprop="name">问题解决</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/问题解决/实习总结/" itemprop="url" rel="index">
-                    <span itemprop="name">实习总结</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ol>
-<li>使用ant-design组件时候如何改变他的样式</li>
-</ol>
-<p>在开发者工具中选择想要改变的东西，会显示出ant-design的className，在className中进行改变</p>
-<ol>
-<li>根据后台传递过来的数据对象内的<strong>数组内的字段</strong>显示不同的样式</li>
-</ol>
-<p><code>&lt;div className={item.messageCode === activePanel?styles.messagedivChoose:styles.messagediv}&gt;</code></p>
-<p><code>&lt;Badge status={item.status === 0 ? &#39;error&#39; : &#39;default&#39;} text={item.messageTitle} /&gt;</code></p>
-<ol>
-<li>div随着内容多少而改变大小，但是页码始终位于右下角</li>
-</ol>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">width</span>:auto;</span><br><span class="line">  <span class="attribute">height</span>:auto; </span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">margin-bottom</span>:<span class="number">20px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.page</span>&#123;</span><br><span class="line">  <span class="attribute">position</span>:relative;</span><br><span class="line">  <span class="attribute">float</span>: right;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
-<li>后期需求有变：div不随着内容的多少而改变大小，但是页码始终位于右下角</li>
-</ol>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">width</span>:<span class="number">952px</span>;</span><br><span class="line">  <span class="attribute">min-height</span>:<span class="number">793px</span>;</span><br><span class="line">  <span class="attribute">background</span>:<span class="built_in">rgba</span>(255,255,255,1);</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#DDD</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">30px</span> <span class="number">40px</span> <span class="number">30px</span> <span class="number">40px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.page</span>&#123;</span><br><span class="line">  <span class="attribute">margin-top</span>: <span class="number">30px</span>;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">40px</span>;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">20px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
-<li>react-router的路由配置</li>
-</ol>
-<p>去特定的页面<code>this.props.history.push(&#39;/message/list&#39;);</code></p>
-<p>在当前页面的后面加上路径<code>this.props.history.push(</code>${this.props.match.url}/signin<code>);</code></p>
-<ol>
-<li>从后台读取数据一定要分清是对象还是数组，只有数组才可以map</li>
-</ol>
-<p>如果是数组就直接用data.map，如果是对象就使用data.list.map</p>
-<ol>
-<li>如何实时监听history里面的location，只要history里面的属性改变就要改变</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">componentWillReceiveProps(props) &#123;</span><br><span class="line">   <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">     mesgCode: props.location.mesgCode</span><br><span class="line">   &#125;);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<ol>
-<li>在一个方法里调用方法A然后调用方法B，而方法B的结果是在方法A的结果下的。如果方法B调用太快，可以在方法A里面写一个回调函数</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 操作冻结解冻</span></span><br><span class="line">  operateFreeze = <span class="function">(<span class="params">billCode, freezeState, callback</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> params = &#123;</span><br><span class="line">      billCode,</span><br><span class="line">      freezeState</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">// const that = this;</span></span><br><span class="line">    freezeOperate(params)</span><br><span class="line">      .then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (res <span class="keyword">instanceof</span> <span class="built_in">Error</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'成功'</span>);</span><br><span class="line">        <span class="comment">// 这样写代码就有了耦合性，在一个方法中调用两个接口方法，可以用callback回调函数那样写</span></span><br><span class="line">        <span class="comment">// that.getListByPage(that.state.params);</span></span><br><span class="line">        callback();</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 操作冻结解冻后，再展示更新后的列表数据</span></span><br><span class="line">  onOperate = <span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">  	<span class="comment">// 方法A：operateFreeze</span></span><br><span class="line">    <span class="keyword">this</span>.operateFreeze(value.billCode, value.freezeState === FreezeStatus.FREEZE</span><br><span class="line">      ? FreezeStatus.UNFREEZE : FreezeStatus.FREEZE,</span><br><span class="line">    <span class="keyword">this</span>.getListByPage.bind(<span class="keyword">this</span>, <span class="keyword">this</span>.state.params));</span><br><span class="line">    <span class="comment">// 方法B：getListByPage。像下面这样直接写就会造成B调用太快，所以A方法操作与不操作结果一样</span></span><br><span class="line">    <span class="comment">// const &#123; params &#125; = this.state;</span></span><br><span class="line">    <span class="comment">// this.getListByPage(params);</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<ol>
-<li>传递给后台的参数如果为空，不可以是undefined，应该是null。</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (values.issueCmyName === <span class="literal">undefined</span>) &#123;</span><br><span class="line">          params.issueCmyName = <span class="string">''</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/17/编程题/JS能力测评/JS能力测评经典题11-20/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Xyy">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XyyFighting">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/02/17/编程题/JS能力测评/JS能力测评经典题11-20/" itemprop="url">JS能力测评经典题11-20</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-17T00:00:00+08:00">
-                2018-02-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程题/" itemprop="url" rel="index">
-                    <span itemprop="name">编程题</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/编程题/JS能力测评/" itemprop="url" rel="index">
-                    <span itemprop="name">JS能力测评</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="11-计数"><a href="#11-计数" class="headerlink" title="11.计数"></a>11.计数</h2><p>统计数组 arr 中值等于 item 的元素出现的次数</p>
-<p>示例1</p>
-<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 4, 4, 3, 4, 3], 4</span><br></pre></td></tr></table></figure>
-<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//常规</span><br><span class="line">function count(arr, item) &#123;</span><br><span class="line">    var count=0;</span><br><span class="line">    for(var i=0;i&lt;arr.length;i++)&#123;</span><br><span class="line">        if(arr[i]===item)&#123;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return count;</span><br><span class="line">&#125;</span><br><span class="line">//filter</span><br><span class="line">function count(arr, item) &#123;</span><br><span class="line">    return arr.filter(function(a)&#123;</span><br><span class="line">        return (a==item);</span><br><span class="line">    &#125;).length;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="12-查找重复元素"><a href="#12-查找重复元素" class="headerlink" title="12.查找重复元素"></a>12.查找重复元素</h2><p>找出数组 arr 中重复出现过的元素</p>
-<p>示例1</p>
-<h2 id="输入-1"><a href="#输入-1" class="headerlink" title="输入"></a>输入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 4, 4, 3, 3, 1, 5, 3]</span><br></pre></td></tr></table></figure>
-<h2 id="输出-1"><a href="#输出-1" class="headerlink" title="输出"></a>输出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1, 3, 4]</span><br></pre></td></tr></table></figure>
-<p>我写的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function duplicates(arr) &#123;</span><br><span class="line">    var a=[];</span><br><span class="line">    for(var i=0;i&lt;arr.length/2;i++)&#123;</span><br><span class="line">        for(var j=i+1;j&lt;arr.length;j++)&#123;</span><br><span class="line">            if((arr[i]==arr[j])&amp;&amp;(a.indexOf(arr[i])==-1))&#123;</span><br><span class="line">                a.push(arr[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>讨论区：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">function duplicates(arr) &#123;</span><br><span class="line">     //声明两个数组，a数组用来存放结果，b数组用来存放arr中每个元素的个数</span><br><span class="line">     var a = [],b = [];</span><br><span class="line">     //遍历arr，如果以arr中元素为下标的的b元素已存在，则该b元素加1，否则设置为1</span><br><span class="line">     for(var i = 0; i &lt; arr.length; i++)&#123;</span><br><span class="line">         if(b[arr[i]])&#123;</span><br><span class="line">            b[arr[i]]++;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            b[arr[i]]=1;</span><br><span class="line">        &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     //遍历b数组，将其中元素值大于1的元素下标存入a数组中</span><br><span class="line">     for(var i = 0; i &lt; b.length; i++)&#123;</span><br><span class="line">         if(b[i] &gt; 1)&#123;</span><br><span class="line">             a.push(i);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     return a;</span><br><span class="line"> &#125;</span><br><span class="line"> //解决数组中某一数值过大，导致数组浪费问题，可以使用对象</span><br><span class="line"> function duplicates(arr) &#123;</span><br><span class="line">    var obj = &#123;&#125;;</span><br><span class="line">    var repeatList = [];</span><br><span class="line">    //遍历数组，将数组的值作为obj的索引，出现次数为值</span><br><span class="line">    arr.forEach(function(item)&#123;</span><br><span class="line">        if(obj[item])&#123;</span><br><span class="line">            obj[item] +=1;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">            obj[item] = 1;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    //获取对象自身属性</span><br><span class="line">    var propertyNames = Object.getOwnPropertyNames(obj);</span><br><span class="line">    //遍历对象，将重复出现的元素取出</span><br><span class="line">    propertyNames.forEach(function(item)&#123;</span><br><span class="line">        if(obj[item] &gt; 1)&#123;</span><br><span class="line">            repeatList.push(parseInt(item));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    return repeatList;</span><br><span class="line">&#125;</span><br><span class="line">//方法3</span><br><span class="line">function duplicates(arr) &#123;</span><br><span class="line"> var result = [];</span><br><span class="line">    arr.forEach(function(elem)&#123;</span><br><span class="line">       if(arr.indexOf(elem) !=arr.lastIndexOf(elem) &amp;&amp; result.indexOf(elem) == -1)&#123;</span><br><span class="line">           result.push(elem);</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="13-求二次方"><a href="#13-求二次方" class="headerlink" title="13.求二次方"></a>13.求二次方</h2><p>为数组 arr 中的每个元素求二次方。不要直接修改数组 arr，结果返回新的数组</p>
-<p>示例1</p>
-<h2 id="输入-2"><a href="#输入-2" class="headerlink" title="输入"></a>输入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 3, 4]</span><br></pre></td></tr></table></figure>
-<h2 id="输出-2"><a href="#输出-2" class="headerlink" title="输出"></a>输出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1, 4, 9, 16]</span><br></pre></td></tr></table></figure>
-<p>我写的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function square(arr) &#123;</span><br><span class="line">    var a=[];</span><br><span class="line">    arr.forEach(function(item,index,arr)&#123;</span><br><span class="line">        a.push(item*item);</span><br><span class="line">    &#125;)</span><br><span class="line">    return a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//map会返回数组，forEach不会</span><br><span class="line">function square(arr) &#123;</span><br><span class="line">    return arr.map(function(item,index,arr)&#123;</span><br><span class="line">       return item*item;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="14-查找元素位置"><a href="#14-查找元素位置" class="headerlink" title="14.查找元素位置"></a>14.查找元素位置</h2><p>在数组 arr 中，查找值与 item 相等的元素出现的所有位置</p>
-<p>示例1</p>
-<h2 id="输入-3"><a href="#输入-3" class="headerlink" title="输入"></a>输入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;abcdefabc&apos;</span><br></pre></td></tr></table></figure>
-<h2 id="输出-3"><a href="#输出-3" class="headerlink" title="输出"></a>输出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[0, 6]</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function findAllOccurrences(arr, target) &#123;</span><br><span class="line">    var a=[];</span><br><span class="line">    for(var i=0;i&lt;arr.length;i++)&#123;</span><br><span class="line">        if(arr[i]==target)&#123;</span><br><span class="line">            a.push(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return a;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="15-避免全局变量"><a href="#15-避免全局变量" class="headerlink" title="15.避免全局变量"></a>15.避免全局变量</h2><p>给定的 js 代码中存在全局变量，请修复</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function globals() &#123;</span><br><span class="line">    var myObject = &#123;</span><br><span class="line">      name : &apos;Jory&apos;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    return myObject;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="16-正确的函数定义"><a href="#16-正确的函数定义" class="headerlink" title="16.正确的函数定义"></a>16.正确的函数定义</h2><p>请修复给定的 js 代码中，函数定义存在的问题</p>
-<p>示例1</p>
-<h2 id="输入-4"><a href="#输入-4" class="headerlink" title="输入"></a>输入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">true</span><br></pre></td></tr></table></figure>
-<h2 id="输出-4"><a href="#输出-4" class="headerlink" title="输出"></a>输出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a</span><br></pre></td></tr></table></figure>
-<p>题目：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function functions(flag) &#123;</span><br><span class="line">    if (flag) &#123;</span><br><span class="line">      function getValue() &#123; return &apos;a&apos;; &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      function getValue() &#123; return &apos;b&apos;; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return getValue();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>修改后：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function functions(flag) &#123;</span><br><span class="line">    if (flag) &#123;</span><br><span class="line">      var getValue = function () &#123; return &apos;a&apos;; &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      var getValue = function () &#123; return &apos;b&apos;; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return getValue();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="17-正确地使用praseInt"><a href="#17-正确地使用praseInt" class="headerlink" title="17.正确地使用praseInt"></a>17.正确地使用praseInt</h2><p>修改 js 代码中 parseInt 的调用方式，使之通过全部测试用例</p>
-<p>示例1</p>
-<h2 id="输入-5"><a href="#输入-5" class="headerlink" title="输入"></a>输入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;12&apos;</span><br></pre></td></tr></table></figure>
-<h2 id="输出-5"><a href="#输出-5" class="headerlink" title="输出"></a>输出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">12</span><br></pre></td></tr></table></figure>
-<p>示例2</p>
-<h2 id="输入-6"><a href="#输入-6" class="headerlink" title="输入"></a>输入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;12px&apos;</span><br></pre></td></tr></table></figure>
-<h2 id="输出-6"><a href="#输出-6" class="headerlink" title="输出"></a>输出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">12</span><br></pre></td></tr></table></figure>
-<p>示例3</p>
-<h2 id="输入-7"><a href="#输入-7" class="headerlink" title="输入"></a>输入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&apos;0x12&apos;</span><br></pre></td></tr></table></figure>
-<h2 id="输出-7"><a href="#输出-7" class="headerlink" title="输出"></a>输出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function parse2Int(num) &#123;</span><br><span class="line">    return parseInt(num，10);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="18-完全等同"><a href="#18-完全等同" class="headerlink" title="18.完全等同"></a>18.完全等同</h2><p>判断 val1 和 val2 是否完全等同</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function identity(val1, val2) &#123;</span><br><span class="line">    return val1===val2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="19-计时器"><a href="#19-计时器" class="headerlink" title="19.计时器"></a>19.计时器</h2><p>实现一个打点计时器，要求<br>1、从 start 到 end（包含 start 和 end），每隔 100 毫秒 console.log 一个数字，每次数字增幅为 1<br>2、返回的对象中需要包含一个 cancel 方法，用于停止定时操作<br>3、第一个数需要立即输出</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function count(start, end) &#123;</span><br><span class="line">  //立即输出第一个值,记得第一个值要加上1</span><br><span class="line">  console.log(start++);</span><br><span class="line">     var timer = setInterval(function()&#123;</span><br><span class="line">         if(start &lt;= end)&#123;</span><br><span class="line">             console.log(start++);</span><br><span class="line">         &#125;else&#123;</span><br><span class="line">             clearInterval(timer);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;,100);</span><br><span class="line">    //返回一个对象，其中cancel是对象的一个属性</span><br><span class="line">     return &#123;</span><br><span class="line">         cancel : function()&#123;</span><br><span class="line">             clearInterval(timer);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="20-流程控制"><a href="#20-流程控制" class="headerlink" title="20.流程控制"></a>20.流程控制</h2><p>实现 fizzBuzz 函数，参数 num 与返回值的关系如下：<br>1、如果 num 能同时被 3 和 5 整除，返回字符串 fizzbuzz<br>2、如果 num 能被 3 整除，返回字符串 fizz<br>3、如果 num 能被 5 整除，返回字符串 buzz<br>4、如果参数为空或者不是 Number 类型，返回 false<br>5、其余情况，返回参数 num</p>
-<p>示例1</p>
-<h2 id="输入-8"><a href="#输入-8" class="headerlink" title="输入"></a>输入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">15</span><br></pre></td></tr></table></figure>
-<h2 id="输出-8"><a href="#输出-8" class="headerlink" title="输出"></a>输出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fizzbuzz</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function fizzBuzz(num) &#123;</span><br><span class="line">    if(num%3==0&amp;&amp;num%5==0)&#123;</span><br><span class="line">        return &quot;fizzbuzz&quot;;</span><br><span class="line">    &#125;else if(num%3==0)&#123;</span><br><span class="line">        return &quot;fizz&quot;;</span><br><span class="line">    &#125;else if(num%5==0)&#123;</span><br><span class="line">        return &quot;buzz&quot;;</span><br><span class="line">    &#125;else if(num===null|| typeof num != &quot;number&quot;)&#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        return num;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/14/编程题/JS能力测评/JS能力测评经典题1-10/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2317,11 +1247,1368 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/02/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记19/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/02/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记19/" itemprop="url">JavaScript高级程序设计读书笔记19</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-02T17:30:34+08:00">
+                2018-02-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/JavaScript高级程序设计/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript高级程序设计</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第19章-E4X"><a href="#第19章-E4X" class="headerlink" title="第19章 E4X"></a>第19章 E4X</h1><h2 id="E4X的类型"><a href="#E4X的类型" class="headerlink" title="E4X的类型"></a>E4X的类型</h2><ul>
+<li>XML：XML结构中的任何一个独立的部分</li>
+<li>XMList:XML对象的集合</li>
+<li>NameSpace:命名空间前缀与命名空间URI之间的映射</li>
+<li>QName:由内部名称和命名空间URI组成的一个限定名</li>
+</ul>
+<h2 id="一般用法"><a href="#一般用法" class="headerlink" title="一般用法"></a>一般用法</h2><ul>
+<li>点号加特性访问其中不同的层次和结构<code>employee.name</code></li>
+<li>如果有多个元素具有相同的标签名，就会返回XMLList <code>employees.employee[0].name</code></li>
+<li>若不确定资源的内部名称，可以使用星号。 <code>employees.*[0].name</code></li>
+<li>child():将属性名或者索引值传递给该方法</li>
+<li>children():返回所有子元素</li>
+<li>elements():与child()类似，但是只返回表示元素的XML对象</li>
+</ul>
+<h3 id="访问特性"><a href="#访问特性" class="headerlink" title="访问特性"></a>访问特性</h3><ul>
+<li>用@符号表示应该返回特性</li>
+<li><code>..</code>表示要匹配所有后代元素</li>
+</ul>
+<h3 id="其他节点类型"><a href="#其他节点类型" class="headerlink" title="其他节点类型"></a>其他节点类型</h3><ul>
+<li>nodeKind（）:可以得到XML对象表示的类型</li>
+</ul>
+<h3 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h3><ul>
+<li>所有查询都可以通过一组执行相同操作的方法来实现</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/02/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记18/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/02/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记18/" itemprop="url">JavaScript高级程序设计读书笔记18</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-02T13:32:06+08:00">
+                2018-02-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/JavaScript高级程序设计/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript高级程序设计</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第18章-JavaScript与XML"><a href="#第18章-JavaScript与XML" class="headerlink" title="第18章 JavaScript与XML"></a>第18章 JavaScript与XML</h1><h2 id="浏览器对XML-DOM的支持"><a href="#浏览器对XML-DOM的支持" class="headerlink" title="浏览器对XML DOM的支持"></a>浏览器对XML DOM的支持</h2><h3 id="DOM2级核心"><a href="#DOM2级核心" class="headerlink" title="DOM2级核心"></a>DOM2级核心</h3><ul>
+<li><code>document.implementation.createDocument()</code>：创建一个空白的XML文档</li>
+</ul>
+<h3 id="DOMParser类型"><a href="#DOMParser类型" class="headerlink" title="DOMParser类型"></a>DOMParser类型</h3><ul>
+<li>将XML解析为DOM文档，首先必须创建一个DOMParser的实例，然后再调用parseFromString()方法，返回值是一个document实例</li>
+<li>DOMParser只能解析XML，不能讲HTML解析为HTML文档<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> parser = <span class="keyword">new</span> DOMParser();</span><br><span class="line"><span class="keyword">var</span> xmldom = parser.parseFromString(<span class="string">"&lt;root&gt;&lt;child/&gt;&lt;/root&gt;"</span>, <span class="string">"text/xml"</span>);</span><br><span class="line">alert(xmldom.documentElement.tagName);  <span class="comment">//root</span></span><br><span class="line">alert(xmldom.documentElement.firstChild.tagName);  <span class="comment">//child</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> anotherChild=xmldom.createElement(<span class="string">"child"</span>);</span><br><span class="line">xmldom.documentElement.appendChild(anotherChild);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> children=xmldom.getElementsByTagName(<span class="string">"child"</span>);</span><br><span class="line">alert(children.length);  <span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="XMLSerializer类型"><a href="#XMLSerializer类型" class="headerlink" title="XMLSerializer类型"></a>XMLSerializer类型</h3><ul>
+<li>将DOM文档序列化为XML文档，使用XMLSerializer类型</li>
+<li>XMLSerializer类型可以序列化XML和HTML</li>
+</ul>
+<h3 id="IE8及之前版本中的XML"><a href="#IE8及之前版本中的XML" class="headerlink" title="IE8及之前版本中的XML"></a>IE8及之前版本中的XML</h3><ul>
+<li>通过ActivrX对象实现对XML的支持</li>
+<li>创建XML文档：使用ActiveXObject构造函数并为其传入一个表示XML文档版本的字符串</li>
+<li>解析XML：loadXML（）方法</li>
+<li>序列化：每个DOM节点都有一个xml属性，xmldom.xml</li>
+<li>加载XML文件：确定加载XML方式，调用load()启动下载过程</li>
+</ul>
+<h3 id="跨浏览器处理XML"><a href="#跨浏览器处理XML" class="headerlink" title="跨浏览器处理XML"></a>跨浏览器处理XML</h3><ul>
+<li><p>解析XML</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parseXml</span>(<span class="params">xml</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> xmldom = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> DOMParser != <span class="string">"undefined"</span>)&#123;</span><br><span class="line">        xmldom = (<span class="keyword">new</span> DOMParser()).parseFromString(xml, <span class="string">"text/xml"</span>);</span><br><span class="line">        <span class="keyword">var</span> errors = xmldom.getElementsByTagName(<span class="string">"parsererror"</span>);</span><br><span class="line">        <span class="keyword">if</span> (errors.length)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"XML parsing error:"</span> + errors[<span class="number">0</span>].textContent);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> ActiveXObject != <span class="string">"undefined"</span>)&#123;</span><br><span class="line">        xmldom = createDocument();</span><br><span class="line">        xmldom.loadXML(xml);</span><br><span class="line">        <span class="keyword">if</span> (xmldom.parseError != <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"XML parsing error: "</span> + xmldom.parseError.reason);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"No XML parser available."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> xmldom;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>序列化XML</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function serializeXml(xmldom)&#123;</span><br><span class="line">    if (typeof XMLSerializer != &quot;undefined&quot;)&#123;</span><br><span class="line">        return (new XMLSerializer()).serializeToString(xmldom);</span><br><span class="line">    &#125; else if (typeof xmldom.xml != &quot;undefined&quot;)&#123;</span><br><span class="line">        return xmldom.xml;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        throw new Error(&quot;Could not serialize XML DOM.&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="浏览器对XPath的支持"><a href="#浏览器对XPath的支持" class="headerlink" title="浏览器对XPath的支持"></a>浏览器对XPath的支持</h2><ul>
+<li>XPath是设计用来在DOM文档中查找节点的一种手段，因而对XML处理也很重要</li>
+</ul>
+<h3 id="DOM3级XPath"><a href="#DOM3级XPath" class="headerlink" title="DOM3级XPath"></a>DOM3级XPath</h3><ul>
+<li>XPathEvaluator:用于在特定的上下文中对XPath表达式求值</li>
+<li>处理命名空间有两种方法：<blockquote>
+<p>1.createNSResolver()创建XPathNSResolver对象<br>2.定义一个函数，让它接收一个命名空间前缀</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="IE中的XPath"><a href="#IE中的XPath" class="headerlink" title="IE中的XPath"></a>IE中的XPath</h3><ul>
+<li>在IE8及之前的浏览器，XPath是采用内置基于ActiveX的XML DOM文档对象实现的。在每一个节点上提供了两个方法：selectSingleNode()和selectNodes()。</li>
+<li>处理命名空间的方法：setProperty()</li>
+</ul>
+<h3 id="跨浏览器使用XPath"><a href="#跨浏览器使用XPath" class="headerlink" title="跨浏览器使用XPath"></a>跨浏览器使用XPath</h3><ul>
+<li>要在其它使用DOM3级XPath对象的浏览器中，重新创建selectSingleNode()和selectNodes()方法。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">selectSingleNode</span>(<span class="params">context, expression, namespaces</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> doc = (context.nodeType != <span class="number">9</span> ? context.ownerDocument : context);</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> doc.evaluate != <span class="string">"undefined"</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> nsresolver = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (namespaces <span class="keyword">instanceof</span> <span class="built_in">Object</span>) &#123;</span><br><span class="line">            nsresolver = <span class="function"><span class="keyword">function</span> (<span class="params">prefix</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> namespaces[prefix];</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">var</span> result = doc.evaluate(expression, context, nsresolver, XPathResult.FIRST_ORDERED_NODE_TYPE, <span class="literal">null</span>);</span><br><span class="line">        <span class="keyword">return</span> (result !== <span class="literal">null</span> ? result.singleNodeValue : <span class="literal">null</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> context.selectSingleNode != <span class="string">"undefined"</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (namespaces <span class="keyword">instanceof</span> <span class="built_in">Object</span>) &#123;</span><br><span class="line">            <span class="keyword">var</span> ns = <span class="string">""</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> prefix <span class="keyword">in</span> namespaces) &#123;</span><br><span class="line">                <span class="keyword">if</span> (namespaces.hasOwnProperty(prefix)) &#123;</span><br><span class="line">                    ns += <span class="string">"xmlns:"</span> + prefix + <span class="string">"='"</span> + namespaces[prefix] + <span class="string">"' "</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            doc.setProperty(<span class="string">"SelectionNamespaces"</span>, ns);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> context.selectSingleNode(expression);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"No XPath engine found."</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="浏览器对XSLT的支持"><a href="#浏览器对XSLT的支持" class="headerlink" title="浏览器对XSLT的支持"></a>浏览器对XSLT的支持</h2><ul>
+<li>XSLT：它利用XPath将文档从一种表现形式转换成另一种表现形式</li>
+</ul>
+<h3 id="IE中的XSLT"><a href="#IE中的XSLT" class="headerlink" title="IE中的XSLT"></a>IE中的XSLT</h3><ul>
+<li><p>简单的XSLT转换：使用XSLT样式表</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xmldom.load(<span class="string">"employees.xml"</span>);</span><br><span class="line">xstldom.load(<span class="string">"employees.xstl"</span>);</span><br><span class="line"><span class="keyword">var</span> result = xmldom.transformNodes(xstldom);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>复杂的XSLT转换：使用XSL模板和XSL处理器</p>
+</li>
+<li><p>第一步： 先要把XSTL样式表加载到一个线程安全的XML文档中。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createThreadSafeDocument</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">arguments</span>.callee.activeXString != <span class="string">"string"</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> versions = [<span class="string">"MSXML2.FreeThreadedDOMDocument.6.0"</span>, <span class="string">"MSXML2.FreeThreadedDOMDocument.3.0"</span>, <span class="string">"MSXML2.FreeThreadedDOMDocument"</span>],</span><br><span class="line">            i, len;</span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>, len = versions.length; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">new</span> ActiveXObject(versions[i]);</span><br><span class="line">                <span class="built_in">arguments</span>.callee.activeXString = versions[i];</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (ex) &#123;</span><br><span class="line">                <span class="comment">//skip   </span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ActiveXObject(<span class="built_in">arguments</span>.callee.activeXString);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第二步：将创建并加载了自由线程的DOM文档指定给一个XSL模板，这也是一个ActiveX对象，模板用来创建XSL处理器对象</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createXSTLTemplate</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">arguments</span>.callee.activeXString != <span class="string">"string"</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> versions = [<span class="string">"MSXML2.FreeThreadedDOMDocument.6.0"</span>, <span class="string">"MSXML2.FreeThreadedDOMDocument.3.0"</span>, <span class="string">"MSXML2.FreeThreadedDOMDocument"</span>],</span><br><span class="line">            i, len;</span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>, len = versions.length; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">new</span> ActiveXObject(versions[i]);</span><br><span class="line">                <span class="built_in">arguments</span>.callee.activeXString = versions[i];</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (ex) &#123;</span><br><span class="line">                <span class="comment">//skip    </span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ActiveXObject(<span class="built_in">arguments</span>.callee.activeXString);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用示例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xsltdom = createThreadSafeDocument();</span><br><span class="line">xstldom.async = <span class="literal">false</span>;</span><br><span class="line">xsltdom.load(<span class="string">"employees.xslt"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> template = createXSTLTemplate();</span><br><span class="line">template.stylesheet = xstldom;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> processor = tempalte.createProcessor();</span><br><span class="line">processor.input = xmldom;</span><br><span class="line">processor.transform();</span><br><span class="line"><span class="keyword">var</span> result = processor.output;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="XSLTProcessor类型"><a href="#XSLTProcessor类型" class="headerlink" title="XSLTProcessor类型"></a>XSLTProcessor类型</h3><ul>
+<li>XSLTProcessor：是通过JS进行XSLT转换的事实标准<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> processor = <span class="keyword">new</span> XSLTProcessor();</span><br><span class="line">processor.importStylesheet(xsltdom);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="跨浏览器使用XSLT"><a href="#跨浏览器使用XSLT" class="headerlink" title="跨浏览器使用XSLT"></a>跨浏览器使用XSLT</h3><ul>
+<li>接收两个参数： 要执行转换的上下文节点和XSLT文档对象。 返回序列化之后的字符串。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">transform</span>(<span class="params">context, xslt</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> XSLTProcessor != <span class="string">"undefined"</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> processor = <span class="keyword">new</span> XSLTProcessor();</span><br><span class="line">        processor.importStylesheet(xslt);</span><br><span class="line">        <span class="keyword">var</span> result = processor.transformToDocument(context);</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">new</span> XMLSerializer()).serializeToString(result);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> context.transformNode != <span class="string">"undefined"</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> caontext.transformNode(xslt);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"No XSLT processor available."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/02/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记17/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/02/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记17/" itemprop="url">JavaScript高级程序设计读书笔记17</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-02T13:32:06+08:00">
+                2018-02-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/JavaScript高级程序设计/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript高级程序设计</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第17章-错误处理与调试"><a href="#第17章-错误处理与调试" class="headerlink" title="第17章 错误处理与调试"></a>第17章 错误处理与调试</h1><h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><h3 id="try-catch语句"><a href="#try-catch语句" class="headerlink" title="try-catch语句"></a>try-catch语句</h3><ul>
+<li>把所有可能会抛出错误的代码都放在try语句快中，而把那些用于错误处理的代码放在catch块中</li>
+<li>错误信息有message属性和name属性</li>
+<li>message属性是唯一一个能保证所有浏览器都支持的属性</li>
+</ul>
+<h4 id="finally"><a href="#finally" class="headerlink" title="finally"></a>finally</h4><ul>
+<li><p>只要代码中包含finally子句，则无论try或catch语句块中包含什么样的代码——甚至return语句，都不会阻止finally子句的执行。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">testFinally</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用这个函数只能返回0</p>
+</li>
+</ul>
+<h4 id="错误类型"><a href="#错误类型" class="headerlink" title="错误类型"></a>错误类型</h4><ul>
+<li>每种错误都有对应的错误类型，而当错误发生时，就会抛出相应类型的错误对象。</li>
+<li>Error:Error是基类型，其他错误类型都继承自该类型</li>
+<li>EvalError:在使用eval()函数而发生异常时抛出</li>
+<li>RangeError:数值超出相应范围时触发</li>
+<li>ReferenceError:在找不到对象的情况下，会发生ReferenceError</li>
+<li>SyntaxError:当我们把语法错误的JavaScript字符串传入eval()函数时，就会导致此类错误</li>
+<li>TypeError:执行特定于类型的操作时，变量的类型并不符合要求所致。最常发生类型错误的情况，就是传递给函数的参数事先未经检查，结果传入类型与预期类型不相符。</li>
+<li>URIError:URI格式不正确时，就会导致URIError错误</li>
+</ul>
+<h3 id="合理使用try-catch"><a href="#合理使用try-catch" class="headerlink" title="合理使用try-catch"></a>合理使用try-catch</h3><ul>
+<li>当try-catch语句中发生错误时，浏览器会认为错误已经被处理了。因而不会通过前面讨论的机制记录或报告错误。</li>
+<li>使用try-catch最适合处理那些我们无法控制的错误.</li>
+<li>在明明白白地知道自己的代码会发生错误时，不应该使用try-catch语句。</li>
+</ul>
+<h3 id="抛出错误"><a href="#抛出错误" class="headerlink" title="抛出错误"></a>抛出错误</h3><ul>
+<li>throw操作符，用于随时抛出自定义错误。</li>
+<li>在遇到throw操作符时，代码会立即停止执行。仅当有try-catch语句捕获到被抛出的值时，代码才会继续执行。</li>
+<li>通过使用某种内置错误类型，可以更真实地模拟浏览器错误。每种错误类型的构造函数接受一个参数，即实际的错误信息。</li>
+<li><p>利用原型链还可以通过继承Error来创建自定义错误类型。此时，需要为新创建的错误类型指定name和message属性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CustomError</span>(<span class="params">message</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = <span class="string">"CustomError"</span>;</span><br><span class="line">    <span class="keyword">this</span>.message = message;</span><br><span class="line">&#125;</span><br><span class="line">CustomError.prototype = <span class="keyword">new</span> <span class="built_in">Error</span>();</span><br><span class="line"><span class="keyword">throw</span> <span class="keyword">new</span> CustomError(<span class="string">"My message"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>想知道函数为什么执行失败，抛出自定义错误是一种很方便的方式。</p>
+</li>
+<li>应该捕获那些你确切知道该如何处理的错误。</li>
+<li>捕获错误的目的在于避免浏览器以默认方式处理他们；而抛出错误的目的在于提供错误发生具体原因的消息。</li>
+</ul>
+<h3 id="错误（error）事件"><a href="#错误（error）事件" class="headerlink" title="错误（error）事件"></a>错误（error）事件</h3><ul>
+<li>任何没有通过try-catch处理的错误都会触发window对象的error事件。</li>
+<li>在事件处理程序中返回false，可以阻止浏览器报告错误的默认行为，实际充当了整个文档中的try-catch语句，可以捕获所有无代码处理的运行时错误。</li>
+</ul>
+<h3 id="处理错误的策略"><a href="#处理错误的策略" class="headerlink" title="处理错误的策略"></a>处理错误的策略</h3><ul>
+<li>作为开发者，必须知道代码何时可能出错，出什么错，还要有一套错误跟踪问题的系统。</li>
+</ul>
+<h3 id="常见的错误类型"><a href="#常见的错误类型" class="headerlink" title="常见的错误类型"></a>常见的错误类型</h3><ul>
+<li>常见的错误类型：类型转换错误、数据类型错误、通信错误</li>
+</ul>
+<h4 id="类型转换错误"><a href="#类型转换错误" class="headerlink" title="类型转换错误"></a>类型转换错误</h4><ul>
+<li>由于相等和不相等操作符会在比较之前进行一个转换，所以js会误以为这个比较是正确的而继续执行代码，然后导致错误，所以建议使用全等或不全等</li>
+<li>在流程控制语句中使用非布尔值为条件很容易导致类型转换错误。</li>
+</ul>
+<h4 id="数据类型错误"><a href="#数据类型错误" class="headerlink" title="数据类型错误"></a>数据类型错误</h4><ul>
+<li>在流程控制语句中使用非布尔值为条件很容易导致数据类型错误</li>
+<li>另一种错误做法，就是只针对要使用的某一个特性执行特性检测</li>
+<li>关于数据类型错误，大体上来说，基本类型的值应该使用typeof来洁厕，而对象的值应该使用instanceof来检测。</li>
+</ul>
+<h4 id="通信错误"><a href="#通信错误" class="headerlink" title="通信错误"></a>通信错误</h4><ul>
+<li>最常见的错误：将数据发送给服务器之前，没有使用encodeURIComponent()对数据进行编码</li>
+<li>在服务器响应的数据不正确时，也可能发生通信错误</li>
+</ul>
+<h3 id="区分致命错误和非致命错误"><a href="#区分致命错误和非致命错误" class="headerlink" title="区分致命错误和非致命错误"></a>区分致命错误和非致命错误</h3><ul>
+<li>非致命错误：不影响用户的主要任务、只影响页面的一部分、可以恢复、重复相同错误可以消除错误</li>
+<li>致命错误：程序无法继续运行、明显影响到用户的主要操作、会导致其他连带错误</li>
+</ul>
+<h3 id="把错误记录到服务器"><a href="#把错误记录到服务器" class="headerlink" title="把错误记录到服务器"></a>把错误记录到服务器</h3><ul>
+<li>首先要在服务器创建一个页面，用于处理错误数据。</li>
+<li>只要是使用try-catch语句，就应该把响应错误记录到日志中</li>
+</ul>
+<h2 id="调试技术"><a href="#调试技术" class="headerlink" title="调试技术"></a>调试技术</h2><h3 id="将消息记录到控制台"><a href="#将消息记录到控制台" class="headerlink" title="将消息记录到控制台"></a>将消息记录到控制台</h3><ul>
+<li>通过console对象向JavaScript控制台写入信息。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">log</span>(<span class="params">message</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">console</span> == <span class="string">"object"</span>)&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(message);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> opera == <span class="string">"object"</span>)&#123;</span><br><span class="line">        opera.postError(message);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> java == <span class="string">"object"</span> &amp;&amp; <span class="keyword">typeof</span> java.lang == <span class="string">"object"</span>)&#123;</span><br><span class="line">        java.lang.System.out.println(message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="将消息记录到当前页面"><a href="#将消息记录到当前页面" class="headerlink" title="将消息记录到当前页面"></a>将消息记录到当前页面</h3><ul>
+<li>在页面中开辟一小块区域，用以显示消息<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">log</span>(<span class="params">message</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> <span class="built_in">console</span> = <span class="built_in">document</span>.getElementById(<span class="string">"debuginfo"</span>);</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">console</span> ===<span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="built_in">console</span> = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">        <span class="built_in">console</span>.id = <span class="string">"debuginfo"</span>;</span><br><span class="line">        <span class="built_in">console</span>.style.background = <span class="string">"#dedede"</span>;</span><br><span class="line">        <span class="built_in">console</span>.style.border = <span class="string">"1px solid silver"</span>;</span><br><span class="line">        <span class="built_in">console</span>.style.padding = <span class="string">"5px"</span>;</span><br><span class="line">        <span class="built_in">console</span>.style.width = <span class="string">"400px"</span>;</span><br><span class="line">        <span class="built_in">console</span>.style.position = <span class="string">"absolute"</span>;</span><br><span class="line">        <span class="built_in">console</span>.style.right = <span class="string">"0px"</span>;</span><br><span class="line">        <span class="built_in">console</span>.style.top = <span class="string">"0px"</span>;</span><br><span class="line">        <span class="built_in">document</span>.body.appendChild(<span class="built_in">console</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.innerHTML += <span class="string">"&lt;p&gt;"</span> + message + <span class="string">"&lt;/p&gt;"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="抛出错误-1"><a href="#抛出错误-1" class="headerlink" title="抛出错误"></a>抛出错误</h3><ul>
+<li>如果错误消息很具体，基本上就可以把它当作确定错误来源的依据</li>
+<li>这种错误消息必须能够明确给出导致错误的原因，才能省去其他调试操作</li>
+<li>对于大型的应用程序来说，自定义的错误通常使用assert()函数抛出</li>
+</ul>
+<h2 id="常见的IE错误"><a href="#常见的IE错误" class="headerlink" title="常见的IE错误"></a>常见的IE错误</h2><ul>
+<li>操作终止</li>
+<li>无效字符</li>
+<li>未找到成员</li>
+<li>未知运行时错误</li>
+<li>语法错误</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/31/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记16/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/31/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记16/" itemprop="url">JavaScript高级程序设计读书笔记16</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-31T23:08:59+08:00">
+                2018-01-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/JavaScript高级程序设计/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript高级程序设计</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第16章-HTML5脚本编程"><a href="#第16章-HTML5脚本编程" class="headerlink" title="第16章 HTML5脚本编程"></a>第16章 HTML5脚本编程</h1><h2 id="跨文档信息传送"><a href="#跨文档信息传送" class="headerlink" title="跨文档信息传送"></a>跨文档信息传送</h2><ul>
+<li>跨文档消息传送（cross-document messaging），有时候也简称为XDM，指的是来自不同域的页面间传递消息。</li>
+<li>XDM的核心是postMessage()方法：向另一个地方传递数据</li>
+<li>postMessage()方法接收两个参数：一条消息和一个表示消息接收方来自哪个域的字符串。</li>
+<li>接收到XDM消息时，会触发window对象的message事件。这个事件是以异步形式触发的，因此从发送消息到接受消息（触发接受窗口的message事件）可能要经过一段时间的延迟。</li>
+<li><p>接受到消息后验证发送窗口的来源是至关重要的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">EventUtil.addHandler(<span class="built_in">window</span>, <span class="string">"message"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//确保发送消息的域是已知的域</span></span><br><span class="line">    <span class="keyword">if</span> (event.origin == <span class="string">"http://www.w3cmm.com"</span>) &#123;</span><br><span class="line">        <span class="comment">//处理接收到的数据</span></span><br><span class="line">        processMessage(event.data);</span><br><span class="line">        <span class="comment">//可选：向来源窗口发送回执</span></span><br><span class="line">        event.source.postMessage(<span class="string">"Received!"</span>, <span class="string">"http://p2p.w3cmm.com"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>event.source大多数情况下只是window对象的代理，并非实际的window对象。换句话说，不能通过这个代理对象访问window对象的其它任何信息。只通过这个代理调用postMessage()就好，这个方法永远不存在，永远可以调用。</p>
+</li>
+</ul>
+<h2 id="原生拖放"><a href="#原生拖放" class="headerlink" title="原生拖放"></a>原生拖放</h2><h3 id="拖放事件"><a href="#拖放事件" class="headerlink" title="拖放事件"></a>拖放事件</h3><ul>
+<li>最关键的地方在于确定那里发生了拖放事件，有些事件是在被拖动的元素上触发的，而有些事件是在放置目标上触发的。</li>
+<li>拖动某些元素时，将一次触发下列事件：dragstart、drag、dragend</li>
+<li>当元素被拖放到一个有效的放置目标上时，下列事件会依次发生：dragenter、dragover、dragleave或drop</li>
+<li>上述三个事件的目标都是作为放置目标的元素。</li>
+</ul>
+<h3 id="自定义放置目标"><a href="#自定义放置目标" class="headerlink" title="自定义放置目标"></a>自定义放置目标</h3><ul>
+<li>可以把任何元素变成有效的放置目标，方法是重写dragenter和dragover事件的默认行为。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> droptarget = <span class="built_in">document</span>.getElementById(<span class="string">"droptarget"</span>);</span><br><span class="line">EventUtil.addHandler(droptarget, <span class="string">"dragover"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">    EventUtil.preventDefault(event);</span><br><span class="line">&#125;);</span><br><span class="line">EventUtil.addHandler(droptarget, <span class="string">"dragenter"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">    EventUtil.preventDefault(event);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="dataTransfer对象"><a href="#dataTransfer对象" class="headerlink" title="dataTransfer对象"></a>dataTransfer对象</h3><ul>
+<li>dataTransfer对象，它是事件对象的一个属性，用于从被拖动元素向放置目标传递字符串格式的数据。</li>
+<li><p>getData()和setData()方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置和接收文本数据</span></span><br><span class="line">event.dataTransfer.setData(<span class="string">"text"</span>, <span class="string">"some text"</span>);</span><br><span class="line"><span class="keyword">var</span> text = event.dataTransfer.getData(<span class="string">"text"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置和接收URL</span></span><br><span class="line">event.dataTransfer.setData(<span class="string">"URL"</span>, <span class="string">"https://www.w3cmm.com/"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在拖放链接或图像时，会调用setData()方法并保存URL。然后，在这些元素被拖放到放置目标时，就可以通过getData()读到这些数据。</p>
+</li>
+<li>保存在dataTransfer对象中的数据只能在drop事件处理程序中读取。</li>
+</ul>
+<h3 id="dropEffect与effectAllowed"><a href="#dropEffect与effectAllowed" class="headerlink" title="dropEffect与effectAllowed"></a>dropEffect与effectAllowed</h3><ul>
+<li>利用dataTransfer对象，可不光是能够传输数据，还能通过它来确定被拖动的元素以及作为放置目标的元素能够接受什么操作。</li>
+<li>dropEffect：可以知道被拖动的元素能够执行哪种放置行为。</li>
+<li>effectAllowed：只有搭配effectAllowed属性才有用。effectAllowed属性表示允许拖放元素的哪种dropEffect。</li>
+</ul>
+<h3 id="可拖动"><a href="#可拖动" class="headerlink" title="可拖动"></a>可拖动</h3><ul>
+<li>默认情况下，图像、链接和文本是可以拖动的</li>
+<li>draggable属性，表示元素是否可以拖动。</li>
+</ul>
+<h2 id="媒体元素"><a href="#媒体元素" class="headerlink" title="媒体元素"></a>媒体元素</h2><ul>
+<li><code>&lt;audio&gt;</code>和<code>&lt;video&gt;</code>标签</li>
+<li>自定义媒体播放器<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"mediaplayer"</span>&gt;</span> </span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"video"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">video</span> <span class="attr">id</span>=<span class="string">"player"</span> <span class="attr">src</span>=<span class="string">"movie.mov"</span> <span class="attr">poster</span>=<span class="string">"mymovie.jpg"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">width</span>=<span class="string">"300"</span> <span class="attr">height</span>=<span class="string">"200"</span>&gt;</span></span><br><span class="line">            Video player not available.</span><br><span class="line">        <span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"controls"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"Play"</span> <span class="attr">id</span>=<span class="string">"video-btn"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"curtime"</span>&gt;</span>0<span class="tag">&lt;/<span class="name">span</span>&gt;</span>/<span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"duration"</span>&gt;</span>0<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//取得元素的引用</span></span><br><span class="line"><span class="keyword">var</span> player = <span class="built_in">document</span>.getElementById(<span class="string">"player"</span>),</span><br><span class="line">    btn = <span class="built_in">document</span>.getElementById(<span class="string">"video-btn"</span>),</span><br><span class="line">    curtime = <span class="built_in">document</span>.getElementById(<span class="string">"curtime"</span>),</span><br><span class="line">    duration = <span class="built_in">document</span>.getElementById(<span class="string">"duration"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//更新播放时间</span></span><br><span class="line">duration.innerHTML = player.duration;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//为按钮添加事件处理程序</span></span><br><span class="line">EventUtil.addHandler(btn, <span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (player.paused)&#123;</span><br><span class="line">        player.play();</span><br><span class="line">        btn.value = <span class="string">"Pause"</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        player.pause();</span><br><span class="line">        btn.value = <span class="string">"Play"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//定时更新当前时间</span></span><br><span class="line">setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    curtime.innerHTML = player.currentTime;</span><br><span class="line">&#125;, <span class="number">250</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>检测编解码器的支持情况:canPlayType()方法，该方法接收一种格式/编解码器字符串，返回”probably”、”maybe”或””（ 空字符串）。</li>
+<li>传入了一种MIME类型，则返回值很可能是”maybe”或空字符串。</li>
+<li>在同时传入MIME类型和编解码器的情况下，可能性就会增加，返回的字符串会变成”probably”。</li>
+</ul>
+<h2 id="历史状态管理"><a href="#历史状态管理" class="headerlink" title="历史状态管理"></a>历史状态管理</h2><ul>
+<li>通过状态管理API，能够在不加载新页面的情况下改变浏览器的URL。</li>
+<li>history.pushState()方法，该方法可以接收三个参数：状态对象、新状态的标题和可选的相对URL。</li>
+<li>要更新当前状态，可以调用replaceState()</li>
+<li>​</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/31/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记15/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/31/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记15/" itemprop="url">JavaScript高级程序设计读书笔记15</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-31T15:11:31+08:00">
+                2018-01-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/JavaScript高级程序设计/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript高级程序设计</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第15章-使用Canvas绘图"><a href="#第15章-使用Canvas绘图" class="headerlink" title="第15章 使用Canvas绘图"></a>第15章 使用Canvas绘图</h1><h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><ul>
+<li>要使用canvas元素，必须先设置其width和height属性，指定绘图区域的大小。</li>
+<li>getContext()：取得绘图上下文</li>
+<li>toDataURL()：导出在canvas元素元素上绘制的图像</li>
+</ul>
+<h2 id="2D上下文"><a href="#2D上下文" class="headerlink" title="2D上下文"></a>2D上下文</h2><ul>
+<li>2D上下文的坐标开始于canvas元素的左上角，圆点坐标为（0，0），所有坐标都是基于这个圆点计算，x值越大越靠右，y值越大越靠下。</li>
+</ul>
+<h3 id="填充和描边"><a href="#填充和描边" class="headerlink" title="填充和描边"></a>填充和描边</h3><ul>
+<li>2D上下文的两种基本绘图操作是填充和描边</li>
+<li>fillStyle（填充）和strokeStyle（描边）属性：属性的值可以是字符串、渐变对象或模式对象</li>
+</ul>
+<h3 id="绘制矩形"><a href="#绘制矩形" class="headerlink" title="绘制矩形"></a>绘制矩形</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">方法名</th>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">fillRect()</td>
+<td style="text-align:center">矩形的x坐标、矩形的y坐标、矩形的宽度和矩形的高度</td>
+<td style="text-align:center">在画布上绘制的矩形会填充指定的颜色</td>
+</tr>
+<tr>
+<td style="text-align:center">strokeRect()</td>
+<td style="text-align:center">矩形的x坐标、矩形的y坐标、矩形的宽度和矩形的高度</td>
+<td style="text-align:center">在画布上绘制的矩形会使用指定的颜色描边</td>
+</tr>
+<tr>
+<td style="text-align:center">clearRect()</td>
+<td style="text-align:center">矩形的x坐标、矩形的y坐标、矩形的宽度和矩形的高度</td>
+<td style="text-align:center">清除画布上的矩形区域</td>
+</tr>
+</tbody>
+</table>
+<p><img src="http://image.jiantuku.com/18-1-31/15903489.jpg?e=1517384410&amp;token=el7kgPgYzpJoB23jrChWJ2gV3HpRl0VCzFn8rKKv:48VJFxdDom-bcFuU7NOufVY9SOc=" alt=""><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> drawing=<span class="built_in">document</span>.getElementById(<span class="string">"drawing"</span>);</span><br><span class="line"><span class="comment">//确定浏览器支持&lt;canvas&gt;元素</span></span><br><span class="line"><span class="keyword">if</span>(drawing.getContext) &#123;</span><br><span class="line"><span class="comment">//取得绘图上下文对象的引用，“2d”是取得2D上下文对象</span></span><br><span class="line">    <span class="keyword">var</span> context = drawing.getContext(<span class="string">"2d"</span>);</span><br><span class="line">    <span class="comment">//绘制红色矩形</span></span><br><span class="line">    context.fillStyle = <span class="string">"#ff0000"</span>;</span><br><span class="line">    context.fillRect(<span class="number">10</span>,<span class="number">10</span>,<span class="number">50</span>,<span class="number">50</span>);</span><br><span class="line">    <span class="comment">//绘制半透明的蓝色矩形</span></span><br><span class="line">    context.fillStyle=<span class="string">"rgba(0,0,255,0.5)"</span>;</span><br><span class="line">    context.fillRect(<span class="number">30</span>,<span class="number">30</span>,<span class="number">50</span>,<span class="number">50</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://image.jiantuku.com/18-1-31/14320079.jpg?e=1517384410&amp;token=el7kgPgYzpJoB23jrChWJ2gV3HpRl0VCzFn8rKKv:7IX9LrvfKqJzsW8xWDh2IR5l3Lc=" alt=""><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> drawing=<span class="built_in">document</span>.getElementById(<span class="string">"drawing"</span>);</span><br><span class="line"><span class="comment">//确定浏览器支持&lt;canvas&gt;元素</span></span><br><span class="line"><span class="keyword">if</span>(drawing.getContext) &#123;</span><br><span class="line"><span class="comment">//取得绘图上下文对象的引用，“2d”是取得2D上下文对象</span></span><br><span class="line">    <span class="keyword">var</span> context = drawing.getContext(<span class="string">"2d"</span>);</span><br><span class="line">    <span class="comment">//绘制红色矩形</span></span><br><span class="line">    context.strokeStyle = <span class="string">"#ff0000"</span>;</span><br><span class="line">    context.strokeRect(<span class="number">10</span>,<span class="number">10</span>,<span class="number">50</span>,<span class="number">50</span>);</span><br><span class="line">    <span class="comment">//绘制半透明的蓝色矩形</span></span><br><span class="line">    context.strokeStyle=<span class="string">"rgba(0,0,255,0.5)"</span>;</span><br><span class="line">    context.strokeRect(<span class="number">30</span>,<span class="number">30</span>,<span class="number">50</span>,<span class="number">50</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://image.jiantuku.com/18-1-31/69318331.jpg?e=1517384410&amp;token=el7kgPgYzpJoB23jrChWJ2gV3HpRl0VCzFn8rKKv:kFVdX3O7nB4CpYODy4LCUhphlEQ=" alt=""><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> drawing=<span class="built_in">document</span>.getElementById(<span class="string">"drawing"</span>);</span><br><span class="line"><span class="comment">//确定浏览器支持&lt;canvas&gt;元素</span></span><br><span class="line"><span class="keyword">if</span>(drawing.getContext) &#123;</span><br><span class="line"><span class="comment">//取得绘图上下文对象的引用，“2d”是取得2D上下文对象</span></span><br><span class="line">    <span class="keyword">var</span> context = drawing.getContext(<span class="string">"2d"</span>);</span><br><span class="line">    <span class="comment">//绘制红色矩形</span></span><br><span class="line">    context.fillStyle = <span class="string">"#ff0000"</span>;</span><br><span class="line">    context.fillRect(<span class="number">10</span>,<span class="number">10</span>,<span class="number">50</span>,<span class="number">50</span>);</span><br><span class="line">    <span class="comment">//绘制半透明的蓝色矩形</span></span><br><span class="line">    context.fillStyle=<span class="string">"rgba(0,0,255,0.5)"</span>;</span><br><span class="line">    context.fillRect(<span class="number">30</span>,<span class="number">30</span>,<span class="number">50</span>,<span class="number">50</span>);</span><br><span class="line">    <span class="comment">//在两个矩形冲抵的地方清除一个小矩形</span></span><br><span class="line">    context.clearRect(<span class="number">40</span>,<span class="number">40</span>,<span class="number">10</span>,<span class="number">10</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="绘制路径"><a href="#绘制路径" class="headerlink" title="绘制路径"></a>绘制路径</h3><ul>
+<li>要绘制路径，首先必须调用beginPath()方法，表示要开始绘制新路径。</li>
+<li>strock()方法对路径描边。<br><img src="http://image.jiantuku.com/18-1-31/63036916.jpg?e=1517384410&amp;token=el7kgPgYzpJoB23jrChWJ2gV3HpRl0VCzFn8rKKv:DU6lPXqohH0jp_JyRwreWNhsocs=" alt=""><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> drawing=<span class="built_in">document</span>.getElementById(<span class="string">"drawing"</span>);</span><br><span class="line"><span class="comment">//确定浏览器支持&lt;canvas&gt;元素</span></span><br><span class="line"><span class="keyword">if</span>(drawing.getContext)&#123;</span><br><span class="line"><span class="comment">//取得绘图上下文对象的引用，“2d”是取得2D上下文对象</span></span><br><span class="line">    <span class="keyword">var</span> context=drawing.getContext(<span class="string">"2d"</span>);</span><br><span class="line"><span class="comment">//开始路径</span></span><br><span class="line">    context.beginPath();</span><br><span class="line"><span class="comment">//绘制外圆</span></span><br><span class="line">    context.arc(<span class="number">100</span>,<span class="number">100</span>,<span class="number">99</span>,<span class="number">0</span>,<span class="number">2</span>*<span class="built_in">Math</span>.PI,<span class="literal">false</span>);</span><br><span class="line"><span class="comment">//绘制内圆</span></span><br><span class="line">    context.moveTo(<span class="number">194</span>,<span class="number">100</span>);</span><br><span class="line">    context.arc(<span class="number">100</span>,<span class="number">100</span>,<span class="number">94</span>,<span class="number">0</span>,<span class="number">2</span>*<span class="built_in">Math</span>.PI,<span class="literal">false</span>);</span><br><span class="line"><span class="comment">//绘制分针</span></span><br><span class="line">    context.moveTo(<span class="number">100</span>,<span class="number">100</span>);</span><br><span class="line">    context.lineTo(<span class="number">100</span>,<span class="number">15</span>);</span><br><span class="line"><span class="comment">//绘制时针</span></span><br><span class="line">    context.moveTo(<span class="number">100</span>,<span class="number">100</span>);</span><br><span class="line">    context.lineTo(<span class="number">35</span>,<span class="number">100</span>);</span><br><span class="line">    context.strokeStyle=<span class="string">"rgba(0,0,255,0.5)"</span>;</span><br><span class="line"><span class="comment">//最后必须调用stroke()方法，这样才能把图像绘制到画布上。</span></span><br><span class="line">    context.stroke();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="绘制文本"><a href="#绘制文本" class="headerlink" title="绘制文本"></a>绘制文本</h3><ul>
+<li>fillText(),strokeText()：接受四个参数：要绘制的文本，x坐标，y坐标和可选的最大像素</li>
+<li>fillText()由于可以模仿在网页中正常显示文本，所有应用的更多。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//添加文字“12”</span></span><br><span class="line">   context.font=<span class="string">"bold 14px Arial"</span>;</span><br><span class="line">   context.textAlign=<span class="string">"center"</span>;   <span class="comment">//文本的对齐方式</span></span><br><span class="line">   context.textBaseline=<span class="string">"middle"</span>;<span class="comment">//文本的基线</span></span><br><span class="line">   context.fillText(<span class="string">"12"</span>,<span class="number">100</span>,<span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="变换"><a href="#变换" class="headerlink" title="变换"></a>变换</h3><ul>
+<li>save()、restore()可以跟踪上下文的状态变化</li>
+<li>save保存设置到一个栈结构，restore恢复前一级保存的状态<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> context=drawing.getContext(<span class="string">"2d"</span>);</span><br><span class="line">   context.fillStyle=<span class="string">"#ff0000"</span>;</span><br><span class="line">   context.save();</span><br><span class="line"></span><br><span class="line">   context.fillStyle=<span class="string">"#00ff00"</span>;</span><br><span class="line">   context.translate(<span class="number">100</span>,<span class="number">100</span>);</span><br><span class="line">   context.save();</span><br><span class="line"></span><br><span class="line">   context.fillStyle=<span class="string">"#0000ff"</span>;<span class="comment">//蓝色</span></span><br><span class="line">   context.fillRect(<span class="number">0</span>,<span class="number">0</span>,<span class="number">100</span>,<span class="number">200</span>); <span class="comment">//点(110,110)</span></span><br><span class="line"></span><br><span class="line">   context.restore();<span class="comment">//绿色</span></span><br><span class="line">   context.fillRect(<span class="number">10</span>,<span class="number">10</span>,<span class="number">100</span>,<span class="number">200</span>); <span class="comment">//点(110,110)</span></span><br><span class="line"></span><br><span class="line">   context.restore();<span class="comment">//红色</span></span><br><span class="line">   context.fillRect(<span class="number">0</span>,<span class="number">0</span>,<span class="number">100</span>,<span class="number">200</span>); <span class="comment">//点(0,0)</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="绘制图像"><a href="#绘制图像" class="headerlink" title="绘制图像"></a>绘制图像</h3><ul>
+<li>drawImage():把一幅图像绘制到画布上。 </li>
+<li>三种不同的调用方式： <blockquote>
+<p>1.传入一个元素，绘制图像起点的x,y坐标。<br>2.还可以再传两个参数：目标宽度，目标高度。以此来缩放图像。<br>3.传入9个参数：要绘制的图像，源图像的x坐标，源图像的y坐标,源图像的宽度，源图像的高度，目标图像的x坐标，目标图像的y坐标，目标图像的宽度，目标图像的高度。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="阴影"><a href="#阴影" class="headerlink" title="阴影"></a>阴影</h3><ul>
+<li>shadowColor:用Css颜色格式表示的阴影颜色，默认为黑色。 </li>
+<li>shadowOffsetX:形状或路径x轴的阴影偏移量，默认为0. </li>
+<li>shadowOffsetY:形状或路径ya轴的阴影偏移量，默认为0. </li>
+<li>shadowBlur:模糊的像素数，默认为0，及不模糊。</li>
+</ul>
+<h3 id="渐变"><a href="#渐变" class="headerlink" title="渐变"></a>渐变</h3><ul>
+<li>渐变由CanvasGradient实例表示。通过2D上下文来创建和修改： </li>
+<li>createLinearGradient():创建一个新的线性渐变。4个参数：起点的x，y坐标，终点的x,y坐标。返回CanvasGradient实例。 </li>
+<li>创建完后，使用addColorStop():指定色标。两个参数：色标位置（0-1）和CSS颜色值。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> context = drawing.getContext(<span class="string">"2d"</span>),</span><br><span class="line">gradient = context.createLinearGradient(<span class="number">30</span>, <span class="number">30</span>, <span class="number">70</span>, <span class="number">70</span>);                  </span><br><span class="line">gradient.addColorStop(<span class="number">0</span>, <span class="string">"white"</span>);</span><br><span class="line">gradient.addColorStop(<span class="number">1</span>, <span class="string">"black"</span>);</span><br><span class="line">context.fillStyle = gradient;</span><br><span class="line">context.fillRect(<span class="number">30</span>, <span class="number">30</span>, <span class="number">50</span>, <span class="number">50</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="模式"><a href="#模式" class="headerlink" title="模式"></a>模式</h3><ul>
+<li>其实就是重复的图像，可以用来填充或描边图形。 </li>
+<li>createPattern():2个参数，一个HTML<code>&lt;img&gt;</code>元素和一个表示如何重复图像的字符串</li>
+</ul>
+<h3 id="使用图像数据"><a href="#使用图像数据" class="headerlink" title="使用图像数据"></a>使用图像数据</h3><ul>
+<li>getImageData():取得原始图像数据。4个参数，要取得其数据的画面区域的x，y坐标以及该区域的像素宽度和高度。 返回一个ImageData的实例。</li>
+<li>每个ImageData对象有三个属性。width,height和data。</li>
+<li>data属性是一个数组，保存着图像中每个像素的数据，每个像素用4个元素保存，红，绿，蓝，透明度</li>
+</ul>
+<h3 id="合成"><a href="#合成" class="headerlink" title="合成"></a>合成</h3><ul>
+<li>globalAlpah:介于0-1的值，用于指定所有绘制的透明度。 </li>
+<li>globalCompositionOperation:表示后绘制的图形怎样与先绘制的结合</li>
+</ul>
+<h2 id="WebGL"><a href="#WebGL" class="headerlink" title="WebGL"></a>WebGL</h2><ul>
+<li>针对Canvas的3D上下文</li>
+</ul>
+<h3 id="类型化数组"><a href="#类型化数组" class="headerlink" title="类型化数组"></a>类型化数组</h3><ul>
+<li>类型化数组也是数组，只不过其元素被设置为特性类型的值</li>
+<li>ArrayBuffer（数组缓冲器类型）：表示内存中指定的字节数，但是不会指定这些字节用于保存什么类型的数据</li>
+</ul>
+<h3 id="WebGL上下文"><a href="#WebGL上下文" class="headerlink" title="WebGL上下文"></a>WebGL上下文</h3><ul>
+<li>用GLSL编写的顶点和片段着色器</li>
+<li>支持类型化数组，即能够将数组中的数据限定为某种特定的数据类型</li>
+<li>创建和操作纹理</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/30/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记14/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xyy">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XyyFighting">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/30/读书笔记/Javascript高级程序设计读书笔记/JavaScript高级程序设计读书笔记14/" itemprop="url">JavaScript高级程序设计读书笔记14</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-30T23:17:06+08:00">
+                2018-01-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/读书笔记/JavaScript高级程序设计/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript高级程序设计</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="第14章-表单脚本"><a href="#第14章-表单脚本" class="headerlink" title="第14章 表单脚本"></a>第14章 表单脚本</h1><h2 id="表单的基础知识"><a href="#表单的基础知识" class="headerlink" title="表单的基础知识"></a>表单的基础知识</h2><ul>
+<li>在HTML中，表单是由<code>&lt;form&gt;</code>表示的，在JS中，表单对应的是HTMLFormElemnt类型</li>
+<li>取得form表单元素的方法：1.添加id属性 2.通过数值索引 3.通过name值取得</li>
+<li>表单的id和name属性，它们的值不一定相同</li>
+</ul>
+<h3 id="提交表单"><a href="#提交表单" class="headerlink" title="提交表单"></a>提交表单</h3><ul>
+<li>提交表单的方式：</li>
+<li>通用提交按钮 <code>&lt;input type=&quot;submit&quot; value=&quot;Submit Form&quot;&gt;</code></li>
+<li>自定义提交按钮<code>&lt;button type=&quot;submit&quot;&gt;Submit Form&lt;/button&gt;</code></li>
+<li>图像按钮<code>&lt;input type=&quot;image&quot; src=&quot;graphic.gif&quot;&gt;</code></li>
+<li>以编程方式提交表单<code>form.submit()</code></li>
+<li>提交表单最大的问题是重复提交表单，解决方法：1.第一次提交表单后就禁用提交按钮2.利用onsubmit事件处理程序取消后续的表单提交操作</li>
+</ul>
+<h3 id="重置表单"><a href="#重置表单" class="headerlink" title="重置表单"></a>重置表单</h3><ul>
+<li>重置表单的方式：</li>
+<li>通用提交按钮 <code>&lt;input type=&quot;reset&quot; value=&quot;Reset Form&quot;&gt;</code></li>
+<li>自定义提交按钮<code>&lt;button type=&quot;reset&quot;&gt;Reset Form&lt;/button&gt;</code></li>
+</ul>
+<h3 id="表单字段"><a href="#表单字段" class="headerlink" title="表单字段"></a>表单字段</h3><ul>
+<li>每个表单都有elements属性，该属性是表单中所有表单元素的集合</li>
+<li><p>解决重复提交表单问题，在第一次单击后就禁用提交按钮</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">EventUtil.addHandler(form,<span class="string">"submit"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">    event=EventUtil.getEvent(event);</span><br><span class="line">    <span class="keyword">var</span> target=EventUtil.getTarget(event);</span><br><span class="line">    <span class="comment">//取得提交按钮</span></span><br><span class="line">    <span class="keyword">var</span> btn=target.elements[<span class="string">"submit-btn"</span>];</span><br><span class="line">    <span class="comment">//禁用它</span></span><br><span class="line">    btn.disabled=<span class="literal">true</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>focus和blur事件以某种方式改变用户界面，要么是向用户给出视觉提示，要么是向界面中添加额外的功能。change事件经常用于验证用户在字段中的输入数据。</p>
+</li>
+</ul>
+<h2 id="文本框脚本"><a href="#文本框脚本" class="headerlink" title="文本框脚本"></a>文本框脚本</h2><ul>
+<li>在HTML中，有两种方式来表现文本框：1.使用<code>&lt;input&gt;</code>元素的单行文本框 2.使用<code>&lt;textarea&gt;</code>的多行文本框。</li>
+<li>这两种文本框都会将用户输入的内容保存在value属性中。可以通过这个属性读取和设置文本框的值。</li>
+</ul>
+<h3 id="选择文本"><a href="#选择文本" class="headerlink" title="选择文本"></a>选择文本</h3><ul>
+<li>select():上述两种文本框都支持，用于选择文本框中的所有文本。</li>
+<li>在文本框获得焦点时选择其所有文本，特别是在文本框包含默认值的时候。这样做可以让用户不必一个一个地删除文本。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">EventUtil.addHandler(textbox,<span class="string">"focus"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">    event = EventUtil.getEvent(event);</span><br><span class="line">    <span class="keyword">var</span> target = EventUtil.getTarget(event);</span><br><span class="line">    target.select();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="选择事件"><a href="#选择事件" class="headerlink" title="选择事件"></a>选择事件</h4><ul>
+<li>在选择了文本框中的文本时，就会触发select事件。</li>
+<li>在调用select()方法时也会触发select事件。</li>
+</ul>
+<h3 id="取得选择的文本"><a href="#取得选择的文本" class="headerlink" title="取得选择的文本"></a>取得选择的文本</h3><ul>
+<li>通过select事件我们可以知道用户什么时候选择了文本，但是不知道用户选择了什么文本。HTML5 通过一些扩展方案解决了这个问题，以便更顺利的取得选择的文本。</li>
+<li>该规范采取的办法：添加两个属性，selectionStart和selectionEnd。这两个属性中保存的是基于0的数值，表示所选择文本的范围（即文本选区开头和结尾的偏移量）。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getSelectedText</span>(<span class="params">textbox</span>)</span>&#123;</span><br><span class="line">	<span class="comment">//IE9+、Firefox、Safari、Chrome和Opera</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> textbox.selectionStart == <span class="string">"number"</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> textbox.value.substring(textbox.selectionStart,textbox.selectionEnd);</span><br><span class="line">	<span class="comment">//IE8 及更早版本</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.selection)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">document</span>.selection.createRange().text;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="选择部分文本"><a href="#选择部分文本" class="headerlink" title="选择部分文本"></a>选择部分文本</h4><ul>
+<li>setSelectionRange()方法，参数：要选择的第一个字符的索引和要选择的最后一个字符之后的字符的索引</li>
+<li><p>IE8 及更早的版本支持使用范围选择部分文本。</p>
+<blockquote>
+<p>1.首先使用createTextRange()方法创建一个范围，并将其放在恰当的位置上。</p>
+<ol>
+<li>使用collapse()将范围折叠到文本框的开始位置。<br>3.再使用moveStart()和moveEnd()这两个范围方法将范围移动到位。此时，moveStart()将范围的起点和终点移动到了相同的位置，只要给moveEnd()传入要选择的字符总数即可。<br>4.最后，使用范围的select()方法选择文本。</li>
+</ol>
+</blockquote>
+</li>
+<li><p>跨浏览器实现选择部分文本</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">selectText</span>(<span class="params">textbox, startIndex, stopIndex</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (textbox.setSelectionRange) &#123;</span><br><span class="line">        textbox.setSelectionRange(startIndex, stopIndex);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (textbox.createTextRange) &#123;</span><br><span class="line">        <span class="keyword">var</span> range = textbox.createTextRange();</span><br><span class="line">        range.collapse(<span class="literal">true</span>);</span><br><span class="line">        range.moveStart(<span class="string">"character"</span>, startIndex);</span><br><span class="line">        range.moveEnd(<span class="string">"character"</span>, stopIndex - startIndex);</span><br><span class="line">        range.select();</span><br><span class="line">    &#125;</span><br><span class="line">    textbox.focus();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="过滤输入"><a href="#过滤输入" class="headerlink" title="过滤输入"></a>过滤输入</h3><h4 id="屏蔽字符"><a href="#屏蔽字符" class="headerlink" title="屏蔽字符"></a>屏蔽字符</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">EventUtil.addHandler(textbox, <span class="string">"keypress"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">    event = EventUtil.getEvent(event);</span><br><span class="line">    <span class="keyword">var</span> target = EventUtil.getTarget(event);</span><br><span class="line">    <span class="keyword">var</span> charCode = EventUtil.getCharCode(event);</span><br><span class="line">	<span class="comment">//屏蔽非数值字符，不屏蔽也会触发keypress事件的基本按键，确保用户没有按下ctrl键</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="regexp">/\d/</span>.test(<span class="built_in">String</span>.fromCharCode(charCode)) &amp;&amp; charCode &gt; <span class="number">9</span> &amp;&amp;</span><br><span class="line">        !event.ctrlKey) &#123;</span><br><span class="line">        EventUtil.preventDefault(event);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="操作剪贴板"><a href="#操作剪贴板" class="headerlink" title="操作剪贴板"></a>操作剪贴板</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> EventUtil = &#123;</span><br><span class="line">    <span class="comment">//省略的代码</span></span><br><span class="line">    getClipboardText: <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> clipboardData = (event.clipboardData || <span class="built_in">window</span>.clipboardData);</span><br><span class="line">        <span class="keyword">return</span> clipboardData.getData(<span class="string">"text"</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    setClipboardText: <span class="function"><span class="keyword">function</span> (<span class="params">event, value</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (event.clipboardData) &#123;</span><br><span class="line">            <span class="keyword">return</span> event.clipboardData.setData(<span class="string">"text/plain"</span>, value);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.clipboardData) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">window</span>.clipboardData.setData(<span class="string">"text"</span>, value);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> textbox = <span class="built_in">document</span>.forms[<span class="number">0</span>].elements[<span class="string">"textbox1"</span>]</span><br><span class="line">EventUtil.addHandler(textbox, <span class="string">"paste"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">    event = EventUtil.getEvent(event);</span><br><span class="line">    <span class="keyword">var</span> text = EventUtil.getClipboardText(event);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!<span class="regexp">/^\d*$/</span>.test(text)) &#123;</span><br><span class="line">        EventUtil.preventDefault(event);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="自动切换焦点"><a href="#自动切换焦点" class="headerlink" title="自动切换焦点"></a>自动切换焦点</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"tel1"</span> <span class="attr">id</span>=<span class="string">"txtTel1"</span> <span class="attr">size</span>=<span class="string">"3"</span> <span class="attr">maxlength</span>=<span class="string">"3"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"tel2"</span> <span class="attr">id</span>=<span class="string">"txtTel2"</span> <span class="attr">size</span>=<span class="string">"3"</span> <span class="attr">maxlength</span>=<span class="string">"3"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"tel3"</span> <span class="attr">id</span>=<span class="string">"txtTel3"</span> <span class="attr">size</span>=<span class="string">"4"</span> <span class="attr">maxlength</span>=<span class="string">"4"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">tabForward</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">        event = EventUtil.getEvent(event);</span><br><span class="line">        <span class="keyword">var</span> target = EventUtil.getTarget(event);</span><br><span class="line">        <span class="keyword">if</span> (target.value.length == target.maxLength) &#123;  <span class="comment">//  确定是否已经达到最大长度</span></span><br><span class="line">            <span class="keyword">var</span> form = target.form;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = form.elements.length; i &lt; len; i++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (form.elements[i] == target) &#123;</span><br><span class="line">                    form.elements[i + <span class="number">1</span>].focus();  <span class="comment">//将焦点切换到下一个文本框</span></span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> textbox1 = <span class="built_in">document</span>.getElementById(<span class="string">"txtTel1"</span>);</span><br><span class="line">    <span class="keyword">var</span> textbox2 = <span class="built_in">document</span>.getElementById(<span class="string">"txtTel2"</span>);</span><br><span class="line">    <span class="keyword">var</span> textbox3 = <span class="built_in">document</span>.getElementById(<span class="string">"txtTel3"</span>);</span><br><span class="line">    <span class="comment">//这个函数指定为每个文本框的onkeyup事件处理程序</span></span><br><span class="line">    EventUtil.addHandler(textbox1, <span class="string">"keyup"</span>, tabForward);</span><br><span class="line">    EventUtil.addHandler(textbox2, <span class="string">"keyup"</span>, tabForward);</span><br><span class="line">    EventUtil.addHandler(textbox3, <span class="string">"keyup"</span>, tabForward);</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<h3 id="HTML5约束验证API"><a href="#HTML5约束验证API" class="headerlink" title="HTML5约束验证API"></a>HTML5约束验证API</h3><ul>
+<li>必填字段：required</li>
+<li>其他输入类型：email、url</li>
+<li>数值范围：number、range、datetime、datetime-local、date、month、week、time、stepUp()方法、stepDown()方法</li>
+<li>输入模式：pattern</li>
+<li>检测有效性：checkValidity()、validity</li>
+<li>禁用验证：novalidate、formnovalidate</li>
+</ul>
+<h2 id="选择框脚本"><a href="#选择框脚本" class="headerlink" title="选择框脚本"></a>选择框脚本</h2><ul>
+<li>在DOM中，每个<code>&lt;option&gt;</code>元素都有一个HTMLOptionElement对象表示。</li>
+</ul>
+<h3 id="选择选项"><a href="#选择选项" class="headerlink" title="选择选项"></a>选择选项</h3><ul>
+<li>对于只能选择一项的选项，访问选中项的方式是使用选择框的selectedIndex属性。对于多选项，selectedIndex只返回第一项的索引值。</li>
+<li>多选的情况下可以设置多个选项的selected属性为true</li>
+<li>以下适用于单选和多选选择框<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getSelectedOptions</span>(<span class="params">selectbox</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> result = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">    <span class="keyword">var</span> option = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>,len=selectbox.options.length; i &lt;len; i++) &#123;</span><br><span class="line">        option =selectbox.options[i];</span><br><span class="line">        <span class="keyword">if</span> (option.selected) &#123;</span><br><span class="line">            result.push(option);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="添加项"><a href="#添加项" class="headerlink" title="添加项"></a>添加项</h3><ul>
+<li>有三种方法：第一种方法DOM方法（appendChild方法），第二种方法Option构造函数（接收两个参数:text,value），第三种方法使用add函数（接收两个参数：新选项，位于新选项最后的选项；如果要插入成为最后的选项，第二个参数应该设置为undefined）</li>
+</ul>
+<h3 id="移除选项"><a href="#移除选项" class="headerlink" title="移除选项"></a>移除选项</h3><ul>
+<li>第一种方法DOM方法（利用removeChild方法），第二种方法用选择框的remove方法，第三种为设置null。</li>
+</ul>
+<h3 id="移动和重排选项"><a href="#移动和重排选项" class="headerlink" title="移动和重排选项"></a>移动和重排选项</h3><ul>
+<li>如果为appendChild()方法传入一个文档中已有的元素，那么久从该元素的父节点中移除它，再把它添加到指定的位置，移动选项会充值每一个选项的index属性</li>
+<li>重排选项次序最好的方法是DOM:insertBefore()</li>
+</ul>
+<h2 id="表单序列化"><a href="#表单序列化" class="headerlink" title="表单序列化"></a>表单序列化</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">serialize</span>(<span class="params">form</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> parts = [],</span><br><span class="line">        field = <span class="literal">null</span>,</span><br><span class="line">        i,</span><br><span class="line">        len,</span><br><span class="line">        j,</span><br><span class="line">        optLen,</span><br><span class="line">        option,</span><br><span class="line">        optValue;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>, len = form.elements.length; i &lt; len; i++) &#123;</span><br><span class="line">        field = form.elements[i];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">switch</span> (field.type) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"select-one"</span>:</span><br><span class="line">            <span class="keyword">case</span> <span class="string">"select-multiple"</span>:</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (field.name.length) &#123;</span><br><span class="line">                    <span class="keyword">for</span> (j = <span class="number">0</span>, optLen = field.options.length; j &lt; optLen; j++) &#123;</span><br><span class="line">                        option = field.options[j];</span><br><span class="line">                        <span class="keyword">if</span> (option.selected) &#123;</span><br><span class="line">                            optValue = <span class="string">""</span>;</span><br><span class="line">                            <span class="keyword">if</span> (option.hasAttribute) &#123;</span><br><span class="line">                                optValue = (option.hasAttribute(<span class="string">"value"</span>) ? option.value : option.text);</span><br><span class="line">                            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                                optValue = (option.attributes[<span class="string">"value"</span>].specified ? option.value : option.text);</span><br><span class="line">                            &#125;</span><br><span class="line">                            parts.push(<span class="built_in">encodeURIComponent</span>(field.name) + <span class="string">"="</span> + <span class="built_in">encodeURIComponent</span>(optValue));</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">case</span> <span class="literal">undefined</span>:</span><br><span class="line">            <span class="comment">//字段集</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">"file"</span>:</span><br><span class="line">            <span class="comment">//文件输入</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">"submit"</span>:</span><br><span class="line">            <span class="comment">//提交按钮</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">"reset"</span>:</span><br><span class="line">            <span class="comment">//重置按钮</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">"button"</span>:</span><br><span class="line">                <span class="comment">//自定义按钮</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">case</span> <span class="string">"radio"</span>:</span><br><span class="line">            <span class="comment">//单选按钮</span></span><br><span class="line">            <span class="keyword">case</span> <span class="string">"checkbox"</span>:</span><br><span class="line">                <span class="comment">//复选框</span></span><br><span class="line">                <span class="keyword">if</span> (!field.checked) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="comment">//不包含没有名字的表单字段</span></span><br><span class="line">                <span class="keyword">if</span> (field.name.length) &#123;</span><br><span class="line">                    parts.push(<span class="built_in">encodeURIComponent</span>(field.name) + <span class="string">"="</span> + <span class="built_in">encodeURIComponent</span>(field.value));</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> parts.join(<span class="string">"&amp;"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="富文本编辑"><a href="#富文本编辑" class="headerlink" title="富文本编辑"></a>富文本编辑</h2><ul>
+<li><p>有两种编辑富文本的方式，一种是使用iframe元素，另一种是使用contenteditable属性</p>
+<blockquote>
+<p>1.在页面中嵌入一个包含空HTML页面的iframe。通过设置designMode属性位“on”，这个空白的HTML页面可以被编辑，<br>2.把contenteditable属性应用给页面中的任何元素，然后用户立即就可以编辑该元素</p>
+</blockquote>
+</li>
+<li><p>document.execCommand():可以对文档执行预定义的命令</p>
+</li>
+<li>queryCommandEnabled():查询浏览器中指定的编辑指令是否可用</li>
+<li>queryCommandState():确定是否已将指令命令应用到了选择的文本</li>
+<li>queryCommandValue():取得执行命令时传入的值</li>
+<li>使用框架（iframe）的getSelection（）方法可以确定实际选择的文本，返回一个Selection对象</li>
+<li>富文本编辑器中的HTML不会被自动提交给服务器，而需要手工提取并提交HTML。在提交表单之前，从iframe中提取出HTML，并将其插入到隐藏的字段中。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2371,7 +2658,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2382,7 +2669,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2393,7 +2680,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
